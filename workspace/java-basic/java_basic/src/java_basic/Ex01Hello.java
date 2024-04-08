@@ -10,8 +10,17 @@ public class Ex01Hello {
 		
 		doTest();
 		
-		int x = 10;
-		x = 11.11;
+		int a = 10;
+		System.out.println('a'); // 문자 a를 출력하려면?
+		
+		int x = 10; //리터럴
+		char c = 'a';
+		double d = 1.11;
+		
+		
+		System.out.println("안녕하세요\n반갑습니다");
+		
+		
 	}
 	
 	/**
