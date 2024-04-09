@@ -27,7 +27,12 @@ public class Ex04ControlStatement06 {
 		//...
 		// 1 x 9 = 9  2 x 9 = 18   ...   9 x 9 = 81
 		
-		
+		for (int v = 1; v < 10; v++) {
+			for(int h = 1; h < 10; h++) {
+				System.out.printf("%d x %d = %2d  ", h, v, h*v);		
+			}
+			System.out.println();
+		}
 
 	}
 
