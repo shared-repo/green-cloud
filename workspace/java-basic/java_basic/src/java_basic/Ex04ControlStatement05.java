@@ -30,6 +30,23 @@ public class Ex04ControlStatement05 {
 		// 4. 출력
 		System.out.printf("[컴퓨터 : %d][사용자 : %d][결과 : %s]\n", com, you, result);
 		
+		scanner.close(); // 자원 반환
+		
+		int x = (int)(Math.random() * 100) + 1;
+		
+		// 참고 : 삼항연산자 -> 단순 if ~ else의 약식 표현
+		
+//		String m = "";
+//		if (x % 2 == 0) {
+//			m = "짝수입니다.";
+//		} else {
+//			m = "홀수입니다.";			
+//		}
+		
+		String m = x % 2 == 0 ? "짝수입니다." : "홀수입니다.";
+		
+		System.out.println(m);
+		
 
 	}
 
