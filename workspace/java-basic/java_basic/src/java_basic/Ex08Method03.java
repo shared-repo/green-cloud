@@ -30,30 +30,15 @@ public class Ex08Method03 {
 					}
 					
 					// 2. 뽑힌 숫자의 평균 값이 20 ~ 26 범위에 있는지 검사 -> 범위를 벗어나면 1부터 다시
-					int sum = 0;
-					for (int i = 0; i < numbers.length; i++) {
-						sum += numbers[i];
-					}
-					int avg = sum / numbers.length;
-					valid = avg >= 20 && avg <= 26;
+					valid = checkAverage(numbers);					
 					
 					// 3. 다른 당첨 확률 증가 로직
 					
 				} while (!valid);
 				
 				// 4. 결과 출력 --> 함수로 만들기
-				//
-				System.out.print("당첨 예상 번호 : ");
-				for (int number : numbers) {
-					System.out.printf("[%2d]", number);
-				}
-				System.out.println();
-				//
-				
-				//1. void 이름() { ... }
-				//2. 전딜인자 필요하면 수정
-				//3. return + 결과형 필요하면 수정
-				
+				showNumbers(numbers);
+			
 				// 5.
 				break;
 			case "2": 
@@ -77,6 +62,24 @@ public class Ex08Method03 {
 		String selection = scanner.nextLine();
 		
 		return selection;
+	}
+	
+	static void showNumbers(int[] numbers) {
+		System.out.print("당첨 예상 번호 : ");
+		for (int number : numbers) {
+			System.out.printf("[%2d]", number);
+		}
+		System.out.println();
+	}
+	
+	static boolean checkAverage(int[] numbers) {
+		int sum = 0;
+		for (int i = 0; i < numbers.length; i++) {
+			sum += numbers[i];
+		}
+		int avg = sum / numbers.length;
+		boolean valid = avg >= 20 && avg <= 26;
+		return valid;
 	}
 
 }
