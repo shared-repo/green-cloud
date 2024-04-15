@@ -1,6 +1,6 @@
 package java_basic;
 
-public class Ex07ControlStatement12 {
+public class Ex08Method03 {
 
 	public static void main(String[] args) {
 		// 로또 당첨 예상번호 추출기 만들기
