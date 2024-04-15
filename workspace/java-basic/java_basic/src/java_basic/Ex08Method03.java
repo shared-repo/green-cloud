@@ -2,18 +2,14 @@ package java_basic;
 
 public class Ex08Method03 {
 
+	static java.util.Scanner scanner = new java.util.Scanner(System.in);
+	
 	public static void main(String[] args) {
-		// 로또 당첨 예상번호 추출기 만들기
-		
-		java.util.Scanner scanner = new java.util.Scanner(System.in);
-		
+	
 		program: while (true) {
-			System.out.println("***********************");
-			System.out.println("* 1. 당첨 예상 번호 뽑기");
-			System.out.println("* 2. 종료");
-			System.out.println("***********************");		
-			System.out.print("작업을 선택하세요 : ");
-			String selection = scanner.nextLine();
+		
+			String selection = selectTask();
+
 			switch (selection) {
 			case "1": 
 				int[] numbers = new int[6];
@@ -45,15 +41,19 @@ public class Ex08Method03 {
 					
 				} while (!valid);
 				
-				// 4. 결과 출력
+				// 4. 결과 출력 --> 함수로 만들기
+				//
 				System.out.print("당첨 예상 번호 : ");
-//				for (int i = 0; i < numbers.length; i++) {
-//					System.out.printf("[%2d]", numbers[i]);
-//				}
 				for (int number : numbers) {
 					System.out.printf("[%2d]", number);
 				}
 				System.out.println();
+				//
+				
+				//1. void 이름() { ... }
+				//2. 전딜인자 필요하면 수정
+				//3. return + 결과형 필요하면 수정
+				
 				// 5.
 				break;
 			case "2": 
@@ -65,10 +65,41 @@ public class Ex08Method03 {
 				System.out.println("지원하지 않는 명령입니다.");
 			}
 		}
-		
-		
 
-
+	}
+	
+	static String selectTask() {
+		System.out.println("***********************");
+		System.out.println("* 1. 당첨 예상 번호 뽑기");
+		System.out.println("* 2. 종료");
+		System.out.println("***********************");		
+		System.out.print("작업을 선택하세요 : ");
+		String selection = scanner.nextLine();
+		
+		return selection;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
