@@ -15,31 +15,11 @@ public class Ex08Method03 {
 				int[] numbers = new int[6];
 				boolean valid = false;
 				do {
-					// 1. 1 ~ 45, 중복되지 않는 Random 숫자 6개 뽑기 -> 배열에 저장
-					for (int i = 0; i < numbers.length; i++) {
-						
-						numbers[i] = (int)(Math.random() * 45) + 1; // 1 ~ 45, random
-						//중복 검사
-						for (int j = 0; j < i; j++) {
-							if (numbers[i] == numbers[j]) { // 중복인 경우
-								//i--;	// 현재 위치에서 다시 뽑기
-								i = -1;	// 처음부터 다시 뽑기
-								break;
-							}
-						}
-					}
-					
-					// 2. 뽑힌 숫자의 평균 값이 20 ~ 26 범위에 있는지 검사 -> 범위를 벗어나면 1부터 다시
-					valid = checkAverage(numbers);					
-					
-					// 3. 다른 당첨 확률 증가 로직
-					
+					numbers = selectBasicNumbers2();// selectBasicNumbers2에서 뽑은 데이터를 return으로 반환한 값 사용 
+					valid = checkAverage(numbers);										
 				} while (!valid);
 				
-				// 4. 결과 출력 --> 함수로 만들기
 				showNumbers(numbers);
-			
-				// 5.
 				break;
 			case "2": 
 				System.out.println("행운을 빕니다.");
@@ -80,6 +60,37 @@ public class Ex08Method03 {
 		int avg = sum / numbers.length;
 		boolean valid = avg >= 20 && avg <= 26;
 		return valid;
+	}
+	
+	static void selectBasicNumbers(int[] numbers) {
+		for (int i = 0; i < numbers.length; i++) {
+			
+			numbers[i] = (int)(Math.random() * 45) + 1; // 1 ~ 45, random
+			//중복 검사
+			for (int j = 0; j < i; j++) {
+				if (numbers[i] == numbers[j]) { // 중복인 경우
+					//i--;	// 현재 위치에서 다시 뽑기
+					i = -1;	// 처음부터 다시 뽑기
+					break;
+				}
+			}
+		}
+	}
+	static int[] selectBasicNumbers2() {
+		int[] numbers = new int[6];
+		for (int i = 0; i < numbers.length; i++) {
+			
+			numbers[i] = (int)(Math.random() * 45) + 1; // 1 ~ 45, random
+			//중복 검사
+			for (int j = 0; j < i; j++) {
+				if (numbers[i] == numbers[j]) { // 중복인 경우
+					//i--;	// 현재 위치에서 다시 뽑기
+					i = -1;	// 처음부터 다시 뽑기
+					break;
+				}
+			}
+		}
+		return numbers;
 	}
 
 }

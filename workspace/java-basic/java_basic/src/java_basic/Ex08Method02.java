@@ -20,7 +20,21 @@ public class Ex08Method02 {
 		result3 = sum2(10, 20, 30, 40, 50, 60, 70, 80, 90);
 		System.out.println(result3);
 		
+		int x = 10;
+		m1(x);
+		int[] ar = new int[] {10};
+		m2(ar);
+		System.out.printf("[%d][%d]\n", x, ar[0]);
+		
 	}
+	
+	static void m1(int x) {
+		x = 100;
+	}
+	static void m2(int[] ar) {
+		ar[0] = 100;
+	}
+
 	
 	static int sum(int a, int b) {	// method signature
 	
@@ -51,6 +65,7 @@ public class Ex08Method02 {
 		}
 		return result;
 	}
+	
 
 	
 
