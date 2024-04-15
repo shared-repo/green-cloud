@@ -15,6 +15,7 @@ public class Ex08Method03 {
 				int[] numbers = new int[6];
 				boolean valid = false;
 				do {
+					// selectBasicNumbers(numbers); // main에서 만든 변수에 selectBasicNumbers2에서 뽑은 데이터를 저장한 값 사용
 					numbers = selectBasicNumbers2();// selectBasicNumbers2에서 뽑은 데이터를 return으로 반환한 값 사용 
 					valid = checkAverage(numbers);										
 				} while (!valid);
