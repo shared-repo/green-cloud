@@ -21,11 +21,21 @@ public class Lab03 {
 //		contact2.setEmail("kys@example.com");		
 //		System.out.println(contact2.info());
 		
+		
+		// 전체 연락처 정보를 저장하는 배열 만들기
+		Contact[] contactList = new Contact[1000];
+		int nextPosition = 0; // 새 연락처를 등록할 배열의 위치 번호
+		
 		program : while (true) {
 			String task = selectTask();
 			
 			switch (task) {
-			case "1": break;
+			case "1": // 연락처 등록 
+				// 1. 연락처 인스턴스 만들기 ( 1개의 연락처 정보 )
+				// 2. 이름, 이메일, 전화번호 사용자입력 -> 입력된 내용을 인스턴스에 저장
+				// 3. 인스턴스를 연락처 목록에 저장
+				// 4. 3번까지 구현한 후 구현 내용을 메서드로 전환
+				break;
 			case "2": break;
 			case "3": break;
 			case "4": break;
