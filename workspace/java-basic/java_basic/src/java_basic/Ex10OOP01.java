@@ -3,12 +3,24 @@ package java_basic;
 public class Ex10OOP01 {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
+		// 클래스 사용 1. 인스턴스 만들기
+		Employee emp; // 참조 변수 만들기
+		emp = new Employee(); // 인스턴스 만들기 + 인스턴스의 주소를 참조 변수에 저장
+		
+		// 클래스 사용 2. 멤버 접근 : .(dot) 연산자 사용
+		emp.empNo = 1;
+		emp.name = "John Doe";
+		emp.dept = "Sales";
+		
+		String info = emp.info();
+		System.out.println(info);
+		
 	}
 
 }
 
+// 클래스 만들기 : 클래스 -> 설계도, 자료형
 class Employee {
 	
 	// 특성 : 필드 (변수)
