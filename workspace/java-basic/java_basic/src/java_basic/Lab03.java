@@ -31,15 +31,18 @@ public class Lab03 {
 			
 			switch (task) {
 			case "1": // 연락처 등록 
-				// 1. 연락처 인스턴스 만들기 ( 1개의 연락처 정보 )
-				// 2. 이름, 이메일, 전화번호 사용자입력 -> 입력된 내용을 인스턴스에 저장
+				// 1. 연락처 입력 + 인스턴스 생성
+				Contact contact = inputNewContact();
 				// 3. 인스턴스를 연락처 목록에 저장
-				// 4. 3번까지 구현한 후 구현 내용을 메서드로 전환
+				contactList[nextPosition] = contact;
+				nextPosition++; // ==     nextPosition += 1      ==    nextPosition = nextPosition + 1				
 				break;
 			case "2": break;
 			case "3": break;
 			case "4": break;
-			case "5": break;
+			case "5": // 연락처 목록 
+				// contactList에 저장된 연락처 정보를 출력하는 코드 구현 ( 반복문 )
+				break;
 			case "0": 
 				System.out.println("프로그램을 종료합니다.");
 				break program;
@@ -61,6 +64,36 @@ public class Lab03 {
 		System.out.print("작업을 선택하세요 : ");
 		String task = scanner.nextLine();
 		return task;
+	}
+	
+	static Contact inputNewContact() {
+		// 1. 연락처 인스턴스 만들기 ( 1개의 연락처 정보 )
+		Contact contact = new Contact();
+		// 2. 이름, 이메일, 전화번호 사용자입력 -> 입력된 내용을 인스턴스에 저장
+		System.out.print("이름 : ");
+		String name = scanner.nextLine();
+		contact.setName(name);
+		System.out.print("전화번호 : ");
+		String phone = scanner.nextLine();
+		contact.setPhone(phone);
+		System.out.print("이메일 : ");
+		String email = scanner.nextLine();
+		contact.setEmail(email);
+		
+		return contact;
+		
+//		// 2. 이름, 이메일, 전화번호 사용자입력 -> 입력된 내용을 인스턴스에 저장
+//		System.out.print("이름 : ");
+//		String name2 = scanner.nextLine();
+//		System.out.print("전화번호 : ");
+//		String phone2 = scanner.nextLine();
+//		System.out.print("이메일 : ");
+//		String email2 = scanner.nextLine();
+//		// 1. 연락처 인스턴스 만들기 ( 1개의 연락처 정보 )
+//		Contact contact2 = new Contact(-1, name2, phone2, email2);
+//
+//		return contact2; 
+		
 	}
 
 }
