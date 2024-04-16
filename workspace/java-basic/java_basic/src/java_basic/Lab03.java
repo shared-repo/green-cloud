@@ -6,6 +6,10 @@ package java_basic;
 public class Lab03 {
 
 	private static java.util.Scanner scanner = new java.util.Scanner(System.in);
+
+	// 전체 연락처 정보를 저장하는 배열 만들기
+	static Contact[] contactList = new Contact[1000];
+	static int nextPosition = 0; // 새 연락처를 등록할 배열의 위치 번호
 	
 	public static void main(String[] args) {
 		
@@ -21,11 +25,6 @@ public class Lab03 {
 //		contact2.setEmail("kys@example.com");		
 //		System.out.println(contact2.info());
 		
-		
-		// 전체 연락처 정보를 저장하는 배열 만들기
-		Contact[] contactList = new Contact[1000];
-		int nextPosition = 0; // 새 연락처를 등록할 배열의 위치 번호
-		
 		program : while (true) {
 			String task = selectTask();
 			
@@ -39,9 +38,25 @@ public class Lab03 {
 				break;
 			case "2": break;
 			case "3": break;
-			case "4": break;
+			case "4": // 검색 (이름기준) 
+				// 1. 검색할 이름 입력
+				System.out.print("검색할 이름 : ");
+				String nameToSearch = scanner.nextLine();
+				// 2. 입력된 이름과 목록의 연락처의 이름을 비교해서 같은 이름의 연락처 찾기 (완전일치비교X, 부분일치비교O)
+				boolean searched = false;
+				for (int i = 0; i < nextPosition; i++) {
+					if (contactList[i].getName().contains(nameToSearch)) {
+						System.out.println(contactList[i].info());
+						searched = true;
+					}
+				}
+				if (!searched) {
+					System.out.println("해당하는 연락처가 없습니다.");
+				}
+				// 3. 검색된 연락처 출력
+				break;
 			case "5": // 연락처 목록 
-				// contactList에 저장된 연락처 정보를 출력하는 코드 구현 ( 반복문 )
+				showContactList();
 				break;
 			case "0": 
 				System.out.println("프로그램을 종료합니다.");
@@ -94,6 +109,13 @@ public class Lab03 {
 //
 //		return contact2; 
 		
+	}
+	
+	static void showContactList() {
+		System.out.println("***** 연락처 정보 *****");
+		for (int i = 0; i < nextPosition; i++) {
+			System.out.println(contactList[i].info());
+		}
 	}
 
 }

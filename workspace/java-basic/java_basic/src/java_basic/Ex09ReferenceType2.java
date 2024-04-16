@@ -55,6 +55,16 @@ public class Ex09ReferenceType2 {
 		String sj = String.join("===", sr); // split의 반대기능 : 무자열 배열을 결합해서 하나의 문자열로 변환
 		System.out.println(sj);
 		
+		String s10 = "마동석";
+		System.out.println(s10.equals("마동석")); // true
+		System.out.println(s10.equals("마동"));	// false
+		System.out.println(s10.equals("마"));	// false
+		
+		System.out.println(s10.contains("마동석")); 	// true
+		System.out.println(s10.contains("마동"));		// true
+		System.out.println(s10.contains("마"));		// true
+		
+		
 		Week week1 = null; // 열거형은 참조형 -> 그러므로 null 사용 가능
 		week1 = Week.SATURDAY;
 		System.out.println(week1);
