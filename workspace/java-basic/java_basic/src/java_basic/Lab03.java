@@ -126,14 +126,19 @@ public class Lab03 {
 //    생성자 : 전달인자없는 생성자, 모든 필드를 전달인자로 하는 생성자
 //    필드 은닉화 처리 : private으로 만들고 getter, setter 만들기
 class Contact {
+	private static int nextNo = 1;
 	private int no;
 	private String name;
 	private String phone;
 	private String email;
 
-	public Contact() {}
-	public Contact(int no, String name, String phone, String email) {
-		this.no = no;
+	public Contact() {
+		// this("a", "b", "c"); // 같은 클래스의 전달인자 3개인 생성자 메서드 호출
+		no = nextNo;
+		nextNo++;
+	}
+	public Contact(String name, String phone, String email) {
+		this(); // 같은 클래스의 전달인자 없는 생성자 메서드 호출
 		this.name = name;
 		this.phone = phone;
 		this.email = email;

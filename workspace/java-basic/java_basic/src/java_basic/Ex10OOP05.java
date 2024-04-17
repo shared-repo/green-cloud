@@ -3,7 +3,7 @@ package java_basic;
 public class Ex10OOP05 {
 
 	public static void main(String[] args) {
-
+		
 		// Employee4 클래스의 인스턴스 10개 만들어서 배열에 저장
 		Employee5[] employees = new Employee5[10]; // Employee4 참조 변수의 배열 만들기 ( Employee4의 인스턴스는 생성되지 않습니다. )
 		for (int i = 0; i < employees.length; i++) {
@@ -32,7 +32,7 @@ class Employee5 {
 	// 3. static 메서드에서는 인스턴스 멤버를 사용할 수 없습니다. ( 인스턴스 메서드에서는 static 멤버를 사용할 수 있습니다. )
 	// 4. static 멤버는 클래스의 멤버로 static 멤버의 사용은 클래스를 통해 이루어집니다.
 	
-	static int count; // 전체 직원수 저장 변수
+	static int count = 0; // 전체 직원수 저장 변수
 	static int getCount() {
 		// System.out.println(empNo); // 오류 : static 메서드에서 인스턴스 멤버 사용 불가능
 		return count;
@@ -40,11 +40,22 @@ class Employee5 {
 	// 위의 멤버는 정적(static) 멤버
 	
 	// 아래의 멤버는 인스턴스 멤버
-	private int empNo;
+	private int empNo = -1; // 필드 초기화
 	private String name;
 	private String dept;
 	
+	// 초기화 블록 : 인스턴스가 만들어질 때 자동으로 실행되는 영역 ( 초기화 역할 )
+	{
+		System.out.printf("in init block : %d\n", empNo);
+		empNo = -10;
+	}
+	
+	static { // static 초기화 블록 : 클래스가 로딩될 때 자동으로 실행
+		System.out.printf("in static block : %d\n", count);
+	}
+	
 	public Employee5() {
+		System.out.printf("in constructor : %d\n", empNo);
 		System.out.println("전달인자 없는 생성자 메서드 호출");
 	}
 	
