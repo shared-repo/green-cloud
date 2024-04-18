@@ -12,6 +12,8 @@ public class Ex10OOP13 {
 		ti.dm();
 		TheInterface.sm();
 		
+		
+		
 	}
 }
 
@@ -29,6 +31,7 @@ interface TheInterface {
 	// 3. default method ( 내용이 있는 메서드 )
 	default void dm() { // == public default void dm() 
 		System.out.println("This is TheInterface's default method");
+		pdm(); // 인터페이스 내의 private 메서드 호출 가능
 	}
 	private void pdm() { // == private default void pdm() 
 		System.out.println("This is TheInterface's private default method");
@@ -37,6 +40,7 @@ interface TheInterface {
 	// 4. static method
 	static void sm() { // == public static void sm()
 		System.out.println("TheInterface's static method");
+		psm(); // 인터페이스의 내의 private static 메서드 호출 가능
 	}
 	private static void psm() { // == public static void sm()
 		System.out.println("TheInterface's private static method");
