@@ -30,10 +30,16 @@ interface TheInterface {
 	default void dm() { // == public default void dm() 
 		System.out.println("This is TheInterface's default method");
 	}
+	private void pdm() { // == private default void pdm() 
+		System.out.println("This is TheInterface's private default method");
+	}
 	
 	// 4. static method
 	static void sm() { // == public static void sm()
 		System.out.println("TheInterface's static method");
+	}
+	private static void psm() { // == public static void sm()
+		System.out.println("TheInterface's private static method");
 	}
 	
 }
@@ -56,6 +62,75 @@ class TheImplementation implements TheInterface {
 //	public void dm() { }
 	
 }
+
+// 인터페이스 사이에 상속 가능
+interface TheInterface2 extends TheInterface {
+	
+	void m3();
+}
+interface TheInterface3 {
+	void m4();
+}
+// 인터페이스는 다중 상속 허용
+interface TheInterface4 extends TheInterface2, TheInterface3 {
+	void m5();
+}
+// 인터페이스를 구현하는 클래스는 구현 대상 인터페이스가 상속한 메서드까지 재정의 해야 합니다.
+class TheImplementation2 implements TheInterface4 {
+
+	@Override
+	public void m() {}
+	@Override
+	public void m2() {}
+	@Override
+	public void m3() {}
+	@Override
+	public void m4() {}
+	@Override
+	public void m5() {}
+	
+}
+// 다중 인터페이스 구현 가능
+class TheImplementation3 implements TheInterface, TheInterface3 {
+
+	@Override
+	public void m4() {}
+	@Override
+	public void m() {}
+	@Override
+	public void m2() {}
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
