@@ -23,9 +23,50 @@ public class ContactManager {
 				// 3. 인스턴스를 연락처 목록에 저장
 				contactList.add(contact);
 				break;
-			case "2": break;
-			case "3": // 삭제
-				
+			case "2": // 수정 
+				// 1. 수정할 연락처 검색
+				// 1-1. 수정할 이름 입력
+				System.out.print("수정할 이름 : ");
+				String nameToEdit = scanner.nextLine();
+				// 1-2. 검색 수행
+				ArrayList<Contact> editList = searchContact(nameToEdit);
+				// 1-3. 검색결과 출력
+				if (editList.size() == 0) {
+					System.out.println("해당하는 연락처가 없습니다.");
+					break;
+				}
+				// 검색결과가 있는 경우 아래 코드 실행
+				System.out.println("[수정할 연락처 목록]");
+				for (Contact c : editList) {
+					System.out.println(c); // c.toString()
+				}
+				// 2. 수정할 연락처 고유번호(no) 입력
+				System.out.print("수정할 연락처의 고유번호 : ");
+				int noToEdit = scanner.nextInt(); // 입력을 처리한 후 버퍼에 엔터문자가 남아 있습니다.
+				scanner.nextLine(); // nextInt() 호출 후 버퍼에 남아있는 입력 데이터 제거
+				// 3. 입력된 번호에 해당하는 연락처 목록에서 삭제	
+				for (Contact c : editList) {
+					if (c.getNo() == noToEdit) {
+						System.out.print("[수정내용] 이름 (수정하지 않으려면 엔터) : ");
+						String name = scanner.nextLine();
+						if (name.length() > 0) {
+							c.setName(name);
+						}
+						System.out.print("[수정내용] 전화번호  (수정하지 않으려면 엔터) : ");
+						String phone = scanner.nextLine();
+						if (phone.length() > 0) {
+							c.setPhone(phone);
+						}
+						System.out.print("[수정내용] 이메일  (수정하지 않으려면 엔터) : ");
+						String email = scanner.nextLine();
+						if (email.length() > 0) {
+							c.setEmail(email);
+						}
+						break;
+					}
+				}
+				break;
+			case "3": // 삭제				
 				// 1. 삭제할 연락처 검색
 				// 1-1. 검색할 이름 입력
 				System.out.print("삭제할 이름 : ");
