@@ -5,6 +5,10 @@ public class Ex14ExceptionHandling {
 
 	public static void main(String[] args) {
 		
+		
+		// 예외 처리를 하지 않으면 오류 메시지와 함께 프로그램이 강제 종료됩니다.
+		// int a = 10 / 0;		
+		
 		System.out.println("1");
 		
 		method();
@@ -34,11 +38,13 @@ public class Ex14ExceptionHandling {
 		
 		System.out.println("5");
 	}	
+	
+	// 여러 종류의 예외(Exception)을 발생시키는 테스트 메서드
 	public static void method2() throws FileNotFoundException {
 		
 		System.out.println("3");
 		
-		switch ((int)(Math.random() * 8)) { // 0 ~ 7
+		switch ((int)(Math.random() * 4)) { // 0 ~ 7
 		case 0 :
 			int x = 10 / 0;// ArimethicException 예외가 발생하면 호출한 곳으로 보고
 			break;
