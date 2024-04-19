@@ -51,8 +51,8 @@ public class Contact {
 		this.email = email;
 	}
 
-	public String info() {
-		return String.format("[%03d][%10s][%13s][%s]", no, name, phone, email);
+	public String toString() {
+		return String.format("[%3d][%10s][%13s][%s]", no, name, phone, email);
 	}
 
 }

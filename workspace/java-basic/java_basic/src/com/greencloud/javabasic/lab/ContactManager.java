@@ -2,13 +2,14 @@
 // 연락처 등록, 전체목록, 검색, 삭제, 수정 기능
 package com.greencloud.javabasic.lab;
 
+import java.util.ArrayList;
+
 public class ContactManager {
 
 	private java.util.Scanner scanner = new java.util.Scanner(System.in);
 
 	// 전체 연락처 정보를 저장하는 배열 만들기
-	private Contact[] contactList = new Contact[1000];
-	private int nextPosition = 0; // 새 연락처를 등록할 배열의 위치 번호
+	private ArrayList<Contact> contactList = new ArrayList<>();
 	
 	public void manage() {
 		
@@ -20,8 +21,7 @@ public class ContactManager {
 				// 1. 연락처 입력 + 인스턴스 생성
 				Contact contact = inputNewContact();
 				// 3. 인스턴스를 연락처 목록에 저장
-				contactList[nextPosition] = contact;
-				nextPosition++; // ==     nextPosition += 1      ==    nextPosition = nextPosition + 1				
+				contactList.add(contact);
 				break;
 			case "2": break;
 			case "3": break;
@@ -29,18 +29,19 @@ public class ContactManager {
 				// 1. 검색할 이름 입력
 				System.out.print("검색할 이름 : ");
 				String nameToSearch = scanner.nextLine();
+				
 				// 2. 입력된 이름과 목록의 연락처의 이름을 비교해서 같은 이름의 연락처 찾기 (완전일치비교X, 부분일치비교O)
-				boolean searched = false;
-				for (int i = 0; i < nextPosition; i++) {
-					if (contactList[i].getName().contains(nameToSearch)) {
-						System.out.println(contactList[i].info());
-						searched = true;
+				ArrayList<Contact> searchedList = searchContact(nameToSearch);				
+				
+				// 3. 검색된 연락처 출력
+				if (searchedList.size() == 0) {
+					System.out.println("해당하는 연락처가 없습니다.");
+				} else {
+					System.out.println("[검색된 연락처 목록]");
+					for (Contact c : searchedList) {
+						System.out.println(c); // c.toString()
 					}
 				}
-				if (!searched) {
-					System.out.println("해당하는 연락처가 없습니다.");
-				}
-				// 3. 검색된 연락처 출력
 				break;
 			case "5": // 연락처 목록 
 				showContactList();
@@ -87,12 +88,25 @@ public class ContactManager {
 	
 	public void showContactList() {
 		System.out.println("***** 연락처 정보 *****");
-		for (int i = 0; i < nextPosition; i++) {
-			System.out.println(contactList[i].info());
+		for (Contact c : contactList) {
+			System.out.println(c); // c.toString()
 		}
 	}
 	
-	
+	public ArrayList<Contact> searchContact(String nameToSearch) {
+		// 1. 검색 결과를 저장할 컬렉션 객체 만들기
+		ArrayList<Contact> searchedList = new ArrayList<>();
+		
+		// 2. 전체 목록을 반복하면서 사용자가 입력한 이름과 부분일치하는 연락처를 찾아서 목록에 저장
+		for (Contact c : contactList) {
+			if (c.getName().contains(nameToSearch)) {
+				searchedList.add(c);
+			}
+		}
+		
+		// 3. 목록을 반환
+		return searchedList;
+	}
 	
 	public static void main(String[] args) {
 		
