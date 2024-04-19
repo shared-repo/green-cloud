@@ -24,7 +24,38 @@ public class ContactManager {
 				contactList.add(contact);
 				break;
 			case "2": break;
-			case "3": break;
+			case "3": // 삭제
+				
+				// 1. 삭제할 연락처 검색
+				// 1-1. 검색할 이름 입력
+				System.out.print("삭제할 이름 : ");
+				String nameToDelete = scanner.nextLine();
+				// 1-2. 검색 수행
+				ArrayList<Contact> deleteList = searchContact(nameToDelete);
+				// 1-3. 검색결과 출력
+				if (deleteList.size() == 0) {
+					System.out.println("해당하는 연락처가 없습니다.");
+					break;
+				} 				
+				System.out.println("[삭제할 연락처 목록]");
+				for (Contact c : deleteList) {
+					System.out.println(c); // c.toString()
+				}
+				
+				// 검색결과가 있는 경우 아래 코드 실행
+				// 2. 삭제할 연락처 고유번호(no) 입력
+				System.out.print("삭제할 연락처의 고유번호 : ");
+				int noToDelete = scanner.nextInt(); // 입력을 처리한 후 버퍼에 엔터문자가 남아 있습니다.
+				scanner.nextLine(); // nextInt() 호출 후 버퍼에 남아있는 입력 데이터 제거
+				// 3. 입력된 번호에 해당하는 연락처 목록에서 삭제	
+				for (Contact c : deleteList) {
+					if (c.getNo() == noToDelete) {
+						contactList.remove(c); // remove(숫자) : 해당 위치의 항목 제거, remove(객체) : 주어진 객체와 같은 객체 제거
+						break;
+					}
+				}
+				
+				break;
 			case "4": // 검색 (이름기준) 
 				// 1. 검색할 이름 입력
 				System.out.print("검색할 이름 : ");
