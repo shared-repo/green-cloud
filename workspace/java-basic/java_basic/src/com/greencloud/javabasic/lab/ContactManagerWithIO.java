@@ -129,11 +129,12 @@ public class ContactManagerWithIO {
 				FileOutputStream fos = null;
 				ObjectOutputStream oos = null;
 				try {
-					fos = new FileOutputStream("contacts.data");
+					fos = new FileOutputStream("contacts.dat");
 					oos = new ObjectOutputStream(fos);
 					oos.writeObject(contactList);
 				} catch (IOException e) { // FileNotFoundException의 부모 클래스 : 이 예외처리 영역에서 FileNotFoundException 처리 가능
 					System.out.println("데이터를 파일에 저장하지 못했습니다.");
+					e.printStackTrace(); // 오류에 대한 정보를 화면에 출력하는 메서드 호출 ( 개발하는 과정에만 사용 )
 				} finally {
 					try { oos.close(); } catch (Exception ex) {}
 					try { fos.close(); } catch (Exception ex) {}
@@ -143,7 +144,7 @@ public class ContactManagerWithIO {
 				FileInputStream fis = null;
 				ObjectInputStream ois = null;
 				try {
-					fis = new FileInputStream("contcats.dat");
+					fis = new FileInputStream("contacts.dat");
 					ois = new ObjectInputStream(fis);
 					contactList = (ArrayList<Contact>)ois.readObject();
 				} catch (IOException ex) {

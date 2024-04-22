@@ -1,6 +1,8 @@
 package com.greencloud.javabasic.lab;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 	private static int nextNo = 1;
 	private int no;
 	private String name;
