@@ -25,7 +25,8 @@ public class Ex15IO {
 		//1. char[] <-> byte[] 직접 처리 (텍스트 데이터 IO)
 //		FileOutputStream fos1 = new FileOutputStream("test1.txt");//쓰기용 파일 스트림 만들기
 //		String str = "파일에 쓰는 데이터 1\r\n";
-//		fos1.write(str.getBytes());//String.getBytes() : char[] -> byte[] 메서드
+//		byte[] bstr = str.getBytes(); //String.getBytes() : char[] -> byte[] 메서드
+//		fos1.write(bstr);
 //		fos1.write("파일에 쓰는 데이터 2\r\n".getBytes());
 //		fos1.write("파일에 쓰는 데이터 3\r\n".getBytes());
 //		fos1.write("나의 이름은 홍길동입니다.".getBytes());
@@ -62,8 +63,8 @@ public class Ex15IO {
 //		ostream2.close();
 //		System.out.println("파일에 데이터를 썼습니다.");
 //		
-//		FileInputStream istream2 = new FileInputStream("test2.txt"); // 읽기 기능
-//		InputStreamReader reader2 = new InputStreamReader(istream2); // 변환 기능
+//		FileInputStream istream2 = new FileInputStream("test2.txt"); // 읽기 기능 ( byte[] 수준 처리 )
+//		InputStreamReader reader2 = new InputStreamReader(istream2); // 변환 기능 ( char[] <-> byte[] 변환 처리 )
 //		BufferedReader breader2 = new BufferedReader(reader2);		 // 행 단위 읽기 기능
 //		while (true) {
 //			String line = breader2.readLine();//readLine : 한 줄 읽기
@@ -85,7 +86,7 @@ public class Ex15IO {
 //		
 //		for (int i = 0; i < 10000; i++) {
 //			dostream3.writeInt(Integer.MAX_VALUE); //2147483647, binary write
-//			writer3.write(Integer.MAX_VALUE + ""); //text write			
+//			writer3.write(Integer.MAX_VALUE + ""); //			 text write			
 //		}
 //		dostream3.close();
 //		ostream3.close();
@@ -95,7 +96,7 @@ public class Ex15IO {
 //		System.out.println("파일에 데이터를 썼습니다.");
 //		
 //		FileInputStream istream3 = new FileInputStream("test3.dat");	//파일에서 읽기
-//		DataInputStream distream3 = new DataInputStream(istream3);		//byte[] -> binary
+//		DataInputStream distream3 = new DataInputStream(istream3);		//byte[] -> primitive type binary
 //		int data = distream3.readInt();
 //		int data2 = distream3.readInt();
 //		System.out.printf("%d-%d", data, data2);
@@ -103,25 +104,25 @@ public class Ex15IO {
 //		distream3.close(); istream3.close();
 		
 		//4. Object <-> byte[]
-//		Item item = new Item();
-//		item.setNo(10); // item.no = 10;
-//		item.setName("테스트 아이템");		
-//		
-//		FileOutputStream ostream4 = new FileOutputStream("test4.dat");		// 파일에 쓰기
-//		ObjectOutputStream oostream4 = new ObjectOutputStream(ostream4);	// 객체 -> byte[] 변환		
-//		oostream4.writeObject(item);	//객체를 파일에 binary 형식으로 저장		
-//		oostream4.close(); ostream4.close();
-//		
-//		System.out.println("파일에 데이터를 썼습니다.");
-//		
-//		FileInputStream istream4 = new FileInputStream("test4.dat");	// 파일에서 읽기
-//		ObjectInputStream oistream4 = new ObjectInputStream(istream4);	// byte[] -> 객체 변환
-//		Item item2 = (Item)oistream4.readObject();	//파일에서 데이터를 읽고 객체로 복원
-//
-//		System.out.println(item2);
-//				
-//		oistream4.close();
-//		istream4.close();
+		Item item = new Item();
+		item.setNo(10); // item.no = 10;
+		item.setName("테스트 아이템");		
+		
+		FileOutputStream ostream4 = new FileOutputStream("test4.dat");		// 파일에 쓰기
+		ObjectOutputStream oostream4 = new ObjectOutputStream(ostream4);	// 객체 -> byte[] 변환		
+		oostream4.writeObject(item);	//객체를 파일에 binary 형식으로 저장		
+		oostream4.close(); ostream4.close();
+		
+		System.out.println("파일에 데이터를 썼습니다.");
+		
+		FileInputStream istream4 = new FileInputStream("test4.dat");	// 파일에서 읽기
+		ObjectInputStream oistream4 = new ObjectInputStream(istream4);	// byte[] -> 객체 변환
+		Item item2 = (Item)oistream4.readObject();	//파일에서 데이터를 읽고 객체로 복원
+
+		System.out.println(item2);
+				
+		oistream4.close();
+		istream4.close();
 		
 		//5. Object <-> byte[]	
 //		ArrayList<Item> items = new ArrayList<Item>();
