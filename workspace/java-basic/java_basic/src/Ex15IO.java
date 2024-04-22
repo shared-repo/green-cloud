@@ -104,25 +104,25 @@ public class Ex15IO {
 //		distream3.close(); istream3.close();
 		
 		//4. Object <-> byte[]
-		Item item = new Item();
-		item.setNo(10); // item.no = 10;
-		item.setName("테스트 아이템");		
-		
-		FileOutputStream ostream4 = new FileOutputStream("test4.dat");		// 파일에 쓰기
-		ObjectOutputStream oostream4 = new ObjectOutputStream(ostream4);	// 객체 -> byte[] 변환		
-		oostream4.writeObject(item);	//객체를 파일에 binary 형식으로 저장		
-		oostream4.close(); ostream4.close();
-		
-		System.out.println("파일에 데이터를 썼습니다.");
-		
-		FileInputStream istream4 = new FileInputStream("test4.dat");	// 파일에서 읽기
-		ObjectInputStream oistream4 = new ObjectInputStream(istream4);	// byte[] -> 객체 변환
-		Item item2 = (Item)oistream4.readObject();	//파일에서 데이터를 읽고 객체로 복원
-
-		System.out.println(item2);
-				
-		oistream4.close();
-		istream4.close();
+//		Item item = new Item();
+//		item.setNo(10); // item.no = 10;
+//		item.setName("테스트 아이템");		
+//		
+//		FileOutputStream ostream4 = new FileOutputStream("test4.dat");		// 파일에 쓰기
+//		ObjectOutputStream oostream4 = new ObjectOutputStream(ostream4);	// 객체 -> byte[] 변환		
+//		oostream4.writeObject(item);	//객체를 파일에 binary 형식으로 저장		
+//		oostream4.close(); ostream4.close();
+//		
+//		System.out.println("파일에 데이터를 썼습니다.");
+//		
+//		FileInputStream istream4 = new FileInputStream("test4.dat");	// 파일에서 읽기
+//		ObjectInputStream oistream4 = new ObjectInputStream(istream4);	// byte[] -> 객체 변환
+//		Item item2 = (Item)oistream4.readObject();	//파일에서 데이터를 읽고 객체로 복원
+//
+//		System.out.println(item2);
+//				
+//		oistream4.close();
+//		istream4.close();
 		
 		//5. Object <-> byte[]	
 //		ArrayList<Item> items = new ArrayList<Item>();
@@ -136,12 +136,12 @@ public class Ex15IO {
 //		FileOutputStream ostream5 = new FileOutputStream("test5.dat");
 //		ObjectOutputStream oostream5 = new ObjectOutputStream(ostream5);
 //		
-//		//아이템을 여러번 저장하는 방식
-////		for (Item item : items) {
-////			oostream5.writeObject(item);
-////		}
-//			
-//		//아이템을 한번에 저장하는 방식 (ArrayList를 저장 -> ArrayList에 포함된 Item 객체도 자동 저장)
+		// 5-1. 아이템을 여러 번 저장하는 방식
+//		for (Item item : items) {
+//			oostream5.writeObject(item);
+//		}
+			
+		// 5-2. 아이템을 한번에 저장하는 방식 (ArrayList를 저장 -> ArrayList에 포함된 Item 객체도 자동 저장)
 //		oostream5.writeObject(items);  
 //
 //		oostream5.close();
@@ -151,7 +151,22 @@ public class Ex15IO {
 //		
 //		FileInputStream istream5 = new FileInputStream("test5.dat");	// 파일에서 읽기
 //		ObjectInputStream oistream5 = new ObjectInputStream(istream5);	// byte[] -> Object 변환
-//		ArrayList<Item> items2 = (ArrayList<Item>)oistream5.readObject();
+//		
+//		ArrayList<Item> items2 = null;
+//		// 5-1. 개별 아이템을 각각 읽어 오는 방식
+////		items2 = new ArrayList<Item>();
+////		while (true) {
+////			Object obj = null;
+////			try {
+////				obj = oistream5.readObject(); // Item 객체 1개 읽기
+////			} catch (Exception ex) {	// EOF
+////				break;
+////			}
+////			items2.add( (Item)obj );	// 읽은 Item 객체 리스트에 저장
+////		}
+//		
+//		// 5-2. 아이템을 한 번에 읽어오는 방식 (ArrayList로 읽기)
+//		items2 = (ArrayList<Item>)oistream5.readObject();
 //		
 //		for (Item item : items2) {
 //			//System.out.println(item);
@@ -159,7 +174,7 @@ public class Ex15IO {
 //		}
 //		oistream5.close();istream5.close();
 		
-		//6 - 1.
+		//6 - 1. 다른 IO 대상 연습 1
 //		InputStream is = System.in;	//System.in : 표준 입력 스트림 (키보드)
 //		InputStreamReader isr6 = new InputStreamReader(is); 
 //		BufferedReader br6 = new BufferedReader(isr6);//enter 단위로 읽기 가능
@@ -168,7 +183,7 @@ public class Ex15IO {
 //		String name = br6.readLine();
 //		System.out.println("Your Name is " + name); //System.out : 표준 출력 장치 (모니터)
 		
-		//6 - 2. 
+		//6 - 2. 다른 IO 대상 연습 2
 //		Scanner scanner = new Scanner(System.in); //표준 입력 스트림 (키보드)
 //		System.out.print("이메일 : ");
 //		String email = scanner.nextLine();
