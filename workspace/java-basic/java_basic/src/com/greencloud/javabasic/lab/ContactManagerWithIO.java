@@ -2,9 +2,11 @@
 // 연락처 등록, 전체목록, 검색, 삭제, 수정 기능
 package com.greencloud.javabasic.lab;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
@@ -138,6 +140,20 @@ public class ContactManagerWithIO {
 				}
 				break;				
 			case "7": // 연락처 목록을 파일에서 읽기 -> 연락처 목록 변수에 저장
+				FileInputStream fis = null;
+				ObjectInputStream ois = null;
+				try {
+					fis = new FileInputStream("contcats.dat");
+					ois = new ObjectInputStream(fis);
+					contactList = (ArrayList<Contact>)ois.readObject();
+				} catch (IOException ex) {
+					System.out.println("연락처 정보 복원 실패 : 파일 처리 오류");
+				} catch (ClassNotFoundException ex) {
+					System.out.println("연락처 정보 복원 실패 : 유효하지 않은 클래스 데이터");
+				} finally {
+					try { ois.close(); } catch (Exception ex) {}
+					try { fis.close(); } catch (Exception ex) {}
+				}
 				break;
 				
 			case "0": 
