@@ -147,6 +147,9 @@ public class ContactManagerWithIO {
 					fis = new FileInputStream("contacts.dat");
 					ois = new ObjectInputStream(fis);
 					contactList = (ArrayList<Contact>)ois.readObject();
+					
+					Contact lastContact = contactList.get(contactList.size() - 1); // 마지막 Contact 객체 가져오기
+					Contact.setNextNo(lastContact.getNo() + 1); // 마지막 연락처의 고유 번호 다음 번호를 nextNo에 저장
 				} catch (IOException ex) {
 					System.out.println("연락처 정보 복원 실패 : 파일 처리 오류");
 				} catch (ClassNotFoundException ex) {

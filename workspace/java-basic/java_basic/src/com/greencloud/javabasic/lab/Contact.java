@@ -20,6 +20,10 @@ public class Contact implements Serializable {
 		this.phone = phone;
 		this.email = email;
 	}
+	
+	public static void setNextNo(int nextNo) {
+		Contact.nextNo = nextNo;
+	}
 
 	public int getNo() {
 		return no;
