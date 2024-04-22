@@ -15,7 +15,32 @@ public class ContactManagerWithIO {
 	private java.util.Scanner scanner = new java.util.Scanner(System.in);
 
 	// 전체 연락처 정보를 저장하는 배열 만들기
-	private ArrayList<Contact> contactList = new ArrayList<>();
+	private ArrayList<Contact> contactList; // = new ArrayList<>();
+	
+	public ContactManagerWithIO() { // 생성자 메서드 -> new 할 때 자동 호출 -> 여기서는 프로그램의 시작점으로 사용 가능
+		FileInputStream fis = null;
+		ObjectInputStream ois = null;
+		try {
+			fis = new FileInputStream("contacts.dat");
+			ois = new ObjectInputStream(fis);
+			contactList = (ArrayList<Contact>)ois.readObject();
+			
+			if (contactList.size() > 0) {
+				Contact lastContact = contactList.get(contactList.size() - 1); // 마지막 Contact 객체 가져오기
+				Contact.setNextNo(lastContact.getNo() + 1); // 마지막 연락처의 고유 번호 다음 번호를 nextNo에 저장
+			}
+		} catch (IOException ex) {
+			System.out.println("연락처 정보 복원 실패 : 파일 처리 오류");
+			// ex.printStackTrace();
+			contactList = new ArrayList<>();
+		} catch (ClassNotFoundException ex) {
+			System.out.println("연락처 정보 복원 실패 : 유효하지 않은 클래스 데이터");
+			contactList = new ArrayList<>();
+		} finally {
+			try { ois.close(); } catch (Exception ex) {}
+			try { fis.close(); } catch (Exception ex) {}
+		}
+	}
 	
 	public void manage() {
 		
@@ -141,24 +166,7 @@ public class ContactManagerWithIO {
 				}
 				break;				
 			case "7": // 연락처 목록을 파일에서 읽기 -> 연락처 목록 변수에 저장
-				FileInputStream fis = null;
-				ObjectInputStream ois = null;
-				try {
-					fis = new FileInputStream("contacts.dat");
-					ois = new ObjectInputStream(fis);
-					contactList = (ArrayList<Contact>)ois.readObject();
-					
-					Contact lastContact = contactList.get(contactList.size() - 1); // 마지막 Contact 객체 가져오기
-					Contact.setNextNo(lastContact.getNo() + 1); // 마지막 연락처의 고유 번호 다음 번호를 nextNo에 저장
-				} catch (IOException ex) {
-					System.out.println("연락처 정보 복원 실패 : 파일 처리 오류");
-					ex.printStackTrace();
-				} catch (ClassNotFoundException ex) {
-					System.out.println("연락처 정보 복원 실패 : 유효하지 않은 클래스 데이터");
-				} finally {
-					try { ois.close(); } catch (Exception ex) {}
-					try { fis.close(); } catch (Exception ex) {}
-				}
+				System.out.println("생성자 메서드에서 처리하도록 변경됨");
 				break;
 				
 			case "0": 
