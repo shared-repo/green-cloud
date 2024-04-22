@@ -152,6 +152,7 @@ public class ContactManagerWithIO {
 					Contact.setNextNo(lastContact.getNo() + 1); // 마지막 연락처의 고유 번호 다음 번호를 nextNo에 저장
 				} catch (IOException ex) {
 					System.out.println("연락처 정보 복원 실패 : 파일 처리 오류");
+					ex.printStackTrace();
 				} catch (ClassNotFoundException ex) {
 					System.out.println("연락처 정보 복원 실패 : 유효하지 않은 클래스 데이터");
 				} finally {

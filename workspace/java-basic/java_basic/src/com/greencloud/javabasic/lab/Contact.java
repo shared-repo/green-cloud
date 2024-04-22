@@ -3,6 +3,7 @@ package com.greencloud.javabasic.lab;
 import java.io.Serializable;
 
 public class Contact implements Serializable {
+	
 	private static int nextNo = 1;
 	private int no;
 	private String name;
