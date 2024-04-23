@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,28 +52,9 @@ public class LottoApp2 {
 				}
 				break;
 			case "3":
-				// exportNumbersAsBinary(); // Binary 형식으로 데이터 저장
-				
-				// numberSetList (ArrayList)를 문자열 형식으로 저장
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // Date 객체의 정보를 지정한 형식의 문자열로 변환하는 객체
-				String dateString = sdf.format(new Date());
-				String fileName = String.format("%s-golden-numbers.txt", dateString);
-				
-				FileOutputStream fos = null;
-				OutputStreamWriter osw = null;
-				try {					
-					fos = new FileOutputStream(fileName);
-					osw = new OutputStreamWriter(fos);
-					for (NumberSet ns : numberSetList) {
-						osw.write(ns.toString());
-						osw.write(System.lineSeparator()); // 운영체제에 따라 적절한 줄바꿈 처리 : windows --> \r\n, linux --> \n
-					}
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				} finally {
-					try { osw.close(); } catch (Exception ex) {}
-					try { fos.close(); } catch (Exception ex) {}
-				}				
+				// exportNumbersAsBinary(); // numberSetList (ArrayList)를 Binary 형식으로 데이터 저장				
+				exportNumbersAsText(); 		// numberSetList (ArrayList)를 문자열 형식으로 저장
+					
 				break;
 			default:
 				System.out.println("지원하지 않는 명령입니다.");
@@ -135,6 +117,32 @@ public class LottoApp2 {
 			try { fos.close(); } catch (Exception ex) {}
 			try { oos.close(); } catch (Exception ex) {}
 		}
+	}
+	
+	public void exportNumbersAsText() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // Date 객체의 정보를 지정한 형식의 문자열로 변환하는 객체
+		String dateString = sdf.format(new Date());
+		String fileName = String.format("%s-golden-numbers.txt", dateString);
+		
+		FileOutputStream fos = null;
+//		OutputStreamWriter osw = null;		// 문자열 출력 기본 기능 제공하는 객체
+		PrintStream ps = null;				// 문자열 출력 확장 기능 제공하는 객체 ( System.out 객체와 같은 객체 )
+		try {					
+			fos = new FileOutputStream(fileName);
+//			osw = new OutputStreamWriter(fos);	
+			ps = new PrintStream(fos);			
+			for (NumberSet ns : numberSetList) {
+//				osw.write(ns.toString());
+//				osw.write(System.lineSeparator()); // 운영체제에 따라 적절한 줄바꿈 처리 : windows --> \r\n, linux --> \n
+				ps.println(ns);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {					
+//			try { osw.close(); } catch (Exception ex) {}
+			try { ps.close(); } catch (Exception ex) {}
+			try { fos.close(); } catch (Exception ex) {}
+		}			
 	}
 	
 	public static void main(String[] args) {
