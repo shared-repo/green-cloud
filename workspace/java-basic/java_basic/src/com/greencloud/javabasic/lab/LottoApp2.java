@@ -34,7 +34,21 @@ public class LottoApp2 {
 				if (line == null) {
 					break;
 				}
-				System.out.println(line);
+				
+				String[] data = line.split(","); // split : "abc-efg-xy-tac".split("-") --> ["abc", "efg", "xy", "tac"]
+				NumberSet ns = new NumberSet();
+				ns.setRound( Integer.parseInt(data[0]) ); // parseInt : "123" --> 123
+				int[] numbers = new int[6];
+				for (int i = 2; i < 8; i++) {
+					numbers[i-2] = Integer.parseInt(data[i]);					
+				}
+				ns.setNumbers(numbers);
+				ns.setBonusNumber( Integer.parseInt(data[8]) );
+				ns.setPredict(false);
+				
+				winningNumbers.add(ns);
+				
+				// System.out.println(line);
 			}			
 		} catch (IOException ex) {			
 		} finally {
