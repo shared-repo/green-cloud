@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +30,8 @@ public class LottoApp2 {
 			isr = new InputStreamReader(fis);
 			br = new BufferedReader(isr);
 			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");	// 특정 형식의 문자열 -> 날짜 or 날짜 -> 특정 형식의 문자열
+			
 			while (true) {
 				String line = br.readLine();
 				if (line == null) {
@@ -45,12 +48,14 @@ public class LottoApp2 {
 				ns.setNumbers(numbers);
 				ns.setBonusNumber( Integer.parseInt(data[8]) );
 				ns.setPredict(false);
+				ns.setGameDate( sdf.parse(data[1]) );
 				
 				winningNumbers.add(ns);
 				
 				// System.out.println(line);
 			}			
 		} catch (IOException ex) {			
+		} catch (ParseException ex) {			
 		} finally {
 			try { br.close(); } catch (Exception ex) {}
 			try { isr.close(); } catch (Exception ex) {}
