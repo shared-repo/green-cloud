@@ -12,6 +12,8 @@ public class LottoApp {
 		
 			String selection = selectTask();
 
+			System.out.println();
+			
 			switch (selection) {
 			case "1": 
 				int[] numbers = new int[6];
@@ -32,6 +34,8 @@ public class LottoApp {
 			default:
 				System.out.println("지원하지 않는 명령입니다.");
 			}
+			
+			System.out.println();
 		}
 
 	}
