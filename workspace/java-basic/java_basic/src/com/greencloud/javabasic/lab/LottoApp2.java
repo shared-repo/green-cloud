@@ -22,9 +22,9 @@ public class LottoApp2 {
 	private ArrayList<NumberSet> winningNumbers = new ArrayList<>();	// 과거 당첨번호 목록을 저장할 리스트
 	
 	public LottoApp2() {
-		FileInputStream fis = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
+		FileInputStream fis = null;		// 파일에 대한 byte[] 입출력
+		InputStreamReader isr = null;	// String <-> byte[] 변환
+		BufferedReader br = null;		// 한 줄씩 읽는 기능 제공
 		try {
 			fis = new FileInputStream("lotto-winning-numbers.txt");
 			isr = new InputStreamReader(fis);
@@ -33,22 +33,27 @@ public class LottoApp2 {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");	// 특정 형식의 문자열 -> 날짜 or 날짜 -> 특정 형식의 문자열
 			
 			while (true) {
-				String line = br.readLine();
-				if (line == null) {
+				String line = br.readLine();	// 텍스트 파일에서 한 줄 읽기
+				if (line == null) {				// EOF
 					break;
 				}
 				
 				String[] data = line.split(","); // split : "abc-efg-xy-tac".split("-") --> ["abc", "efg", "xy", "tac"]
 				NumberSet ns = new NumberSet();
+				// 회차 번호 읽어서 저장
 				ns.setRound( Integer.parseInt(data[0]) ); // parseInt : "123" --> 123
+				// 당첨 번호 6개 숫자 읽어서 저장
 				int[] numbers = new int[6];
 				for (int i = 2; i < 8; i++) {
 					numbers[i-2] = Integer.parseInt(data[i]);					
 				}
 				ns.setNumbers(numbers);
+				// 보너스 번호 읽어서 저장
 				ns.setBonusNumber( Integer.parseInt(data[8]) );
+				// 당첨 번호 종류 저장 ( 예측 번호 or 과거 추첨 번호 )
 				ns.setPredict(false);
-				ns.setGameDate( sdf.parse(data[1]) );
+				// 추첨 일자 읽어서 저장
+				ns.setGameDate( sdf.parse(data[1]) ); // sdf.parse : 특정 형식 문자열 -> Date 객체로 변환
 				
 				winningNumbers.add(ns);
 				
@@ -111,6 +116,7 @@ public class LottoApp2 {
 					if (ns.getRound() == round) {
 						System.out.println(ns);
 						found = true;
+						break; // 회차번호는 고유하기 때문에 한 번 발견된 회차는 다시 나오지 않으므로 중단 처리
 					}
 				}
 				if (!found) {
