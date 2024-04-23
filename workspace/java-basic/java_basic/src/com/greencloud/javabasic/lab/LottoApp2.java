@@ -95,8 +95,22 @@ public class LottoApp2 {
 				break;
 			case "3":
 				// exportNumbersAsBinary(); // numberSetList (ArrayList)를 Binary 형식으로 데이터 저장				
-				exportNumbersAsText(); 		// numberSetList (ArrayList)를 문자열 형식으로 저장
-					
+				exportNumbersAsText(); 		// numberSetList (ArrayList)를 문자열 형식으로 저장	
+				break;				
+			case "4":
+				System.out.print("회차 : ");
+				int round = scanner.nextInt();
+				scanner.nextLine();	// nextInt() 호출 후에 buffer에 남아있는 enter 제거
+				boolean found = false;
+				for (NumberSet ns : winningNumbers) {
+					if (ns.getRound() == round) {
+						System.out.println(ns);
+						found = true;
+					}
+				}
+				if (!found) {
+					System.out.println("입력한 회차의 추첨 정보가 없습니다.");
+				}
 				break;
 			default:
 				System.out.println("지원하지 않는 명령입니다.");
@@ -113,6 +127,7 @@ public class LottoApp2 {
 		System.out.println("* 1. 당첨 예상 번호 뽑기");
 		System.out.println("* 2. 당첨 예상 번호 목록 보기");
 		System.out.println("* 3. 당첨 예상 번호 내보내기");
+		System.out.println("* 4. 당첨 번호 검색");
 		System.out.println("***********************");		
 		System.out.print("작업을 선택하세요 : ");
 		String selection = scanner.nextLine();
