@@ -1,8 +1,9 @@
 package com.greencloud.javabasic.lab;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class NumberSet {
+public class NumberSet implements Serializable {
 	
 	private int round;			// 회차
 	private int[] numbers;		// 당첨번호(예상)

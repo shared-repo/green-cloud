@@ -1,6 +1,11 @@
 package com.greencloud.javabasic.lab;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class LottoApp2 {
@@ -44,6 +49,24 @@ public class LottoApp2 {
 					System.out.println(nset);
 				}
 				break;
+			case "3":
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // Date 객체의 정보를 지정한 형식의 문자열로 변환하는 객체
+				String dateString = sdf.format(new Date());
+				String fileName = String.format("%s-golden-numbers.dat", dateString);
+				FileOutputStream fos = null;
+				ObjectOutputStream oos = null;
+				try {
+					fos = new FileOutputStream(fileName);
+					oos = new ObjectOutputStream(fos);
+					oos.writeObject(numberSetList);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} finally {
+					try { fos.close(); } catch (Exception ex) {}
+					try { oos.close(); } catch (Exception ex) {}
+				}
+				
+				break;
 			default:
 				System.out.println("지원하지 않는 명령입니다.");
 			}
@@ -58,6 +81,7 @@ public class LottoApp2 {
 		System.out.println("* 0. 종료");
 		System.out.println("* 1. 당첨 예상 번호 뽑기");
 		System.out.println("* 2. 당첨 예상 번호 목록 보기");
+		System.out.println("* 3. 당첨 예상 번호 내보내기");
 		System.out.println("***********************");		
 		System.out.print("작업을 선택하세요 : ");
 		String selection = scanner.nextLine();
