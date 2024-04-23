@@ -104,7 +104,7 @@ public class LottoApp2 {
 				}
 				break;
 			case "3":
-				// exportNumbersAsBinary(); // numberSetList (ArrayList)를 Binary 형식으로 데이터 저장				
+				// exportNumbersAs\Binary(); // numberSetList (ArrayList)를 Binary 형식으로 데이터 저장				
 				exportNumbersAsText(); 		// numberSetList (ArrayList)를 문자열 형식으로 저장	
 				break;				
 			case "4":
