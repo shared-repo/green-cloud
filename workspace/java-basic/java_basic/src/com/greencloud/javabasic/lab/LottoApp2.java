@@ -3,6 +3,7 @@ package com.greencloud.javabasic.lab;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,22 +51,27 @@ public class LottoApp2 {
 				}
 				break;
 			case "3":
+				// exportNumbersAsBinary(); // Binary 형식으로 데이터 저장
+				
+				// numberSetList (ArrayList)를 문자열 형식으로 저장
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // Date 객체의 정보를 지정한 형식의 문자열로 변환하는 객체
 				String dateString = sdf.format(new Date());
 				String fileName = String.format("%s-golden-numbers.dat", dateString);
-				FileOutputStream fos = null;
-				ObjectOutputStream oos = null;
-				try {
-					fos = new FileOutputStream(fileName);
-					oos = new ObjectOutputStream(fos);
-					oos.writeObject(numberSetList);
-				} catch (IOException e) {
-					e.printStackTrace();
-				} finally {
-					try { fos.close(); } catch (Exception ex) {}
-					try { oos.close(); } catch (Exception ex) {}
-				}
 				
+				FileOutputStream fos = null;
+				OutputStreamWriter osw = null;
+				try {					
+					fos = new FileOutputStream(fileName);
+					osw = new OutputStreamWriter(fos);
+					for (NumberSet ns : numberSetList) {
+						osw.write(ns.toString());
+					}
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				} finally {
+					try { osw.close(); } catch (Exception ex) {}
+					try { fos.close(); } catch (Exception ex) {}
+				}				
 				break;
 			default:
 				System.out.println("지원하지 않는 명령입니다.");
@@ -110,6 +116,24 @@ public class LottoApp2 {
 			}
 		}
 		return numbers;
+	}
+	
+	public void exportNumbersAsBinary() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // Date 객체의 정보를 지정한 형식의 문자열로 변환하는 객체
+		String dateString = sdf.format(new Date());
+		String fileName = String.format("%s-golden-numbers.dat", dateString);
+		FileOutputStream fos = null;
+		ObjectOutputStream oos = null;
+		try {
+			fos = new FileOutputStream(fileName);
+			oos = new ObjectOutputStream(fos);
+			oos.writeObject(numberSetList);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try { fos.close(); } catch (Exception ex) {}
+			try { oos.close(); } catch (Exception ex) {}
+		}
 	}
 	
 	public static void main(String[] args) {
