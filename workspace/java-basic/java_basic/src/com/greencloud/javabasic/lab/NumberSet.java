@@ -10,6 +10,8 @@ public class NumberSet {
 	private int avg;			// 평균
 	private Date gameDate;		// 추첨일
 	
+	private boolean predict = true;	// 현재 번호세트가 과거 당첨번호인지 아니면 당첨예상번호인지 구분하는 변수
+	
 	public int getRound() {
 		return round;
 	}
@@ -42,6 +44,12 @@ public class NumberSet {
 		this.gameDate = gameDate;
 	}
 	
+	public boolean isPredict() {
+		return predict;
+	}
+	public void setPredict(boolean predict) {
+		this.predict = predict;
+	}
 	public int calculateAvg() {
 		int sum = 0;
 		for (int i = 0; i < numbers.length; i++) {
@@ -54,13 +62,19 @@ public class NumberSet {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder(128); // 문자열의 결합 연산이 필요한 경우 사용하는 클래스
-		sb.append(String.format("[ROUND %4d] : ", round));
+		if (!predict) {
+			sb.append(String.format("[ROUND %4d] : ", round));
+		}
+		
 		for (int number : numbers) {
 			sb.append(String.format("[%2d]", number));
 		}
-		sb.append(String.format("[BONUS:%2d]", bonusNumber));
 		sb.append(String.format("[AVG:%2d]", avg));
-		sb.append(String.format("[%s]", gameDate));
+		
+		if (!predict) {
+			sb.append(String.format("[BONUS:%2d]", bonusNumber));		
+			sb.append(String.format("[%s]", gameDate));
+		}
 		
 		return sb.toString();
 		
