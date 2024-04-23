@@ -1,10 +1,13 @@
 package com.greencloud.javabasic.lab;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LottoApp2 {
 
 	private Scanner scanner = new Scanner(System.in);
+	
+	private ArrayList<NumberSet> numberSetList = new ArrayList<>();
 	
 	public void doStart() {
 	
@@ -15,6 +18,11 @@ public class LottoApp2 {
 			System.out.println();
 			
 			switch (selection) {
+			case "0": 
+				System.out.println("행운을 빕니다.");
+				System.out.println("프로그램을 종료합니다.");
+				// return;
+				break program;
 			case "1": 
 				// int[] numbers = new int[6];
 				NumberSet numberSet = new NumberSet();
@@ -25,14 +33,17 @@ public class LottoApp2 {
 					valid = checkAverage(numberSet.getAvg());										
 				} while (!valid);
 				
+				numberSetList.add(numberSet);
+				
 				System.out.println(numberSet); // numberSet.toString() 자동 호출
 				
 				break;
 			case "2": 
-				System.out.println("행운을 빕니다.");
-				System.out.println("프로그램을 종료합니다.");
-				// return;
-				break program;
+				System.out.println("[ 당첨 예상 번호 목록 ]");
+				for (NumberSet nset : numberSetList) {
+					System.out.println(nset);
+				}
+				break;
 			default:
 				System.out.println("지원하지 않는 명령입니다.");
 			}
@@ -44,8 +55,9 @@ public class LottoApp2 {
 	
 	public String selectTask() {
 		System.out.println("***********************");
+		System.out.println("* 0. 종료");
 		System.out.println("* 1. 당첨 예상 번호 뽑기");
-		System.out.println("* 2. 종료");
+		System.out.println("* 2. 당첨 예상 번호 목록 보기");
 		System.out.println("***********************");		
 		System.out.print("작업을 선택하세요 : ");
 		String selection = scanner.nextLine();
