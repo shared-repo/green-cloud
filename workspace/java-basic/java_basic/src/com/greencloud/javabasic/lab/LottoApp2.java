@@ -56,7 +56,7 @@ public class LottoApp2 {
 				// numberSetList (ArrayList)를 문자열 형식으로 저장
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // Date 객체의 정보를 지정한 형식의 문자열로 변환하는 객체
 				String dateString = sdf.format(new Date());
-				String fileName = String.format("%s-golden-numbers.dat", dateString);
+				String fileName = String.format("%s-golden-numbers.txt", dateString);
 				
 				FileOutputStream fos = null;
 				OutputStreamWriter osw = null;
@@ -65,6 +65,7 @@ public class LottoApp2 {
 					osw = new OutputStreamWriter(fos);
 					for (NumberSet ns : numberSetList) {
 						osw.write(ns.toString());
+						osw.write(System.lineSeparator()); // 운영체제에 따라 적절한 줄바꿈 처리 : windows --> \r\n, linux --> \n
 					}
 				} catch (IOException ex) {
 					ex.printStackTrace();
