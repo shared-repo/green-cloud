@@ -1,7 +1,10 @@
 package com.greencloud.javabasic.lab;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
@@ -14,7 +17,32 @@ public class LottoApp2 {
 
 	private Scanner scanner = new Scanner(System.in);
 	
-	private ArrayList<NumberSet> numberSetList = new ArrayList<>();
+	private ArrayList<NumberSet> numberSetList = new ArrayList<>();		// 당첨 예상 번호 목록을 저장할 리스트
+	private ArrayList<NumberSet> winningNumbers = new ArrayList<>();	// 과거 당첨번호 목록을 저장할 리스트
+	
+	public LottoApp2() {
+		FileInputStream fis = null;
+		InputStreamReader isr = null;
+		BufferedReader br = null;
+		try {
+			fis = new FileInputStream("lotto-winning-numbers.txt");
+			isr = new InputStreamReader(fis);
+			br = new BufferedReader(isr);
+			
+			while (true) {
+				String line = br.readLine();
+				if (line == null) {
+					break;
+				}
+				System.out.println(line);
+			}			
+		} catch (IOException ex) {			
+		} finally {
+			try { br.close(); } catch (Exception ex) {}
+			try { isr.close(); } catch (Exception ex) {}
+			try { fis.close(); } catch (Exception ex) {}
+		}
+	}
 	
 	public void doStart() {
 	
@@ -65,7 +93,7 @@ public class LottoApp2 {
 
 	}
 	
-	public String selectTask() {
+	private String selectTask() {
 		System.out.println("***********************");
 		System.out.println("* 0. 종료");
 		System.out.println("* 1. 당첨 예상 번호 뽑기");
@@ -79,12 +107,12 @@ public class LottoApp2 {
 	}
 	
 	
-	public boolean checkAverage(int avg) {
+	private boolean checkAverage(int avg) {
 		boolean valid = avg >= 20 && avg <= 26;
 		return valid;
 	}	
 	
-	public int[] selectBasicNumbers2() {
+	private int[] selectBasicNumbers2() {
 		int[] numbers = new int[6];
 		for (int i = 0; i < numbers.length; i++) {
 			
@@ -101,10 +129,11 @@ public class LottoApp2 {
 		return numbers;
 	}
 	
-	public void exportNumbersAsBinary() {
+	private void exportNumbersAsBinary() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // Date 객체의 정보를 지정한 형식의 문자열로 변환하는 객체
 		String dateString = sdf.format(new Date());
 		String fileName = String.format("%s-golden-numbers.dat", dateString);
+		
 		FileOutputStream fos = null;
 		ObjectOutputStream oos = null;
 		try {
@@ -114,12 +143,13 @@ public class LottoApp2 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
-			try { fos.close(); } catch (Exception ex) {}
+			// 닫는 순서는 여는 순서의 역순으로 진행 
 			try { oos.close(); } catch (Exception ex) {}
+			try { fos.close(); } catch (Exception ex) {}
 		}
 	}
 	
-	public void exportNumbersAsText() {
+	private void exportNumbersAsText() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // Date 객체의 정보를 지정한 형식의 문자열로 변환하는 객체
 		String dateString = sdf.format(new Date());
 		String fileName = String.format("%s-golden-numbers.txt", dateString);
