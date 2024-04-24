@@ -39,8 +39,34 @@ class MyWindow extends JFrame {
 		btn1.setSize(300, 100);			// 버튼 크기
 		btn1.setLocation(150, 100);
 		
-		ButtonClickHandler handler = new ButtonClickHandler();
-		btn1.addActionListener(handler); // JButton을 클릭했을 때 호출할 객체(인스턴스) 등록
+		// 이벤트 처리기 연결 방식 1. 별도의 클래스를 만들어서 적용
+//		ButtonClickHandler handler = new ButtonClickHandler();
+//		btn1.addActionListener(handler); // JButton을 클릭했을 때 호출할 객체(인스턴스) 등록
+		
+		// 이벤트 처리기 연결 방식 2. 익명 클래스 적용
+//		btn1.addActionListener(
+//			new ActionListener() { // ActionListener 인터페이스를 구현하는 이름 없는 클래스 만들기 + 그 클래스의 인스턴스 만들기
+//				@Override
+//				public void actionPerformed(ActionEvent e) {
+//					Container container = getContentPane(); // 윈도우의 클라이언트 영역 객체 반환
+//					int r = (int)(Math.random() * 256);
+//					int g = (int)(Math.random() * 256);
+//					int b = (int)(Math.random() * 256);
+//					Color c = new Color(r, g, b);
+//					container.setBackground(c);	// 위도우 클라이언트 영역의 배경색 변환
+//				}
+//			} 
+//		);
+		
+		// 이벤트 처리기 연결 방식 3. 람다 함수 사용
+		btn1.addActionListener( (e) -> {
+			Container container = getContentPane(); // 윈도우의 클라이언트 영역 객체 반환
+			int r = (int)(Math.random() * 256);
+			int g = (int)(Math.random() * 256);
+			int b = (int)(Math.random() * 256);
+			Color c = new Color(r, g, b);
+			container.setBackground(c);	// 위도우 클라이언트 영역의 배경색 변환
+		} );
 		
 		add(btn1);	// 만든 버튼을 윈도우에 부착
 
