@@ -8,7 +8,7 @@ public class TheWorker3 extends Thread {
 		System.out.println("Worker : " + Thread.currentThread().getId());
 		
 		try {
-			Thread.sleep(1000 * 10);// 10초간 실행 중지 -> 깨어날 때 예외 발생
+			Thread.sleep(1000 * 10);	// 10초간 실행 중지 -> 깨어날 때 예외 발생
 		} catch (InterruptedException e) {} 
 		
 		System.out.println("3. doWork의 끝");

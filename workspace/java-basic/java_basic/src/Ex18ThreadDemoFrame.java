@@ -83,15 +83,15 @@ public class Ex18ThreadDemoFrame extends JFrame {
 		button5.setSize(250, 50);
 		button5.setLocation(15, 275); // 좌측 상단의 위치 값
 		button5.addActionListener( (e) -> {						// 버튼 클릭하면 호출될 메서드 등록
-//			System.out.println("1. doWork 호출 전");
-//			
-//			TheWorker4 worker4_1 = new TheWorker4();
-//			worker4_1.start(); // 비동기 방식 worker4_1.run() 호출 -> doWork() 호출
-//			
-//			TheWorker4 worker4_2 = new TheWorker4();
-//			worker4_2.start(); // 비동기 방식 worker4_2.run() 호출 -> doWork() 호출
-//			
-//			System.out.println("4. doWork 호출 후");			
+			System.out.println("1. doWork 호출 전");
+			
+			TheWorker4 worker4_1 = new TheWorker4();
+			worker4_1.start(); // 비동기 방식 worker4_1.run() 호출 -> doWork() 호출
+			
+			TheWorker4 worker4_2 = new TheWorker4();
+			worker4_2.start(); // 비동기 방식 worker4_2.run() 호출 -> doWork() 호출
+			
+			System.out.println("4. doWork 호출 후");			
 		} );		
 		add(button5);
 		
@@ -102,15 +102,15 @@ public class Ex18ThreadDemoFrame extends JFrame {
 		button6.setSize(250, 50);
 		button6.setLocation(15, 340); // 좌측 상단의 위치 값
 		button6.addActionListener( (e) -> {						// 버튼 클릭하면 호출될 메서드 등록
-//			System.out.println("1. doWork 호출 전");
-//			
-//			TheWorker5 worker5_1 = new TheWorker5();
-//			worker5_1.start(); // 비동기 방식 worker5_1.run() 호출 -> doWork() 호출
-//			
-//			TheWorker5 worker5_2 = new TheWorker5();
-//			worker5_2.start(); // 비동기 방식 worker5_2.run() 호출 -> doWork() 호출
-//			
-//			System.out.println("4. doWork 호출 후");			
+			System.out.println("1. doWork 호출 전");
+			
+			TheWorker5 worker5_1 = new TheWorker5();
+			worker5_1.start(); // 비동기 방식 worker5_1.run() 호출 -> doWork() 호출
+			
+			TheWorker5 worker5_2 = new TheWorker5();
+			worker5_2.start(); // 비동기 방식 worker5_2.run() 호출 -> doWork() 호출
+			
+			System.out.println("4. doWork 호출 후");			
 		} );		
 		add(button6);
 		
@@ -121,15 +121,15 @@ public class Ex18ThreadDemoFrame extends JFrame {
 		button7.setSize(250, 50);
 		button7.setLocation(15, 405); // 좌측 상단의 위치 값
 		button7.addActionListener( (e) -> {						// 버튼 클릭하면 호출될 메서드 등록
-//			System.out.println("1. doWork 호출 전");
-//			
-//			TheWorker6 worker6_1 = new TheWorker6();
-//			worker6_1.start(); // 비동기 방식 worker6_1.run() 호출 -> doWork() 호출
-//			
-//			TheWorker6 worker6_2 = new TheWorker6();
-//			worker6_2.start(); // 비동기 방식 worker6_2.run() 호출 -> doWork() 호출
-//			
-//			System.out.println("4. doWork 호출 후");			
+			System.out.println("1. doWork 호출 전");
+			
+			TheWorker6 worker6_1 = new TheWorker6();
+			worker6_1.start(); // 비동기 방식 worker6_1.run() 호출 -> doWork() 호출
+			
+			TheWorker6 worker6_2 = new TheWorker6();
+			worker6_2.start(); // 비동기 방식 worker6_2.run() 호출 -> doWork() 호출
+			
+			System.out.println("4. doWork 호출 후");			
 		} );		
 		add(button7);
 	}

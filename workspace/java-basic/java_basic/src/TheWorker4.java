@@ -14,7 +14,7 @@ public class TheWorker4 extends Thread {
 			// 1에서 100까지의 합을 계산하는 코드
 			result = 0;
 			for (int i = 1; i <= 100; i++) {
-				if (i % 10 == 0) { //10의 배수인 경우
+				if (i % 10 == 0) { // 10의 배수인 경우
 					try { Thread.sleep(1000); } catch (Exception ex) {}
 				}
 				result = result + i;
