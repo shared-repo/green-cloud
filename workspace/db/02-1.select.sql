@@ -193,8 +193,24 @@ SELECT
 FROM buy
 GROUP BY mem_id;
 
+-- 제품별 판매 총액, 판매액 평균, 판매 건수 조회
+SELECT 
+	prod_name, 
+    SUM(price*amount) 총판매액, 
+    AVG(price*amount) 평균판매액, 
+    COUNT(price*amount) 판매건수
+FROM buy
+GROUP BY prod_name;
 
-
+-- 구매액합계가 1000이상인 걸그룹 조회
+SELECT 
+	mem_id, 
+    SUM(price * amount) "구매 총액"
+FROM buy
+-- WHERE SUM(price * amount) >= 1000 -- 오류 : 집계함수는 GROUP BY와 함께 처리되기 때문에 WHERE 절에서 사용할 수 없습니다.
+GROUP BY mem_id
+HAVING SUM(price * amount) >= 1000
+ORDER BY SUM(price * amount);
 
 
 
