@@ -11,7 +11,7 @@ SELECT *
 FROM book
 WHERE price >= 20000;
 
--- (3) 박지성의 총 구매액(박지성의 고객번호는 1번으로 놓고 작성) ( orders )
+-- (3) 박지성 고객의 총 구매액(박지성 고객의 고객번호는 1번으로 놓고 작성) ( orders )
 SELECT *
 FROM customer
 WHERE name = '박지성';
@@ -20,7 +20,7 @@ SELECT SUM(saleprice) 도서구매액
 FROM orders
 WHERE custid = 1;
 
--- (4) 박지성이 구매한 도서의 수(박지성의 고객번호는 1번으로 놓고 작성) ( orders )
+-- (4) 박지성 고객이 구매한 도서의 수(박지성 고객의 고객번호는 1번으로 놓고 작성) ( orders )
 SELECT COUNT(*) 구매도서수
 FROM orders
 WHERE custid = 1;
@@ -30,6 +30,8 @@ SELECT COUNT(*)
 FROM book;
 
 -- (6) 도서를 출고하는 출판사의 총 개수 ( book )
+SELECT publisher FROM book;
+
 -- SELECT COUNT(publisher) -- 중복 데이터도 포함한 개수
 SELECT COUNT(DISTINCT publisher) -- 중복 데이터 제외한 개수
 FROM book;
