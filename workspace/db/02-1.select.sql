@@ -92,6 +92,12 @@ FROM member
 -- WHERE addr = '경기' OR addr = '전남' OR addr = '경남';
 WHERE addr IN ('경기', '전남', '경남');
 
+-- 주소가 '경기' 또는 '전남' 또는 '경남' 이 아닌 걸그룹 조회
+SELECT *
+FROM member
+-- WHERE addr = '경기' OR addr = '전남' OR addr = '경남';
+WHERE addr NOT IN ('경기', '전남', '경남');
+
 -- 이름에 '이'가 포함된 회원 조회
 SELECT *
 FROM member
@@ -117,6 +123,20 @@ SELECT *
 FROM member
 -- WHERE debut_date >= '2014-01-01' AND debut_date < '2017-01-01'; -- 날짜 데이터는 작은 따옴표로 표현 
 WHERE debut_date BETWEEN '2014-01-01' AND '2016-12-31'; -- 날짜 데이터는 작은 따옴표로 표현 
+
+select * from member;
+-- 전화번호가 없는 걸그룹 조회
+SELECT *
+FROM member
+-- WHERE phone1 = NULL; -- 부정확한 실행 : NULL은 = 연산자로 비교할 수 없습니다. (항상 FALSE)
+WHERE phone1 IS NULL;
+
+-- 전화번호가 있는 걸그룹 조회
+SELECT *
+FROM member
+-- WHERE phone1 != NULL; -- 부정확한 실행 : NULL은 != 연산자로 비교할 수 없습니다. (항상 FALSE)
+WHERE phone1 IS NOT NULL;
+
 
 -- 3. 조회 결과 정렬
 --    형식 : SELECT 컬럼 목록
