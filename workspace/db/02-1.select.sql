@@ -118,5 +118,99 @@ FROM member
 -- WHERE debut_date >= '2014-01-01' AND debut_date < '2017-01-01'; -- 날짜 데이터는 작은 따옴표로 표현 
 WHERE debut_date BETWEEN '2014-01-01' AND '2016-12-31'; -- 날짜 데이터는 작은 따옴표로 표현 
 
+-- 3. 조회 결과 정렬
+--    형식 : SELECT 컬럼 목록
+--          FROM 테이블 이름
+--          [ WHERE 조건식 ]
+--          [ ORDER BY 정렬 기준 ]
+
+-- 회원을 데뷰일자 순으로 정렬해서 조회
+SELECT *
+FROM member
+-- ORDER BY debut_date; -- ASC 생략 (기본값)
+-- ORDER BY debut_date ASC; -- ASC : 오름차순 정렬
+ORDER BY debut_date DESC; -- DESC : 내림차순 정렬
+
+-- 회원을 지역 순으로 정렬하고 지역이 같다면 데뷰일자 순으로 정렬해서 조회
+SELECT *
+FROM member
+-- ORDER BY addr, debut_date;
+-- ORDER BY addr ASC, debut_date DESC;
+ORDER BY addr DESC, debut_date ASC;
+
+-- 4. 조회 결과에서 일부만 추출 : LIMIT
+-- 회원을 데뷰일자 순으로 정렬해서 데뷰일자가 빠른 5개의 그룹 조회
+SELECT *
+FROM member
+ORDER BY debut_date
+LIMIT 5; -- 처음부터 5개의 조회 결과 가져오기
+
+-- 회원을 데뷰일자 순으로 정렬해서 데뷰일자가 빠른 순으로 3번째에서 7번째 그룹 조회
+SELECT *
+FROM member
+ORDER BY debut_date
+LIMIT 3, 5; -- 3번째에서 7번째 그룹 조회 ( 3번째부터 5개 조회 )
+
+-- 5-1. 집계 함수
+ 
+-- 전체 회원수 조회
+SELECT COUNT(*)
+FROM member;
+
+-- member 테이블에서 phone1의 갯수 조회
+SELECT COUNT(phone1) -- null은 빼고 계산
+FROM member;
+
+-- 가장 큰 평균 신장, 가장 작은 평균 신장, 전체 평균 신장 조회
+SELECT AVG(height), MIN(height), MAX(height)
+FROM member;
+
+-- 각 그룹에 포함된 전체 인원 조회
+SELECT SUM(mem_number)
+FROM member;
+
+-- 5-2. 그룹별 조회 (GROUP BY)
+--      형식 : SELECT 컬럼 목록
+--            FROM 테이블 이름
+--            [ WHERE 조건식 ]
+--			  [ GROUP BY 기준 컬럼 ]
+--			  [ HAVING 조건식 ]
+--            [ ORDER BY 정렬 기준 ]
+
+SELECT * FROM buy;
+
+-- 구매 총액 조회
+SELECT SUM(price * amount) "구매 총액" -- 이름에 공백이 포함되면 "" 사용
+FROM buy;
+
+-- 걸그룹별 구매 총액, 구매액 평균, 구매 건수 조회
+SELECT 
+	-- num, -- 오류 : group by에 지정된 컬럼만 select에 사용 가능
+    mem_id, 
+    SUM(price * amount) "구매 총액", -- 이름에 공백이 포함되면 "" 사용
+    AVG(price * amount) "구매 평균",
+    COUNT(price * amount) "구매 건수"
+FROM buy
+GROUP BY mem_id;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
