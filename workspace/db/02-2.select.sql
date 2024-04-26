@@ -1,5 +1,4 @@
 -- madang_db로 작업 데이터베이스 변경
-
 USE madang_db;
 
 -- madang_db의 테이블 목록 보기
@@ -22,7 +21,7 @@ FROM book;
 SELECT *
 FROM book;
 
--- 3. 도서 테이블에 있는 모든 출판사를 검색하시오
+-- 3. 도서 테이블에 있는 모든 출판사를 검색하시오 ( 중복 데이터 제거 )
 SELECT DISTINCT publisher
 FROM book;
 
@@ -84,14 +83,15 @@ ORDER BY price DESC, bookname ASC;
 SELECT SUM(saleprice) 총판매액
 FROM orders;
 
--- 14. 2번 김연아 고객이 주문한 도서의 총 판매액을 구하시오.
-SELECT custid
+-- 14. 김연아 고객이 주문한 도서의 총 판매액을 구하시오. ( 2개의 SQL )
+SELECT custid, name
 FROM customer 
 WHERE name = '김연아';
 
 SELECT SUM(saleprice) 총판매액
 FROM orders
-WHERE custid = 2;
+WHERE custid = 2; -- 위 SQL을 통해 '김연아' 고객의 고객번호가 2인 것을 확인
+
 
 -- 15. 고객이 주문한 도서의 총 판매액, 평균값, 최저가, 최고가를 구하시오
 SELECT SUM(saleprice) 총판매액, AVG(saleprice) 평균값, 
