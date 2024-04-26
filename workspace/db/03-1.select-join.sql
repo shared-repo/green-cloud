@@ -41,6 +41,14 @@ SELECT m.mem_id, b.num
 FROM member m
 CROSS JOIN buy b;
 
--- 5. 
+-- 5. SELF JOIN : 자기참조테이블을 JOIN하는 구문
+
+-- 직원정보, 전화번호, 매니저정보, 매니저전화번호 조회
+SELECT e1.emp, e1.phone, e2.emp, e2.phone
+FROM emp_table e1
+-- INNER JOIN emp_table e2
+LEFT OUTER JOIN emp_table e2
+ON e1.manager = e2.emp
+ORDER BY e1.emp;
 
 
