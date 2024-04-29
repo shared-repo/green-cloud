@@ -1,0 +1,20 @@
+-- install Employees sample database
+
+-- 1. download
+--    설치 설명서 : https://dev.mysql.com/doc/employee/en/employees-installation.html
+--    저장소 : https://github.com/datacharmer/test_db
+--    다운로드 후에 .zip 파일 압축 해제
+
+-- 2. 설치
+--    명령프롬프트 실행 (cmd)
+--    cd Downloads/test_db-master
+--    mysql -u root -p -t < employees.sql
+--    password 입력
+
+-- 3. 권한 변경
+-- root 계정으로 실행
+-- green_cloud@localhost, green_cloud@"%" 계정에 대해 employees db 권한 부여
+GRANT ALL PRIVILEGES ON employees.* TO green_cloud@localhost;
+GRANT ALL PRIVILEGES ON employees.* TO green_cloud@"%";
+
+FLUSH PRIVILEGES; -- 권한 변경사항 확정
