@@ -74,10 +74,12 @@ HAVING COUNT(*) >= 2;
 use madang_db;
 
 -- 9. 평균 주문금액 이하의 주문에 대해서 주문번호와 금액을 보이시오
-select avg(saleprice) from orders;
+select avg(saleprice) from orders; -- 평균 주문 금액
+
 select *
 from orders o
-where o.saleprice <= ( select avg(saleprice) from orders );
+where o.saleprice <= ( select avg(saleprice) 
+					   from orders );
 
 -- 10. 각 고객의 평균 주문금액보다 큰 금액의 주문 내역에 대해서 
 --      주문번호, 고객번호, 금액을 보이시오
@@ -100,6 +102,7 @@ where o.custid in ( select c.custid
 -- 12. 3번 고객이 주문한 도서의 최고 금액보다 
 --     더 비싼 도서를 구입한 주문의 주문번호와 금액을 보이시오
 select max(saleprice) from orders where custid = 3;
+
 select *
 from orders o
 where o.saleprice > ( select max(o2.saleprice) 
@@ -107,11 +110,20 @@ where o.saleprice > ( select max(o2.saleprice)
                       where o2.custid = 3 ); 
 
 -- 13. EXISTS 연산자로 대한민국에 거주하는 고객에게 판매한 도서의 총 판매액을 구하시오
+--     EXISTS 연산자는 값을 비교하는 연산자가 아님 --> 존재 여부만 확인 ( 결과가 있으면 TRUE, 없으면 FALSE )
+
 select sum(saleprice) 대한민국_총판매액
 from orders o
-where exists ( select c.custid 
+-- where exists ( select c.custid 
+where exists ( select 1 -- 1을 사용해서 값의 내용이 아니라 존재 여부만 확인하는 것을 강조
                from customer c 
                where c.custid = o.custid and c.address like '대한민국%' );
+               
+select sum(saleprice) 대한민국_총판매액
+from orders o
+where o.custid in ( select c.custid 
+					from customer c 
+					where c.address like '대한민국%' );
                
 -- 14. 마당서점의 고객별 판매액을 보이시오(결과는 고객이름과 고객별 판매액을 출력).
 select c.name, sum(o.saleprice)
