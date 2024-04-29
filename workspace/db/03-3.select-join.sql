@@ -29,6 +29,54 @@ INNER JOIN city ci
 ON co.code = ci.countrycode
 WHERE co.name = 'South Korea';
 
+-- 작업 데이터베이스 변경
+USE employees;
+
+SELECT * FROM employees LIMIT 10;
+SELECT * FROM departments LIMIT 10;
+SELECT * FROM dept_emp LIMIT 20;
+SELECT * FROM dept_manager LIMIT 20;
+SELECT * FROM titles LIMIT 10;
+SELECT * FROM salaries LIMIT 10;
+
+-- 1990년에 'Development' 부서에 근무한 직원 정보 조회
+SELECT e.*, de.from_date, de.to_date
+FROM employees e
+INNER JOIN dept_emp de
+ON e.emp_no = de.emp_no
+INNER JOIN departments d
+ON d.dept_no = de.dept_no
+WHERE d.dept_name = 'Development' AND from_date BETWEEN '1990-01-01' AND '1990-12-31'
+								  OR to_date BETWEEN '1990-01-01' AND '1990-12-31';
+                
+select * from employees;
+                
+-- 'Mary Sluis' 직원의 연봉 계약 이력 조회
+SELECT e.first_name, e.last_name, s.salary, s.from_date, s.to_date
+FROM employees e
+INNER JOIN salaries s
+ON e.emp_no = s.emp_no
+WHERE e.first_name = 'Mary' AND e.last_name = 'Sluis';
+
+-- 'Georgi Facello' 직원의 직급 이력 조회
+SELECT e.first_name, e.last_name, t.title, t.from_date, t.to_date
+FROM employees e
+INNER JOIN titles t
+ON e.emp_no = t.emp_no
+WHERE e.first_name = 'Georgi' AND e.last_name = 'Facello';
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
