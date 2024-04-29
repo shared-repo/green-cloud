@@ -65,6 +65,36 @@ INNER JOIN titles t
 ON e.emp_no = t.emp_no
 WHERE e.first_name = 'Georgi' AND e.last_name = 'Facello';
 
+-- 사용 데이터베이스 변경
+USE sakila;
+
+SELECT * FROM film_text LIMIT 10;
+SELECT * FROM film LIMIT 10;
+SELECT * FROM store LIMIT 10;
+
+-- Action 카테고리의 영화 조회
+SELECT * FROM category;
+
+SELECT f.*
+FROM category c
+INNER JOIN film_category fc
+ON c.category_id = fc.category_id
+INNER JOIN film f
+ON fc.film_id = f.film_id
+WHERE c.name = 'Action';
+
+-- 'MARIA MILLER' 고객의 대여 이력 조회
+SELECT f.title, r.rental_date
+FROM customer c
+INNER JOIN rental r
+ON c.customer_id = r.customer_id
+INNER JOIN inventory i
+ON r.inventory_id = i.inventory_id
+INNER JOIN film f
+ON f.film_id = i.film_id
+WHERE c.first_name = 'MARIA' AND last_name = 'MILLER'
+ORDER BY r.rental_date;
+
 
 
 
