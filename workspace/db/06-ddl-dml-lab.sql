@@ -125,19 +125,36 @@ VALUES ('iamuserone', '게시글 연습 1', '게시글 작성 연습입니다.',
        
 SELECT * FROM tbl_board;
  
-3. tbl_comment 테이블 데이터 추가
+-- 3. tbl_comment 테이블 데이터 추가
 
-   - 아래 1, 2, 3은 글번호인데 2번에서 삽입된 글번호 사용
+--    - 아래 1, 2, 3은 글번호인데 2번에서 삽입된 글번호 사용
 
-   'iamusertwo', 1, '게시글 1에 대한 댓글', now(), now()
-   'iamusertwo', 2, '게시글 2에 대한 댓글', now(), now()
-   'iamusertwo', 3, '게시글 3에 대한 댓글', now(), now()
+--    'iamusertwo', 1, '게시글 1에 대한 댓글', now(), now()
+--    'iamusertwo', 2, '게시글 2에 대한 댓글', now(), now()
+--    'iamusertwo', 3, '게시글 3에 대한 댓글', now(), now()
 
-[ 데이터 수정 ]
+INSERT INTO tbl_comment (writer, boardno, content)
+VALUES ('iamusertwo', 1, '게시글 1에 대한 댓글'),
+	   ('iamusertwo', 2, '게시글 2에 대한 댓글'),
+	   ('iamusertwo', 3, '게시글 3에 대한 댓글');
+       
+SELECT * FROM tbl_comment;
 
-iamuserone 사용자의 password는 'Pa$$word'로 이메일은 'iamuserone@naver.com'으로 변경
+-- [ 데이터 수정 ]
 
-1번 게시글의 제목은 '수정된 게시글 1'로 modifydate는 now() 로 변경
+-- iamuserone 사용자의 password는 'Pa$$word'로 이메일은 'iamuserone@naver.com'으로 변경
+
+UPDATE tbl_member
+SET passwd = 'Pa$$word',  email = 'iamuserone@naver.com'
+WHERE memberid = 'iamuserone';
+
+SELECT * FROM tbl_member;
+
+-- 1번 게시글의 제목은 '수정된 게시글 1'로 modifydate는 now() 로 변경
+
+UPDATE tbl_board
+SET title = '수정된 게시글 1',  modifydate = now()
+WHERE boardno = 1;
 
 [ 데이터 삭제 ]
 
