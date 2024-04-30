@@ -71,30 +71,46 @@ CREATE TABLE tbl_comment
    modifydate DATETIME DEFAULT ( NOW() ),
    CONSTRAINT fk_board_comment FOREIGN KEY (boardno) REFERENCES tbl_board(boardno),
    CONSTRAINT fk_member_comment FOREIGN KEY (writer) REFERENCES tbl_member(memberid)
-);   
+);
+DESC tbl_comment;   
 
-[ 테이블 수정 ]
+-- [ 테이블 수정 ]
 
-1. tbl_member 
+-- 1. tbl_member 
 
-   usergrade int 컬럼 추가
-   regdate 컬럼 -> joindate 컬럼으로 변경
+--    usergrade int 컬럼 추가
+--    regdate 컬럼 -> joindate 컬럼으로 변경
 
-2. tbl_board
+ALTER TABLE tbl_member
+ADD COLUMN usergrade INT NULL,
+CHANGE COLUMN regdate joindate DATETIME DEFAULT ( NOW() );
 
-   category 문자열 not null 컬럼 추가
+-- 2. tbl_board
 
+--    category 문자열 not null 컬럼 추가
 
-[ 데이터 추가 ]
+ALTER TABLE tbl_board
+ADD COLUMN category VARCHAR (50) NOT NULL;
 
-1. tbl_member 테이블 데이터 추가
+-- [ 데이터 추가 ]
 
-   'iamuserone', 'iamuserone', 'iamuserone@example.com', 'user', now(), true
-   'iamusertwo', 'iamusertwo', 'iamusertwo@example.com', 'user', now(), true
-   'iamuserthree', 'iamuserthree', 'iamuserthree@example.com', 'user', now(), true
+-- 1. tbl_member 테이블 데이터 추가
 
-   'iamadminone', 'iamadminone', 'iamadminone@example.com', 'admin', now(), true
+--    'iamuserone', 'iamuserone', 'iamuserone@example.com', 'user', now(), true
+--    'iamusertwo', 'iamusertwo', 'iamusertwo@example.com', 'user', now(), true
+--    'iamuserthree', 'iamuserthree', 'iamuserthree@example.com', 'user', now(), true
 
+--    'iamadminone', 'iamadminone', 'iamadminone@example.com', 'admin', now(), true
+
+INSERT INTO tbl_member (memberid, passwd, email) -- 나머지 컬럼은 기본값 사용
+VALUES ('iamuserone', 'iamuserone', 'iamuserone@example.com'),
+	   ('iamusertwo', 'iamusertwo', 'iamusertwo@example.com'),
+	   ('iamuserthree', 'iamuserthree', 'iamuserthree@example.com');
+       
+INSERT INTO tbl_member (memberid, passwd, email, usertype) -- 나머지 컬럼은 기본값 사용
+VALUES ('iamadminone', 'iamadminone', 'iamadminone@example.com', 'admin');
+
+SELECT * from tbl_member;
 
 2. tbl_board 테이블 데이터 추가
 
