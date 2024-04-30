@@ -59,7 +59,20 @@ DESC tbl_board;
 --    modifydate DATETIME
 --    외래키 boardno -> tbl_board(boardno)
 --    외래키 writer -> tbl_member(memberid)
-   
+
+DROP TABLE IF EXISTS tbl_comment;
+CREATE TABLE tbl_comment
+(
+   commentno INT PRIMARY KEY AUTO_INCREMENT,
+   writer VARCHAR(20) NOT NULL,
+   boardno INT NOT NULL,
+   content VARCHAR(500) NOT NULL,
+   writedate DATETIME DEFAULT ( NOW() ),
+   modifydate DATETIME DEFAULT ( NOW() ),
+   CONSTRAINT fk_board_comment FOREIGN KEY (boardno) REFERENCES tbl_board(boardno),
+   CONSTRAINT fk_member_comment FOREIGN KEY (writer) REFERENCES tbl_member(memberid)
+);   
+
 [ 테이블 수정 ]
 
 1. tbl_member 
