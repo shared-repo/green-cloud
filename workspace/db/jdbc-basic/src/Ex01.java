@@ -18,7 +18,7 @@ public class Ex01 {
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/employees", "green_cloud", "mysql");
 			
 			// 3. 명령 객체 만들기
-			String sql = "SELECT emp_no, first_name, last_name, gender, hire_date FROM employees";
+			String sql = "SELECT emp_no, first_name, last_name, gender, hire_date FROM employees LIMIT 100";
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 명령 실행 ( 결과가 있으면 결과 저장 - select 인 경우 )
