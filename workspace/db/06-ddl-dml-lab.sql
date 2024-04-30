@@ -112,12 +112,18 @@ VALUES ('iamadminone', 'iamadminone', 'iamadminone@example.com', 'admin');
 
 SELECT * from tbl_member;
 
-2. tbl_board 테이블 데이터 추가
+-- 2. tbl_board 테이블 데이터 추가
 
-   'iamuserone', '게시글 연습 1', '게시글 작성 연습입니다.', now(), now(), 0, 1 
-   'iamuserone', '게시글 연습 2', '게시글 작성 연습입니다.', now(), now(), 0, 1
-   'iamuserone', '게시글 연습 3', '게시글 작성 연습입니다.', now(), now(), 0, 1
+--    'iamuserone', '게시글 연습 1', '게시글 작성 연습입니다.', now(), now(), 0, 1 
+--    'iamuserone', '게시글 연습 2', '게시글 작성 연습입니다.', now(), now(), 0, 1
+--    'iamuserone', '게시글 연습 3', '게시글 작성 연습입니다.', now(), now(), 0, 1
 
+INSERT INTO tbl_board (writer, title, content, category)
+VALUES ('iamuserone', '게시글 연습 1', '게시글 작성 연습입니다.', 'free'),
+	   ('iamuserone', '게시글 연습 2', '게시글 작성 연습입니다.', 'notice'),
+	   ('iamuserone', '게시글 연습 3', '게시글 작성 연습입니다.', 'free');
+       
+SELECT * FROM tbl_board;
  
 3. tbl_comment 테이블 데이터 추가
 
