@@ -156,8 +156,18 @@ UPDATE tbl_board
 SET title = '수정된 게시글 1',  modifydate = now()
 WHERE boardno = 1;
 
-[ 데이터 삭제 ]
+SELECT * FROM tbl_board;
 
-iamuserthree 사용자 삭제
+-- [ 데이터 삭제 ]
 
+-- iamuserthree 사용자 삭제
+
+DELETE FROM tbl_member 
+WHERE memberid = 'iamuserthree'; -- 이 데이터를 참조하고 있는 데이터가 있다면 삭제 불가능
+
+UPDATE tbl_member 
+SET active = FALSE
+WHERE memberid = 'iamusertwo';
+
+SELECT * FROM tbl_member;
    
