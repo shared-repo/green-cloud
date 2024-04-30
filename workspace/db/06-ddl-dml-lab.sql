@@ -1,13 +1,28 @@
-[ 테이블 만들기 ]
+-- 작업 데이터베이스 변경
+use market_db;
 
-1. tbl_member
+-- [ 테이블 만들기 ]
 
-   memberid 문자열 PK
-   passwd 문자열 NOT NULL
-   email 문자열 NOT NULL UNIQUE
-   usertype 문자열 NULL
-   regdate datetime
-   active BOOLEAN 
+-- 1. tbl_member
+
+--    memberid 문자열 PK
+--    passwd 문자열 NOT NULL
+--    email 문자열 NOT NULL UNIQUE
+--    usertype 문자열 NULL
+--    regdate datetime
+--    active BOOLEAN 
+   
+DROP TABLE IF EXISTS tbl_member;
+CREATE TABLE tbl_member
+(
+   memberid VARCHAR(20) PRIMARY KEY,
+   passwd VARCHAR(100) NOT NULL,
+   email VARCHAR(50) NOT NULL UNIQUE,
+   usertype VARCHAR(10) DEFAULT ('user'), -- ( 'user' or 'amdin' )
+   regdate DATETIME DEFAULT ( NOW() ),
+   active BOOLEAN DEFAULT (TRUE)
+); 
+DESC tbl_member;     
 
 2. tbl_board
 
