@@ -24,27 +24,41 @@ CREATE TABLE tbl_member
 ); 
 DESC tbl_member;     
 
-2. tbl_board
+-- 2. tbl_board
 
-   boardno int PK 자동증가
-   writer 문자열 NOT NULL
-   title 문자열 NOT NULL
-   content 문자열 not null
-   writedate DATETIME
-   modifydate DATETIME
-   readcount int 
-   외래키 writer -> tbl_member(memberid)   
+--    boardno int PK 자동증가
+--    writer 문자열 NOT NULL
+--    title 문자열 NOT NULL
+--    content 문자열 not null
+--    writedate DATETIME
+--    modifydate DATETIME
+--    readcount int 
+--    외래키 writer -> tbl_member(memberid)  
 
-3. tbl_comment
+DROP TABLE IF EXISTS tbl_board;
+CREATE TABLE tbl_board
+(
+   boardno INT PRIMARY KEY AUTO_INCREMENT,
+   writer VARCHAR(20) NOT NULL,
+   title VARCHAR(100) NOT NULL,
+   content VARCHAR(10000) NOT NULL,
+   writedate DATETIME DEFAULT ( NOW() ),
+   modifydate DATETIME DEFAULT ( NOW() ),
+   readcount INT DEFAULT (0), 
+   CONSTRAINT fk_member_board FOREIGN KEY (writer) REFERENCES tbl_member(memberid) 
+); 
+DESC tbl_board;
 
-   commentno int pk 자동증가
-   writer 문자열 NOT NULL
-   boardno INT not null
-   content 문자열 not null
-   writedate DATETIME
-   modifydate DATETIME
-   외래키 boardno -> tbl_board(boardno)
-   외래키 writer -> tbl_member(memberid)
+-- 3. tbl_comment
+
+--    commentno int pk 자동증가
+--    writer 문자열 NOT NULL
+--    boardno INT not null
+--    content 문자열 not null
+--    writedate DATETIME
+--    modifydate DATETIME
+--    외래키 boardno -> tbl_board(boardno)
+--    외래키 writer -> tbl_member(memberid)
    
 [ 테이블 수정 ]
 

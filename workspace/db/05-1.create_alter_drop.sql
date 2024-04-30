@@ -163,6 +163,36 @@ CREATE TABLE buy2 (
 
 DESC buy2;
 
+-- member2 테이블, buy2 테이블 만들기 2 : auto_increment, FK 사용
+DROP TABLE IF EXISTS buy2;
+DROP TABLE IF EXISTS member2;
+
+CREATE TABLE member2 (
+	mem_id char(3) 			NOT NULL,
+    mem_name varchar(10) 	NOT NULL,
+    mem_number int 			NOT NULL,
+    addr varchar(10)		NOT NULL,
+    phone1 varchar(3)		NULL,
+    phone2 varchar(8)		, -- DEFAULT NULL
+    height smallint			CHECK (height > 0 AND height < 300),
+    debut_date date			DEFAULT ( NOW() ),
+    -- PRIMARY KEY (mem_id)	-- 기본키 지정 ( 자동으로 생성되는 PK 이름 사용 )
+    CONSTRAINT pk_member2 PRIMARY KEY (mem_id)	-- 기본키 지정 ( 사용자 지정 PK 이름 )
+);
+
+CREATE TABLE buy2 (
+	num int not null primary key auto_increment,
+    buyer char(3) not null,
+    prod_name char(6) not null,
+    group_name char(4) null,
+    price int not null,
+    amount smallint not null,
+    -- FOREIGN KEY (mem_id) REFERENCES member2(mem_id)
+    CONSTRAINT fk_member2_buy2 FOREIGN KEY (buyer) REFERENCES member2(mem_id)
+);
+
+DESC buy2;
+
 -- member2 테이블 수정
 DROP TABLE IF EXISTS buy2;
 DROP TABLE IF EXISTS member2;
