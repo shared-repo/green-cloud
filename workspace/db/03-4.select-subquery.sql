@@ -86,6 +86,35 @@ INNER JOIN orders o
 ON c2.custid = o.custid
 GROUP BY c2.custid, c2.name;
 
+-- ---------------------------------------------------------------------------
+
+-- 사용 데이터베이스 변경
+USE employees;
+
+SELECT * FROM employees WHERE emp_no BETWEEN 10001 AND 10010
+-- UNION -- 중복 데이터 제거
+UNION ALL	-- 중복 데이터 모두 포함
+SELECT * FROM employees WHERE emp_no BETWEEN 10005 AND 10015;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  
                 
