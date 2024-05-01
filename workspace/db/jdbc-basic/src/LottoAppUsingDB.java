@@ -99,8 +99,18 @@ public class LottoAppUsingDB {
 				break;
 			case "5":
 				// 회차 입력
+				System.out.print("회차 : ");
+				int round = scanner.nextInt();
+				scanner.nextLine();
 				// 해당 회차에 대한 당첨 번호 조회 ( DAO에 요청 )
+				LottoDao dao2 = new LottoDao();
+				LottoWinningNumber n = dao2.selectWinningNumberByRnd(round);
 				// 결과 출력
+				if (n != null) {
+					System.out.println(n);
+				} else {
+					System.out.println("조회 결과가 없습니다. 회차를 확인하세요.");
+				}
 				break;
 			default:
 				System.out.println("지원하지 않는 명령입니다.");

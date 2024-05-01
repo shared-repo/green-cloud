@@ -128,6 +128,7 @@ public class LottoDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		LottoWinningNumber n = null; // 1개의 조회 결과를 저장할 객체
 		try {
 			// 1. 드라이버 준비
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -147,7 +148,7 @@ public class LottoDao {
 			
 			// 5. 결과가 있으면 결과 처리
 			while (rs.next()) {
-				LottoWinningNumber n = new LottoWinningNumber();
+				n = new LottoWinningNumber();
 				n.setRnd(rs.getInt(1));
 				n.setGameDate(rs.getDate(2));
 				n.setNumber1(rs.getInt(3));
@@ -157,7 +158,6 @@ public class LottoDao {
 				n.setNumber5(rs.getInt(7));
 				n.setNumber6(rs.getInt(8));
 				n.setBonusNumber(rs.getInt(9));
-
 			}
 			
 		} catch (Exception ex) {
@@ -168,7 +168,7 @@ public class LottoDao {
 			try { conn.close(); } catch (Exception ex) {}
 		}
 		
-		return null;
+		return n;
 	}
 	
 }
