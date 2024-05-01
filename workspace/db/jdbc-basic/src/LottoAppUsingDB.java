@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LottoAppUsingDB {
@@ -46,66 +47,49 @@ public class LottoAppUsingDB {
 				LottoDao dao = new LottoDao();
 				
 				dao.deleteAllWinningNumbers();
-				
-				Connection conn = null;
-				PreparedStatement pstmt = null;				
+					
+				FileInputStream fis = null;		// 파일에 대한 byte[] 입출력
+				InputStreamReader isr = null;	// String <-> byte[] 변환
+				BufferedReader br = null;		// 한 줄씩 읽는 기능 제공
+				ArrayList<LottoWinningNumber> numbers = new ArrayList<>(); // 파일에서 읽은 데이터를 저장할 컬렉션 객체
 				try {
-					// 1. 드라이버 준비
-					Class.forName("com.mysql.cj.jdbc.Driver");
+					fis = new FileInputStream("lotto-winning-numbers.txt");
+					isr = new InputStreamReader(fis);
+					br = new BufferedReader(isr);
 					
-					// 2. 연결 객체 만들기
-					conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/market_db", "green_cloud", "mysql");
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");	// 특정 형식의 문자열 -> 날짜 or 날짜 -> 특정 형식의 문자열
 					
-					String sql = "INSERT INTO lotto_winning_number VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-					pstmt = conn.prepareStatement(sql);
-					
-					FileInputStream fis = null;		// 파일에 대한 byte[] 입출력
-					InputStreamReader isr = null;	// String <-> byte[] 변환
-					BufferedReader br = null;		// 한 줄씩 읽는 기능 제공
-					try {
-						fis = new FileInputStream("lotto-winning-numbers.txt");
-						isr = new InputStreamReader(fis);
-						br = new BufferedReader(isr);
+					while (true) {
+						String line = br.readLine();	// 텍스트 파일에서 한 줄 읽기
+						if (line == null) {				// EOF
+							break;
+						}
 						
-						SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");	// 특정 형식의 문자열 -> 날짜 or 날짜 -> 특정 형식의 문자열
+						String[] data = line.split(","); // split : "abc-efg-xy-tac".split("-") --> ["abc", "efg", "xy", "tac"]
+						LottoWinningNumber n = new LottoWinningNumber();
+						n.setRnd(Integer.parseInt(data[0]));
+						java.util.Date d = sdf.parse(data[1]);
+						long tick = d.getTime(); // 1970.1.1 00:00:00 초 이후에 경과된 시간을 1/1000초 단위로 계산한 값
+						n.setGameDate(new java.sql.Date(tick));
+						n.setNumber1(Integer.parseInt(data[2]));
+						n.setNumber2(Integer.parseInt(data[3]));
+						n.setNumber3(Integer.parseInt(data[4]));
+						n.setNumber4(Integer.parseInt(data[5]));
+						n.setNumber5(Integer.parseInt(data[6]));
+						n.setNumber6(Integer.parseInt(data[7]));
+						n.setBonusNumber(Integer.parseInt(data[8]));
 						
-						while (true) {
-							String line = br.readLine();	// 텍스트 파일에서 한 줄 읽기
-							if (line == null) {				// EOF
-								break;
-							}
-							
-							String[] data = line.split(","); // split : "abc-efg-xy-tac".split("-") --> ["abc", "efg", "xy", "tac"]
-							pstmt.setInt(1, Integer.parseInt(data[0]));
-							java.util.Date d = sdf.parse(data[1]);
-							long tick = d.getTime(); // 1970.1.1 00:00:00 초 이후에 경과된 시간을 1/1000초 단위로 계산한 값
-							pstmt.setDate(2, new java.sql.Date(tick));
-							pstmt.setInt(3, Integer.parseInt(data[2]));
-							pstmt.setInt(4, Integer.parseInt(data[3]));
-							pstmt.setInt(5, Integer.parseInt(data[4]));
-							pstmt.setInt(6, Integer.parseInt(data[5]));
-							pstmt.setInt(7, Integer.parseInt(data[6]));
-							pstmt.setInt(8, Integer.parseInt(data[7]));
-							pstmt.setInt(9, Integer.parseInt(data[8]));
-							
-							pstmt.executeUpdate();
-						}			
-					} catch (IOException ex) {			
-					} finally {
-						try { br.close(); } catch (Exception ex) {}
-						try { isr.close(); } catch (Exception ex) {}
-						try { fis.close(); } catch (Exception ex) {}
-					}					
-					
-					// 5. 결과가 있으면 결과 처리
-					
+						numbers.add(n);
+					}			
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				} finally {
-					// 6. 연결 종료					
-					try { pstmt.close(); } catch (Exception ex) {}
-					try { conn.close(); } catch (Exception ex) {}
+					try { br.close(); } catch (Exception ex) {}
+					try { isr.close(); } catch (Exception ex) {}
+					try { fis.close(); } catch (Exception ex) {}
 				}
+				
+				dao.insertAllWinningNumbers(numbers);
 				
 				break;
 			case "5":
