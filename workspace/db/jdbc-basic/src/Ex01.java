@@ -12,7 +12,8 @@ public class Ex01 {
 		ResultSet rs = null;
 		try {
 			// 1. 드라이버 준비
-			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+			// DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			
 			// 2. 연결 객체 만들기
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/employees", "green_cloud", "mysql");
