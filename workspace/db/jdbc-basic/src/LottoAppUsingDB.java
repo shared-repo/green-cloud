@@ -1,10 +1,18 @@
 
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
+
+import com.greencloud.javabasic.lab.NumberSet;
 
 public class LottoAppUsingDB {
 
@@ -55,10 +63,47 @@ public class LottoAppUsingDB {
 					// 4-1. 명령 실행 ( 삭제 관련 )
 					pstmt.executeUpdate(); 
 					
-					// 3-2. 삽입 명령 객체 
 					
-					// 4-2. 삽입 실행
+					sql = "INSERT INTO lotto_winning_numbers VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					pstmt = conn.prepareStatement(sql);
 					
+					FileInputStream fis = null;		// 파일에 대한 byte[] 입출력
+					InputStreamReader isr = null;	// String <-> byte[] 변환
+					BufferedReader br = null;		// 한 줄씩 읽는 기능 제공
+					try {
+						fis = new FileInputStream("lotto-winning-numbers.txt");
+						isr = new InputStreamReader(fis);
+						br = new BufferedReader(isr);
+						
+						SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");	// 특정 형식의 문자열 -> 날짜 or 날짜 -> 특정 형식의 문자열
+						
+						while (true) {
+							String line = br.readLine();	// 텍스트 파일에서 한 줄 읽기
+							if (line == null) {				// EOF
+								break;
+							}
+							
+							String[] data = line.split(","); // split : "abc-efg-xy-tac".split("-") --> ["abc", "efg", "xy", "tac"]
+							pstmt.setInt(1, Integer.parseInt(data[0]));
+							java.util.Date d = sdf.parse(data[1]);
+							long tick = d.getTime(); // 1970.1.1 00:00:00 초 이후에 경과된 시간을 1/1000초 단위로 계산한 값
+							pstmt.setDate(2, new java.sql.Date(tick));
+							pstmt.setInt(3, Integer.parseInt(data[2]));
+							pstmt.setInt(4, Integer.parseInt(data[3]));
+							pstmt.setInt(5, Integer.parseInt(data[4]));
+							pstmt.setInt(6, Integer.parseInt(data[5]));
+							pstmt.setInt(7, Integer.parseInt(data[6]));
+							pstmt.setInt(8, Integer.parseInt(data[7]));
+							pstmt.setInt(9, Integer.parseInt(data[8]));
+							
+							pstmt.executeUpdate();
+						}			
+					} catch (IOException ex) {			
+					} finally {
+						try { br.close(); } catch (Exception ex) {}
+						try { isr.close(); } catch (Exception ex) {}
+						try { fis.close(); } catch (Exception ex) {}
+					}					
 					
 					// 5. 결과가 있으면 결과 처리
 					
