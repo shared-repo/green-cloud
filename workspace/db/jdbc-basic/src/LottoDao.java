@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class LottoDao {
@@ -45,7 +46,7 @@ public class LottoDao {
 			
 			// 2. 연결 객체 만들기
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/market_db", "green_cloud", "mysql");
-			
+						
 			// 3-1. 명령 객체 만들기
 			String sql = "INSERT INTO lotto_winning_number VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -63,9 +64,8 @@ public class LottoDao {
 				pstmt.setInt(9, n.getBonusNumber());
 				
 				// 4-1. 명령 실행
-				pstmt.executeUpdate(); 
-			}
-			
+				pstmt.executeUpdate();
+			}			
 			// 5. 결과가 있으면 결과 처리
 			
 		} catch (Exception ex) {
@@ -86,7 +86,7 @@ public class LottoDao {
 			
 			// 2. 연결 객체 만들기
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/market_db", "green_cloud", "mysql");
-			
+
 			// 3-1. 명령 객체 만들기
 			String sql = "INSERT INTO lotto_winning_number VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
@@ -123,6 +123,54 @@ public class LottoDao {
 	}
 
 
+	public LottoWinningNumber selectWinningNumberByRnd(int round) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			// 1. 드라이버 준비
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결 객체 만들기
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/market_db", "green_cloud", "mysql");
+
+			// 3-1. 명령 객체 만들기
+			String sql = "SELECT rnd, game_date, number1, number2, number3, number4, number5, number6, bonus_number " +
+						 "FROM lotto_winning_number " +
+						 "WHERE rnd = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, round);
+			
+			// 4-1. 명령 실행
+			rs = pstmt.executeQuery(); // executeQuery : select, executeUpdate : insert, update, delete, ....
+			
+			// 5. 결과가 있으면 결과 처리
+			while (rs.next()) {
+				LottoWinningNumber n = new LottoWinningNumber();
+				n.setRnd(rs.getInt(1));
+				n.setGameDate(rs.getDate(2));
+				n.setNumber1(rs.getInt(3));
+				n.setNumber2(rs.getInt(4));
+				n.setNumber3(rs.getInt(5));
+				n.setNumber4(rs.getInt(6));
+				n.setNumber5(rs.getInt(7));
+				n.setNumber6(rs.getInt(8));
+				n.setBonusNumber(rs.getInt(9));
+
+			}
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// 6. 연결 종료					
+			try { pstmt.close(); } catch (Exception ex) {}
+			try { conn.close(); } catch (Exception ex) {}
+		}
+		
+		return null;
+	}
+	
 }
 
 
