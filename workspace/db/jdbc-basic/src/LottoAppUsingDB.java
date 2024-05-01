@@ -30,7 +30,7 @@ public class LottoAppUsingDB {
 			case "3": // 당첨 예상 번호 내보내기				
 				break;				
 			case "4": // 당첨 번호 데이터베이스 초기화
-				// market_db 데이터베이스에 테이블 만들기 ( mysql workbench에서 한 번만 수행, 테이블은 파일의 내용을 참고해서 구현 )
+				// market_db 데이터베이스에 테이블 만들기 ( mysql workbench에서 한 번만 수행, 테이블은 파일의 내용을 참고해서 구현 -- 아래 주석 참고 )
 				// 데이터베이스의 기존 데이터 모두 삭제
 				
 				// 파일에서 데이터 읽기
@@ -94,6 +94,22 @@ public class LottoAppUsingDB {
 
 }
 
+
+// 테이블 생성 구문
+// USE market_db;
+//
+// CREATE TABLE lotto_winning_number
+// (
+//	  rnd int not null primary key,
+//    game_date date not null,
+//    number1 int not null,
+//    number2 int not null,
+//    number3 int not null,
+//    number4 int not null,
+//    number5 int not null,
+//    number6 int not null,
+//    bonus_number int not null
+// );
 
 
 
