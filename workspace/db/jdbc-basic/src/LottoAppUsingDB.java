@@ -52,7 +52,9 @@ public class LottoAppUsingDB {
 				InputStreamReader isr = null;	// String <-> byte[] 변환
 				BufferedReader br = null;		// 한 줄씩 읽는 기능 제공
 				ArrayList<LottoWinningNumber> numbers = new ArrayList<>(); // 파일에서 읽은 데이터를 저장할 컬렉션 객체
+				System.out.println("1");
 				try {
+					
 					fis = new FileInputStream("lotto-winning-numbers.txt");
 					isr = new InputStreamReader(fis);
 					br = new BufferedReader(isr);
@@ -89,11 +91,16 @@ public class LottoAppUsingDB {
 					try { fis.close(); } catch (Exception ex) {}
 				}
 				
+				System.out.println("2");
 				dao.insertAllWinningNumbers(numbers);
+				// dao.insertAllWinningNumbersWithBatch(numbers);
+				System.out.println("3");
 				
 				break;
 			case "5":
-				
+				// 회차 입력
+				// 해당 회차에 대한 당첨 번호 조회 ( DAO에 요청 )
+				// 결과 출력
 				break;
 			default:
 				System.out.println("지원하지 않는 명령입니다.");
