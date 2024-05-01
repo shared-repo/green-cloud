@@ -42,6 +42,11 @@ public class LottoAppUsingDB {
 				// 데이터베이스의 기존 데이터 모두 삭제 ( delete 구문 )
 				// 파일에서 데이터 읽기 ( 1 ~ 1116회차 데이터 )
 				// 읽은 데이터를 데이터베이스에 저장
+				
+				LottoDao dao = new LottoDao();
+				
+				dao.deleteAllWinningNumbers();
+				
 				Connection conn = null;
 				PreparedStatement pstmt = null;				
 				try {
@@ -51,16 +56,7 @@ public class LottoAppUsingDB {
 					// 2. 연결 객체 만들기
 					conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/market_db", "green_cloud", "mysql");
 					
-					// 3-1. 명령 객체 만들기 (삭제 관련)
-					String sql = "DELETE FROM lotto_winning_number";
-					// String sql = "TRUNCATE TABLE lotto_winning_numbers;";
-					pstmt = conn.prepareStatement(sql);
-					
-					// 4-1. 명령 실행 ( 삭제 관련 )
-					pstmt.executeUpdate(); 
-					
-					
-					sql = "INSERT INTO lotto_winning_number VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					String sql = "INSERT INTO lotto_winning_number VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 					pstmt = conn.prepareStatement(sql);
 					
 					FileInputStream fis = null;		// 파일에 대한 byte[] 입출력
