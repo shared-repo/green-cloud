@@ -2,12 +2,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Scanner;
 
-// JDBC 기본 코드 테스트 
+// Parameter 사용
 
-public class Ex01 {
+public class Ex02 {
 
 	public static void main(String[] args) {
+		
+		Scanner scanner = new Scanner(System.in);
+		System.out.print("검색할 직원 이름 : ");
+		String nameKey = scanner.nextLine();
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -20,9 +25,19 @@ public class Ex01 {
 			// 2. 연결 객체 만들기
 			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/employees", "green_cloud", "mysql");
 			
-			// 3. 명령 객체 만들기
-			String sql = "SELECT emp_no, first_name, last_name, gender, hire_date FROM employees LIMIT 100";
+			// 3-1. 명령 객체 만들기
+//			String sql = "SELECT emp_no, first_name, last_name, gender, hire_date " +
+//					 	 "FROM employees " + 
+//						 "WHERE first_name LIKE '%" + nameKey + "%' OR last_name LIKE '%" + nameKey + "%'";			
+//			pstmt = conn.prepareStatement(sql);
+			
+			// 3-2. 명령 객체 만들기
+			String sql = "SELECT emp_no, first_name, last_name, gender, hire_date " +
+				 	 	 "FROM employees " + 
+				 	 	 "WHERE first_name LIKE ? OR last_name LIKE ?"; // ? : 여기에 데이터가 결합될 예정입니다.			
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + nameKey + "%"); // SQL의 첫 번째 ?에 적용할 데이터
+			pstmt.setString(2, "%" + nameKey + "%"); // SQL의 두 번째 ?에 적용할 데이터
 			
 			// 4. 명령 실행 ( 결과가 있으면 결과 저장 - select 인 경우 )
 			rs = pstmt.executeQuery();
