@@ -7,12 +7,8 @@ import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
-
-import com.greencloud.javabasic.lab.NumberSet;
 
 public class LottoAppUsingDB {
 
@@ -64,7 +60,7 @@ public class LottoAppUsingDB {
 					pstmt.executeUpdate(); 
 					
 					
-					sql = "INSERT INTO lotto_winning_numbers VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					sql = "INSERT INTO lotto_winning_number VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 					pstmt = conn.prepareStatement(sql);
 					
 					FileInputStream fis = null;		// 파일에 대한 byte[] 입출력
