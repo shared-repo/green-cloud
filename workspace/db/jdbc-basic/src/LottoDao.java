@@ -1,6 +1,7 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 public class LottoDao {
 	
@@ -33,4 +34,8 @@ public class LottoDao {
 		}
 	}
 
+	
+	public void insertAllWinningNumbers(ArrayList<LottoWinningNumber> numbers) {
+		
+	}
 }
