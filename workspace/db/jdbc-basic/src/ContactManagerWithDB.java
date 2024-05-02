@@ -62,8 +62,17 @@ public class ContactManagerWithDB {
 				String nameToSearch = scanner.nextLine();
 				
 				// 2. 입력된 이름과 목록의 연락처의 이름을 비교해서 같은 이름의 연락처 찾기 (완전일치비교X, 부분일치비교O)
+				ArrayList<ContactDto> searchResult = dao.selectContactsByName(nameToSearch);
 				
 				// 3. 검색된 연락처 출력
+				if (searchResult.size() == 0) {
+					System.out.println("검색된 연락처가 없습니다.");
+				} else {
+					System.out.println("[ 검색된 연락처 목록 ]");
+					for (ContactDto c: searchResult) {
+						System.out.println(c);
+					}
+				}
 				
 				break;
 			case "5": // 연락처 목록
@@ -71,9 +80,13 @@ public class ContactManagerWithDB {
 				// ContactDao dao2 = new ContactDao();
 				ArrayList<ContactDto> contacts = dao.selectAllContacts();
 				// 2. 조회 결과 출력
-				System.out.println("[ 전체 연락처 목록 ]");
-				for (ContactDto c: contacts) {
-					System.out.println(c);
+				if (contacts.size() == 0) {
+					System.out.println("등록된 연락처가 없습니다.");
+				} else {
+					System.out.println("[ 전체 연락처 목록 ]");
+					for (ContactDto c: contacts) {
+						System.out.println(c);
+					}
 				}
 
 				break;				

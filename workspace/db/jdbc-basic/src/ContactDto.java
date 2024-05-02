@@ -57,7 +57,7 @@ public class ContactDto {
 	}
 
 	public String toString() {
-		return String.format("[%3d][%10s][%13s][%s]", no, name, phone, email);
+		return String.format("[%3d][%10s][%13s][%20s][%s]", no, name, phone, email, regiDate);
 	}
 
 
