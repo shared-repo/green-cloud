@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 
 public class ContactManagerWithDB {
 
 	private java.util.Scanner scanner = new java.util.Scanner(System.in);
 
+	private ContactDao dao = new ContactDao();
+	
 	public ContactManagerWithDB() {}
 	
 	public void manage() {
@@ -15,7 +18,7 @@ public class ContactManagerWithDB {
 				// 1. 연락처 입력 + 인스턴스 생성
 				ContactDto contact = inputNewContact();
 				// 2. 인스턴스를 연락처 테이블에 저장
-				ContactDao dao = new ContactDao();
+				// ContactDao dao = new ContactDao();
 				dao.insertContact(contact);
 				
 				System.out.println("연락처를 등록했습니다.");
@@ -65,8 +68,13 @@ public class ContactManagerWithDB {
 				break;
 			case "5": // 연락처 목록
 				// 1. 전체 연락처 목록 조회
-				
+				// ContactDao dao2 = new ContactDao();
+				ArrayList<ContactDto> contacts = dao.selectAllContacts();
 				// 2. 조회 결과 출력
+				System.out.println("[ 전체 연락처 목록 ]");
+				for (ContactDto c: contacts) {
+					System.out.println(c);
+				}
 
 				break;				
 			

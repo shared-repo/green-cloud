@@ -47,9 +47,19 @@ public class ContactDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public Date getRegiDate() {
+		return regiDate;
+	}
+
+	public void setRegiDate(Date regiDate) {
+		this.regiDate = regiDate;
+	}
 
 	public String toString() {
 		return String.format("[%3d][%10s][%13s][%s]", no, name, phone, email);
 	}
+
+
 
 }
