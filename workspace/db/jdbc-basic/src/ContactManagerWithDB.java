@@ -1,14 +1,3 @@
-// 연락처 관리 프로그램 만들기
-// 연락처 등록, 전체목록, 검색, 삭제, 수정 기능
-
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 
 public class ContactManagerWithDB {
 
