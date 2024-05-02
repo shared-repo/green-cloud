@@ -2,11 +2,11 @@ import java.util.Date;
 
 public class ContactDto {
 	
-	private int no;
+	private int no;						// 자동증가 설정
 	private String name;
 	private String phone;
 	private String email;
-	private Date regiDate = new Date();
+	private Date regiDate = new Date();	// default 설정
 
 	public ContactDto() {}
 
