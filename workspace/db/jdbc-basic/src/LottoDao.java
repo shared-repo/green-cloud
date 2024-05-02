@@ -35,7 +35,6 @@ public class LottoDao {
 		}
 		
 	}
-
 	
 	public void insertAllWinningNumbers(ArrayList<LottoWinningNumber> numbers) {
 		Connection conn = null;
@@ -121,7 +120,6 @@ public class LottoDao {
 			try { conn.close(); } catch (Exception ex) {}
 		}
 	}
-
 
 	public LottoWinningNumber selectWinningNumberByRnd(int round) {
 		

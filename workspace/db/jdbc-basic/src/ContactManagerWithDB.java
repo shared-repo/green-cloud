@@ -1,0 +1,153 @@
+// 연락처 관리 프로그램 만들기
+// 연락처 등록, 전체목록, 검색, 삭제, 수정 기능
+
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+public class ContactManagerWithDB {
+
+	private java.util.Scanner scanner = new java.util.Scanner(System.in);
+
+	public ContactManagerWithDB() {}
+	
+	public void manage() {
+		
+		program : while (true) {
+			String task = selectTask();
+			
+			switch (task) {
+			case "1": // 연락처 등록 
+				// 1. 연락처 입력 + 인스턴스 생성
+				ContactDto contact = inputNewContact();
+				// 3. 인스턴스를 연락처 목록에 저장
+				break;
+			case "2": // 수정 
+				// 1. 수정할 연락처 검색
+				// 1-1. 수정할 이름 입력
+				System.out.print("수정할 이름 : ");
+				String nameToEdit = scanner.nextLine();
+				// 1-2. 검색 수행
+				
+				// 1-3. 검색결과 출력				
+				
+				// 2. 수정할 연락처 고유번호(no) 입력
+				System.out.print("수정할 연락처의 고유번호 : ");
+				int noToEdit = scanner.nextInt(); // 입력을 처리한 후 버퍼에 엔터문자가 남아 있습니다.
+				scanner.nextLine(); // nextInt() 호출 후 버퍼에 남아있는 입력 데이터 제거
+				// 3. 입력된 번호에 해당하는 연락처 목록에서 삭제	
+
+				break;
+			case "3": // 삭제				
+				// 1. 삭제할 연락처 검색
+				// 1-1. 검색할 이름 입력
+				System.out.print("삭제할 이름 : ");
+				String nameToDelete = scanner.nextLine();
+				// 1-2. 검색 수행
+				
+				// 1-3. 검색결과 출력				
+				
+				// 2. 삭제할 연락처 고유번호(no) 입력
+				System.out.print("삭제할 연락처의 고유번호 : ");
+				int noToDelete = scanner.nextInt(); // 입력을 처리한 후 버퍼에 엔터문자가 남아 있습니다.
+				scanner.nextLine(); // nextInt() 호출 후 버퍼에 남아있는 입력 데이터 제거
+				// 3. 입력된 번호에 해당하는 연락처 목록에서 삭제	
+				
+				break;
+			case "4": // 검색 (이름기준) 
+				// 1. 검색할 이름 입력
+				System.out.print("검색할 이름 : ");
+				String nameToSearch = scanner.nextLine();
+				
+				// 2. 입력된 이름과 목록의 연락처의 이름을 비교해서 같은 이름의 연락처 찾기 (완전일치비교X, 부분일치비교O)
+				
+				// 3. 검색된 연락처 출력
+				
+				break;
+			case "5": // 연락처 목록
+				// 1. 전체 연락처 목록 조회
+				
+				// 2. 조회 결과 출력
+
+				break;				
+			
+			case "0": 
+				System.out.println("프로그램을 종료합니다.");
+				break program;
+			default: 
+				System.out.println("지원하지 않는 작업입니다.");;
+			}
+		}
+	}
+	
+	public String selectTask() {
+		System.out.println("********************");
+		System.out.println("* 1. 연락처 등록");
+		System.out.println("* 2. 연락처 수정");
+		System.out.println("* 3. 연락처 삭제");
+		System.out.println("* 4. 연락처 검색");
+		System.out.println("* 5. 연락처 목록");
+		System.out.println("* 0. 종료");
+		System.out.println("********************");
+		System.out.print("작업을 선택하세요 : ");
+		String task = scanner.nextLine();
+		return task;
+	}
+	
+	public ContactDto inputNewContact() {
+		// 1. 연락처 인스턴스 만들기 ( 1개의 연락처 정보 )
+		ContactDto contact = new ContactDto();
+		// 2. 이름, 이메일, 전화번호 사용자입력 -> 입력된 내용을 인스턴스에 저장
+		System.out.print("이름 : ");
+		String name = scanner.nextLine();
+		contact.setName(name);
+		System.out.print("전화번호 : ");
+		String phone = scanner.nextLine();
+		contact.setPhone(phone);
+		System.out.print("이메일 : ");
+		String email = scanner.nextLine();
+		contact.setEmail(email);
+		
+		return contact;
+	}
+	
+	/////////////////////////////////////////////////////////////////////////
+	
+	public static void main(String[] args) {
+		
+		ContactManagerWithDB contactManager = new ContactManagerWithDB();
+		contactManager.manage();
+		
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
