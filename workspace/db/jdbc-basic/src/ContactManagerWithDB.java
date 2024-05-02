@@ -46,14 +46,25 @@ public class ContactManagerWithDB {
 				System.out.print("삭제할 이름 : ");
 				String nameToDelete = scanner.nextLine();
 				// 1-2. 검색 수행
-				
-				// 1-3. 검색결과 출력				
-				
-				// 2. 삭제할 연락처 고유번호(no) 입력
-				System.out.print("삭제할 연락처의 고유번호 : ");
-				int noToDelete = scanner.nextInt(); // 입력을 처리한 후 버퍼에 엔터문자가 남아 있습니다.
-				scanner.nextLine(); // nextInt() 호출 후 버퍼에 남아있는 입력 데이터 제거
-				// 3. 입력된 번호에 해당하는 연락처 목록에서 삭제	
+				ArrayList<ContactDto> contactsToDelete = dao.selectContactsByName(nameToDelete);
+				// 1-3. 검색결과 출력
+				if (contactsToDelete.size() == 0) {
+					System.out.println("삭제 대상 연락처가 없습니다.");
+				} else {
+					System.out.println("[ 검색된 연락처 목록 ]");
+					for (ContactDto c: contactsToDelete) {
+						System.out.println(c);
+					}
+					
+					// 2. 삭제할 연락처 고유번호(no) 입력
+					System.out.print("삭제할 연락처의 고유번호 : ");
+					int noToDelete = scanner.nextInt(); // 입력을 처리한 후 버퍼에 엔터문자가 남아 있습니다.
+					scanner.nextLine(); // nextInt() 호출 후 버퍼에 남아있는 입력 데이터 제거
+					// 3. 입력된 번호에 해당하는 연락처 목록에서 삭제	
+					dao.deleteContactByNo(noToDelete);
+					
+					System.out.println("연락처를 삭제했습니다.");
+				}
 				
 				break;
 			case "4": // 검색 (이름기준) 

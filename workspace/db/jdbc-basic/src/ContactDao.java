@@ -130,4 +130,33 @@ public class ContactDao {
 		return contacts;
 	}
 	
+	public void deleteContactByNo(int noToDelete) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;				
+		try {
+			// 1. 드라이버 준비
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결 객체 만들기
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/market_db", "green_cloud", "mysql");
+						
+			// 3-1. 명령 객체 만들기
+			String sql = "DELETE FROM contact WHERE no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, noToDelete);
+				
+			// 4-1. 명령 실행
+			pstmt.executeUpdate();
+					
+			// 5. 결과가 있으면 결과 처리
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// 6. 연결 종료					
+			try { pstmt.close(); } catch (Exception ex) {}
+			try { conn.close(); } catch (Exception ex) {}
+		}
+	}
 }
