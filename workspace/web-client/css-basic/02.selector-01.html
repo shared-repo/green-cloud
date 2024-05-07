@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Selector 01</title>
+    <style>
+        * {
+            text-align: center;   
+        }
+        p {
+            color: red;
+        }
+        div {
+            color: blue;
+        }
+        /* #demo_id */ h2#demo_id {
+            color: aquamarine;
+        }
+        /* .demo_class */ h3.demo_class {
+            color: orangered;
+        }
+        p, div, .demo_class {
+            font-size: 20pt;
+        }
+        p, div {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <p>스타일이 적용된 요소</p>
+    <div>스타일이 적용된 요소</div>
+    <h2 id="demo_id">스타일이 적용된 요소</h2>
+    <h3 class="demo_class">스타일이 적용된 요소</h3>
+</body>
+</html>

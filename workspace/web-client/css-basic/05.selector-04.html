@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Selector 04</title>
+    <style>
+        a { text-decoration: none; }
+        a[target] /* target 속성이 있는 a */ { font-size:20pt; }
+        a[target=_self] /* target 속성의 값이 _self인 a */ { background-color:orange; }
+    </style>
+</head>
+<body>
+    [<a href="http://www.naver.com">target 속성이 없는 요소</a>]<br>
+    [<a href="http://www.naver.com" target="_self">target 속성이 _self인 요소</a>]<br>
+    [<a href="http://www.naver.com" target="_blank">target 속성이 _blank인 요소</a>]
+    <hr>
+    <p class="def ghi">스타일이 적용된 요소</p>
+    <p class="abcd ghi">스타일이 적용된 요소</p>
+    <p class="ghi jkl">스타일이 적용된 요소</p>
+    <p class="bcd ef ghi">스타일이 적용된 요소</p>
+    <p class="abc- ghi">스타일이 적용된 요소</p>
+</body>
+</html>
