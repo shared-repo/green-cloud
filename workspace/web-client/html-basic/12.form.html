@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Element</title>
+</head>
+<body>
+
+    <form action="#" method="post">
+        <!-- input type="hidden" : 존재하고 서버로 전송되지만 화면에 표시되지 않는 요소 -->
+        <input type="hidden" name="hidden_data" value="1234567">
+    <table border="1" width="700" align="center">
+        <caption><h3>회원가입</h3></caption>
+        <tr style="height:40px">
+            <th style="width:100px">아이디</th>
+            <td style="padding:5px"><input type="text" name="id" style="width:95%"></td>
+        </tr>
+        <tr style="height:40px">
+            <th style="width:100px">패스워드</th>
+            <td style="padding:5px"><input type="password" name="passwd" style="width:95%"></td>
+        </tr>
+        <tr style="height:40px">
+            <th style="width:100px">이메일</th>
+            <!-- <td style="padding:5px"><input type="email" name="email" style="width:95%"></td> -->
+            <td style="padding:5px">
+                <input type="text" name="email_id">
+                @
+                <select name="email_domain">
+                    <option value="naver.com">naver.com</option>
+                    <option value="gmail.com">gmail.com</option>
+                    <option value="hotmail.com">hotmail.com</option>
+                    <option value="nate.com">nate.com</option>
+                </select>
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <th style="width:100px">전화번호</th>
+            <!-- <td style="padding:5px"><input type="tel" name="phone" style="width:95%"></td> -->
+            <td style="padding:5px">
+                <select name="phone1" style="width:100px">
+                    <option value="010">010</option>
+                    <option value="011">011</option>
+                    <option value="015">015</option>
+                    <option value="017">017</option>
+                    <option value="018">018</option>
+                    <option value="019">019</option>
+                </select>
+                -
+                <input type="text" name="phone2" style="width:100px">
+                -
+                <input type="text" name="phone3" style="width:100px">
+            </td>
+            <tr style="height:40px">
+                <th style="width:100px">성별</th>
+                <td style="padding:5px">
+                    <input type="radio" name="gender" value="female">여
+                    <input type="radio" name="gender" value="male">남
+                </td>
+            </tr>
+            <tr style="height:40px">
+                <th style="width:100px">생년월일</th>
+                <td style="padding:5px">
+                    <input type="date" name="birth_date">
+                </td>
+            </tr>
+            <tr style="height:40px">
+                <th style="width:100px">관심주제</th>
+                <td style="padding:5px">
+                    <input type="checkbox" name="interest" value="프로그래밍">프로그래밍
+                    <input type="checkbox" name="interest" value="영화">영화
+                    <input type="checkbox" name="interest" value="문학">문학
+                    <input type="checkbox" name="interest" value="스포츠">스포츠
+                    <input type="checkbox" name="interest" value="게임">게임
+                    <input type="checkbox" name="interest" value="음악">음악
+                </td>
+            </tr>
+            <tr style="height:40px">
+                <th style="width:100px">프로필사진</th>
+                <td style="padding:5px">
+                    <input type="file" name="picture1" accept=".png, .jpg, .jpeg, .gif">
+                    <input type="file" name="picture2" accept="image/png, image/jpeg, image/gif">
+                </td>
+            </tr>
+            <tr style="height:40px">
+                <th style="width:100px">가입인사</th>
+                <td style="padding:5px">
+                    <!-- <textarea name="greetings" style="width:95%"></textarea> -->
+                    <textarea name="greetings" cols="80" rows="5" style="resize: none;"></textarea>
+                </td>
+            </tr>
+            <tr style="height:40px">                
+                <th colspan="2" style="padding:5px">
+                    <input type="submit" value="가입">
+                    <input type="image" src="">
+                    <input type="button" value="JS호출">
+                    <input type="reset" value="초기화">
+                </th>
+            </tr>
+        </tr>
+    </table>
+    </form>
+    
+</body>
+</html>
