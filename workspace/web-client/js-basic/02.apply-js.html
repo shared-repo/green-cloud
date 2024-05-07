@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello, Javascript</title>
+    <script type="text/javascript">
+        alert('비 예보가 있습니다. 안전하게 귀가하세요!!!');
+    </script>
+</head>
+<body>
+    
+    <script type="text/javascript">
+        alert('비 예보가 있습니다. 안전하게 귀가하세요 2!!!');
+    </script>
+
+    <!-- inline 방식 : 시작 태그에 js 적용 -->
+    <input type="button" value="눌러주세요" onclick="alert('눌러주셔서 감사합니다.')">
+    <button onclick="confirm('눌러주셔서 감사합니다 2.')">눌러주세요 2</button>
+
+    <!-- internal 방식 : 위치와 갯수 자유롭게 결정 -->
+    <script type="text/javascript">
+        alert('비 예보가 있습니다. 안전하게 귀가하세요 3!!!');
+    </script>
+
+    <!-- external 방식 : 위치와 갯수 자유롭게 결정 -->
+    <script type="text/javascript" src="js/myscript.js"></script>
+</body>
+</html>
