@@ -7,6 +7,12 @@
         a { text-decoration: none; }
         a[target] /* target 속성이 있는 a */ { font-size:20pt; }
         a[target=_self] /* target 속성의 값이 _self인 a */ { background-color:orange; }
+
+        p[class*='ef'] { color: red; }
+        p[class~='ef'] { font-size: 20pt; }
+        p[class^='abc'] { color:purple; font-weight: bold; }
+        p[class$='jkl'] { font-style: italic; }
+        p[class|='abc'] { background-color: aquamarine; }
     </style>
 </head>
 <body>
