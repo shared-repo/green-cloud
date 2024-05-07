@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Javascript output function</title>
+</head>
+<body>
+    <script type="text/javascript">
+        alert('사용자에게 메시지를 표시하고 확인 대답 요청'); // alert == window.alert
+        var okCancel = confirm('사용자에게 메시지를 표시하고 확인/취소 대답 요청'); // confirm == window.confirm
+        if (okCancel) {
+            alert('사용자가 OK를 선택했습니다.');
+        } else {
+            alert('사용자가 Cancel을 선택했습니다.');
+        }
+        
+        prompt('사용자로부터 입력받는 창 표시'); // prompt = window.prompt
+
+        console.log('브라우저 개발자 도구의 console 화면에 출력');
+
+        document.write("<h1>브라우저 화면에 출력</h1>");
+    </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>variables</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var a = 10;
+        console.log("a : " + a);
+        a = "hello";
+        console.log("a : " + a);
+
+        var b1 = 10;
+        var b2 = "10";
+        console.log("b1 + b1 = " + (b1 + b1));
+        console.log("b2 + b2 = " + (b2 + b2));
+
+        //////////////////////////////////////////
+
+        const c = 10; // const : 값을 변경할 수 없는 변수 : java의 final
+        console.log("c : " + c);
+        // c = 20; // 오류 : const로 선언한 변수는 값 변경 불가능
+        // console.log("c : " + c);
+
+        let d = 10;
+        console.log("d : " + d);
+        d = 20;
+        console.log("d after modified : " + d);
+
+    </script>
+</body>
+</html>
