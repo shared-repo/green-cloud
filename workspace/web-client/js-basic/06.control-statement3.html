@@ -26,9 +26,17 @@
 
         const winningNumbers = [];
         for (let i = 0; i < 6; i++) {
-            const number = Math.floor(Math.random() * 45) + 1;
-            winningNumbers.push(number);
-        }
+			
+			winningNumbers[i] = Math.floor(Math.random() * 45) + 1; // 1 ~ 45, random
+			//중복 검사
+			for (let j = 0; j < i; j++) {
+				if (winningNumbers[i] == winningNumbers[j]) { // 중복인 경우
+					//i--;	// 현재 위치에서 다시 뽑기
+					i = -1;	// 처음부터 다시 뽑기
+					break;
+				}
+			}
+		}
 
         document.write("<table align='center'>");
             document.write("<caption><h3>당첨 예상 번호</h3></caption>");
