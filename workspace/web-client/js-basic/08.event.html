@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button { width: 100px; height: 50px;}      
+    </style>
+</head>
+<body>
+
+    <button onclick="alert('감사합니다');">눌러주세요</button>
+    <button id="btn2">눌러주세요</button>
+    <button id="btn3">눌러주세요</button>
+    
+    <script type="text/javascript">
+
+        const btn2 = document.getElementById("btn2"); // html에서 id="btn2"인 요소를 찾아서 반환
+        btn2.onclick = function() { alert('감사합니다. 2'); }
+
+        const btn3 = document.querySelector('#btn3'); // CSS 선택자 구문으로 id=btn3인 요소 찾기
+        btn3.onclick = () => alert('감사합니다. 3');
+
+    </script>
+</body>
+</html>

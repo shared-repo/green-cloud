@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button { width: 100px; height: 50px;}      
+    </style>
+</head>
+<body>
+
+    <script type="text/javascript">
+
+        const ar = [];  // 요소가 없는 배열 만들기
+        const ar2 = new Array();  // 요소가 없는 배열 만들기
+        const ar3 = [1, 2, 3, 4, 5]; // 요소가 있는 배열 만들기
+        const ar4 = new Array(1, 2, 3, 4, 5); // 요소가 있는 배열 만들기
+
+        console.log(ar3[1]);
+        console.log(ar4[3]);
+
+        ar.push(10); ar.push(20), ar.push(30); // 배열에 요소 추가
+        console.log(ar.toString());
+        console.log(ar.length);
+
+        console.log( "ar3[5] : " + ar3[5] );
+        ar3[5] = 100;
+        console.log( "ar3[5] : " + ar3[5] );
+        console.log( "length : " + ar3.length);
+
+        ar3[7] = 100;
+        console.log( "ar3[7] : " + ar3[7] );
+
+        console.log( "length : " + ar3.length);
+
+    </script>
+</body>
+</html>

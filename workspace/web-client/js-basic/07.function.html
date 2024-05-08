@@ -11,18 +11,53 @@
     
     <script type="text/javascript">
 
-        function add(a = 0, b = 0) {
-            result = a + b;
-            return a + b;
+        function add(a=10, b=20) {
+            const result = a + b;
+            return result;
         }
-        console.log(result); // add 함수 내부에서 선언된 변수를 외부에서 사용할 수 없습니다.
+        // console.log(result); // add 함수 내부에서 선언된 변수를 외부에서 사용할 수 없습니다.
 
-        const result2 = add(10, 20);
+        const result2 = add(10, 20); // 10 -> a, 20 -> b
         console.log(result2);
 
         const result3 = add(10);
         console.log(result3);
 
+        function add2({a, b}) {
+            const result = a * 10 + b;
+            return result;
+        }
+        const result4 = add2({b : 100, a : 200});
+        console.log("result 4 : " + result4);
+
+        /////////////////////////////////////
+
+        function sub(a = 0 , b = 0) {
+            return a - b;
+        }
+        function mul(a = 0 , b = 0) {
+            return a * b;
+        }
+        function div(a = 0 , b = 0) {
+            return a / b;
+        }
+        const f = sub; // javascript의 함수는 변수에 저장할 수 있습니다. 
+        const result5 = f(100, 50);
+        console.log(result5);
+
+        function calculate(v1, v2, calculator) {
+            const result = calculator(v1, v2);
+            return result;
+        }
+
+        console.log( calculate(10, 20, add) );
+        console.log( calculate(10, 20, mul) );
+
+        const result6 = calculate( 10, 20, (v1, v2) =>  v1 / v2 )
+        console.log(result6);
+
+        const result7 = calculate( 10, 20, function(v1, v2) { return v1 - v2; } )
+        console.log(result7);
                 
     </script>
 </body>
