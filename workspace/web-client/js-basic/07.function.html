@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>        
+    </style>
+</head>
+<body>
+    
+    <script type="text/javascript">
+
+        function add(a = 0, b = 0) {
+            result = a + b;
+            return a + b;
+        }
+        console.log(result); // add 함수 내부에서 선언된 변수를 외부에서 사용할 수 없습니다.
+
+        const result2 = add(10, 20);
+        console.log(result2);
+
+        const result3 = add(10);
+        console.log(result3);
+
+                
+    </script>
+</body>
+</html>
