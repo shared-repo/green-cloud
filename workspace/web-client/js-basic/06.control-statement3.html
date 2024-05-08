@@ -34,7 +34,7 @@
             document.write("<caption><h3>당첨 예상 번호</h3></caption>");
             document.write("<tr>");
                 for (let i = 0; i < 6; i++) {
-                    const bg = Math.floor((winningNumbers[i] - 1) / 10) + 1; // 1 ~ 10 : 1, 11 ~ 20 : 2
+                    const bg = Math.floor((winningNumbers[i]) / 10) + 1; // 1 ~ 9 : 1, 11 ~ 20 : 2
                     document.write(`<th>`);
                     document.write(`<span class='ball_645 lrg ball${bg}'>`);
                     document.write(winningNumbers[i])
