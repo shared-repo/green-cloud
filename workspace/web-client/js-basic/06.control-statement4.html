@@ -31,6 +31,8 @@
         }
 
         // alert(result);
+        const comImage = com == 1 ? "scissors" : com == 2 ? "rock" : "paper";
+        const userImage = user == 1 ? "scissors" : user == 2 ? "rock" : "paper";
 
         document.write("<table style='margin: 0 auto'>");
 
@@ -42,10 +44,10 @@
 
             document.write("<tr>");
                 document.write("<td>");
-                    document.write("<img src=''>");
+                    document.write(`<img src='images/${userImage}.png'>`);
                 document.write("</td>");
                 document.write("<td>");
-                    document.write("<img src=''>");
+                    document.write(`<img src='images/${comImage}.png'>`);
                 document.write("</td>");
             document.write("</tr>");
 
