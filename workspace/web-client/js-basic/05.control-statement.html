@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>variables</title>
+</head>
+<body>
+    <script type="text/javascript">
+        const ar = []; // 배열 선언  ( 자바의 ArrayList와 유사한 자료형 )
+        for (let i = 0; i < 10; i++) {
+            const frv = Math.random(); // 0 ~ 1 사이의 난수
+            const irv = Math.ceil(frv * 900) + 100;
+            ar.push(irv); // 배열에 값 추가
+        }
+        for (k in ar) { // 배열의 순서 번호( 첨자 )를 순차적으로 반환
+            // console.log(ar[k]);
+            document.write(`<span style="font-size:12pt;color:red;font-weight:bold">[${ar[k]}]</span>`);
+            document.write("&nbsp;&nbsp;");
+        }
+        document.write("<hr>");
+        for (v of ar) {// 배열의 값은 순차적으로 반환
+            // console.log(v);
+            document.write(`<span style="font-size:12pt;color:blue;font-weight:bold">[${v}]</span>`);
+            document.write("&nbsp;&nbsp;");
+        }
+        
+        
+    </script>
+</body>
+</html>

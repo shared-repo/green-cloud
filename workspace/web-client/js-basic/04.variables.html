@@ -28,6 +28,24 @@
         d = 20;
         console.log("d after modified : " + d);
 
+        /////////////////////////////////////////
+        const v1 = 10, v2 = 20;
+        const e1 = v1 + " + " + v2 + " = " + (v1 + v2);
+        const e2 = v1 + ' + ' + v2 + ' = ' + (v1 + v2);        
+        const e3 = `${v1} + ${v2} = ${v1 +v2}`;
+
+        console.log(e1);
+        console.log(e2);
+        console.log(e3);
+
+        ///////////////////////////////////////////
+
+        const f1 = 10;
+        const f2 = "10";
+        
+        console.log(`f1과 f2는 ${ f1 == f2 ? "같습니다." : "다릅니다."}.`);
+        console.log(`f1과 f2는 ${ f1 === f2 ? "같습니다." : "다릅니다."}.`);
+
     </script>
 </body>
 </html>
