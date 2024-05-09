@@ -14,8 +14,7 @@
 
         tr { height: 50px; }
         th { width: 50px; padding: 10px; }
-        div { text-align: center; }
-        button { height: 50px;  width: 300px; margin: 0 auto; } /* margin: 0 auto -> 가운데 정렬 */
+        button { height: 50px;  width: 300px; display:block; margin: 0 auto; } /* margin: 0 auto -> 가운데 정렬 */
     </style>
 </head>
 <body>
@@ -23,9 +22,7 @@
         로또 번호 추출기 구현
         1. 번호를 뽑아서 테이블 형태로 화면에 표시 
     -->
-    <div>
-        <button id="btn">당첨 예상 번호 뽑기</button>
-    </div>
+    <button id="btn">당첨 예상 번호 뽑기</button>
     <hr>
     <table align='center'>
         <caption><h3>당첨 예상 번호</h3></caption>
@@ -45,7 +42,7 @@
         // 1-2. button 사용 ( 이벤트 연결 )
         // btn.onclick = function() {} // 한 개의 함수만 연결 가능
         btn.addEventListener("click", function() { // 여러 개의 함수 연결 가능
-            
+
             const winningNumbers = [];
             for (let i = 0; i < 6; i++) {
                 winningNumbers[i] = Math.floor(Math.random() * 45) + 1; // 1 ~ 45, random
