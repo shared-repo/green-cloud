@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML DOM</title>
+    <style>
+        .ball_645 {display:inline-block; border-radius:100%; text-align:center; vertical-align:middle; color:#fff; font-weight:500; /* text-shadow: 0px 0px 2px rgba(0, 0, 0, 1); */}
+        .ball_645.lrg {width:60px; height:60px; line-height:56px; font-size:28px}
+        .ball_645.ball1 {background:#fbc400; text-shadow: 0px 0px 3px rgba(73, 57, 0, .8)}
+        .ball_645.ball2 {background:#69c8f2; text-shadow: 0px 0px 3px rgba(0, 49, 70, .8)}
+        .ball_645.ball3 {background:#ff7272; text-shadow: 0px 0px 3px rgba(64, 0, 0, .8)}
+        .ball_645.ball4 {background:#aaa; text-shadow: 0px 0px 3px rgba(61, 61, 61, .8)}
+        .ball_645.ball5 {background:#b0d840; text-shadow: 0px 0px 3px rgba(41, 56, 0, .8)}
+
+        tr { height: 50px; }
+        th { width: 50px; padding: 10px; }
+        div { text-align: center; }
+        button { height: 50px;  width: 300px; margin: 0 auto; } /* margin: 0 auto -> 가운데 정렬 */
+    </style>
+</head>
+<body>
+    <!-- 
+        로또 번호 추출기 구현
+        1. 번호를 뽑아서 테이블 형태로 화면에 표시 
+    -->
+    <div>
+        <button id="btn">당첨 예상 번호 뽑기</button>
+    </div>
+    <hr>
+    <table align='center'>
+        <caption><h3>당첨 예상 번호</h3></caption>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </table>
+    <script type="text/javascript">
+
+        // 1-1. button 찾기
+        const btn = document.querySelector("#btn");
+        // 1-2. button 사용 ( 이벤트 연결 )
+        // btn.onclick = function() {} // 한 개의 함수만 연결 가능
+        btn.addEventListener("click", function() { // 여러 개의 함수 연결 가능
+            
+            const winningNumbers = [];
+            for (let i = 0; i < 6; i++) {
+                winningNumbers[i] = Math.floor(Math.random() * 45) + 1; // 1 ~ 45, random
+                for (let j = 0; j < i; j++) {
+                    if (winningNumbers[i] == winningNumbers[j]) { // 중복인 경우
+                        i = -1;	// 처음부터 다시 뽑기
+                        break;
+                    }
+                }
+            }
+
+            // 2-1. th 찾기
+            // const th = document.querySelector('th'); // querySelector : 첫 번째 요소 찾기 (한개만)
+            const ths = document.querySelectorAll('th'); // querySelectorAll : 모든 요소 찾기
+            // 2-2. th 사용 ( 여기서는 값 표시 )
+            for (idx in winningNumbers) {
+                const bg = Math.floor((winningNumbers[idx]) / 10) + 1;
+                ths[idx].innerHTML = 
+                    `<span class='ball_645 lrg ball${bg}'>${winningNumbers[idx]}</span>`
+            }
+        });
+
+        
+                    
+
+    </script>
+</body>
+</html>
