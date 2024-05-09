@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON</title>
+</head>
+<body>
+    <script type="text/javascript">
+        const person = {
+            name : "John Doe",
+            email : ["johndoe@example.com","johndoe@naver.com"],
+            phone : {
+                mobile : "010-9865-3214",
+                office : "02-6547-9632"
+            }
+        };
+
+        console.log(person.name);
+        console.log(person.email[0]);
+        console.log(person.phone.mobile);
+
+        //////////////////////////////////////////
+
+        console.log(person);
+        alert(person);
+
+        const sPerson = JSON.stringify(person); // JSON Object -> String
+        console.log(sPerson);
+        alert(sPerson);
+
+        const person2 = JSON.parse(sPerson); // String -> JSON Object
+        console.log(person2);
+        alert(person2);
+
+    </script>
+</body>
+</html>
