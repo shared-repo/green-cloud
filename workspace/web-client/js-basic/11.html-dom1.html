@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML DOM</title>
+    <style>
+        button { height: 50px; }
+        div { border: solid 1px; padding: 5px; height: 100px; margin-bottom: 10px }
+    </style>
+</head>
+<body>
+    <button id="btn">1~100 범위의 난수 뽑기</button>
+    <hr>
+    <div id="message1"></div>
+    <input type="text" id="message2">
+
+    <script type="text/javascript">
+        // 1. button 찾기
+        // const btn = document.getElementById("btn");
+        const btn = document.querySelector("#btn");    
+        // 2. button 사용    
+        // alert( btn.innerHTML );
+        // alert( btn.id );
+        btn.onclick = function() { alert('이거 보고 쉬겠습니다.'); }
+    </script>
+</body>
+</html>
