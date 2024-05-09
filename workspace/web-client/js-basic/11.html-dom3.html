@@ -8,6 +8,26 @@
     </style>
 </head>
 <body>
+    
+    <script type="text/javascript">
+
+        window.addEventListener("load", function() { // 브라우저가 HTML을 다 읽었을 때 (로딩했을 때)
+            
+            const exchangeRate = 1369.30;
+            // 1-1. usd-to-won button 찾기
+            const usdToWon = document.querySelector('#usd-to-won');        
+            // 1-2. usd-to-won button 사용 ( 이벤트 연결 )
+            
+            usdToWon.addEventListener('click', function() {
+                // const usdInput = document.querySelector('#usd-input');
+                const usdInput = document.querySelector('input[name=usd-input]');
+                const wonOutput = document.querySelector('#won-output');
+                // wonOutput.value = usdInput.value * exchangeRate; // 문자열 * 실수
+                wonOutput.value = parseFloat(usdInput.value) * exchangeRate; // 실수 * 실수
+            });
+        });
+    </script>
+
     <table>
         <tr>
             <!-- 
@@ -25,19 +45,8 @@
             <td>USD : <input type="text" id="usd-output"></td>
         </tr>
     </table>
-    <script type="text/javascript">
-        const exchangeRate = 1369.30;
-        // 1-1. usd-to-won button 찾기
-        const usdToWon = document.querySelector('#usd-to-won');        
-        // 1-2. usd-to-won button 사용 ( 이벤트 연결 )
-        
-        usdToWon.addEventListener('click', function() {
-            // const usdInput = document.querySelector('#usd-input');
-            const usdInput = document.querySelector('input[name=usd-input]');
-            const wonOutput = document.querySelector('#won-output');
-            // wonOutput.value = usdInput.value * exchangeRate; // 문자열 * 실수
-            wonOutput.value = parseFloat(usdInput.value) * exchangeRate; // 실수 * 실수
-        });
-    </script>
+    
+    
+
 </body>
 </html>
