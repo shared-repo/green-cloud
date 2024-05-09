@@ -35,6 +35,22 @@
 
             const userColorBtn = document.querySelector("#apply-user-color");
             userColorBtn.addEventListener("click", function(event) {
+                if (red.value.trim().length == 0 || green.value.trim().length == 0 || blue.value.trim().length == 0) {
+                    alert('색상을 입력하세요 !!!');
+                    return;
+                }
+                if (isNaN(red.value) || isNaN(green.value) || isNaN(blue.value)) {
+                    alert('색상 값은 반드시 숫자여야 합니다.');
+                    return;
+                }
+                const r = parseInt(red.value);
+                const g = parseInt(green.value);
+                const b = parseInt(blue.value);
+                if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+                    alert("색상 값은 0 ~ 255 범위입니다.");
+                    return;
+                }
+
                 canvas.style.backgroundColor = `rgb(${red.value}, ${green.value}, ${blue.value})`;
             });
 
