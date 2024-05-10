@@ -31,66 +31,49 @@
 
         window.addEventListener('load', function(event) {
 
-            let selectedImg = null;
+            let selectedImg = null; // 사용자가 선택한 이미지 저장하는 변수
 
             const selectAreaImgs = document.querySelectorAll('#select-area img');
             for (let i = 0; i < selectAreaImgs.length; i++) {
                 selectAreaImgs[i].addEventListener('click', function(event) {
-                    if (selectedImg) {
-                        selectedImg.style.border = "";
+                    if (selectedImg) { // 기존에 선택한 이미지가 있다면
+                        selectedImg.style.border = ""; // 경계선 스타일 제거
                     }
-                    selectedImg = event.target;
-                    selectedImg.style.border = "solid red 3px";
+                    selectedImg = event.target; // 새로 선택한 이미지를 저장하고
+                    selectedImg.style.border = "solid red 3px"; // 경계선 스타일 설정
                 });
             }
+
+            const btnDoGame = document.querySelector('#btn-do-game'); 
+            btnDoGame.addEventListener('click', function(event) {   // "승부" 버튼의 클릭 이벤트 처리
+
+                input = selectedImg.getAttribute("data-val");
+                const user = window.parseInt(input); // 문자열 -> 숫자 : "3" -> 3
+                const com = Math.floor( Math.random() * 3 ) + 1; // 컴퓨터 번호
+
+                let result = "";
+                if ( (user === 2 && com === 1) || (user === 3 && com === 2) || (user === 1 && com === 3)) {
+                    result = "win";
+                } else if (user === com) {
+                    result = "draw";
+                } else {
+                    result = "lose";
+                }
+
+                const resultImg = document.querySelector("#result img");
+                resultImg.src = `images/${result}.png`;
+
+                const comImage = com == 1 ? "scissors" : com == 2 ? "rock" : "paper";
+                const userImage = user == 1 ? "scissors" : user == 2 ? "rock" : "paper";
+
+                const comImg = document.querySelector("#com img");
+                comImg.src = `images/${comImage}.png`;
+                const userImg = document.querySelector("#user img");
+                userImg.src = `images/${userImage}.png`;
+            });
+
+
         });
-
-
-        const input = window.prompt("가위(1), 바위(2), 보(3)를 선택하세요", "1");
-        const user = window.parseInt(input); // 문자열 -> 숫자 : "3" -> 3
-        // alert(user);
-        const com = Math.floor( Math.random() * 3 ) + 1;
-        let result = "";
-        if ( (user === 2 && com === 1) || (user === 3 && com === 2) || (user === 1 && com === 3)) {
-            result = "win";
-        } else if (user === com) {
-            result = "draw";
-        } else {
-            result = "lose";
-        }
-
-        // alert(result);
-        const comImage = com == 1 ? "scissors" : com == 2 ? "rock" : "paper";
-        const userImage = user == 1 ? "scissors" : user == 2 ? "rock" : "paper";
-        
-        // let userImage2 = "";
-        // if (user == 1) {
-        //     userImage2 = "scissors";
-        // } else if (user == 2) {
-        //     userImage2 = "rock";
-        // } else {
-        //     userImage2 = "paper";
-        // }
-
-        // document.write("<table style='margin: 0 auto'>");
-
-        //     document.write("<tr>");
-        //         document.write("<td colspan='2'>");
-        //             document.write(`<img src='images/${result}.png'>`);
-        //         document.write("</td>");
-        //     document.write("</tr>");
-
-        //     document.write("<tr>");
-        //         document.write("<td>");
-        //             document.write(`<img src='images/${userImage}.png'>`);
-        //         document.write("</td>");
-        //         document.write("<td>");
-        //             document.write(`<img src='images/${comImage}.png'>`);
-        //         document.write("</td>");
-        //     document.write("</tr>");
-
-        // document.write("</table>");
-
 
         
     </script>
