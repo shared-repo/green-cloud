@@ -19,11 +19,11 @@
     <hr>
     <table id="result-area">
         <tr>
-            <td colspan="2" id="result"><img src="images/win.png"></td>
+            <td colspan="2" id="result"></td>
         </tr>
         <tr>
-            <td id="user"><img src="images/scissors.png"></td>
-            <td id="com"><img src="images/scissors.png"></td>
+            <td id="user"></td>
+            <td id="com"></td>
         </tr>        
     </table>
 
@@ -31,12 +31,12 @@
 
         window.addEventListener('load', function(event) {
 
-            let selectedImg = null; // 사용자가 선택한 이미지 저장하는 변수
+            let selectedImg = null; // 사용자가 선택한 이미지 객체(요소) 저장하는 변수
 
             const selectAreaImgs = document.querySelectorAll('#select-area img');
             for (let i = 0; i < selectAreaImgs.length; i++) {
                 selectAreaImgs[i].addEventListener('click', function(event) {
-                    if (selectedImg) { // 기존에 선택한 이미지가 있다면
+                    if (selectedImg) { // 기존에 선택한 이미지가 있다면 ( 0 or null이면 false )
                         selectedImg.style.border = ""; // 경계선 스타일 제거
                     }
                     selectedImg = event.target; // 새로 선택한 이미지를 저장하고
@@ -46,6 +46,11 @@
 
             const btnDoGame = document.querySelector('#btn-do-game'); 
             btnDoGame.addEventListener('click', function(event) {   // "승부" 버튼의 클릭 이벤트 처리
+
+                if (!selectedImg) { // 선택된 이미지가 없다면 메시지 표시 -> 작업 중단
+                    alert('가위/바위/보를 선택하세요');
+                    return;
+                }
 
                 input = selectedImg.getAttribute("data-val");
                 const user = window.parseInt(input); // 문자열 -> 숫자 : "3" -> 3
@@ -60,16 +65,32 @@
                     result = "lose";
                 }
 
-                const resultImg = document.querySelector("#result img");
-                resultImg.src = `images/${result}.png`;
+                let resultImg = document.querySelector("#result img");
+                if (!resultImg) { // 이미 이미지가 없는 경우
+                    resultImg = document.createElement('img'); // 새 이미지 만들기
+                    const resultTd = document.querySelector('#result');
+                    resultTd.appendChild(resultImg); // 이미지를 화면에 추가 (여기서는 td에 추가)
+                }                 
+                resultImg.src = `images/${result}.png`;                
 
                 const comImage = com == 1 ? "scissors" : com == 2 ? "rock" : "paper";
-                const userImage = user == 1 ? "scissors" : user == 2 ? "rock" : "paper";
+                // const userImage = user == 1 ? "scissors" : user == 2 ? "rock" : "paper";
 
-                const comImg = document.querySelector("#com img");
+                let comImg = document.querySelector("#com img");
+                if (!comImg) {
+                    comImg = document.createElement('img');
+                    const comTd = document.querySelector('#com');
+                    comTd.appendChild(comImg);
+                }
                 comImg.src = `images/${comImage}.png`;
-                const userImg = document.querySelector("#user img");
-                userImg.src = `images/${userImage}.png`;
+
+                let userImg = document.querySelector("#user img");
+                if (!userImg) {
+                    userImg = document.createElement('img');
+                    const userTd = document.querySelector('#user');
+                    userTd.appendChild(userImg);
+                }
+                userImg.src = selectedImg.src;
             });
 
 
