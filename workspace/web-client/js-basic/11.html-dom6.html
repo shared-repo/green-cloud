@@ -8,22 +8,6 @@
 </head>
 <body>
 
-    <!--
-    <table>
-        <tr id="color-row">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr id="canvas-row">
-            <td colspan="7"></td>
-        </tr>
-    </table>
-    -->
     <script type="text/javascript">
         window.addEventListener('load', function() {
             const table = document.createElement("table");
@@ -54,7 +38,8 @@
             
             const canvasTd = document.createElement("td");
             canvasTd.style.height = "400px";
-            canvasTd.colspan = 7;
+            // canvasTd.colSpan = 7; // tag의 모든 속성을 dot(.) 연산자로 접근할 수 없습니다.
+            canvasTd.setAttribute("colspan", 7); // setAttribute는 모든 속성에 적용 가능
 
             canvasTr.appendChild(canvasTd);
 
