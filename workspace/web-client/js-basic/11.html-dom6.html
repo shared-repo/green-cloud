@@ -8,10 +8,11 @@
 </head>
 <body>
 
+    <!--
     <table>
         <tr id="color-row">
-            <td id="red"></td>
-            <td id="orange"></td>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -22,7 +23,7 @@
             <td colspan="7"></td>
         </tr>
     </table>
-    
+    -->
     <script type="text/javascript">
         window.addEventListener('load', function() {
             const table = document.querySelector("table");
@@ -45,19 +46,6 @@
 
             const canvasTd = document.querySelector("#canvas-row td");
             canvasTd.style.height = "400px";
-
-            /////////////////////////////////////////////////////
-
-            // const canvasTd = document.querySelector("#canvas-row td");
-            // function clickHandler(event) { // event-handler의 전달인자는 발생된 event와 관련된 정보 저장
-            //     const td = event.target; // event.target : 현재 이벤트를 발생시킨 객체
-            //     canvasTd.style.backgroundColor = td.style.backgroundColor;
-            // }
-            // const redTd = document.querySelector("#red");
-            // redTd.addEventListener('click', clickHandler);
-            // const orangeTd = document.querySelector("#orange");
-            // orangeTd.addEventListener('click', clickHandler);
-
         });
     </script>
 
