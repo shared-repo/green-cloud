@@ -34,16 +34,30 @@
 
     <script type="text/javascript">
 
+        function setCurrentImage(newImage) {
+            if (currentImg) {
+                currentImg.style.border = "";   // 현재 선택된 이미지의 스타일 변경 (선택 해제)
+            }
+            currentImg = newImage;          // 현재 이미지를 새 이미지로 변경
+            currentImg.style.border = "solid 3px red"; // 변경된 현재 이미지의 스타일 변경 (선택 활성화)
+            displayImg.src = currentImg.src;
+        }
+
         let currentImg = null;
         const displayImg = document.querySelector("#display-row img");
         const selectImgs = document.querySelectorAll('#select-row img');
 
         for (let i = 0; i < selectImgs.length; i++) {
             selectImgs[i].addEventListener("click", function(event) {
-                currentImg = event.target;
-                displayImg.src = currentImg.src;
+                // currentImg = event.target;
+                // displayImg.src = currentImg.src;
+                setCurrentImage(event.target);
             });
         }
+
+        // currentImg = selectImgs[0]; // 최초의 현재 이미지를 첫 번째 이미지로 설정
+        // displayImg.src = currentImg.src;
+        setCurrentImage(selectImgs[0]);
 
         //////////////////////////////
 
@@ -60,8 +74,9 @@
             // nextIdx = nextIdx < 1 ? 10 : ( nextIdx > 10 ? 1 : nextIdx );
 
             const nextImg = document.querySelector(`img[data-idx='${nextIdx}']`) // 다음 이미지 객체 찾기
-            currentImg = nextImg;   // 다음 이미지를 현재 이미지 변수에 저장
-            displayImg.src = currentImg.src; // 다음 이미지를 표시
+            // currentImg = nextImg;   // 다음 이미지를 현재 이미지 변수에 저장
+            // displayImg.src = currentImg.src; // 다음 이미지를 표시
+            setCurrentImage(nextImg);
         }
         const btnPrev = document.querySelector("#prev");
         btnPrev.addEventListener('click', function(event) {
