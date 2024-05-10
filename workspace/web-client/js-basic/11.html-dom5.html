@@ -34,7 +34,7 @@
     
     <script type="text/javascript">
         window.addEventListener('load', function() {
-            const tds = document.querySelectorAll("#color-row td");
+            
             const canvasTd = document.querySelector("#canvas-row td");
 
             function changeColor(event) { // event-handler의 전달인자는 발생된 event와 관련된 정보 저장
@@ -42,6 +42,8 @@
                 // canvasTd.style.backgroundColor = td.style.backgroundColor; // style 태그에서 지정한 스타일 값은 코드에서 직접 읽을 수 없습니다.
                 canvasTd.style.backgroundColor = window.getComputedStyle(td).backgroundColor;
             }
+
+            const tds = document.querySelectorAll("#color-row td");
             for (let idx = 0; idx < tds.length; idx++) {
                 tds[idx].addEventListener('click', changeColor);
             }
