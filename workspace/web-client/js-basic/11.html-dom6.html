@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML DOM</title>
+    <style>
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr id="color-row">
+            <td id="red"></td>
+            <td id="orange"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr id="canvas-row">
+            <td colspan="7"></td>
+        </tr>
+    </table>
+    
+    <script type="text/javascript">
+        window.addEventListener('load', function() {
+            const table = document.querySelector("table");
+            table.border = 1;
+            table.style.margin = "0 auto";
+
+            const tds = document.querySelectorAll("#color-row td");
+            const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'navy', 'purple'];
+            function changeColor(event) { // event-handler의 전달인자는 발생된 event와 관련된 정보 저장
+                const td = event.target; // event.target : 현재 이벤트를 발생시킨 객체
+                canvasTd.style.backgroundColor = td.style.backgroundColor;
+            }
+            // for (idx in tds) {
+            for (let idx = 0; idx < tds.length; idx++) {
+                tds[idx].style.width = "100px";
+                tds[idx].style.height = "100px";
+                tds[idx].style.backgroundColor = colors[idx];
+                tds[idx].addEventListener('click', changeColor);
+            }
+
+            const canvasTd = document.querySelector("#canvas-row td");
+            canvasTd.style.height = "400px";
+
+            /////////////////////////////////////////////////////
+
+            // const canvasTd = document.querySelector("#canvas-row td");
+            // function clickHandler(event) { // event-handler의 전달인자는 발생된 event와 관련된 정보 저장
+            //     const td = event.target; // event.target : 현재 이벤트를 발생시킨 객체
+            //     canvasTd.style.backgroundColor = td.style.backgroundColor;
+            // }
+            // const redTd = document.querySelector("#red");
+            // redTd.addEventListener('click', clickHandler);
+            // const orangeTd = document.querySelector("#orange");
+            // orangeTd.addEventListener('click', clickHandler);
+
+        });
+    </script>
+
+</body>
+</html>

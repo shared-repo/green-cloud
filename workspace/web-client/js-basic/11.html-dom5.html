@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML DOM</title>
+    <style>
+        table { margin: 0 auto; }
+        #red { width: 100px; height: 100px; background-color: red;}
+        #orange { width: 100px; height: 100px; background-color: orange;}
+        #yellow { width: 100px; height: 100px; background-color: yellow;}
+        #green { width: 100px; height: 100px; background-color: green;}
+        #blue { width: 100px; height: 100px; background-color: blue;}
+        #navy { width: 100px; height: 100px; background-color: navy;}
+        #purple { width: 100px; height: 100px; background-color: purple;}
+        #canvas-row td { height: 400px; }
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr id="color-row">
+            <td id="red"></td>
+            <td id="orange"></td>
+            <td id="yellow"></td>
+            <td id="green"></td>
+            <td id="blue"></td>
+            <td id="navy"></td>
+            <td id="purple"></td>
+        </tr>
+        <tr id="canvas-row">
+            <td colspan="7"></td>
+        </tr>
+    </table>
+    
+    <script type="text/javascript">
+        window.addEventListener('load', function() {
+            const tds = document.querySelectorAll("#color-row td");
+            const canvasTd = document.querySelector("#canvas-row td");
+
+            function changeColor(event) { // event-handler의 전달인자는 발생된 event와 관련된 정보 저장
+                const td = event.target; // event.target : 현재 이벤트를 발생시킨 객체
+                // canvasTd.style.backgroundColor = td.style.backgroundColor; // style 태그에서 지정한 스타일 값은 코드에서 직접 읽을 수 없습니다.
+                canvasTd.style.backgroundColor = window.getComputedStyle(td).backgroundColor;
+            }
+            for (let idx = 0; idx < tds.length; idx++) {
+                tds[idx].addEventListener('click', changeColor);
+            }
+
+        });
+    </script>
+
+</body>
+</html>
