@@ -85,6 +85,16 @@
         const btnNext = document.querySelector("#next");
         btnNext.addEventListener('click', function(event) {
             changeImage(1);
+        });
+
+        document.addEventListener("keyup", function(event) { // 모든 키에 대한 이벤트
+        // document.addEventListener("keypress", function(event) { // 문자키에 대한 이벤트
+            // alert(event.keyCode);
+            if (event.keyCode == 37 || event.keyCode == 39) {
+                // const direction = event.keyCode - 38;
+                const direction = event.keyCode == 37 ? -1 : 1;
+                changeImage(direction);
+            }
         })
     </script>
 </body>
