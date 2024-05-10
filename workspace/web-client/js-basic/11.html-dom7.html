@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>        
+    </style>
+</head>
+<body>
+    <table id="select-area">
+        <tr>
+            <td><img src="images/scissors.png" data-val="1"></td>
+            <td><img src="images/rock.png" data-val="2"></td>
+            <td><img src="images/paper.png" data-val="3"></td>
+            <td><button id="btn-do-game">승부</button></td>
+        </tr>
+    </table>
+    <hr>
+    <table id="result-area">
+        <tr>
+            <td colspan="2" id="result"><img src="images/win.png"></td>
+        </tr>
+        <tr>
+            <td id="user"><img src="images/scissors.png"></td>
+            <td id="com"><img src="images/scissors.png"></td>
+        </tr>        
+    </table>
+
+    <script type="text/javascript">
+
+        window.addEventListener('load', function(event) {
+
+            let selectedImg = null;
+
+            const selectAreaImgs = document.querySelectorAll('#select-area img');
+            for (let i = 0; i < selectAreaImgs.length; i++) {
+                selectAreaImgs[i].addEventListener('click', function(event) {
+                    if (selectedImg) {
+                        selectedImg.style.border = "";
+                    }
+                    selectedImg = event.target;
+                    selectedImg.style.border = "solid red 3px";
+                });
+            }
+        });
+
+
+        const input = window.prompt("가위(1), 바위(2), 보(3)를 선택하세요", "1");
+        const user = window.parseInt(input); // 문자열 -> 숫자 : "3" -> 3
+        // alert(user);
+        const com = Math.floor( Math.random() * 3 ) + 1;
+        let result = "";
+        if ( (user === 2 && com === 1) || (user === 3 && com === 2) || (user === 1 && com === 3)) {
+            result = "win";
+        } else if (user === com) {
+            result = "draw";
+        } else {
+            result = "lose";
+        }
+
+        // alert(result);
+        const comImage = com == 1 ? "scissors" : com == 2 ? "rock" : "paper";
+        const userImage = user == 1 ? "scissors" : user == 2 ? "rock" : "paper";
+        
+        // let userImage2 = "";
+        // if (user == 1) {
+        //     userImage2 = "scissors";
+        // } else if (user == 2) {
+        //     userImage2 = "rock";
+        // } else {
+        //     userImage2 = "paper";
+        // }
+
+        // document.write("<table style='margin: 0 auto'>");
+
+        //     document.write("<tr>");
+        //         document.write("<td colspan='2'>");
+        //             document.write(`<img src='images/${result}.png'>`);
+        //         document.write("</td>");
+        //     document.write("</tr>");
+
+        //     document.write("<tr>");
+        //         document.write("<td>");
+        //             document.write(`<img src='images/${userImage}.png'>`);
+        //         document.write("</td>");
+        //         document.write("<td>");
+        //             document.write(`<img src='images/${comImage}.png'>`);
+        //         document.write("</td>");
+        //     document.write("</tr>");
+
+        // document.write("</table>");
+
+
+        
+    </script>
+</body>
+</html>
