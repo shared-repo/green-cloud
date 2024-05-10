@@ -31,6 +31,10 @@
 
         window.addEventListener('load', function(event) {
 
+            const resultTd = document.querySelector('#result');
+            const userTd = document.querySelector('#user');
+            const comTd = document.querySelector('#com');
+
             let selectedImg = null; // 사용자가 선택한 이미지 객체(요소) 저장하는 변수
 
             const selectAreaImgs = document.querySelectorAll('#select-area img');
@@ -68,7 +72,6 @@
                 let resultImg = document.querySelector("#result img");
                 if (!resultImg) { // 이미 이미지가 없는 경우
                     resultImg = document.createElement('img'); // 새 이미지 만들기
-                    const resultTd = document.querySelector('#result');
                     resultTd.appendChild(resultImg); // 이미지를 화면에 추가 (여기서는 td에 추가)
                 }                 
                 resultImg.src = `images/${result}.png`;                
@@ -78,16 +81,14 @@
 
                 let comImg = document.querySelector("#com img");
                 if (!comImg) {
-                    comImg = document.createElement('img');
-                    const comTd = document.querySelector('#com');
+                    comImg = document.createElement('img');                    
                     comTd.appendChild(comImg);
                 }
                 comImg.src = `images/${comImage}.png`;
 
                 let userImg = document.querySelector("#user img");
                 if (!userImg) {
-                    userImg = document.createElement('img');
-                    const userTd = document.querySelector('#user');
+                    userImg = document.createElement('img');                    
                     userTd.appendChild(userImg);
                 }
                 userImg.src = selectedImg.src;
