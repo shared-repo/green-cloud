@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #select-row img { width: 100px; height: 100px; }
+        #display-row img { width: 300px; height: 300px; }
+        table { margin: 0 auto; }
+    </style>
+</head>
+<body>
+    
+    <table>
+        <tr id="select-row">
+            <td><img src="images/1.jpg" data-idx="1"></td>
+            <td><img src="images/2.jpg" data-idx="2"></td>
+            <td><img src="images/3.jpg" data-idx="3"></td>
+            <td><img src="images/4.jpg" data-idx="4"></td>
+            <td><img src="images/5.jpg" data-idx="5"></td>
+            <td><img src="images/6.jpg" data-idx="6"></td>
+            <td><img src="images/7.jpg" data-idx="7"></td>
+            <td><img src="images/8.jpg" data-idx="8"></td>
+            <td><img src="images/9.jpg" data-idx="9"></td>
+            <td><img src="images/10.jpg" data-idx="10"></td>
+        </tr>
+        <tr id="display-row">
+            <td colspan="10"><img></td>
+        </tr>
+    </table>
+
+    <script type="text/javascript">
+
+        const displayImg = document.querySelector("#display-row img");
+        const selectImgs = document.querySelectorAll('#select-row img');
+
+        for (let i = 0; i < selectImgs.length; i++) {
+            selectImgs[i].addEventListener("click", function(event) {
+                const img = event.target;
+                displayImg.src = img.src;
+            });
+        }
+    </script>
+</body>
+</html>
