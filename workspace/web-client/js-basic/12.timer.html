@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Timer (setInterval, setTimeout)</title>
+</head>
+<body>
+    <button id="start">start</button>
+    <button id="stop">stop</button>
+    <hr>
+    <div id="message"></div>
+
+    <script type="text/javascript">
+        window.addEventListener('load', function(event) {
+            let currentNo = 1;
+            const message = document.querySelector('#message');
+            message.innerHTML = `<h2>${currentNo}</h2>`;
+
+            let timerId = null;
+
+            function increaseNo() {
+                currentNo++;
+                message.innerHTML = `<h2>${currentNo}</h2>`;
+
+                timerId = window.setTimeout(increaseNo, 1000);
+            }
+
+            const buttons = document.querySelectorAll("button");
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].addEventListener('click', function(event) {
+                    if (event.target.id == 'start') {
+                        timerId = window.setTimeout(increaseNo, 1000); // 1/1000초 단위
+                    } else if (event.target.id == 'stop') {
+                        window.clearTimeout(timerId); // 예약 작업 취소
+                    }
+                })
+            }
+        });
+    </script>
+</body>
+</html>
