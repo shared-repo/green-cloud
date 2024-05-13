@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML DOM</title>
+    <style>
+       
+    </style>
+</head>
+<body>
+    <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+    <script type="text/javascript">
+
+        $(function(event) {
+            const exchangeRate = 1369.30;
+
+            $('button').on('click', function(event) { // 모든 선택된 버튼에 이벤트 연결
+                // this : 이벤트를 발생시킨 객체 == evnet.target
+                switch ($(this).attr('id')) { // attr : getAttribute() 함수의 jQuery 버전
+                case 'usd-to-won': 
+                    const usdInput = $('input[name=usd-input]');
+                    $('#won-output').val(parseFloat(usdInput.val()) * exchangeRate); // 실수 * 실수
+                    break;
+                case 'won-to-usd': 
+                    const wonInput = $('input[id=won-input]');
+                    $('#usd-output').val(parseFloat(wonInput.val()) * 1/exchangeRate); // 실수 * 실수
+                    break;
+                }
+            });
+            
+        });
+    </script>
+
+    <table>
+        <tr>
+            <!-- 
+                id : browser에서 사용하는 식별자, name : 서버로 전송할 때 사용하는 식별자
+                id : 고유한 값, name : 중복 값 허용
+                id : 모든 요소에 적용할 수 있는 속성, name : 입력요소에 적용할 수 있는 속성
+            -->
+            <td>USD : <input type="text" id="usd-input" name="usd-input"></td>
+            <td><button id="usd-to-won">환율계산</button></td>
+            <td>WON : <input type="text" id="won-output"></td>
+        </tr>
+        <tr>
+            <td>WON : <input type="text" id="won-input"></td>
+            <td><button id="won-to-usd">환율계산</button></td>
+            <td>USD : <input type="text" id="usd-output"></td>
+        </tr>
+    </table>
+    
+    
+
+</body>
+</html>

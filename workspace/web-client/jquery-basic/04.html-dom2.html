@@ -35,39 +35,57 @@
             <th></th>
         </tr>
     </table>
+
+    <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
     <script type="text/javascript">
 
-        // 1-1. button 찾기
-        const btn = document.querySelector("#btn");
-        // 1-2. button 사용 ( 이벤트 연결 )
-        // btn.onclick = function() {} // 한 개의 함수만 연결 가능
-        btn.addEventListener("click", function() { // 여러 개의 함수 연결 가능
-
-            const winningNumbers = [];
-            for (let i = 0; i < 6; i++) {
-                winningNumbers[i] = Math.floor(Math.random() * 45) + 1; // 1 ~ 45, random
-                for (let j = 0; j < i; j++) {
-                    if (winningNumbers[i] == winningNumbers[j]) { // 중복인 경우
-                        i = -1;	// 처음부터 다시 뽑기
-                        break;
+        // $(document).ready(function() {
+        $(function() {
+            // $('#btn').on('click', function(event) {
+            $('#btn').click(function(event) {
+                const winningNumbers = [];
+                for (let i = 0; i < 6; i++) {
+                    winningNumbers[i] = Math.floor(Math.random() * 45) + 1; // 1 ~ 45, random
+                    for (let j = 0; j < i; j++) {
+                        if (winningNumbers[i] == winningNumbers[j]) { // 중복인 경우
+                            i = -1;	// 처음부터 다시 뽑기
+                            break;
+                        }
                     }
                 }
-            }
+                
+                // 방법 1-1.
+                // for (idx in winningNumbers) {
+                //     const bg = Math.floor((winningNumbers[idx]) / 10) + 1;
+                //     $(`th:eq(${idx})`).html( 
+                //         `<span class='ball_645 lrg ball${bg}'>${winningNumbers[idx]}</span>`);
+                // }
+                // 방법 1-2.
+                // for (idx in winningNumbers) {
+                //     const bg = Math.floor((winningNumbers[idx]) / 10) + 1;
+                //     $('th').eq(idx).html( 
+                //         `<span class='ball_645 lrg ball${bg}'>${winningNumbers[idx]}</span>`);
+                // }
 
-            // 2-1. th 찾기
-            // const th = document.querySelector('th'); // querySelector : 첫 번째 요소 찾기 (한개만)
-            const ths = document.querySelectorAll('th'); // querySelectorAll : 모든 요소 찾기
-            // 2-2. th 사용 ( 여기서는 값 표시 )
-            for (idx in winningNumbers) {
-                const bg = Math.floor((winningNumbers[idx]) / 10) + 1;
-                ths[idx].innerHTML = 
-                    `<span class='ball_645 lrg ball${bg}'>${winningNumbers[idx]}</span>`
-            }
+                // 방법 2.
+                // const ths = $('th');
+                // for (idx in winningNumbers) {
+                //     const bg = Math.floor((winningNumbers[idx]) / 10) + 1;
+                //     // ths[idx].innerHTML = 
+                //     //     `<span class='ball_645 lrg ball${bg}'>${winningNumbers[idx]}</span>`;
+                //     $(ths[idx]).html(`<span class='ball_645 lrg ball${bg}'>${winningNumbers[idx]}</span>`);
+                // }
+
+                // 방법 3.
+                $('th').each(function(idx, th) { // th 요소를 모두 찾고 각 th요소를 반복하면서 function 호출
+                    const bg = Math.floor((winningNumbers[idx]) / 10) + 1;
+                    $(th).html(`<span class='ball_645 lrg ball${bg}'>${winningNumbers[idx]}</span>`);
+                    // if (idx == 2) {
+                    //     return false; // == break;
+                    // }
+                });
+            });
         });
-
-        
-                    
-
     </script>
 </body>
 </html>

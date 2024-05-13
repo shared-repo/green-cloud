@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML DOM</title>
+    <style>
+       #canvas { height: 400px; /* background-color: black; */ }
+       input, button { height: 40px; }
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr>
+            <td>
+                <!-- <input type="number" min="0" max="255" step="1"> -->
+                <input type="text" id="red">
+            </td>
+            <td><input type="text" id="green"></td>
+            <td><input type="text" id="blue"></td>
+            <td><button id="apply-user-color">사용자 색상 적용</button></td>
+            <td><button id="apply-random-color">무작위 색상 적용</button></td>
+        </tr>
+        <tr>
+            <td colspan="5" id="canvas"></td>
+        </tr>
+    </table>
+    
+    <script type="text/javascript">
+        window.addEventListener("load", function() {
+            const red = document.querySelector("#red");
+            const green = document.querySelector("#green");
+            const blue = document.querySelector("#blue");
+            const canvas = document.querySelector("#canvas");
+
+            const userColorBtn = document.querySelector("#apply-user-color");
+            userColorBtn.addEventListener("click", function(event) {
+                if (red.value.trim().length == 0 || green.value.trim().length == 0 || blue.value.trim().length == 0) {
+                    alert('색상을 입력하세요 !!!');
+                    return;
+                }
+                if (isNaN(red.value) || isNaN(green.value) || isNaN(blue.value)) {
+                    alert('색상 값은 반드시 숫자여야 합니다.');
+                    return;
+                }
+                const r = parseInt(red.value);
+                const g = parseInt(green.value);
+                const b = parseInt(blue.value);
+                if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+                    alert("색상 값은 0 ~ 255 범위입니다.");
+                    return;
+                }
+
+                canvas.style.backgroundColor = `rgb(${red.value}, ${green.value}, ${blue.value})`;
+            });
+
+            const randomColorBtn = document.querySelector("#apply-random-color");
+            randomColorBtn.addEventListener("click", function(event) {
+                const r = Math.floor(Math.random() * 256);
+                const g = Math.floor(Math.random() * 256);
+                const b = Math.floor(Math.random() * 256);
+                canvas.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            });
+        });
+    </script>
+
+</body>
+</html>
