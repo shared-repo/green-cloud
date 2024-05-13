@@ -109,11 +109,16 @@
             autoViewBtns[i].addEventListener("click", function(event) {
                 const action = event.target.getAttribute('data-action');
                 if (action === 'start') {
-                    autoViewWorkId = window.setInterval(function() {
-                        changeImage(1);
-                    }, 1000);
+                    if (!autoViewWorkId) { // if (autoViewWorkId == null) {
+                        autoViewWorkId = window.setInterval(function() {
+                            changeImage(1);
+                        }, 1000);
+                    }
                 } else if (action === 'stop') {
-                    window.clearInterval(autoViewWorkId);
+                    if (autoViewWorkId) {// if (autoViewWorkId != null) {
+                        window.clearInterval(autoViewWorkId);
+                        autoViewWorkId = null;
+                    }
                 }
             });
         }
