@@ -14,15 +14,19 @@
         window.addEventListener('load', function(event) {
             let currentNo = 1;
             const message = document.querySelector('#message');
-            message.innerHTML = `<h2>${currentNo}</h2>`;
+            // message.innerHTML = `<h2>${currentNo}</h2>`;
 
             let timerId = null;
 
             function increaseNo() {
                 currentNo++;
-                message.innerHTML = `<h2>${currentNo}</h2>`;
+                // message.innerHTML = `<h2>${currentNo}</h2>`;
+                // message.innerHTML = new Date();
+                const d = new Date();
+                message.innerHTML = 
+                    `<h2>${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 ${d.getHours()}시 ${d.getMinutes()}분 ${d.getSeconds()}초</h2>`;
 
-                timerId = window.setTimeout(increaseNo, 1000);
+                timerId = window.setTimeout(increaseNo, 1000); // 지정된 시간이 경과한 후 지정된 함수를 1회 실행
             }
 
             const buttons = document.querySelectorAll("button");
