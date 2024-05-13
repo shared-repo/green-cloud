@@ -25,7 +25,12 @@
             <td><img src="images/9.jpg" data-idx="9"></td>
             <td><img src="images/10.jpg" data-idx="10"></td>
         </tr>
-       
+        <tr>
+            <td colspan="10">
+                <button class="auto-view" data-action="start">자동 보기 시작</button>
+                <button class="auto-view" data-action="stop">자동 보기 멈춤</button>
+            </td>
+        </tr>
         <tr id="display-row">
             <td><button id="prev">이전</button></td>
             <td colspan="8"><img></td>
@@ -97,6 +102,26 @@
                 changeImage(direction);
             }
         });
+
+        let autoViewWorkId = null;
+        const autoViewBtns = document.querySelectorAll(".auto-view");
+        for (let i = 0; i < autoViewBtns.length; i++) {
+            autoViewBtns[i].addEventListener("click", function(event) {
+                const action = event.target.getAttribute('data-action');
+                if (action === 'start') {
+                    if (!autoViewWorkId) { // if (autoViewWorkId == null) {
+                        autoViewWorkId = window.setInterval(function() {
+                            changeImage(1);
+                        }, 1000);
+                    }
+                } else if (action === 'stop') {
+                    if (autoViewWorkId) {// if (autoViewWorkId != null) {
+                        window.clearInterval(autoViewWorkId);
+                        autoViewWorkId = null;
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>

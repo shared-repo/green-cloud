@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM</title>
+</head>
+<body>
+    <button class="location" data-dest="google">구글 개발자 사이트</button>
+    <button class="location" data-dest="naver">네이버 개발자 사이트</button>
+    <button class="location" data-dest="kakao">카카오 개발자 사이트</button>
+
+    <script type="text/javascript">
+        window.addEventListener('load', function(event) {
+            locationBtns = document.querySelectorAll('.location');
+            for (let i = 0; i < locationBtns.length; i++) {
+                locationBtns[i].addEventListener('click', function(event) {
+                    const dest = event.target.getAttribute('data-dest');
+                    switch (dest) {
+                        case "google": location.href = 'http://developers.google.com'; break;
+                        case "naver": location.href = 'http://developers.naver.com'; break;
+                        case "kakao": location.href = 'http://developers.kakao.com'; break;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
