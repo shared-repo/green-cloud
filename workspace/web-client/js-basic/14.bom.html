@@ -9,9 +9,15 @@
     <button class="location" data-dest="google">구글 개발자 사이트</button>
     <button class="location" data-dest="naver">네이버 개발자 사이트</button>
     <button class="location" data-dest="kakao">카카오 개발자 사이트</button>
+    
+    <hr>
+
+    <button class="history" data-dir="prev">이전 페이지</button>
+    <button class="history" data-dir="next">다음 페이지</button>
 
     <script type="text/javascript">
         window.addEventListener('load', function(event) {
+
             locationBtns = document.querySelectorAll('.location');
             for (let i = 0; i < locationBtns.length; i++) {
                 locationBtns[i].addEventListener('click', function(event) {
@@ -23,6 +29,23 @@
                     }
                 });
             }
+
+            ///////////////
+
+            historyBtns = document.querySelectorAll('.history');
+            for (let i = 0; i < historyBtns.length; i++) {
+                historyBtns[i].addEventListener("click", function(event) {
+                    switch (event.target.getAttribute('data-dir')) {
+                        case "prev": history.back(); break;     // == history.move(-1);
+                        case "next": history.forward(); break;  // == history.move(1);
+                    }
+                });
+            }
+
+
+
+
+
         });
     </script>
 </body>
