@@ -15,7 +15,7 @@
         //     // message.innerHTML = `<h2>현재 시각은 ${ new Date() } 입니다</h2>`;
         // });
 
-        $(function() { // jQuery의 시작지점 : dom 객체트리 구성이 완료되는 시점에 호출
+        $(document).ready(function() { // jQuery의 시작지점 : dom 객체트리 구성이 완료되는 시점에 호출
             $('#message').html(`<h2>현재 시각은 ${ new Date() } 입니다</h2>`);
         }); 
         $(function() { // jQuery의 시작지점 : 여러 개 등록 가능
