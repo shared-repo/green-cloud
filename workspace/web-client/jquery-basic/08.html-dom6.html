@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML DOM</title>
+    <style>
+    </style>
+</head>
+<body>
+
+    <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            const table = $("<table></table>"); // == document.createElement("table")
+            table.attr("border", 1);
+            table.css("margin", "0 auto");
+
+            const colorTr = $("<tr></tr>");
+            // colorTr.attr("id", 'color-row');
+
+            const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'navy', 'purple'];
+            
+            for (let idx = 0; idx < colors.length; idx++) {
+                const td = $('<td></td>');
+                td.css({'width': "100px", 'height': "100px", 'background-color': colors[idx]});
+                td.on('click', function(event) {
+                    canvasTd.css('background-color', $(this).css('background-color'));
+                });
+
+                colorTr.append(td);
+            }
+
+            const canvasTr = $("<tr></tr>");
+            // canvasTr.attr('id', "canvas-row");
+            
+            const canvasTd = $("<td></td>");
+            canvasTd.css('height', "400px");
+            canvasTd.attr("colspan", 7);
+
+            canvasTr.append(canvasTd);
+
+            table.append([colorTr, canvasTr]);
+
+            $("body").append(table);
+        });
+    </script>
+
+</body>
+</html>

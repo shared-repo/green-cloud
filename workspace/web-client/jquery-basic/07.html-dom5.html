@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML DOM</title>
+    <style>
+        table { margin: 0 auto; }
+        #red { width: 100px; height: 100px; background-color: red;}
+        #orange { width: 100px; height: 100px; background-color: orange;}
+        #yellow { width: 100px; height: 100px; background-color: yellow;}
+        #green { width: 100px; height: 100px; background-color: green;}
+        #blue { width: 100px; height: 100px; background-color: blue;}
+        #navy { width: 100px; height: 100px; background-color: navy;}
+        #purple { width: 100px; height: 100px; background-color: purple;}
+        #canvas-row td { height: 400px; }
+    </style>
+</head>
+<body>
+
+    <table>
+        <tr id="color-row">
+            <td id="red"></td>
+            <td id="orange"></td>
+            <td id="yellow"></td>
+            <td id="green"></td>
+            <td id="blue"></td>
+            <td id="navy"></td>
+            <td id="purple"></td>
+        </tr>
+        <tr id="canvas-row">
+            <td colspan="7"></td>
+        </tr>
+    </table>
+    
+    <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            
+            const canvasTd = $("#canvas-row td");
+
+            $("#color-row td").on('click', function(event) {
+                canvasTd.css('background-color', $(this).css('background-color'));
+            });
+
+        });
+    </script>
+
+</body>
+</html>
