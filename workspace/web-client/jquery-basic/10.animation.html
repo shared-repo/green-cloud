@@ -6,6 +6,34 @@
     <title>Document</title>
 </head>
 <body>
+    <button id="btn1">보여주세요</button>
+    <button id="btn2">숨겨주세요</button>
+    <button id="btn3">Animate</button>
+    <hr>
+    <div>
+        <img id="nature1" src="images/nature1.jpg" alt="">
+    </div>
     
+    <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+    $( "#btn1" ).on( "click", function() {
+        // $( "#nature1" ).fadeIn( 3000, function() {});
+        $( "#nature1" ).slideDown( 3000, function() {});
+    });
+    $( "#btn2" ).on( "click", function() {
+        // $( "#nature1" ).fadeOut( 3000, function() {});
+        $( "#nature1" ).slideUp( 3000, function() {});
+    });
+    $( '#btn3' ).on('click', function(event) {
+        $( "#nature1" ).animate({
+            opacity: 0.50,
+            width: 1000,
+            height: "toggle"
+        }, 5000);
+    });
+
+
+    </script>
+
 </body>
 </html>

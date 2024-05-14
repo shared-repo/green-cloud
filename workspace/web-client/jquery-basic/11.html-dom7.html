@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>        
+    </style>
+</head>
+<body>
+    <table id="select-area">
+        <tr>
+            <td><img src="images/scissors.png" data-val="1"></td>
+            <td><img src="images/rock.png" data-val="2"></td>
+            <td><img src="images/paper.png" data-val="3"></td>
+            <td><button id="btn-do-game">승부</button></td>
+        </tr>
+    </table>
+    <hr>
+    <table id="result-area">
+        <tr>
+            <td colspan="2" id="result"></td>
+        </tr>
+        <tr>
+            <td id="user"></td>
+            <td id="com"></td>
+        </tr>        
+    </table>
+
+    <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+    <script type="text/javascript">
+
+        $(function(event) {
+
+            const resultTd = $('#result');
+            const userTd = $('#user');
+            const comTd = $('#com');
+
+            let selectedImg = null; // 사용자가 선택한 이미지 객체(요소) 저장하는 변수
+
+            $('#select-area img').on('click', function(event) {
+                if (selectedImg) { // 기존에 선택한 이미지가 있다면 ( 0 or null이면 false )
+                    selectedImg.css('border', ''); // 경계선 스타일 제거
+                }
+                selectedImg = $(this); // 새로 선택한 이미지를 저장하고
+                selectedImg.css('border', "solid red 3px"); // 경계선 스타일 설정
+            });
+
+            $('#btn-do-game').on('click', function(event) {   // "승부" 버튼의 클릭 이벤트 처리
+
+                if (!selectedImg || !selectedImg.length) { // 선택된 이미지가 없다면 메시지 표시 -> 작업 중단
+                    alert('가위/바위/보를 선택하세요');
+                    return;
+                }
+
+                input = selectedImg.data("val");
+                const user = window.parseInt(input); // 문자열 -> 숫자 : "3" -> 3
+                const com = Math.floor( Math.random() * 3 ) + 1; // 컴퓨터 번호
+
+                let result = "";
+                if ( (user === 2 && com === 1) || (user === 3 && com === 2) || (user === 1 && com === 3)) {
+                    result = "win";
+                } else if (user === com) {
+                    result = "draw";
+                } else {
+                    result = "lose";
+                }
+
+                let resultImg = $("#result img");
+                if (!resultImg.length) { // 이미 이미지가 없는 경우
+                    resultImg = $('<img></img>'); // 새 이미지 만들기
+                    resultTd.append(resultImg); // 이미지를 화면에 추가 (여기서는 td에 추가)
+                }                 
+                resultImg.attr('src', `images/${result}.png`);
+
+                const comImage = com == 1 ? "scissors" : com == 2 ? "rock" : "paper";
+
+                let comImg = $("#com img");
+                if (!comImg.length) {
+                    comImg = $('<img></img>');                    
+                    comTd.append(comImg);
+                }
+                comImg.attr('src', `images/${comImage}.png`);
+
+                let userImg = $("#user img");
+                if (!userImg.length) {
+                    userImg = $('<img></img>');                    
+                    userTd.append(userImg);
+                }
+                userImg.attr('src', selectedImg.attr('src'));
+            });
+
+
+        });
+
+        
+    </script>
+</body>
+</html>

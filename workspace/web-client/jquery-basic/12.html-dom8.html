@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #select-row img { width: 100px; height: 100px; }
+        #display-row img { width: 300px; height: 300px; }
+        table { margin: 0 auto; }
+    </style>
+</head>
+<body>
+    
+    <table>
+        <tr id="select-row">
+            <td><img src="images/1.jpg" data-idx="1"></td>
+            <td><img src="images/2.jpg" data-idx="2"></td>
+            <td><img src="images/3.jpg" data-idx="3"></td>
+            <td><img src="images/4.jpg" data-idx="4"></td>
+            <td><img src="images/5.jpg" data-idx="5"></td>
+            <td><img src="images/6.jpg" data-idx="6"></td>
+            <td><img src="images/7.jpg" data-idx="7"></td>
+            <td><img src="images/8.jpg" data-idx="8"></td>
+            <td><img src="images/9.jpg" data-idx="9"></td>
+            <td><img src="images/10.jpg" data-idx="10"></td>
+        </tr>
+        <tr>
+            <td colspan="10">
+                <button class="auto-view" data-action="start">자동 보기 시작</button>
+                <button class="auto-view" data-action="stop">자동 보기 멈춤</button>
+            </td>
+        </tr>
+        <tr id="display-row">
+            <td><button id="prev">이전</button></td>
+            <td colspan="8"><img></td>
+            <td><button id="next">다음</button></td>
+        </tr>
+    </table>
+
+    <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+    <script type="text/javascript">
+
+    $(function() {
+
+        function setCurrentImage(newImage) {
+            if (currentImg) {
+                currentImg.css('border', '');   // 현재 선택된 이미지의 스타일 변경 (선택 해제)
+            }
+            currentImg = newImage;          // 현재 이미지를 새 이미지로 변경
+            currentImg.css('border', "solid 3px red"); // 변경된 현재 이미지의 스타일 변경 (선택 활성화)
+            displayImg.attr('src', currentImg.attr('src'));
+        }
+
+        let currentImg = null;
+        const displayImg = $("#display-row img");
+        const selectImgs = $('#select-row img');
+
+        selectImgs.on('click', function(event) {
+            setCurrentImage($(this));
+        });
+
+        setCurrentImage(selectImgs.first());
+
+        //////////////////////////////
+
+        function changeImage(direction) {
+            const currentIdx = currentImg.data("idx"); //현재 선택된 이미지의 위치 찾기
+            let nextIdx = parseInt(currentIdx) + direction; // 다음 이미지의 위치 찾기
+
+            // 다음 이미지의 위치가 양 끝을 넘어서면 반대편 끝 위치로 변경
+            if (nextIdx < 1) {
+                nextIdx = 10;
+            } else if (nextIdx > 10) {
+                nextIdx = 1;
+            }
+            
+            const nextImg = $(`img[data-idx='${nextIdx}']`) // 다음 이미지 객체 찾기
+            setCurrentImage(nextImg);
+        }
+        $("#prev").on('click', function(event) {
+            changeImage(-1);
+        });
+        $("#next").on('click', function(event) {
+            changeImage(1);
+        });
+
+        document.addEventListener("keyup", function(event) { // 모든 키에 대한 이벤트
+            if (event.keyCode == 37 || event.keyCode == 39) {
+                // const direction = event.keyCode - 38;
+                const direction = event.keyCode == 37 ? -1 : 1;
+                changeImage(direction);
+            }
+        });
+
+        let autoViewWorkId = null;
+        $(".auto-view").on("click", function(event) {
+            const action = $(this).data('action');
+            if (action === 'start') {
+                if (!autoViewWorkId) { // if (autoViewWorkId == null) {
+                    autoViewWorkId = window.setInterval(function() {
+                        changeImage(1);
+                    }, 1000);
+                }
+            } else if (action === 'stop') {
+                if (autoViewWorkId) {// if (autoViewWorkId != null) {
+                    window.clearInterval(autoViewWorkId);
+                    autoViewWorkId = null;
+                }
+            }
+        });
+        
+    });
+    </script>
+</body>
+</html>
