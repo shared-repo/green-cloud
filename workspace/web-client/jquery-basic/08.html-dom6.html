@@ -21,15 +21,16 @@
 
             const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'navy', 'purple'];
             
-            for (let idx = 0; idx < colors.length; idx++) {
+            // for (let idx = 0; idx < colors.length; idx++) {
+            $.each(colors, function(idx, color) {
                 const td = $('<td></td>');
-                td.css({'width': "100px", 'height': "100px", 'background-color': colors[idx]});
+                td.css({'width': "100px", 'height': "100px", 'background-color': color});
                 td.on('click', function(event) {
                     canvasTd.css('background-color', $(this).css('background-color'));
                 });
 
                 colorTr.append(td);
-            }
+            });
 
             const canvasTr = $("<tr></tr>");
             // canvasTr.attr('id', "canvas-row");
@@ -38,7 +39,8 @@
             canvasTd.css('height', "400px");
             canvasTd.attr("colspan", 7);
 
-            canvasTr.append(canvasTd);
+            // canvasTr.append(canvasTd);   // 부모가 자식을 추가하는 방식
+            canvasTd.appendTo(canvasTr);    // 자식이 부모에게 추가되는 방식
 
             table.append([colorTr, canvasTr]);
 
