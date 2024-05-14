@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h3>첫 번째 제목 표시</h3>
+    <h3>두 번째 제목 표시</h3>
+    <h3>세 번째 제목 표시</h3>
+    <h3>네 번째 제목 표시</h3>
+    <h3>다섯 번째 제목 표시</h3>
+    <h3>여섯 번째 제목 표시</h3>
+
+    <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+    <script type="text/javascript">
+        $(function(event) {
+            // 1.
+            // $('h3').css({'text-decoration': 'underline', 'font-size': "25pt"});
+            // $('h3:even').css('color', 'red');
+            // $('h3:odd').css('color', 'blue');
+
+            // 2-1.
+            // $('h3:even').css('color', 'red');
+            // 2-2.
+            // $('h3').filter(':even').css('color', 'red');
+            // 2-3.
+            // $('h3').filter(function(idx) {
+            //     return idx % 2 == 0; // 짝수이면 true, 홀수이면 false -> true를 반환하면 filter에 의해 선택
+            // }).css('color', 'red');
+
+            // 3. 
+            // $('h3').css({'text-decoration': 'underline', 'font-size': "25pt"}); --> css 호출 결과 $('h3') 반환
+            // $('h3:even').css('color', 'red'); --> css 호출 결과 $('h3:even') 반환
+            $('h3').css({'text-decoration': 'underline', 'font-size': "25pt"})
+                   .filter(":even")
+                   .css('color', 'red') // -> h3:even
+                   .end() // 이전 객체집합으로 문맥 전환 --> h3
+                   .filter(':odd')      // -> h3:odd
+                   .css('color', 'blue');
+
+        });
+    </script>
+    
+</body>
+</html>
