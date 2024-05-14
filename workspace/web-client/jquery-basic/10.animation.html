@@ -11,7 +11,7 @@
     <button id="btn3">Animate</button>
     <hr>
     <div>
-        <img id="nature1" src="images/nature1.jpg" alt="">
+        <img id="nature1" src="images/nature1.jpg" alt="" style="position:absolute">
     </div>
     
     <script src="http://code.jquery.com/jquery-3.7.1.js"></script>
@@ -27,7 +27,8 @@
     $( '#btn3' ).on('click', function(event) {
         $( "#nature1" ).animate({
             opacity: 0.50,
-            width: 1000,
+            // width: 1000,
+            left: "+=50",
             height: "toggle"
         }, 5000);
     });

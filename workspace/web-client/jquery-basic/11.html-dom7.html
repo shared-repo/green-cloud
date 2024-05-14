@@ -48,12 +48,15 @@
 
             $('#btn-do-game').on('click', function(event) {   // "승부" 버튼의 클릭 이벤트 처리
 
+                // if (!selectedImg) {
                 if (!selectedImg || !selectedImg.length) { // 선택된 이미지가 없다면 메시지 표시 -> 작업 중단
                     alert('가위/바위/보를 선택하세요');
                     return;
                 }
 
-                input = selectedImg.data("val");
+                // input = selectedImg.getAttribute("data-val");
+                // input = selectedImg.attr('data-val');
+                input = selectedImg.data("val"); // 'data-' 표준 사용자 정의 속성 값 읽는 함수
                 const user = window.parseInt(input); // 문자열 -> 숫자 : "3" -> 3
                 const com = Math.floor( Math.random() * 3 ) + 1; // 컴퓨터 번호
 
@@ -66,8 +69,8 @@
                     result = "lose";
                 }
 
-                let resultImg = $("#result img");
-                if (!resultImg.length) { // 이미 이미지가 없는 경우
+                let resultImg = $("#result img"); // jQuery 탐색 함수는 대상이 없어도 null이 아님 (빈 객체)
+                if (!resultImg.length) { // 이미지가 없는 경우
                     resultImg = $('<img></img>'); // 새 이미지 만들기
                     resultTd.append(resultImg); // 이미지를 화면에 추가 (여기서는 td에 추가)
                 }                 
