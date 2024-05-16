@@ -4,10 +4,20 @@
 <meta charset="UTF-8">
 <title>examplesweb home</title>
 <style>
-	h1 { text-align:center }
 </style>
 </head>
 <body>
 	<h1>Examples Web Home</h1>
+	
+	<h2>1. <a href="/examplesweb/hello">Hello Servlet ( GET 방식 요청, web.xml에 등록 )</a></h2>
+	<h2>2. <a href="/examplesweb/hello2">Hello Servlet 2 ( GET 방식 요청, annotation 등록 )</a></h2>
+	<h2>3. 폼 데이터 전송 ( GET/POST )</h2>
+	<form action="/examplesweb/process-data" method="post">
+	<!-- <form action="/examplesweb/process-data" method="get"> -->
+		Your Name : <input type="text" name="name"><br>
+		Your Email : <input type="text" name="email"><br>
+		<input type="submit" value="전송">
+	</form>
+	<h2>4. <a href="/examplesweb/01.hello.jsp">Hello, JSP</a></h2>
 </body>
 </html>
