@@ -11,7 +11,7 @@
 <body>
 	
 	<h3>로또 당첨 예상 번호 뽑기</h3>
-	<form>
+	<form action="/examplesweb/select-numbers" method="post">
 		평균 하한 : <input type="text" name="min_avg">
 		평균 상한 : <input type="text" name="max_avg">
 		<input type="submit" value="번호 뽑기">
@@ -19,3 +19,7 @@
 	
 </body>
 </html>
+
+
+
+
