@@ -9,13 +9,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/account/register" })
-public class RegisterServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/account/login" })
+public class LoginServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/account/register.jsp");
+		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/account/login.jsp");
 		rd.forward(req, resp);
 		
 	}
@@ -26,13 +26,11 @@ public class RegisterServlet extends HttpServlet {
 		// 1. 요청 데이터 읽기
 		String memberId = req.getParameter("memberId");
 		String passwd = req.getParameter("passwd");
-		String confirm = req.getParameter("confirm");
-		String email = req.getParameter("email");
 		// 2. 요청 데이터 처리
-		System.out.printf("[%s][%s][%s][%s]\n", memberId, passwd, confirm, email);
-		// 3. login으로 이동 ( 다른 서블릿으로 이동 -> redirect로 이동 )
+		System.out.printf("[%s][%s]\n", memberId, passwd);
+		// 3. home으로 이동 ( 다른 서블릿으로 이동 -> redirect로 이동 )
 		//    jsp로 이동 ( forward로 이동 )
-		resp.sendRedirect("/demoweb/account/login");
+		resp.sendRedirect("/demoweb/home");
 		
 	}
 	
