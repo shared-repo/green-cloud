@@ -44,11 +44,10 @@ public class AccountDao {
 	
 	// public MemberDto selectMemberByMemberIdAndPasswd(String memberId, String passwd) {
 	public MemberDto selectMemberByMemberIdAndPasswd(MemberDto member) {
-		// memberId와 passwd로 회원정보(모든 컬럼) 조회하고 결과를 console에 출력하는 JDBC 코드 구현
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		MemberDto selectedMember = null;
+		MemberDto selectedMember = null; // 조회 결과를 저장할 변수
 		try {
 			// 1. 드라이버 준비
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -71,8 +70,8 @@ public class AccountDao {
 			
 			// 5. 결과가 있으면 결과 처리
 			if (rs.next()) {
-				selectedMember = new MemberDto();
-				selectedMember.setMemberId(rs.getString(1));
+				selectedMember = new MemberDto(); // 조회 결과를 저장할 객체 생성
+				selectedMember.setMemberId(rs.getString(1)); // 객체에 조회한 각 값을 저장
 				selectedMember.setEmail(rs.getString(2));
 				selectedMember.setUserType(rs.getString(3));
 				selectedMember.setRegDate(rs.getDate(4));
@@ -87,7 +86,7 @@ public class AccountDao {
 			try { conn.close(); } catch (Exception ex) {}
 		}
 		
-		return selectedMember;
+		return selectedMember; // 조회 결과를 저장한 객체 반환
 		
 	}
 

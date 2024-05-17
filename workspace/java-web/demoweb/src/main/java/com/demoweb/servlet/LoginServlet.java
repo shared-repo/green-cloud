@@ -46,8 +46,7 @@ public class LoginServlet extends HttpServlet {
 		MemberDto loginMember = accountService.findMembeByMemeberIdAndPasswd(member);
 		
 		System.out.println(loginMember);
-		
-		
+				
 		// 3. home으로 이동 ( 다른 서블릿으로 이동 -> redirect로 이동 )
 		//    jsp로 이동 ( forward로 이동 )
 		resp.sendRedirect("/demoweb/home");

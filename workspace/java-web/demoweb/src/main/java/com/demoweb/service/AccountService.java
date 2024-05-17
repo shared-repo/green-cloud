@@ -18,9 +18,27 @@ public class AccountService {
 	
 	//public MemberDto findMembeByMemeberIdAndPasswd(String memberId, String passwd) {
 	public MemberDto findMembeByMemeberIdAndPasswd(MemberDto member) {
+		
+		// 업무 규칙(요구사항) 처리
+		
+		// 데이터베이스에서 데이터 조회
 		AccountDao accountDao = new AccountDao();
+		// MemberDto foundMember = accountDao.selectMemberByMemberIdAndPasswd(memberId, passwd);
 		MemberDto foundMember = accountDao.selectMemberByMemberIdAndPasswd(member);
+		
+		// 호출한 곳으로 조회 결과 반환
 		return foundMember;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
