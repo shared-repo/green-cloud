@@ -2,7 +2,12 @@
 		 contentType="text/html; charset=UTF-8"
     	 pageEncoding="UTF-8"%>
 
-		<div id="header">    	
+		<% String bgColor = request.getParameter("bgcolor"); %>
+		<% if (bgColor != null && bgColor.length() > 0) { %>
+		<div id="header" style="background-color:<%= bgColor %>">    	
+		<% } else { %>
+		<div id="header">
+		<% } %>
             <div class="title">
                 <a href="/demoweb/home">DEMO WEBSITE</a>
             </div>
