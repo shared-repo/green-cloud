@@ -15,5 +15,12 @@ public class AccountService {
 		accountDao.insertMember(member);
 		
 	}
+	
+	//public MemberDto findMembeByMemeberIdAndPasswd(String memberId, String passwd) {
+	public MemberDto findMembeByMemeberIdAndPasswd(MemberDto member) {
+		AccountDao accountDao = new AccountDao();
+		MemberDto foundMember = accountDao.selectMemberByMemberIdAndPasswd(member);
+		return foundMember;
+	}
 
 }
