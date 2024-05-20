@@ -44,8 +44,8 @@ public class LoginServlet extends HttpServlet {
 		member.setPasswd(passwd);
 		
 		AccountService accountService = new AccountService();
-		// MemberDto loginMember = accountService.findMembeByMemeberIdAndPasswd(memberId, passwd);
-		MemberDto loginMember = accountService.findMembeByMemeberIdAndPasswd(member);		
+		// MemberDto loginMember = accountService.findMemberByMemeberIdAndPasswd(memberId, passwd);
+		MemberDto loginMember = accountService.findMemberByMemeberIdAndPasswd(member);		
 		// System.out.println(loginMember);
 		
 		if (loginMember != null) { // 로그인 성공 ( 사용자가 입력한 id, password에 해당하는 데이터가 조회된 경우 )
