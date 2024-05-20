@@ -55,11 +55,18 @@ public class LoginServlet extends HttpServlet {
 			
 			// 3-1. home으로 이동 ( 다른 서블릿으로 이동 -> redirect로 이동 )
 			resp.sendRedirect("/demoweb/home");
-		} else { // 로그인 실패 ( 사용자가 입력한 id, password에 해당하는 데이터가 없는 경우 )			
-			// 3-2. login.jsp로 이동 ( forward로 이동 )
-			// doGet(req, resp);
-			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/account/login.jsp");
-			rd.forward(req, resp);
+		} else { // 로그인 실패 ( 사용자가 입력한 id, password에 해당하는 데이터가 없는 경우 )
+			
+//			// JSP에서 사용할 수 있도록 request 객체에 데이터 저장
+//			req.setAttribute("loginfail", true);
+//			
+//			// 3-2. login.jsp로 이동 ( forward로 이동 )
+//			// doGet(req, resp);
+//			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/account/login.jsp");
+//			rd.forward(req, resp);
+			
+			// 실패 후 사용자가 F5(새로고침) 했을 때 다시 전송하는 것을 막기위해 redirect로 이동
+			resp.sendRedirect("/demoweb/account/login?loginfail=true"); // URL rewriting : 직접 주소 뒤에 전송 데이터 구성
 		}
 		
 				

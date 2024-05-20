@@ -20,9 +20,9 @@
 		<div id="inputcontent">
 			<br /><br />
 		    <div id="inputmain">
-		        <div class="inputsubtitle">로그인정보</div>
+		        <div class="inputsubtitle">패스워드 초기화</div>
 		        
-		        <form action="login" method="post">
+		        <form action="reset-passwd" method="post">
 		       
 		        <table>
 		            <tr>
@@ -40,9 +40,8 @@
 		        </table>
 		        
 		        <div class="buttons">
-		        	<input type="submit" value="로그인" style="height:25px" />
-		        	<input type="button" id="cancel-btn" value="취소" style="height:25px" />
-		        	<input type="button" id="reset-pwd-btn" value="비밀번호초기화" style="height:25px" />
+		        	<input type="submit" value="변경" style="height:25px" />
+		        	<input type="button" id="cancel-btn" value="취소" style="height:25px" />		        	
 		        </div>
 		        </form>
 		        
@@ -55,22 +54,9 @@
 	$(function() {
 		
 		$('#cancel-btn').on("click", function(event) {
-			location.href = "/demoweb/home";
-		});
-	
-		$('#reset-pwd-btn').on("click", function(event) {
-			location.href = "/demoweb/account/reset-passwd";
-		});
-		
-		<%-- 서블릿에서 로그인 실패 후 forward로 이동한 경우 --%>
-		<% if (request.getAttribute("loginfail") != null) { %>
-		alert("로그인 실패 (forward)");
-		<% } %>
-		
-		<%-- 서블릿에서 로그인 실패 후 redirect로 이동한 경우 --%>
-		<% if (request.getParameter("loginfail") != null) { %>
-		alert("로그인 실패 (redirect)");
-		<% } %>
+			// location.href = "/demoweb/account/login";
+			history.back(); // 이전으로 이동하기
+		});	
 		
 	});
 	

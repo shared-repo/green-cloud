@@ -22,7 +22,7 @@ public class AccountService {
 	//public MemberDto findMemberByMemeberIdAndPasswd(String memberId, String passwd) {
 	public MemberDto findMemberByMemeberIdAndPasswd(MemberDto member) {
 		
-		// // 업무 규칙(요구사항) 처리
+		// 업무 규칙(요구사항) 처리
 		String hashedPasswd = Util.getHashedString(member.getPasswd(), "SHA-256");
 		// memberId = hashedPasswd;
 		member.setPasswd(hashedPasswd);
@@ -34,6 +34,17 @@ public class AccountService {
 		
 		// 호출한 곳으로 조회 결과 반환
 		return foundMember;
+	}
+	
+	public void resetPasswd(MemberDto member) {
+		
+		// 업무 규칙(요구사항) 처리
+		String hashedPasswd = Util.getHashedString(member.getPasswd(), "SHA-256");
+		member.setPasswd(hashedPasswd);
+		
+		AccountDao accountDao = new AccountDao();
+		accountDao.updatePasswd(member);
+		
 	}
 
 }
