@@ -1,4 +1,4 @@
-<%@page import="com.demoweb.dto.MemberDto"%>
+<%@ page import="com.demoweb.dto.MemberDto"%>
 <%@ page language="java" 
 		 contentType="text/html; charset=UTF-8"
     	 pageEncoding="UTF-8"%>
@@ -33,4 +33,9 @@
 					<li><a href="#">게시판</a></li>
                 </ul>
             </div>
-		</div>    
+		</div>
+		
+		<div id="counter" style="text-align:right; padding:5px; border: solid 1px">
+		[TOTAL : <%= application.getAttribute("total") == null ? "0" : application.getAttribute("total") %>]
+		[CURRENT : <%= application.getAttribute("current") == null ? "0" : application.getAttribute("current") %>]
+		</div>
