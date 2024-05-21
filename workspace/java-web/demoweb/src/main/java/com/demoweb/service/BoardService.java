@@ -5,7 +5,7 @@ import com.demoweb.dto.BoardDto;
 
 public class BoardService {
 
-	private BoardDao boardDao;
+	private BoardDao boardDao = new BoardDao();
 	
 	public void writeBoard(BoardDto board) {
 		

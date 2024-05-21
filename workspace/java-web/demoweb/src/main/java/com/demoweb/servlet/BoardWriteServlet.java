@@ -3,6 +3,7 @@ package com.demoweb.servlet;
 import java.io.IOException;
 
 import com.demoweb.dto.BoardDto;
+import com.demoweb.dto.MemberDto;
 import com.demoweb.service.BoardService;
 
 import jakarta.servlet.RequestDispatcher;
@@ -36,13 +37,19 @@ public class BoardWriteServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
+		// 1. 데이터 읽기 + DTO에 저장
 		BoardDto board = new BoardDto();
-		board.setTitle(req.getParameter("title"));
-		board.setWriter("iamuserone");
+		board.setTitle(req.getParameter("title"));		
 		board.setContent(req.getParameter("content"));
 		
+//		HttpSession session = req.getSession(); // 서블릿에는 session 내장 객체가 없으므로 request 객체에서 유도
+//		MemberDto member = (MemberDto)session.getAttribute("loginuser");
+//		board.setWriter(member.getMemberId());
+		
+		// 2. 데이터 저장 (서비스 호출)
 		boardService.writeBoard(board);
 		
+		// 3. 목록으로 이동
 		resp.sendRedirect("/demoweb/board/list");
 		
 		
