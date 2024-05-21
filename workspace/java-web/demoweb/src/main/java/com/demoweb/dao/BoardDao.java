@@ -56,7 +56,9 @@ public class BoardDao {
 			
 			// 3. 명령 객체 만들기
 			// String sql = "SELECT boardno, title, writer, readcount, writedate, modifydate FROM board WHERE deleted = false";
-			String sql = "SELECT boardno, title, writer, readcount, writedate, modifydate, deleted FROM board";
+			String sql = "SELECT boardno, title, writer, readcount, writedate, modifydate, deleted " +
+						 "FROM board " +
+						 "ORDER BY boardno DESC";
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 명령 실행 ( 결과가 있으면 결과 저장 - select 인 경우 )
