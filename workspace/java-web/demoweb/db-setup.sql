@@ -29,3 +29,56 @@ CREATE TABLE member
     , regdate DATETIME DEFAULT (NOW())
     , active BOOLEAN DEFAULT (TRUE)
 );
+
+-- 6. 설정 데이터 저장 테이블 만들기
+CREATE TABLE app_settings
+(
+	setting_name varchar(100) primary key,
+    setting_value varchar(100) not null
+);
+
+INSERT INTO app_settings VALUES ("total_counter", "0");
+
+-- 7. board 테이블 만들기
+CREATE TABLE board
+(
+    boardno INT PRIMARY KEY AUTO_INCREMENT
+    , title VARCHAR(100) NOT NULL
+    , writer VARCHAR (20) NOT NULL
+    , content VARCHAR (4000) NOT NULL
+    , regdate DATE DEFAULT (NOW())
+    , readcount INT DEFAULT (0)
+    , deleted BOOLEAN DEFAULT (FALSE)
+
+    , CONSTRAINT fk_board_to_member FOREIGN KEY (writer) REFERENCES member (memberid)
+);
+
+-- 8. boardattach(첨부파일) 테이블 만들기
+CREATE TABLE boardattach
+(
+    attachno INT PRIMARY KEY AUTO_INCREMENT
+    , boardno INT NOT NULL
+    , userfilename VARCHAR (100) NOT NULL
+    , savedfilename VARCHAR (100) NOT NULL
+    , downloadcount INT DEFAULT (0)
+
+    , CONSTRAINT fk_boardattach_to_board FOREIGN KEY (boardno) REFERENCES board (boardno)
+);
+
+-- 9. boardcomment(댓글) 테이블 만들기
+CREATE TABLE boardcomment
+(
+    commentno INT PRIMARY KEY AUTO_INCREMENT
+    , boardno INT NOT NULL
+    , writer VARCHAR (20) NOT NULL
+    , content VARCHAR (1000) NOT NULL
+    , regdate DATE DEFAULT (NOW())
+    , deleted BOOLEAN DEFAULT (FALSE)
+
+    , groupno INT NOT NULL
+    , step INT NOT NULL
+    , depth INT NOT NULL
+
+    , CONSTRAINT fk_boardcomment_to_board FOREIGN KEY (boardno) REFERENCES board (boardno)
+    , CONSTRAINT fk_boardcomment_to_member FOREIGN KEY (writer) REFERENCES member (memberid)
+);
