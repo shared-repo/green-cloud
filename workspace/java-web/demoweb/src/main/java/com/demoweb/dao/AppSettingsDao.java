@@ -8,6 +8,16 @@ import java.sql.ResultSet;
 import com.demoweb.dto.AppSetting;
 import com.demoweb.dto.MemberDto;
 
+// 데이터베이스 테이블 만들기 + 초기 데이터 저장
+//
+// CREATE TABLE app_settings
+// (
+//	  setting_name varchar(100) primary key,
+//    setting_value varchar(100) not null
+// );
+//
+// INSERT INTO app_settings VALUES ("total_counter", "0");
+
 public class AppSettingsDao {
 
 	public AppSetting selectAppSettingBySettingName(String settingName) {

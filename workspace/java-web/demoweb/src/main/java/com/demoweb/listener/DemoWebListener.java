@@ -32,6 +32,11 @@ public class DemoWebListener implements ServletContextListener, HttpSessionListe
 		int total = (int)application.getAttribute("total");
 		application.setAttribute("current", current + 1);
 		application.setAttribute("total", total + 1);
+		
+		if (total % 1000 == 0) { // 1000 카운트마다 한 번씩 데이터베이스에 저장
+			AppSetting appSetting = new AppSetting("total_counter", String.valueOf(total));
+			appSettingService.modifyAppSetting(appSetting);
+		}
 	}
 	
 	@Override
