@@ -17,7 +17,8 @@ public class BoardService {
 	
 	public ArrayList<BoardDto> findAllBaord() {
 		
-		return boardDao.selectAllBoard();
+		ArrayList<BoardDto> boards = boardDao.selectAllBoard();
+		return boards;
 		
 	}
 	

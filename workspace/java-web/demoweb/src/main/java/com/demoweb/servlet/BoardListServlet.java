@@ -24,7 +24,7 @@ public class BoardListServlet extends HttpServlet {
 		// 1. 게시물 목록 데이터 조회
 		ArrayList<BoardDto> boardList = boardService.findAllBaord();
 		
-		// 2. JSP에서 읽을 수 있도록 데이터 저장
+		// 2. JSP에서 읽을 수 있도록 request 객체에 데이터 저장
 		req.setAttribute("boardList", boardList);
 		
 		// 3. JSP로 이동 (forward)		
