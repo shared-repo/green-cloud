@@ -30,7 +30,7 @@
                     <li><a href="#">사용자관리</a></li>
 					<li><a href="#">메일보내기</a></li>
 					<li><a href="#">자료실</a></li>
-					<li><a href="#">게시판</a></li>
+					<li><a href="/demoweb/board/list">게시판</a></li>
                 </ul>
             </div>
 		</div>

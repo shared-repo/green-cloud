@@ -46,7 +46,8 @@ CREATE TABLE board
     , title VARCHAR(100) NOT NULL
     , writer VARCHAR (20) NOT NULL
     , content VARCHAR (4000) NOT NULL
-    , regdate DATE DEFAULT (NOW())
+    , writedate DATE DEFAULT (NOW())
+    , modifydate DATE DEFAULT (NOW())
     , readcount INT DEFAULT (0)
     , deleted BOOLEAN DEFAULT (FALSE)
 
