@@ -70,6 +70,7 @@
 		<%-- 서블릿에서 로그인 실패 후 redirect로 이동한 경우 --%>
 		<% if (request.getParameter("loginfail") != null) { %>
 		alert("로그인 실패 (redirect)");
+		location.href = "login";
 		<% } %>
 		
 	});

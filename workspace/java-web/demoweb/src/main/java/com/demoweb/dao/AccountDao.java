@@ -108,7 +108,8 @@ public class AccountDao {
 			pstmt.setString(2, member.getMemberId());
 			
 			// 4. 명령 실행 ( 결과가 있으면 결과 저장 - select 인 경우 )
-			pstmt.executeUpdate(); // insert, update, delete sql은 executeUpdate로 실행
+			int affectedCount = pstmt.executeUpdate(); // insert, update, delete sql은 executeUpdate로 실행 -> 반환 값은 영향 받은 행의 갯수
+			System.out.printf("수정된 행의 갯수 : %d\n", affectedCount);
 			
 			// 5. 결과가 있으면 결과 처리
 			
