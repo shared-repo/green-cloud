@@ -1,3 +1,4 @@
+<%@page import="com.demoweb.dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
@@ -32,6 +33,9 @@
 		            <tr>
 		                <th>작성자</th>
 		                <td>
+		                	<% MemberDto member = (MemberDto)session.getAttribute("loginuser"); %>
+		                	<input type="text" name="writer" value="<%= member.getMemberId() %>" 
+		                		   readonly style="width:580px;height:20px">
 		                </td>
 		            </tr>
 		            <tr>

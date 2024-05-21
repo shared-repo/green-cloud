@@ -42,9 +42,14 @@ public class BoardWriteServlet extends HttpServlet {
 		board.setTitle(req.getParameter("title"));		
 		board.setContent(req.getParameter("content"));
 		
+		// 1-1.
 //		HttpSession session = req.getSession(); // 서블릿에는 session 내장 객체가 없으므로 request 객체에서 유도
 //		MemberDto member = (MemberDto)session.getAttribute("loginuser");
 //		board.setWriter(member.getMemberId());
+		
+		// 1-2
+		board.setWriter(req.getParameter("writer"));
+		
 		
 		// 2. 데이터 저장 (서비스 호출)
 		boardService.writeBoard(board);
