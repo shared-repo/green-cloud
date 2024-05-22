@@ -27,16 +27,19 @@ public class FileUploadServlet2 extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-
-		Collection<Part> parts = req.getParts();
+		ApplicationPart data1 = (ApplicationPart)req.getPart("data1");
+		ApplicationPart data2 = (ApplicationPart)req.getPart("data2");
+		ApplicationPart attach = (ApplicationPart)req.getPart("attach");
 		
-		for (Part part: parts) {
-			System.out.println(part);
-		}
+		System.out.println(data1.getName() + " : " + data1.getString("utf-8"));
+		System.out.println(data2.getName() + " : " + data2.getString("utf-8"));
+		System.out.println(attach.getName() + " : " + attach.getSubmittedFileName());
 		
-		Part data1Part = req.getPart("data1");
+		ServletContext application = req.getServletContext(); 		// JSP의 application 내장 객체
+		String path = application.getRealPath("/upload-files");		// 최종 파일 저장 경로
+		String tempPath = application.getRealPath("/upload-temp");	// 임시 파일 저장 경로
+		attach.write(new File(path, attach.getSubmittedFileName()).getAbsolutePath());
 		
-
 		resp.sendRedirect("10.file-list.jsp");
 	}
 	
