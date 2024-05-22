@@ -33,7 +33,7 @@
 					<th style="width:125px">작성자</th>
 					<th style="width:50px">조회수</th>
 					<th style="width:125px">작성일</th>
-					<th style="width:125px">수정일</th>					
+					<th style="width:125px">수정일</th>
 				</tr>
 				
 				<%-- 게시물 목록 표시 : 위의 <tr>과 <th>를 참고해서 구현, 반복문 사용 필요 --%>
