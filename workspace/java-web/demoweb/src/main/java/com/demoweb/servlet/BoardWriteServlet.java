@@ -23,12 +23,13 @@ public class BoardWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		// 1-1. 로그인 여부 확인 : Session에 인증 데이터있는지 확인
-		HttpSession session = req.getSession(); // 서블릿에는 session 내장 객체가 없으므로 request 객체에서 유도
-		if (session.getAttribute("loginuser") == null) { // 1.2. 로그인 하지 않은 사용자는
-			// 로그인 화면으로 이동 (redirect)
-			resp.sendRedirect("/demoweb/account/login");
-			return;
-		}
+		//      이 코드는 중복을 피하기 위해 AuthFilter로 이동
+//		HttpSession session = req.getSession(); // 서블릿에는 session 내장 객체가 없으므로 request 객체에서 유도
+//		if (session.getAttribute("loginuser") == null) { // 1.2. 로그인 하지 않은 사용자는
+//			// 로그인 화면으로 이동 (redirect)
+//			resp.sendRedirect("/demoweb/account/login");
+//			return;
+//		}
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/board/write.jsp");
 		rd.forward(req, resp);
