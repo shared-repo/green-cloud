@@ -11,8 +11,8 @@
 <body>
 
 <h3>폼 데이터와 파일 전송</h3>
-<form action="file-upload" method="post" enctype="multipart/form-data">
-<!-- <form action="file-upload2" method="post" enctype="multipart/form-data"> -->
+<!-- <form action="file-upload" method="post" enctype="multipart/form-data"> -->
+<form action="file-upload2" method="post" enctype="multipart/form-data">
 DATA 1 : <input type="text" name="data1"><br>
 DATA 2 : <input type="text" name="data2"><br>
 첨부파일 : <input type="file" name="attach"><br>

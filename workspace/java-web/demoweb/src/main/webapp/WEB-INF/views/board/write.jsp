@@ -1,6 +1,7 @@
 <%@page import="com.demoweb.dto.MemberDto"%>
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" 
+		 contentType="text/html; charset=utf-8"
+    	 pageEncoding="utf-8"%>
 
 
 <!DOCTYPE html>
@@ -22,7 +23,7 @@
 		<div id="inputcontent">
 		    <div id="inputmain">
 		        <div class="inputsubtitle">게시글 정보</div>
-		        <form action="write" method="post">
+		        <form action="write" method="post" enctype="multipart/form-data">
 		        <table>
 		            <tr>
 		                <th>제목</th>

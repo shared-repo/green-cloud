@@ -34,6 +34,8 @@ public class FileUploadServlet2 extends HttpServlet {
 			System.out.println(part);
 		}
 		
+		Part data1Part = req.getPart("data1");
+		
 
 		resp.sendRedirect("10.file-list.jsp");
 	}
