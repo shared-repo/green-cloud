@@ -1,5 +1,6 @@
 package com.demoweb.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class BoardDto {
@@ -12,6 +13,9 @@ public class BoardDto {
 	private Date modifyDate;
 	private int readCount;
 	private boolean deleted;
+	
+	// board 테이블과 boardattach 테이블 사이의 1 : Many 관계를 구현하는 필드
+	private ArrayList<BoardAttachDto> attachments;
 	
 	public int getBoardNo() {
 		return boardNo;
@@ -60,6 +64,12 @@ public class BoardDto {
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
+	}
+	public ArrayList<BoardAttachDto> getAttachments() {
+		return attachments;
+	}
+	public void setAttachments(ArrayList<BoardAttachDto> attachments) {
+		this.attachments = attachments;
 	}
 
 }

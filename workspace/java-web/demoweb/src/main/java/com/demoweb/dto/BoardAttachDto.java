@@ -8,6 +8,9 @@ public class BoardAttachDto {
 	private String savedFileName;	// 서버에 저장한 파일 이름, 고유한 이름
 	private int downloadCount;
 	
+	// boardattach테이블과 board 테이블 사이의 1 : 1 관계를 구현하는 필드 
+	private BoardDto board;
+	
 	public int getAttachNo() {
 		return attachNo;
 	}
@@ -37,6 +40,12 @@ public class BoardAttachDto {
 	}
 	public void setDownloadCount(int downloadCount) {
 		this.downloadCount = downloadCount;
+	}
+	public BoardDto getBoard() {
+		return board;
+	}
+	public void setBoard(BoardDto board) {
+		this.board = board;
 	}
 	
 

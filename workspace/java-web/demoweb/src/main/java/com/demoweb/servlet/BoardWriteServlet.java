@@ -51,7 +51,7 @@ public class BoardWriteServlet extends HttpServlet {
 	
 		//파일 업로드를 포함한 요청인지 확인 (multipart/form-data 형식 확인)
 		if (ServletFileUpload.isMultipartContent(req) == false) {
-			resp.sendRedirect("list.action");
+			resp.sendRedirect("list");
 			return;
 		}
 
@@ -74,7 +74,7 @@ public class BoardWriteServlet extends HttpServlet {
 
 		BoardDto board = new BoardDto();	// 게시글 정보를 저장하는 DTO 객체
 		ArrayList<BoardAttachDto> attachments = new ArrayList<>(); // 첨부파일 정보를 저장하는 DTO 객체
-		// board.setAttachments(attachments);
+		board.setAttachments(attachments);
 		
 		//요청 정보를 파싱하고 개별 객체의 목록을 반환
 		try {
