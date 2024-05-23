@@ -49,7 +49,7 @@
 		                <th>첨부파일</th>
 		                <td>
 		                <% for(BoardAttachDto attach : board.getAttachments()) { %>
-		                	<%= attach.getUserFileName() %><br>
+		                	<a href="download?attachno=<%= attach.getAttachNo() %>"><%= attach.getUserFileName() %></a><br>
 						<% } %>
 		                </td>
 		            </tr>

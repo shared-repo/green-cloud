@@ -42,6 +42,11 @@ public class BoardService {
 		return board;
 		
 	}
+
+	public BoardAttachDto findBoardAttachByAttachNo(int attachNo) {
+		BoardAttachDto attach = boardDao.selectBoardAttachByAttachNo(attachNo);
+		return attach;
+	}
 	
 }
 
