@@ -41,7 +41,11 @@
 				<tr style="height:30px">
 					<td><%= board.getBoardNo() %></td>
 					<td style="text-align:left;padding-left:5px">
+					<% if (board.isDeleted()) { %>
+						<span style='color:gray'><%= board.getTitle() %> [삭제된 글입니다]</span>
+					<% } else { %>
 						<a href="detail?boardno=<%= board.getBoardNo() %>"><%= board.getTitle() %></a>
+					<% } %>
 					</td>
 					<td style="text-align:left;padding-left:5px"><%= board.getWriter() %></td>
 					<td><%= board.getReadCount() %></td>

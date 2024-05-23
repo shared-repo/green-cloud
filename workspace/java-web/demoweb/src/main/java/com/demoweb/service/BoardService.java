@@ -47,6 +47,11 @@ public class BoardService {
 		BoardAttachDto attach = boardDao.selectBoardAttachByAttachNo(attachNo);
 		return attach;
 	}
+
+	public void deleteBoard(int boardNo) {
+		boardDao.updateBoardDeleted(boardNo);
+		
+	}
 	
 }
 
