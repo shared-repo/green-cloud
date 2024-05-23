@@ -29,4 +29,12 @@ public class BoardService {
 		
 	}
 	
+	public BoardDto findBoardByBoardNo(int boardNo) {
+		
+		BoardDto board = boardDao.selectBoardByBoardNo(boardNo);
+		
+		return board;
+		
+	}
+	
 }

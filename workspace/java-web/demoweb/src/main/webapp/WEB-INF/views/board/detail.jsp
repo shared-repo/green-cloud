@@ -1,3 +1,4 @@
+<%@page import="com.demoweb.dto.BoardDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
@@ -21,33 +22,36 @@
 		<div id="inputcontent">
 		    <div id="inputmain">
 		        <div class="inputsubtitle">게시글 정보</div>
+		        <% BoardDto board = (BoardDto)request.getAttribute("board"); %>
 		        <table>
 		            <tr>
 		                <th>제목</th>
-		                <td></td>
+		                <td><%= board.getTitle() %></td>
 		            </tr>
 		            <tr>
 		                <th>작성자</th>
-		                <td></td>
+		                <td><%= board.getWriter() %></td>
 		            </tr>
 		            <tr>
 		            	<th>조회수</th>
-		            	<td></td>
+		            	<td><%= board.getReadCount() %></td>
 		            </tr>
 		            <tr>
 		            	<th>등록일자</th>
-		            	<td></td>
+		            	<td><%= board.getRegDate() %></td>
 		            </tr>
 		            <tr>
 		                <th>첨부파일</th>
 		                <td>
-		                
+
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>글내용</th>
 						<td>
-							
+							<%= board.getContent().replace("\r\n", "<br>")
+												  .replace("\r", "<br>")
+												  .replace("\n", "<br>") %>
 						</td>
 		            </tr>
 		        </table>

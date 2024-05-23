@@ -21,7 +21,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 @WebServlet(urlPatterns = { "/file-upload2" })
-@MultipartConfig(location = "C:\\Users\\Administrator\\Downloads")
+@MultipartConfig(location = "D:\\instructor-och\\green-cloud\\workspace\\java-web\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\examplesweb\\upload-temp")
 public class FileUploadServlet2 extends HttpServlet {
 
 	@Override
@@ -37,7 +37,6 @@ public class FileUploadServlet2 extends HttpServlet {
 		
 		ServletContext application = req.getServletContext(); 		// JSP의 application 내장 객체
 		String path = application.getRealPath("/upload-files");		// 최종 파일 저장 경로
-		String tempPath = application.getRealPath("/upload-temp");	// 임시 파일 저장 경로
 		attach.write(new File(path, attach.getSubmittedFileName()).getAbsolutePath());
 		
 		resp.sendRedirect("10.file-list.jsp");

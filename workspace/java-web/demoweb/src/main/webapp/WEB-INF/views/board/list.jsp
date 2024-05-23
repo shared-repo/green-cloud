@@ -40,7 +40,9 @@
 				<% for (BoardDto board : (ArrayList<BoardDto>)request.getAttribute("boardList")) { %>
 				<tr style="height:30px">
 					<td><%= board.getBoardNo() %></td>
-					<td style="text-align:left;padding-left:5px"><%= board.getTitle() %></td>
+					<td style="text-align:left;padding-left:5px">
+						<a href="detail?boardno=<%= board.getBoardNo() %>"><%= board.getTitle() %></a>
+					</td>
 					<td style="text-align:left;padding-left:5px"><%= board.getWriter() %></td>
 					<td><%= board.getReadCount() %></td>
 					<td><%= board.getWriteDate() %></td>
