@@ -25,7 +25,7 @@ public class DownloadServlet extends HttpServlet {
 		String sAttachNo = req.getParameter("attachno");
 		int attachNo = Integer.parseInt(sAttachNo);
 		
-		// 2. 데이터 조회
+		// 2. 데이터 조회 ( 파일이름이 필요해서 수행 ) 
 		BoardService boardService = new BoardService();
 		BoardAttachDto attach = boardService.findBoardAttachByAttachNo(attachNo);
 		

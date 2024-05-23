@@ -261,7 +261,7 @@ public class BoardDao {
 			rs = pstmt.executeQuery(); // executeQuery : select 일 때 사용하는 메서드
 						
 			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
-			while (rs.next()) {	// 결과 집합의 다음 행으로 이동
+			if (rs.next()) {	// 결과 집합의 다음 행으로 이동
 				attach = new BoardAttachDto();
 				attach.setAttachNo(rs.getInt(1));
 				attach.setBoardNo(rs.getInt(2));
