@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardDto;
 
 public class BoardDao {
@@ -13,7 +14,8 @@ public class BoardDao {
 	public void insertBoard(BoardDto board) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-
+		ResultSet rs = null;
+		
 		try {
 			// 1. 드라이버 준비
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -30,13 +32,24 @@ public class BoardDao {
 			
 			// 4. 명령 실행 ( 결과가 있으면 결과 저장 - select 인 경우 )
 			pstmt.executeUpdate(); // insert, update, delete sql은 executeUpdate로 실행
+			pstmt.close();
+			
+			// sql = "SELECT boardNo FROM board WHERE title = ? AND writer = ? AND content = ?";
+			sql = "SELECT LAST_INSERT_ID()"; // 현재 세션에서 발생한 마지막 AUTO_INCREMENT 값 조회
+			pstmt = conn.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();		
 			
 			// 5. 결과가 있으면 결과 처리
+			rs.next();
+			int boardNo = rs.getInt(1);
+			board.setBoardNo(boardNo);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		} finally {
 			// 6. 연결 종료
+			try { rs.close(); } catch (Exception ex) {}
 			try { pstmt.close(); } catch (Exception ex) {}
 			try { conn.close(); } catch (Exception ex) {}
 		}
@@ -87,6 +100,39 @@ public class BoardDao {
 		}
 		
 		return boardList;
+	}
+
+	public void insertBoardAttach(BoardAttachDto attach) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			// 1. 드라이버 준비
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결 객체 만들기
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			
+			// 3. 명령 객체 만들기
+			String sql = "INSERT INTO boardattach (boardno, userfilename, savedfilename) VALUES (?, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, attach.getBoardNo());
+			pstmt.setString(2, attach.getUserFileName());
+			pstmt.setString(3, attach.getSavedFileName());
+			
+			// 4. 명령 실행 ( 결과가 있으면 결과 저장 - select 인 경우 )
+			pstmt.executeUpdate(); // insert, update, delete sql은 executeUpdate로 실행
+			
+			// 5. 결과가 있으면 결과 처리
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			// 6. 연결 종료
+			try { pstmt.close(); } catch (Exception ex) {}
+			try { conn.close(); } catch (Exception ex) {}
+		}
+		
 	}
 	
 }
