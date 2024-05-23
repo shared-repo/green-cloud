@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/board/detail.action" })
+@WebServlet(urlPatterns = { "/board/detail" })
 public class BoardDetailServlet extends HttpServlet {
 	
 	@Override
@@ -25,11 +25,6 @@ public class BoardDetailServlet extends HttpServlet {
 		// 2. 요청 처리 : 데이터베이스에 데이터 저장 -> BoardService를 호출해서 처리
 		BoardService boardService = new BoardService();				
 		BoardDto board = boardService.findBoardByBoardNo(boardNo);
-		
-		if (board == null) { // 조회되지 않은 경우 (글 번호가 잘못되었거나 또는 삭제된 글인 경우)
-			resp.sendRedirect("list.action");
-			return;
-		}
 		
 		// 2. JSP에서 읽을 수 있도록 데이터 전달 ( request 객체에 저장 )
 		req.setAttribute("board", board);

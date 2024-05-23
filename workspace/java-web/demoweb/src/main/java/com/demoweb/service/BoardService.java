@@ -31,10 +31,32 @@ public class BoardService {
 	
 	public BoardDto findBoardByBoardNo(int boardNo) {
 		
+		// 게시글 조회
 		BoardDto board = boardDao.selectBoardByBoardNo(boardNo);
+		
+		// 첨부파일 조회
+		ArrayList<BoardAttachDto> attaches = boardDao.selectBoardAttachByBoardNo(boardNo);
+		
+		board.setAttachments(attaches);
 		
 		return board;
 		
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

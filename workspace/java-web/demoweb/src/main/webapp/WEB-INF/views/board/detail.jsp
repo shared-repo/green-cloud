@@ -1,3 +1,4 @@
+<%@page import="com.demoweb.dto.BoardAttachDto"%>
 <%@page import="com.demoweb.dto.BoardDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -37,13 +38,19 @@
 		            	<td><%= board.getReadCount() %></td>
 		            </tr>
 		            <tr>
-		            	<th>등록일자</th>
-		            	<td><%= board.getRegDate() %></td>
+		            	<th>작성일자</th>
+		            	<td><%= board.getWriteDate() %></td>
+		            </tr>
+		            <tr>
+		            	<th>수정일자</th>
+		            	<td><%= board.getModifyDate() %></td>
 		            </tr>
 		            <tr>
 		                <th>첨부파일</th>
 		                <td>
-
+		                <% for(BoardAttachDto attach : board.getAttachments()) { %>
+		                	<%= attach.getUserFileName() %><br>
+						<% } %>
 		                </td>
 		            </tr>
 		            <tr>
