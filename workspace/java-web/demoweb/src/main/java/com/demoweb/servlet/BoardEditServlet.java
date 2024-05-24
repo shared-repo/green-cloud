@@ -62,23 +62,24 @@ public class BoardEditServlet extends HttpServlet {
 		board.setTitle(titlePart.getString("utf-8"));
 		board.setContent(contentPart.getString("utf-8"));		
 		
+		ArrayList<BoardAttachDto> attachments = new ArrayList<>();
+		board.setAttachments(attachments);
+		
 		// 2-2. 파일 저장
 		String userFileName = attachPart.getSubmittedFileName();
-		String savedFileName = Util.makeUniqueFileName(userFileName);
-		String dir = req.getServletContext().getRealPath("/board-attachments");
-		// attachPart.write(dir + savedFileName);
-		attachPart.write(new File(dir, savedFileName).getAbsolutePath());
-		
-		// 2-3. boardattach 테이블 데이터 추가를 위한 DTO 만들기
-		BoardAttachDto attach = new BoardAttachDto();
-		attach.setBoardNo(boardNo);
-		attach.setUserFileName(userFileName);
-		attach.setSavedFileName(savedFileName);
-		
-		// 2-4. board dto와 boartattach dto를 결합
-		ArrayList<BoardAttachDto> attachments = new ArrayList<>();
-		attachments.add(attach);
-		board.setAttachments(attachments);
+		if (userFileName != null && userFileName.length() > 0) {
+			String savedFileName = Util.makeUniqueFileName(userFileName);
+			String dir = req.getServletContext().getRealPath("/board-attachments");
+			// attachPart.write(dir + savedFileName);
+			attachPart.write(new File(dir, savedFileName).getAbsolutePath());
+			
+			// 2-3. boardattach 테이블 데이터 추가를 위한 DTO 만들기
+			BoardAttachDto attach = new BoardAttachDto();
+			attach.setBoardNo(boardNo);
+			attach.setUserFileName(userFileName);
+			attach.setSavedFileName(savedFileName);
+			attachments.add(attach);
+		}
 		
 		// 2-5. 데이터베이스 데이터 수정 + 저장
 		boardService.modifyBoard(board);
