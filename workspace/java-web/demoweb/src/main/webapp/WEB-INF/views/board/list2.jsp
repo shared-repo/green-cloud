@@ -3,8 +3,6 @@
 <%@ page language="java" 
 		 contentType="text/html; charset=utf-8"
     	 pageEncoding="utf-8"%>
-    	 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 
@@ -40,25 +38,22 @@
 				</tr>
 				
 				<%-- 게시물 목록 표시 : 위의 <tr>과 <th>를 참고해서 구현, 반복문 사용 필요 --%>
-				<c:forEach var="board" items="${ boardList }">				
+				<% for (BoardDto board : (ArrayList<BoardDto>)request.getAttribute("boardList")) { %>
 				<tr style="height:30px">
-					<td>${ board.boardNo }</td>
+					<td><%= board.getBoardNo() %></td>
 					<td style="text-align:left;padding-left:5px">
-					<c:choose>
-					<c:when test="${ board.deleted }">										
-						<span style='color:gray'>${ board.title } [삭제된 글입니다]</span>
-					</c:when>
-					<c:otherwise>
-						<a href="detail?boardno=${ board.boardNo }">${ board.title }</a>
-					</c:otherwise>
-					</c:choose>
+					<% if (board.isDeleted()) { %>
+						<span style='color:gray'><%= board.getTitle() %> [삭제된 글입니다]</span>
+					<% } else { %>
+						<a href="detail?boardno=<%= board.getBoardNo() %>"><%= board.getTitle() %></a>
+					<% } %>
 					</td>
-					<td style="text-align:left;padding-left:5px">${ board.writer }</td>
-					<td>${ board.readCount }</td>
-					<td>${ board.writeDate }</td>
-					<td>${ board.modifyDate }</td>
+					<td style="text-align:left;padding-left:5px"><%= board.getWriter() %></td>
+					<td><%= board.getReadCount() %></td>
+					<td><%= board.getWriteDate() %></td>
+					<td><%= board.getModifyDate() %></td>
 				</tr>
-				</c:forEach>
+				<% } %>
 								
 			</table>
 						
