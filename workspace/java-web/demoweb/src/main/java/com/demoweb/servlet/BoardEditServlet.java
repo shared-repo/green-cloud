@@ -2,17 +2,23 @@ package com.demoweb.servlet;
 
 import java.io.IOException;
 
+import org.apache.catalina.core.ApplicationPart;
+
+import com.demoweb.common.Util;
+import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardDto;
 import com.demoweb.service.BoardService;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/board/edit" })
+@MultipartConfig(location = "D:\\instructor-och\\green-cloud\\workspace\\java-web\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\demoweb\\board-temp")
 public class BoardEditServlet extends HttpServlet {
 
 	@Override
@@ -32,6 +38,35 @@ public class BoardEditServlet extends HttpServlet {
 		// 3. 응답 컨텐츠 생산 ( JSP로 forward 이동 )		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/board/edit.jsp");
 		rd.forward(req, resp); // 지정된 경로로 forward 이동
+		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+		// 1. 데이터 읽기
+		ApplicationPart boardNoPart = (ApplicationPart)req.getPart("boardno");
+		ApplicationPart titlePart = (ApplicationPart)req.getPart("title");
+		ApplicationPart contentPart = (ApplicationPart)req.getPart("content");
+		ApplicationPart attachPart = (ApplicationPart)req.getPart("attach");
+		
+		int boardNo = Integer.parseInt(boardNoPart.getString("utf-8"));
+		
+		// 2-1. board 테이블 데이터 수정
+		BoardDto board = new BoardDto();
+		board.setBoardNo(boardNo);
+		board.setTitle(titlePart.getString("utf-8"));
+		board.setContent(contentPart.getString("utf-8"));
+		
+		// 2-2. boardattach 테이블 데이터 추가
+		String userFileName = attachPart.getSubmittedFileName();
+		BoardAttachDto attach = new BoardAttachDto();
+		attach.setBoardNo(boardNo);
+		attach.setUserFileName(userFileName);
+		attach.setSavedFileName(Util.makeUniqueFileName(userFileName));
+		
+		// 3. 상세보기로 이동 (redirect)
+		resp.sendRedirect("detail?boardno=" + boardNo);
 		
 	}
 	

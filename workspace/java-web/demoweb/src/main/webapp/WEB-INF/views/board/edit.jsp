@@ -22,8 +22,9 @@
 		<div id="inputcontent">
 		    <div id="inputmain">
 		        <div class="inputsubtitle">게시글 정보</div>
-		        <form action="edit.action" method="post">
+		        <form action="edit" method="post" enctype="multipart/form-data">
 		        <% BoardDto board = (BoardDto)request.getAttribute("board"); %>
+		        <input type="hidden" name="boardno" value="<%= board.getBoardNo() %>">
 		        <table>
 		            <tr>
 		                <th>제목</th>
