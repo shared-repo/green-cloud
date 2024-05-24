@@ -2,33 +2,25 @@
 <%@ page language="java" 
 		 contentType="text/html; charset=UTF-8"
     	 pageEncoding="UTF-8"%>
-    	 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  	 
-<%-- <%@ taglib prefix="c" uri="jakarta.tags.core" %> --%><%-- jstl 라이브러리의 core 객체들을 c:tagname 형식으로 사용하는 선언 --%>
 
-		<c:choose>
-			<c:when test="${ not empty param.bgcolor }">
-			<div id="header" style="background-color:${ param.bgcolor }"> 
-			</c:when>
-			<c:otherwise>
-			<div id="header">
-			</c:otherwise>
-		</c:choose>
-		
+		<% String bgColor = request.getParameter("bgcolor"); %>
+		<% if (bgColor != null && bgColor.length() > 0) { %>
+		<div id="header" style="background-color:<%= bgColor %>">    	
+		<% } else { %>
+		<div id="header">
+		<% } %>
             <div class="title">
                 <a href="/demoweb/home">DEMO WEBSITE</a>
             </div>
             <div class="links">
-            <c:choose>
-            	<c:when test="${ empty loginuser }">
+            <% MemberDto member = (MemberDto)session.getAttribute("loginuser"); %>
+            <% if (member == null) { // 로그인 하지 않은 사용자인 경우 (세션에 데이터가 없는 경우) %>
             	<a href="/demoweb/account/login">로그인</a>
                 <a href="/demoweb/account/register">회원가입</a>
-            	</c:when>
-            	<c:otherwise>
-            	${ loginuser.memberId }님 환영합니다.
+            <% } else { %>
+            	<%= member.getMemberId() %>님 환영합니다.
             	<a href="/demoweb/account/logout">로그아웃</a>
-            	</c:otherwise>
-            </c:choose>            
+            <% } %>
             </div>
         </div>
                 
@@ -44,6 +36,6 @@
 		</div>
 		
 		<div id="counter" style="text-align:right; padding:5px; border: solid 1px">
-		[TOTAL : ${ total == null ? "0" : total }]
-		[CURRENT : ${ applicationScope.current == null ? "0" : current }]
+		[TOTAL : <%= application.getAttribute("total") == null ? "0" : application.getAttribute("total") %>]
+		[CURRENT : <%= application.getAttribute("current") == null ? "0" : application.getAttribute("current") %>]
 		</div>

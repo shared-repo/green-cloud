@@ -34,8 +34,10 @@
 		            <tr>
 		                <th>작성자</th>
 		                <td>
-		                	<input type="hidden" name="writer" value="${ loginuser.memberId }">
-		                	${ sessionScope.loginuser.memberId }
+		                	<% MemberDto member = (MemberDto)session.getAttribute("loginuser"); %>
+		                	<%-- <input type="text" name="writer" value="<%= member.getMemberId() %>" readonly style="width:580px;height:20px"> --%>
+		                	<input type="hidden" name="writer" value="<%= member.getMemberId() %>">
+		                	<%= member.getMemberId() %>
 		                </td>
 		            </tr>
 		            <tr>
