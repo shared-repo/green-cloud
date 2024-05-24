@@ -1,13 +1,9 @@
 <%@page import="com.demoweb.dto.MemberDto"%>
 <%@page import="com.demoweb.dto.BoardAttachDto"%>
 <%@page import="com.demoweb.dto.BoardDto"%>
-<%@ page language="java" 
-		 contentType="text/html; charset=utf-8"
-    	 pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <!DOCTYPE html>
 
@@ -27,53 +23,55 @@
 		<div style="padding-top:25px;text-align:center">
 		<div id="inputcontent">
 		    <div id="inputmain">
-		        <div class="inputsubtitle">게시글 정보</div>		        
+		        <div class="inputsubtitle">게시글 정보</div>
+		        <% BoardDto board = (BoardDto)request.getAttribute("board"); %>
 		        <table>
 		            <tr>
 		                <th>제목</th>
-		                <td>${ board.title }</td>
+		                <td><%= board.getTitle() %></td>
 		            </tr>
 		            <tr>
 		                <th>작성자</th>
-		                <td>${ board.writer }</td>
+		                <td><%= board.getWriter() %></td>
 		            </tr>
 		            <tr>
 		            	<th>조회수</th>
-		            	<td>${ board.readCount }</td>
+		            	<td><%= board.getReadCount() %></td>
 		            </tr>
 		            <tr>
 		            	<th>작성일자</th>
-		            	<td><fmt:formatDate value="${ board.writeDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+		            	<td><%= board.getWriteDate() %></td>
 		            </tr>
 		            <tr>
 		            	<th>수정일자</th>
-		            	<td><fmt:formatDate value="${ board.writeDate }" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+		            	<td><%= board.getModifyDate() %></td>
 		            </tr>
 		            <tr>
 		                <th>첨부파일</th>
 		                <td>
-		                <c:forEach var="attach" items="${ board.attachments }">
-		                	<a href="download?attachno=${ attach.attachNo }">
-		                	${ attach.userFileName }
+		                <% for(BoardAttachDto attach : board.getAttachments()) { %>
+		                	<a href="download?attachno=<%= attach.getAttachNo() %>">
+		                	<%= attach.getUserFileName() %>
 		                	</a><br>
-						</c:forEach>
+						<% } %>						
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>글내용</th>
 						<td>
-<c:set var="enter" value="
-" />
-							${ fn:replace(board.content, enter, "<br>") }
+							<%= board.getContent().replace("\r\n", "<br>")
+												  .replace("\r", "<br>")
+												  .replace("\n", "<br>") %>
 						</td>
 		            </tr>
 		        </table>
 		        <div class="buttons">
-		        	<%-- <c:if test="${ not empty loginuser and loginuser.memberId eq board.writer }"> --%>
-		        	<c:if test="${ loginuser != null && loginuser.memberId == board.writer}">
+		        	<% MemberDto loginUser = (MemberDto)session.getAttribute("loginuser"); %>
+		        	<% if (loginUser != null	// 로그인한 사용자 조건 
+		        		   && loginUser.getMemberId().equals(board.getWriter())) { // 현재 로그인한 사용자가 작성자인 경우 %>
 		        	<input type="button" id="edit_button" value="편집" style="height:25px" />
 		        	<input type="button" id="delete_button" value="삭제" style="height:25px" />
-		        	</c:if>
+		        	<% } %>
 		        	<input type="button" id="tolist_button" value="목록보기" style="height:25px" />
 		        </div>
 		    </div>
@@ -86,14 +84,14 @@
 	<script type="text/javascript">
 		$(function() {
 			$('#delete_button').on('click', function(event) {
-				const ok = confirm("${ board.boardNo }번 글을 삭제할까요?");
+				const ok = confirm("<%= board.getBoardNo() %>번 글을 삭제할까요?");
 				if (ok) {
-					location.href = 'delete?boardno=${ board.boardNo }';
+					location.href = 'delete?boardno=<%= board.getBoardNo() %>';
 				}
 			});
 			
 			$('#edit_button').on('click', function(event) {
-				location.href = 'edit?boardno=${ board.boardNo }';
+				location.href = 'edit?boardno=<%= board.getBoardNo() %>';
 			})
 		});
 	</script>
