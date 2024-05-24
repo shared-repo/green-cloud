@@ -58,6 +58,16 @@ public class BoardService {
 		boardDao.deleteBoardAttach(attachNo);
 		
 	}
+
+	public void modifyBoard(BoardDto board) {
+		
+		boardDao.updateBoard(board);
+		
+		for (BoardAttachDto attach : board.getAttachments()) {
+			boardDao.insertBoardAttach(attach);
+		}
+		
+	}
 	
 }
 
