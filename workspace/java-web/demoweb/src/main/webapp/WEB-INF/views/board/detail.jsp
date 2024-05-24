@@ -69,7 +69,7 @@
 		        	<% MemberDto loginUser = (MemberDto)session.getAttribute("loginuser"); %>
 		        	<% if (loginUser != null	// 로그인한 사용자 조건 
 		        		   && loginUser.getMemberId().equals(board.getWriter())) { // 현재 로그인한 사용자가 작성자인 경우 %>
-		        	<input type="button" id="update_button" value="편집" style="height:25px" />
+		        	<input type="button" id="edit_button" value="편집" style="height:25px" />
 		        	<input type="button" id="delete_button" value="삭제" style="height:25px" />
 		        	<% } %>
 		        	<input type="button" id="tolist_button" value="목록보기" style="height:25px" />
@@ -84,8 +84,15 @@
 	<script type="text/javascript">
 		$(function() {
 			$('#delete_button').on('click', function(event) {
-				location.href = 'delete?boardno=<%= board.getBoardNo() %>';
+				const ok = confirm("<%= board.getBoardNo() %>번 글을 삭제할까요?");
+				if (ok) {
+					location.href = 'delete?boardno=<%= board.getBoardNo() %>';
+				}
 			});
+			
+			$('#edit_button').on('click', function(event) {
+				location.href = 'edit?boardno=<%= board.getBoardNo() %>';
+			})
 		});
 	</script>
 

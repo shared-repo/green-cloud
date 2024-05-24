@@ -1,3 +1,5 @@
+<%@page import="com.demoweb.dto.BoardAttachDto"%>
+<%@page import="com.demoweb.dto.BoardDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 
@@ -20,25 +22,26 @@
 		<div id="inputcontent">
 		    <div id="inputmain">
 		        <div class="inputsubtitle">게시글 정보</div>
-		        <form action="edit.action"
-		        	  method="post">
+		        <form action="edit.action" method="post">
+		        <% BoardDto board = (BoardDto)request.getAttribute("board"); %>
 		        <table>
 		            <tr>
 		                <th>제목</th>
 		                <td>
-		                    <input type="text" name="title" style="width:580px"
-		                    	   value="" />
+		                    <input type="text" name="title" style="width:580px" value="<%= board.getTitle() %>" />
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>작성자</th>
-		                <td>
-		                		                	
-		                </td>
+		                <td><%= board.getWriter() %></td>
 		            </tr>
 		            <tr>
 		                <th>첨부파일</th>
 		                <td>
+		                	<% for (BoardAttachDto attach : board.getAttachments()) { %>
+		                	<%= attach.getUserFileName() %> 
+		                	[<a href='delete-attach?attachno=<%= attach.getAttachNo() %>&boardno=<%= board.getBoardNo() %>'>삭제</a>]<br>
+		                	<% } %>
 		                    <input type="file" name="attach" style="width:580px;height:20px" />
 		                </td>
 		            </tr>
@@ -46,7 +49,7 @@
 		                <th>글내용</th>
 		                <td>
 		                	<textarea name="content" 
-		                		style="width:580px" rows="15"></textarea>
+		                		style="width:580px" rows="15"><%= board.getContent() %></textarea>
 		                </td>
 		            </tr>
 		        </table>
