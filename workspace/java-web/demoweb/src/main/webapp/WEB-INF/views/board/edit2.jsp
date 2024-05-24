@@ -1,10 +1,7 @@
 <%@page import="com.demoweb.dto.BoardAttachDto"%>
 <%@page import="com.demoweb.dto.BoardDto"%>
-<%@ page language="java" 
-		 contentType="text/html; charset=utf-8"
-    	 pageEncoding="utf-8"%>
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 
 <!DOCTYPE html>
 
@@ -25,26 +22,27 @@
 		<div id="inputcontent">
 		    <div id="inputmain">
 		        <div class="inputsubtitle">게시글 정보</div>
-		        <form action="edit" method="post" enctype="multipart/form-data">		        
-		        <input type="hidden" name="boardno" value="${ board.boardNo }">
+		        <form action="edit" method="post" enctype="multipart/form-data">
+		        <% BoardDto board = (BoardDto)request.getAttribute("board"); %>
+		        <input type="hidden" name="boardno" value="<%= board.getBoardNo() %>">
 		        <table>
 		            <tr>
 		                <th>제목</th>
 		                <td>
-		                    <input type="text" name="title" style="width:580px" value="${ board.title }" />
+		                    <input type="text" name="title" style="width:580px" value="<%= board.getTitle() %>" />
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>작성자</th>
-		                <td>${ board.writer }</td>
+		                <td><%= board.getWriter() %></td>
 		            </tr>
 		            <tr>
 		                <th>첨부파일</th>
 		                <td>
-		                	<c:forEach var="attach" items="${ board.attachments }">
-		                	${ attach.userFileName } 
-		                	[<a href='delete-attach?attachno=${ attach.attachNo }&boardno=${ board.boardNo }'>삭제</a>]<br>
-		                	</c:forEach>
+		                	<% for (BoardAttachDto attach : board.getAttachments()) { %>
+		                	<%= attach.getUserFileName() %> 
+		                	[<a href='delete-attach?attachno=<%= attach.getAttachNo() %>&boardno=<%= board.getBoardNo() %>'>삭제</a>]<br>
+		                	<% } %>
 		                    <input type="file" name="attach" style="width:580px;height:20px" />
 		                </td>
 		            </tr>
@@ -52,7 +50,7 @@
 		                <th>글내용</th>
 		                <td>
 		                	<textarea name="content" 
-		                		style="width:580px" rows="15">${ board.content }</textarea>
+		                		style="width:580px" rows="15"><%= board.getContent() %></textarea>
 		                </td>
 		            </tr>
 		        </table>
