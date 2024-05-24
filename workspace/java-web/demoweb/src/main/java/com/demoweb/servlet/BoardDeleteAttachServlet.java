@@ -1,7 +1,9 @@
 package com.demoweb.servlet;
 
+import java.io.File;
 import java.io.IOException;
 
+import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.service.BoardService;
 
 import jakarta.servlet.ServletException;
@@ -22,9 +24,17 @@ public class BoardDeleteAttachServlet extends HttpServlet {
 		String sBoardNo = req.getParameter("boardno");
 		int boardNo = Integer.parseInt(sBoardNo);
 		
-		// 2. 데이터 삭제  
-//		BoardService boardService = new BoardService();
-//		boardService.deleteBoardAttach(attachNo);
+		// 2-1. 데이터 삭제  
+		BoardService boardService = new BoardService();
+		boardService.deleteBoardAttach(attachNo);
+		// 2-2. 파일 삭제
+		BoardAttachDto boardAttach = boardService.findBoardAttachByAttachNo(attachNo);
+		String fileName = boardAttach.getSavedFileName();
+		String dir = req.getServletContext().getRealPath("/board-attachments");
+		File fileToDelete = new File(dir, fileName);
+		if (fileToDelete.exists()) {
+			fileToDelete.delete();
+		}
 		
 		// 3. 편집화면으로 이동
 		resp.sendRedirect("edit?boardno=" + boardNo);

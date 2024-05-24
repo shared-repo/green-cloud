@@ -52,6 +52,12 @@ public class BoardService {
 		boardDao.updateBoardDeleted(boardNo);
 		
 	}
+
+	public void deleteBoardAttach(int attachNo) {
+		
+		boardDao.deleteBoardAttach(attachNo);
+		
+	}
 	
 }
 
