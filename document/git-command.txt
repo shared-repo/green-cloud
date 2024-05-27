@@ -1,0 +1,67 @@
+1. git client 설치
+
+2. git 설정
+
+   git config --global user.name "username"
+   git config --global user.email "username@example.com"
+
+3. 원격저장소를 복제해서 로컬저장소를 만들고 원격저장소와 연결
+
+    git clone "저장소 url"
+
+4. 저장소 위치로 이동
+
+   cd 저장소이름
+
+5. 저장소 상태 확인
+
+   git status
+
+6. 수정 내용을 관리 대상으로 변경
+
+   git add "폴더 또는 파일이름"
+   git add .
+
+7. 관리 대상 변경 내용을 로컬 저장소에 적용
+
+   git commit -m "새 파일 추가"  
+
+8. 로컬 저장소의 변경 내용을 원격 저장소에 적용
+
+   git push origin 브랜치이름(main or master)
+
+
+-------------------------------------------
+
+9. 원격 저장소의 수정 내용을 로컬 저장소 + 작업 디렉터리에 적용
+
+    git pull origin 브랜치이름(main or master)
+
+--------------------------------------------
+
+10 충돌이 발생한 경우 처리
+
+    git pull origin 브랜치이름 (main or master)
+
+    충돌이 발생한 파일 내용 확인 -->  충돌 내용 수정
+
+    git add .
+
+    git commit - m "commit message"
+
+    git push origin 브랜치이름( main or master )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
