@@ -27,7 +27,8 @@
 		            <tr>
 		                <th>아이디(ID)</th>
 		                <td>
-		                    <input type="text" id="memberId" name="memberId" style="width:280px" />
+		                    <input type="text" id="memberId" name="memberId" style="width:180px" />
+		                    <button id="btn-dup-check" style="width:90px">중복검사</button>
 		                </td>
 		            </tr>
 		            <tr>
@@ -53,14 +54,74 @@
 		        <div class="buttons">
 		        	<input id="register" type="submit" value="등록" style="height:25px" />
 		        	<input id="cancel" type="button" value="취소" style="height:25px"  />
-
 		        </div>
 		        </form>
 		    </div>
 		</div>   	
 	</div>
 
+	<script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		
+		$('#btn-dup-check').on('click', function(event) {
+			
+			const memberId = $('#memberId').val();
+			if (memberId.length == 0) {
+				alert("아이디를 입력하세요");
+				return;
+			}
+			
+			// 아이디에 대한 요구사항 (예:영문자 숫자 특수문자 조합 8개이상 20개 이하) 검사
+			
+			$.ajax({
+				"url": "account/dup-check",
+				"data": "id=" + memberId,
+				"dataType": "text", // 수신 컨텐츠 종류
+				"success": function(result, status, xhr) {
+					if (result == "success") {
+						alert('사용 가능한 아이디');
+					} else {
+						alert('이미 사용중인 아이디');
+					}
+				},
+				"error": function(xhr, status, err) {
+					alert('중복 검사 수행중에 문제가 발생했습니다. 다시 시도해 주세요.');
+				}
+			});
+			
+		});
+		
+	});
+	</script>
+
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

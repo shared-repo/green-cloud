@@ -6,6 +6,8 @@ import com.demoweb.dto.MemberDto;
 
 public class AccountService {
 	
+	private AccountDao accountDao = new AccountDao();
+	
 	// 회원 가입 처리
 	public void registerMember(MemberDto member) {
 		
@@ -14,7 +16,6 @@ public class AccountService {
 		member.setPasswd(hashedPasswd);
 		
 		// 데이터베이스에 데이터 저장 ( Dao 호출 )
-		AccountDao accountDao = new AccountDao();
 		accountDao.insertMember(member);
 		
 	}
@@ -28,7 +29,6 @@ public class AccountService {
 		member.setPasswd(hashedPasswd);
 		
 		// 데이터베이스에서 데이터 조회
-		AccountDao accountDao = new AccountDao();
 		// MemberDto foundMember = accountDao.selectMemberByMemberIdAndPasswd(memberId, passwd);
 		MemberDto foundMember = accountDao.selectMemberByMemberIdAndPasswd(member);
 		
@@ -42,9 +42,13 @@ public class AccountService {
 		String hashedPasswd = Util.getHashedString(member.getPasswd(), "SHA-256");
 		member.setPasswd(hashedPasswd);
 		
-		AccountDao accountDao = new AccountDao();
 		accountDao.updatePasswd(member);
 		
+	}
+
+	public boolean checkDuplication(String memberId) {
+		int count = accountDao.selectMemberCountByMemberId(memberId);
+		return count == 0;
 	}
 
 }
