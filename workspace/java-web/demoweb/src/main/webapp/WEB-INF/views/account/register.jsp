@@ -66,6 +66,9 @@
 		
 		$('#btn-dup-check').on('click', function(event) {
 			
+			event.stopPropagation(); // 이 이벤트를 상위 요소에 전달하지 않도록 설정
+			event.preventDefault(); // 이 이벤트와 연관된 기본 동작을 수행하지 않도록 설정 (여기서는 submit)
+			
 			const memberId = $('#memberId').val();
 			if (memberId.length == 0) {
 				alert("아이디를 입력하세요");
@@ -75,11 +78,11 @@
 			// 아이디에 대한 요구사항 (예:영문자 숫자 특수문자 조합 8개이상 20개 이하) 검사
 			
 			$.ajax({
-				"url": "account/dup-check",
+				"url": "dup-check",
 				"data": "id=" + memberId,
 				"dataType": "text", // 수신 컨텐츠 종류
 				"success": function(result, status, xhr) {
-					if (result == "success") {
+					if (result == "true") {
 						alert('사용 가능한 아이디');
 					} else {
 						alert('이미 사용중인 아이디');
