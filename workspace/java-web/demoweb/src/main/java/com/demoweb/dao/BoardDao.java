@@ -396,7 +396,13 @@ public class BoardDao {
 			pstmt.setString(2, comment.getWriter());
 			pstmt.setString(3, comment.getContent());
 			
-			// 4. 명령 실행
+			// 4-1. 명령 실행 1 -> 댓글 삽입
+			pstmt.executeUpdate();
+			pstmt.close();
+			
+			// 4-2. 명령 실행 2 -> groupno 변경 (최상위 글의 글번호를 groupno로 사용)
+			sql = "UPDATE boardcomment SET groupno = LAST_INSERT_ID() where commentno = LAST_INSERT_ID()";
+			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 						
 			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
