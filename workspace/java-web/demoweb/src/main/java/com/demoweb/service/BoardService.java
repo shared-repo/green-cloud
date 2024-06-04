@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.demoweb.dao.BoardDao;
 import com.demoweb.dto.BoardAttachDto;
+import com.demoweb.dto.BoardCommentDto;
 import com.demoweb.dto.BoardDto;
 
 public class BoardService {
@@ -66,6 +67,12 @@ public class BoardService {
 		for (BoardAttachDto attach : board.getAttachments()) {
 			boardDao.insertBoardAttach(attach);
 		}
+		
+	}
+
+	public void writeComment(BoardCommentDto comment) {
+		
+		boardDao.insertComment(comment);
 		
 	}
 	

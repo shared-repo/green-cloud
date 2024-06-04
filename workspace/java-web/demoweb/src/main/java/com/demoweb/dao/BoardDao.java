@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.demoweb.dto.BoardAttachDto;
+import com.demoweb.dto.BoardCommentDto;
 import com.demoweb.dto.BoardDto;
 
 public class BoardDao {
@@ -361,6 +362,39 @@ public class BoardDao {
 			pstmt.setString(1, board.getTitle());
 			pstmt.setString(2, board.getContent());
 			pstmt.setInt(3, board.getBoardNo());
+			
+			// 4. 명령 실행
+			pstmt.executeUpdate();
+						
+			// 5. 결과 처리 (결과가 있다면 - SELECT 명령을 실행한 경우)
+			
+		} catch (Exception ex) {
+			ex.printStackTrace(); // 개발 용도로 사용
+		} finally {
+			// 6. 연결 닫기
+			try { pstmt.close(); } catch (Exception ex) {}
+			try { conn.close(); } catch (Exception ex) {}
+		}
+		
+	}
+
+	public void insertComment(BoardCommentDto comment) {
+		Connection conn = null;			// 연결과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		PreparedStatement pstmt = null;	// 명령 실행과 관련된 JDBC 호출 규격 ( 인터페이스 )
+		
+		try {
+			// 1. Driver 등록
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결 및 연결 객체 가져오기
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			
+			// 3. SQL 작성 + 명령 객체 가져오기
+			String sql = "INSERT INTO boardcomment (boardno, writer, content, groupno, step, depth) VALUES (?, ?, ?, -1, 1, 0)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, comment.getBoardNo());
+			pstmt.setString(2, comment.getWriter());
+			pstmt.setString(3, comment.getContent());
 			
 			// 4. 명령 실행
 			pstmt.executeUpdate();
