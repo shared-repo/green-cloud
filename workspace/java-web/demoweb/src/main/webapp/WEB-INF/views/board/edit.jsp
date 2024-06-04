@@ -1,10 +1,10 @@
-<%@page import="com.demoweb.dto.BoardAttachDto"%>
-<%@page import="com.demoweb.dto.BoardDto"%>
 <%@ page language="java" 
 		 contentType="text/html; charset=utf-8"
     	 pageEncoding="utf-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
 
@@ -62,10 +62,14 @@
 		        </div>
 		        </form>
 		    </div>
-		</div>   	
+		</div>		  	
 	
 	</div>
 	</div>
+	
+	
+	
+	
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script type="text/javascript">
 	

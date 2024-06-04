@@ -1,36 +1,32 @@
 package com.demoweb.dto;
 
-import java.util.ArrayList;
 import java.util.Date;
 
-public class BoardDto {
+public class BoardCommentDto {
 	
+	private int commentNo;
 	private int boardNo;
-	private String title;
 	private String content;
 	private String writer;
 	private Date writeDate;
 	private Date modifyDate;
-	private int readCount;
 	private boolean deleted;
 	
-	// board 테이블과 boardattach 테이블 사이의 1 : Many 관계를 구현하는 필드
-	private ArrayList<BoardAttachDto> attachments;
+	private int groupNo;
+	private int step;
+	private int depth;
 	
-	// board 테이블과 boardcomment 테이블 사이의 1 : Many 관계를 구현하는 필드
-	private ArrayList<BoardCommentDto> comments;
-	
+	public int getCommentNo() {
+		return commentNo;
+	}
+	public void setCommentNo(int commentNo) {
+		this.commentNo = commentNo;
+	}
 	public int getBoardNo() {
 		return boardNo;
 	}
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
 	}
 	public String getContent() {
 		return content;
@@ -56,29 +52,30 @@ public class BoardDto {
 	public void setModifyDate(Date modifyDate) {
 		this.modifyDate = modifyDate;
 	}
-	public int getReadCount() {
-		return readCount;
-	}
-	public void setReadCount(int readCount) {
-		this.readCount = readCount;
-	}
 	public boolean isDeleted() {
 		return deleted;
 	}
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
-	public ArrayList<BoardAttachDto> getAttachments() {
-		return attachments;
+	public int getGroupNo() {
+		return groupNo;
 	}
-	public void setAttachments(ArrayList<BoardAttachDto> attachments) {
-		this.attachments = attachments;
+	public void setGroupNo(int groupNo) {
+		this.groupNo = groupNo;
 	}
-	public ArrayList<BoardCommentDto> getComments() {
-		return comments;
+	public int getStep() {
+		return step;
 	}
-	public void setComments(ArrayList<BoardCommentDto> comments) {
-		this.comments = comments;
+	public void setStep(int step) {
+		this.step = step;
 	}
+	public int getDepth() {
+		return depth;
+	}
+	public void setDepth(int depth) {
+		this.depth = depth;
+	}
+	
 
 }

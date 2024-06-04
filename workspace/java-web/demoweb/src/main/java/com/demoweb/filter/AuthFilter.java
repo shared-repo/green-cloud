@@ -29,7 +29,7 @@ public class AuthFilter implements Filter {
 //		System.out.println(url);
 		
 		if (url.contains("/board/")) {
-			if (url.contains("write")) {
+			if (url.contains("write") || url.contains("edit") || url.contains("delete")) {
 				HttpSession session = httpRequest.getSession();
 				if (session.getAttribute("loginuser") == null) { // 로그인하지 않은 요청이라면
 					httpResponse.sendRedirect("/demoweb/account/login");
