@@ -115,7 +115,7 @@
 									&nbsp;&nbsp;
 								</c:forEach>
 								<c:if test="${ comment.depth > 0 }">
-									<img src="/spring-demoweb/resources/image/re.gif">
+									<img src="/demoweb/image/re.gif">
 									&nbsp;
 								</c:if>
 							</td>
@@ -202,9 +202,10 @@
 	</div>
 	
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.js"></script>
+		
 	<script type="text/javascript">
+	
 		$(function() {
 			$('#delete_button').on('click', function(event) {
 				const ok = confirm("${ board.boardNo }번 글을 삭제할까요?");
@@ -228,7 +229,7 @@
 					return;
 				}
 				
-				$('#commentform').submit(); // <form> 요소를 서버로 전송하는 명령
+				$('#commentform').submit(); // form 요소를 서버로 전송하는 명령
 				
 			});
 			
@@ -245,10 +246,6 @@
 			
 			// 댓글 수정 0 - 공통 변수 및 함수 선언
 			let currentEditCommentNo = null;
-			function changeCommentEditMode(commentNo, isCommentMode) {
-				$('#comment-view-area-' + commentNo).css({'display': isCommentMode ? 'none' : ''});
-				$('#comment-edit-area-' + commentNo).css({'display':isCommentMode ? '' : 'none'});
-			}
 			
 			// 댓글 수정 1 - 수정 화면으로 변경
 			$('.edit-comment').on('click', function(event) {
@@ -272,10 +269,11 @@
 				$('#comment-edit-area-' + commentNo + ' form').submit();
 			});
 			
+			
 			// 대댓글 (recomment) 1. 대댓글 창 표시
 			$('.write-recomment').on('click', function(event) {
 				
-				$('#recommentform')[0].reset(); // <form> 초기화
+				$('#recommentform')[0].reset(); // form 초기화
 				
 				const commentNo = $(this).data('comment-no'); // 현재 클릭된 댓글의 번호
 				$('#recommentform input[name=commentno]').val(commentNo);
@@ -291,6 +289,11 @@
 				
 			});
 		});
+		
+		function changeCommentEditMode(commentNo, isCommentMode) {
+			$('#comment-view-area-' + commentNo).css({'display': isCommentMode ? 'none' : '' });
+			$('#comment-edit-area-' + commentNo).css({'display': isCommentMode ? '' : 'none' });
+		}
 	</script>
 
 </body>

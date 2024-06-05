@@ -551,10 +551,11 @@ public class BoardDao {
 			pstmt.setInt(1, comment.getBoardNo());
 			pstmt.setString(2, comment.getWriter());
 			pstmt.setString(3, comment.getContent());
-			pstmt.setInt(4, comment.getCommentNo());
+			// pstmt.setInt(4, comment.getCommentNo());
+			pstmt.setInt(4, comment.getGroupNo());
 			pstmt.setInt(5, comment.getStep());
 			pstmt.setInt(6, comment.getDepth());
-			
+			  
 			// 4-1. 명령 실행
 			pstmt.executeUpdate();
 									

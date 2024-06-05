@@ -95,6 +95,7 @@ public class BoardService {
 		
 		// 부모 댓글을 조회해서 자식 댓글(대댓글)의 step, depth를 설정
 		BoardCommentDto parent = boardDao.selectBoardCommentByCommentNo(comment.getCommentNo());
+		comment.setGroupNo(parent.getGroupNo());
 		comment.setStep(parent.getStep() + 1);
 		comment.setDepth(parent.getDepth() + 1);
 		
