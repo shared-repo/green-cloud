@@ -36,9 +36,12 @@ public class BoardService {
 		BoardDto board = boardDao.selectBoardByBoardNo(boardNo);
 		
 		// 첨부파일 조회
-		ArrayList<BoardAttachDto> attaches = boardDao.selectBoardAttachByBoardNo(boardNo);
-		
+		ArrayList<BoardAttachDto> attaches = boardDao.selectBoardAttachByBoardNo(boardNo);		
 		board.setAttachments(attaches);
+		
+		// 댓글 조회
+		ArrayList<BoardCommentDto> comments = boardDao.selectBoardCommentByBoardNo(boardNo);
+		board.setComments(comments);
 		
 		return board;
 		
@@ -73,6 +76,12 @@ public class BoardService {
 	public void writeComment(BoardCommentDto comment) {
 		
 		boardDao.insertComment(comment);
+		
+	}
+
+	public void deleteComment(int commentNo) {
+		
+		boardDao.deleteComment(commentNo);
 		
 	}
 	

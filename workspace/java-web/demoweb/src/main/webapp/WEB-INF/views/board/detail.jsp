@@ -200,6 +200,16 @@
 				$('#commentform').submit(); // <form> 요소를 서버로 전송하는 명령
 				
 			});
+			
+			// 댓글 삭제
+			$('.delete-comment').on('click', function(event) {
+				const commentNo = $(this).data('comment-no'); // .data('comment-no') -> data-comment-no 속성의 값 조회
+				const ok = confirm(commentNo + "번 댓글을 삭제할까요?");
+				if (ok) {
+					location.href = 'delete-comment?boardno=${ board.boardNo }&commentno=' + commentNo;
+				}
+				
+			});
 		});
 	</script>
 
