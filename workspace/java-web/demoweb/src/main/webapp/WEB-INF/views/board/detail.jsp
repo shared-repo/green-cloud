@@ -14,6 +14,7 @@
 	<title>글상세보기</title>
 	<link rel="Stylesheet" href="/demoweb/styles/default.css" />
 	<link rel="Stylesheet" href="/demoweb/styles/input2.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
@@ -175,7 +176,34 @@
 	</div>
 	</div>
 	
+	<!-- Modal -->
+	<div class="modal fade" id="recomment-modal" tabindex="-1" aria-labelledby="recomment-modal-label" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h1 class="modal-title fs-5" id="recomment-modal-label">댓글 쓰기</h1>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        <form id="recommentform" action="write-recomment" method="post">
+	        	<input type="hidden" name="boardno" value="${ board.boardNo }" />
+				<input type="hidden" name="commentno" value="" />
+				<input type="hidden" name="writer" value="${ loginuser.memberId }" />
+				
+				<textarea id="recomment-content" name="content" class="form-control" style="resize: none;" rows="3"></textarea>
+			</form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-primary" id="write-recomment-btn">댓글 쓰기</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	
 	<script type="text/javascript">
 		$(function() {
 			$('#delete_button').on('click', function(event) {
@@ -242,6 +270,25 @@
 			$('.modify-comment').on('click', function(event) {
 				const commentNo = $(this).data('comment-no');
 				$('#comment-edit-area-' + commentNo + ' form').submit();
+			});
+			
+			// 대댓글 (recomment) 1. 대댓글 창 표시
+			$('.write-recomment').on('click', function(event) {
+				
+				$('#recommentform')[0].reset(); // <form> 초기화
+				
+				const commentNo = $(this).data('comment-no'); // 현재 클릭된 댓글의 번호
+				$('#recommentform input[name=commentno]').val(commentNo);
+				
+				$('#recomment-modal').modal('show'); // show : 표시, hide : 숨기기
+				
+			});
+			
+			// 대댓글(recomment) 2. 대댓글 작성 요청 보내기
+			$('#write-recomment-btn').on('click', function(event) {
+				
+				$('#recommentform').submit();
+				
 			});
 		});
 	</script>
