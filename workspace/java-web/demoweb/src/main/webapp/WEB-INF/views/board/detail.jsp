@@ -148,12 +148,13 @@
 									${ comment.writer } &nbsp;&nbsp; [${ comment.writeDate }]
 									<br /><br />
 									<form action="edit-comment" method="post">
-									<input type="hidden" name="commentNo" value="${ comment.commentNo }" />
-									<textarea name="content" style="width: 99%; resize: none" rows="3" maxlength="200">${ comment.content }</textarea>
+									<input type="hidden" name="boardno" value="${ board.boardNo }" />
+									<input type="hidden" name="commentno" value="${ comment.commentNo }" />
+									<textarea name="content" style="width: 99%; resize: none" rows="3" cols="120">${ comment.content }</textarea>
 									</form>
 									<br />
 									<div>
-										<a class="update-comment" data-comment-no="${ comment.commentNo }" href="javascript:">수정</a> 
+										<a class="modify-comment" data-comment-no="${ comment.commentNo }" href="javascript:">수정</a> 
 										&nbsp; 
 										<a class="cancel-edit-comment" data-comment-no="${ comment.commentNo }" href="javascript:">취소</a>
 									</div>
@@ -168,6 +169,8 @@
 		</c:forEach>        	
 		</table>
 		<!-- end of comment list area -->
+		
+		<br><br><br><br><br>
 	
 	</div>
 	</div>
@@ -209,6 +212,36 @@
 					location.href = 'delete-comment?boardno=${ board.boardNo }&commentno=' + commentNo;
 				}
 				
+			});
+			
+			
+			// 댓글 수정 0 - 공통 변수 및 함수 선언
+			let currentEditCommentNo = null;
+			function changeCommentEditMode(commentNo, isCommentMode) {
+				$('#comment-view-area-' + commentNo).css({'display': isCommentMode ? 'none' : ''});
+				$('#comment-edit-area-' + commentNo).css({'display':isCommentMode ? '' : 'none'});
+			}
+			
+			// 댓글 수정 1 - 수정 화면으로 변경
+			$('.edit-comment').on('click', function(event) {
+				if (currentEditCommentNo != null) {
+					changeCommentEditMode(currentEditCommentNo, false);		
+				}
+				const commentNo = $(this).data('comment-no'); // .data('comment-no') -> data-comment-no 속성의 값 조회
+				changeCommentEditMode(commentNo, true);
+				currentEditCommentNo = commentNo;
+			});
+			// 댓글 수정 2 - 보기 화면으로 변경
+			$('.cancel-edit-comment').on('click', function(event) {
+				const commentNo = $(this).data('comment-no'); // .data('comment-no') -> data-comment-no 속성의 값 조회
+				changeCommentEditMode(commentNo, false);
+				currentEditCommentNo = null;
+			});
+			
+			// 댓글 수정 3 - 수정 요청 보내기 (submit)
+			$('.modify-comment').on('click', function(event) {
+				const commentNo = $(this).data('comment-no');
+				$('#comment-edit-area-' + commentNo + ' form').submit();
 			});
 		});
 	</script>

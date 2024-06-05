@@ -17,20 +17,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/board/delete-comment" })
-public class CommentDeleteServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/board/edit-comment" })
+public class CommentEditServlet extends HttpServlet {
 	
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
 		// 1. 요청 데이터 읽기
+		String sBoardNo = req.getParameter("boardno");
 		String sCommentNo = req.getParameter("commentno");
 		int commentNo = Integer.parseInt(sCommentNo);
-		String sBoardNo = req.getParameter("boardno");
+		String content = req.getParameter("content");
+		
+		BoardCommentDto comment = new BoardCommentDto();
+		comment.setCommentNo(commentNo);
+		comment.setContent(content);
 		
 		// 2. 요청 데이터 처리 ( 데이터베이스에 데이터 저장 )
 		BoardService boardService = new BoardService();
-		boardService.deleteComment(commentNo);		
+		boardService.editComment(comment);		
 		
 		// 3. detail로 이동 ( 다른 서블릿으로 이동 -> redirect로 이동 )
 		resp.sendRedirect(String.format("detail?boardno=%s", sBoardNo));

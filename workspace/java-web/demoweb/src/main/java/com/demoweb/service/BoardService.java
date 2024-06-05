@@ -81,7 +81,13 @@ public class BoardService {
 
 	public void deleteComment(int commentNo) {
 		
-		boardDao.deleteComment(commentNo);
+		boardDao.deleteComment(commentNo); // boardDao.updateCommentDeleted(commentNo)
+		
+	}
+
+	public void editComment(BoardCommentDto comment) {
+		
+		boardDao.updateComment(comment);
 		
 	}
 	
