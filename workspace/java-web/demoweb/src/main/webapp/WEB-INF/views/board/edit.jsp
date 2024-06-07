@@ -72,7 +72,11 @@
 	
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script type="text/javascript">
-	
+		$(function() {
+			$('#btn-cancel').on('click', function(event) {
+				location.href = 'detail?boardno=${ board.boardNo }&pageNo=${ pageNo }';
+			});
+		});
 	</script>
 
 </body>

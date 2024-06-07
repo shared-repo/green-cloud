@@ -31,6 +31,13 @@ public class BoardEditServlet extends HttpServlet {
 		// 1. 요청 데이터 읽기
 		String sBoardNo = req.getParameter("boardno"); // 요청 데이터 읽기 : 사용자가 선택한 글번호 읽기
 		int boardNo = Integer.parseInt(sBoardNo);
+		int page = 1;		// 현재 요청된 페이지 번호 (1 ~ )
+		String sPageNo = req.getParameter("pageNo");
+		try {
+			page = Integer.parseInt(sPageNo);
+		} catch (Exception ex) {
+			//page = 1;
+		}
 				
 		// 2. 요청 처리 : 데이터베이스에 데이터 저장 -> BoardService를 호출해서 처리
 		BoardService boardService = new BoardService();				
@@ -38,6 +45,7 @@ public class BoardEditServlet extends HttpServlet {
 		
 		// 2. JSP에서 읽을 수 있도록 데이터 전달 ( request 객체에 저장 )
 		req.setAttribute("board", board);
+		req.setAttribute("pageNo", page);
 		
 		// 3. 응답 컨텐츠 생산 ( JSP로 forward 이동 )		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/board/edit.jsp");
@@ -55,6 +63,13 @@ public class BoardEditServlet extends HttpServlet {
 		ApplicationPart attachPart = (ApplicationPart)req.getPart("attach"); 	// multipart/form-data 로 전송된 데이터 읽기 --> ApplicationPart 형식으로 반환
 		
 		int boardNo = Integer.parseInt(boardNoPart.getString("utf-8"));
+		
+		ApplicationPart pagePart = (ApplicationPart)req.getPart("pageNo");
+		int pageNo = 1;		
+		try {
+			pageNo = Integer.parseInt(pagePart.getString("utf-8"));
+		} catch (Exception ex) {			
+		}
 		
 		// 2-1. board 테이블 데이터 수정을 위한 DTO 만들기
 		BoardDto board = new BoardDto();
@@ -85,7 +100,7 @@ public class BoardEditServlet extends HttpServlet {
 		boardService.modifyBoard(board);
 		
 		// 3. 상세보기로 이동 (redirect)
-		resp.sendRedirect("detail?boardno=" + boardNo);
+		resp.sendRedirect(String.format("detail?boardno=%d&pageNo=%d", boardNo, pageNo));
 		
 	}
 	

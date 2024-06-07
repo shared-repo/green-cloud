@@ -210,12 +210,12 @@
 			$('#delete_button').on('click', function(event) {
 				const ok = confirm("${ board.boardNo }번 글을 삭제할까요?");
 				if (ok) {
-					location.href = 'delete?boardno=${ board.boardNo }';
+					location.href = 'delete?boardno=${ board.boardNo }&pageNo=${ pageNo }';
 				}
 			});
 			
 			$('#edit_button').on('click', function(event) {
-				location.href = 'edit?boardno=${ board.boardNo }';
+				location.href = 'edit?boardno=${ board.boardNo }&pageNo=${ pageNo }';
 			});
 			
 			$('#tolist_button').on('click', function(event) {
