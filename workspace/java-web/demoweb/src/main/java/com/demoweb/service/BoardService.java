@@ -30,6 +30,13 @@ public class BoardService {
 		
 	}
 	
+	public ArrayList<BoardDto> findBaordByRange(int start, int count) {
+		
+		ArrayList<BoardDto> boards = boardDao.selectBoardByRange(start, count);
+		return boards;
+		
+	}
+	
 	public BoardDto findBoardByBoardNo(int boardNo) {
 		
 		// 게시글 조회
