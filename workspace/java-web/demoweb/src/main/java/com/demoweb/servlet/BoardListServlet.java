@@ -45,6 +45,7 @@ public class BoardListServlet extends HttpServlet {
 		// 2. JSP에서 읽을 수 있도록 request 객체에 데이터 저장
 		req.setAttribute("boardList", boardList); // ArrayList<BoardDto> --> Object 형식으로 암시적 형변환
 		req.setAttribute("pager", pager);
+		req.setAttribute("pageNo", page);
 		
 		// 3. JSP로 이동 (forward)		
 		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/board/list.jsp");

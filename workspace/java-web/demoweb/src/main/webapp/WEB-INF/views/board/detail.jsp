@@ -218,6 +218,11 @@
 				location.href = 'edit?boardno=${ board.boardNo }';
 			});
 			
+			$('#tolist_button').on('click', function(event) {
+				location.href = 'list?pageNo=${ pageNo }';
+				// history.back();
+			});
+			
 			//////////////////////////////////////////////////////
 			
 			// 댓글쓰기
