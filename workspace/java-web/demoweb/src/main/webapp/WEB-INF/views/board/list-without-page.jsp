@@ -61,10 +61,6 @@
 				</c:forEach>
 								
 			</table>
-			
-			<br><br>
-			
-			${ pager }
 						
 			<br /><br /><br /><br />
 		

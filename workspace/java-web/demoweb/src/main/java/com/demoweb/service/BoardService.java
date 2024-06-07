@@ -112,6 +112,10 @@ public class BoardService {
 		boardDao.insertReComment(comment);
 		
 	}
+
+	public int getBoardCount() {
+		return boardDao.selectBoardCount();
+	}
 	
 }
 
