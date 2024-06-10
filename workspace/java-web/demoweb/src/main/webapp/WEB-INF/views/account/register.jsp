@@ -52,7 +52,7 @@
 		                       		            
 		        </table>
 		        <div class="buttons">
-		        	<input id="register" type="submit" value="등록" style="height:25px" />
+		        	<input id="register" type="button" value="등록" style="height:25px" />
 		        	<input id="cancel" type="button" value="취소" style="height:25px"  />
 		        </div>
 		        </form>
@@ -94,6 +94,43 @@
 			});
 			
 		});
+		
+		
+		$('input#register').on('click', function(event) {
+			event.preventDefault(); // 현재 이벤트를 발생시킨 요소의 기본 동작 수행 차단 ( 예: <a>인 경우 href로 이동하는 동작 수행 차단 )
+			// 입력 유효성 검사
+			const id = $('#memberId').val();
+			if (id.length == 0) {
+				alert('아이디를 입력하세요');
+				$('#memberId').focus();
+				return;
+			}
+			const id_re = /^[A-Za-z0-9]{8,20}$/; // new RegExp("^[A-Za-z0-9]$") 
+			if (!id_re.test(id)) { // 영문자, 숫자 조합 8 ~ 20 -> ( 입력의 내용 검사 X --> 입력의 형식 검사 O ) --> 정규표현식
+				alert('아이디 형식 오류 (8 ~ 20개의 영문자 숫자 조합)');
+				$('#memberId').focus();
+				return;
+			}
+			
+			const email = $('#email').val();
+			if (email.length == 0) {
+				alert('이메일을 입력하세요');
+				$('#email').focus();
+				return;
+			}
+			const email_re = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+			if (!email_re.test(email)) {
+				alert('이메일 형식 오류');
+				$('#email').focus();
+				return;
+			}
+			
+			
+			
+			
+			
+			$('#registerform').submit(); // 서버로 전송
+		})
 		
 	});
 	</script>
