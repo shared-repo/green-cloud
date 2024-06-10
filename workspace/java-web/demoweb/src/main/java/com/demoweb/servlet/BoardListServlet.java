@@ -33,11 +33,17 @@ public class BoardListServlet extends HttpServlet {
 		int pageSize = 3; 		// 한 페이지에 표시하는 데이터 갯수
 		int pagerSize = 3;		// 한 번에 표시되는 페이지 번호 갯수
 		int dataCount = boardService.getBoardCount();	// 전체 데이터 갯수
-		String linkUrl = "list";// 페이지 번호를 클릭했을 때 요청을 보낼 URL ( 목록 페이지 경로 )
+		// String linkUrl = "list";// 페이지 번호를 클릭했을 때 요청을 보낼 URL ( 목록 페이지 경로 )
+		// System.out.println("URI : " + req.getRequestURI());
+		String uri = req.getRequestURI();		
+		String linkUrl = uri.substring(uri.lastIndexOf("/") + 1); // 페이지 번호를 클릭했을 때 요청을 보낼 URL ( 목록 페이지 경로 )
+		// System.out.println("QueryString : " + req.getQueryString());
+		String queryString = req.getQueryString();
 		
 		int start = pageSize * (page - 1) + 1; // 현재 페이지의 첫번째 데이터 행 번호
 		
-		ThePager pager = new ThePager(dataCount, page, pageSize, pagerSize, linkUrl);
+		// ThePager pager = new ThePager(dataCount, page, pageSize, pagerSize, linkUrl);
+		ThePager pager = new ThePager(dataCount, page, pageSize, pagerSize, linkUrl, queryString);
 		
 		// 1. 게시물 목록 데이터 조회
 		ArrayList<BoardDto> boardList = boardService.findBaordByRange(start, pageSize);		
