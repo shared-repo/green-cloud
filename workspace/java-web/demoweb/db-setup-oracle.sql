@@ -26,6 +26,7 @@ CREATE TABLE app_settings
 );
 
 INSERT INTO app_settings VALUES ('total_counter', '0');
+COMMIT;
 
 -- 6. board 테이블 만들기
 CREATE SEQUENCE BOARD_SEQUENCE NOCACHE;

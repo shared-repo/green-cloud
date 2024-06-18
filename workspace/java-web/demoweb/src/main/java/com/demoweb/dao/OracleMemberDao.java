@@ -7,7 +7,15 @@ import java.sql.ResultSet;
 
 import com.demoweb.dto.MemberDto;
 
-public class AccountDao {
+public class OracleMemberDao {
+	
+	private Connection getConnection() throws Exception {
+		// 1. 드라이버 준비
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		
+		// 2. 연결 객체 만들기
+		return DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521/xe", "green_cloud", "oracle");
+	}
 	
 	// 회원가입 처리 -> 회원정보를 데이터베이스에 저장
 	public void insertMember(MemberDto member) {
@@ -16,10 +24,8 @@ public class AccountDao {
 
 		try {
 			// 1. 드라이버 준비
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// 2. 연결 객체 만들기
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			// 2. 연결 객체 만들기			
+			conn = getConnection();				
 			
 			// 3. 명령 객체 만들기
 			String sql = "INSERT INTO member (memberid, passwd, email) VALUES (?, ?, ?)";
@@ -50,10 +56,8 @@ public class AccountDao {
 		MemberDto selectedMember = null; // 조회 결과를 저장할 변수
 		try {
 			// 1. 드라이버 준비
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// 2. 연결 객체 만들기
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			// 2. 연결 객체 만들기			
+			conn = getConnection();
 			
 			// 3. 명령 객체 만들기
 			String sql = "SELECT memberid, email, usertype, regdate, active " +
@@ -96,10 +100,8 @@ public class AccountDao {
 
 		try {
 			// 1. 드라이버 준비
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// 2. 연결 객체 만들기
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			// 2. 연결 객체 만들기			
+			conn = getConnection();
 			
 			// 3. 명령 객체 만들기
 			String sql = "UPDATE member SET passwd = ? WHERE memberid = ?";
@@ -129,10 +131,8 @@ public class AccountDao {
 		int count = 0; // 조회 결과를 저장할 변수
 		try {
 			// 1. 드라이버 준비
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			
-			// 2. 연결 객체 만들기
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			// 2. 연결 객체 만들기			
+			conn = getConnection();
 			
 			// 3. 명령 객체 만들기
 			String sql = "SELECT COUNT(memberId) " +
