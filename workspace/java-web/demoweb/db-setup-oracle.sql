@@ -1,26 +1,21 @@
--- root 계정으로 실행
-
--- 1. 사용자 계정 만들기
--- CREATE USER green_cloud IDENTIFIED BY "oracle";
-
--- 2. 데이터베이스 만들기
-CREATE DATABASE demoweb;
-
--- 3. 권한 부여
--- GRANT CONNECT, RESOURCE TO green_cloud;
-
--- green_cloud 계정으로 실행
+--DROP TABLE BOARDCOMMENT;
+--DROP TABLE BOARDATTACH;
+--DROP TABLE BOARD;
+--DROP TABLE MEMBER;
+--DROP TABLE APP_SETTINGS;
+--DROP SEQUENCE BOARD_SEQUENCE;
+--DROP SEQUENCE BOARDATTACH_SEQUENCE;
+--DROP SEQUENCE BOARDCOMMENT_SEQUENCE;
 
 -- 4. MEMBER 테이블 만들기
-
 CREATE TABLE member 
 (
     memberid VARCHAR2 (20) PRIMARY KEY
     , passwd VARCHAR2 (100) NOT NULL
     , email VARCHAR2 (50) NOT NULL
     , usertype VARCHAR2 (50) DEFAULT ('user') CHECK ( usertype IN ('user', 'admin'))
-    , regdate DATE DEFAULT (NOW())
-    , active CHAR(1) DEFAULT ('1')
+    , regdate DATE DEFAULT (SYSDATE)
+    , active CHAR(1) DEFAULT ('1') -- CHAR(1) : boolean type과 호환되는 자료형
 );
 
 -- 5. 설정 데이터 저장 테이블 만들기
@@ -30,7 +25,7 @@ CREATE TABLE app_settings
     setting_value varchar2(100) not null
 );
 
-INSERT INTO app_settings VALUES ("total_counter", "0");
+INSERT INTO app_settings VALUES ('total_counter', '0');
 
 -- 6. board 테이블 만들기
 CREATE SEQUENCE BOARD_SEQUENCE NOCACHE;
@@ -41,8 +36,8 @@ CREATE TABLE board
     , title VARCHAR2(100) NOT NULL
     , writer VARCHAR2 (20) NOT NULL
     , content VARCHAR2 (4000) NOT NULL
-    , writedate DATE DEFAULT (NOW())
-    , modifydate DATE DEFAULT (NOW())
+    , writedate DATE DEFAULT (SYSDATE)
+    , modifydate DATE DEFAULT (SYSDATE)
     , readcount NUMBER DEFAULT (0)
     , deleted CHAR(1) DEFAULT ('0')
 
@@ -65,13 +60,14 @@ CREATE TABLE boardattach
 
 -- 8. boardcomment(댓글) 테이블 만들기
 CREATE SEQUENCE BOARDCOMMENT_SEQUENCE NOCACHE;
+
 CREATE TABLE boardcomment
 (
     commentno NUMBER PRIMARY KEY
     , boardno NUMBER NOT NULL
     , writer VARCHAR2 (20) NOT NULL
     , content VARCHAR2 (1000) NOT NULL
-    , regdate DATE DEFAULT (NOW())
+    , regdate DATE DEFAULT (SYSDATE)
     , deleted CHAR(1) DEFAULT ('0')
 
     , groupno NUMBER NOT NULL
