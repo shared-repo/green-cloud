@@ -123,11 +123,15 @@ public class OracleBoardDao implements BoardDao {
 			String sql = "SELECT * " +
 						 "FROM " +
 						 "( " +
-						 "		SELECT ROWNUM idx, boardno, title, writer, readcount, writedate, modifydate, deleted " +
+						 "	SELECT ROWNUM idx, a.* " +
+						 "	FROM " +
+						 "	( " +
+						 "		SELECT boardno, title, writer, readcount, writedate, modifydate, deleted " +
 						 "		FROM board " +
-						 "		WHERE ROWNUM < ? " +
 						 "		ORDER BY boardno DESC " +
-						 ") b " +
+						 "	) a " +
+						 "	WHERE ROWNUM < ? " +
+						 ") b " + 
 						 "WHERE b.idx >= ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, start + 1 + count);
