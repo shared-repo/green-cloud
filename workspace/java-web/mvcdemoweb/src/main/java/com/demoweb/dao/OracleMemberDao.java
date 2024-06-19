@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 
 import com.demoweb.dto.MemberDto;
 
-public class OracleMemberDao {
+public class OracleMemberDao implements MemberDao {
 	
 	private Connection getConnection() throws Exception {
 		// 1. 드라이버 준비

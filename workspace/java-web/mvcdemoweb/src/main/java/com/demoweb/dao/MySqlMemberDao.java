@@ -7,9 +7,10 @@ import java.sql.ResultSet;
 
 import com.demoweb.dto.MemberDto;
 
-public class MySqlMemberDao {
+public class MySqlMemberDao implements MemberDao {
 	
 	// 회원가입 처리 -> 회원정보를 데이터베이스에 저장
+	@Override
 	public void insertMember(MemberDto member) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -43,6 +44,7 @@ public class MySqlMemberDao {
 	}
 	
 	// public MemberDto selectMemberByMemberIdAndPasswd(String memberId, String passwd) {
+	@Override
 	public MemberDto selectMemberByMemberIdAndPasswd(MemberDto member) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -90,6 +92,7 @@ public class MySqlMemberDao {
 		
 	}
 	
+	@Override
 	public void updatePasswd(MemberDto member) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -122,6 +125,7 @@ public class MySqlMemberDao {
 		}
 	}
 
+	@Override
 	public int selectMemberCountByMemberId(String memberId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

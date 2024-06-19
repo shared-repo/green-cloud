@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import com.demoweb.dao.AppSettingsDao;
+import com.demoweb.dao.MemberDao;
 
 public class DemoWebBeanFactory2 {
 	
@@ -24,20 +25,42 @@ public class DemoWebBeanFactory2 {
 		}
 	}
 	
-	public static AppSettingsDao getSettingsDao() {
-		
-		AppSettingsDao settingsDao = null;
+	private static <E> E getInstanceFromSettings(String key) {
+		E obj = null;
 		try {
 			// reflection을 사용해서 인스턴스 만들기
-			String className = mappings.getProperty("app.settings.dao"); // 클래스 이름 읽기 (패키지명 포함)
+			String className = mappings.getProperty(key); // 클래스 이름 읽기 (패키지명 포함)
 			Class claz = Class.forName(className); // 클래스 이름으로 클래스 정보 객체 생성
-			settingsDao = (AppSettingsDao)claz.getDeclaredConstructor().newInstance(); // 클래스 정보 객체를 사용해서 인스턴스 만들기 (new X)
+			obj = (E)claz.getDeclaredConstructor().newInstance(); // 클래스 정보 객체를 사용해서 인스턴스 만들기 (new X)
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		return obj;
+	}
+	
+	public static AppSettingsDao getSettingsDao() {
+		
+//		AppSettingsDao settingsDao = null;
+//		try {
+//			// reflection을 사용해서 인스턴스 만들기
+//			String className = mappings.getProperty("app.settings.dao"); // 클래스 이름 읽기 (패키지명 포함)
+//			Class claz = Class.forName(className); // 클래스 이름으로 클래스 정보 객체 생성
+//			settingsDao = (AppSettingsDao)claz.getDeclaredConstructor().newInstance(); // 클래스 정보 객체를 사용해서 인스턴스 만들기 (new X)
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
+		
+		AppSettingsDao settingsDao = getInstanceFromSettings("app.settings.dao");
 		
 		return settingsDao;
 		
 	}
+	
+	public static MemberDao getMemberDao() {		
+		MemberDao memberDao = getInstanceFromSettings("member.dao");
+		return memberDao;		
+	}
+	
+	
 
 }
