@@ -1,27 +1,30 @@
 package com.demoweb.factory;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 import com.demoweb.dao.AppSettingsDao;
-import com.demoweb.dao.MySqlAppSettingsDao;
-import com.demoweb.dao.OracleAppSettingsDao;
 
 public class DemoWebBeanFactory2 {
 	
-	Properties mappings;
-	public DemoWebBeanFactory2() {
+	static Properties mappings;
+	static {
 		mappings = new Properties();
-		try {
-			String path = "D:\\instructor-och\\green-cloud\\workspace\\java-web\\demoweb\\src\\main\\webapp\\WEB-INF\\config\\bean-config.properties";
-			FileInputStream fis = new FileInputStream(path);
-			mappings.load(fis);
+		try {			
+//			String path = "D:\\instructor-och\\green-cloud\\workspace\\java-web\\demoweb\\src\\main\\webapp\\WEB-INF\\config\\bean-config.properties";
+//			FileInputStream is = new FileInputStream(path);
+			
+			// 클래스패스 경로에서 파일 읽기
+			InputStream is = DemoWebBeanFactory2.class
+					 			 				.getClassLoader()
+					 			 				.getResourceAsStream("com/demoweb/config/bean-config.properties");
+			mappings.load(is);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 	
-	public AppSettingsDao getSettingsDao() {
+	public static AppSettingsDao getSettingsDao() {
 		
 		AppSettingsDao settingsDao = null;
 		try {

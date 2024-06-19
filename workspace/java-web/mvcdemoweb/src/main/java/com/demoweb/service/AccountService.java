@@ -1,13 +1,14 @@
 package com.demoweb.service;
 
 import com.demoweb.common.Util;
-import com.demoweb.dao.MemberDao;
+import com.demoweb.dao.MySqlMemberDao;
+import com.demoweb.dao.OracleMemberDao;
 import com.demoweb.dto.MemberDto;
 
 public class AccountService {
 	
 	// private MySqlMemberDao memberDao = new MySqlMemberDao();
-	private MemberDao memberDao = new MemberDao();
+	private OracleMemberDao memberDao = new OracleMemberDao();
 	
 	// 회원 가입 처리
 	public void registerMember(MemberDto member) {
