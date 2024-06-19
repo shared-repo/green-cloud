@@ -73,7 +73,8 @@ CREATE TABLE boardcomment
     , boardno INT NOT NULL
     , writer VARCHAR (20) NOT NULL
     , content VARCHAR (1000) NOT NULL
-    , regdate DATE DEFAULT (NOW())
+    , writedate DATE DEFAULT (NOW())
+    , modifydate DATE DEFAULT (NOW())
     , deleted BOOLEAN DEFAULT (FALSE)
 
     , groupno INT NOT NULL

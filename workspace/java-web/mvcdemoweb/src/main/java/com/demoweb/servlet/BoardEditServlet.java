@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/board/edit" })
-@MultipartConfig(location = "D:\\instructor-och\\green-cloud\\workspace\\java-web\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\demoweb\\board-temp")
+@MultipartConfig(location = "D:\\instructor-och\\green-cloud\\workspace\\java-web\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\mvcdemoweb\\board-temp")
 public class BoardEditServlet extends HttpServlet {
 
 	private BoardService boardService = new BoardService();

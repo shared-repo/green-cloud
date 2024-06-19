@@ -68,7 +68,8 @@ CREATE TABLE boardcomment
     , boardno NUMBER NOT NULL
     , writer VARCHAR2 (20) NOT NULL
     , content VARCHAR2 (1000) NOT NULL
-    , regdate DATE DEFAULT (SYSDATE)
+    , writedate DATE DEFAULT (SYSDATE)
+    , modifydate DATE DEFAULT (SYSDATE)
     , deleted CHAR(1) DEFAULT ('0')
 
     , groupno NUMBER NOT NULL

@@ -43,7 +43,7 @@ public class OracleBoardDao implements BoardDao {
 			pstmt.close();
 			
 			// sql = "SELECT boardNo FROM board WHERE title = ? AND writer = ? AND content = ?";
-			sql = "SELECT BOARD_SEQUENCE.CURRVAL"; // 현재 세션에서 발생한 마지막 AUTO_INCREMENT 값 조회
+			sql = "SELECT BOARD_SEQUENCE.CURRVAL FROM DUAL"; // 현재 세션에서 발생한 마지막 AUTO_INCREMENT 값 조회
 			pstmt = conn.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();		
@@ -123,18 +123,15 @@ public class OracleBoardDao implements BoardDao {
 			String sql = "SELECT * " +
 						 "FROM " +
 						 "( " +
-						 "	SELECT ROWNUM idx, * " +
-						 "	FROM " +
-						 "	( " +
-						 "		SELECT boardno, title, writer, readcount, writedate, modifydate, deleted " +
+						 "		SELECT ROWNUM idx, boardno, title, writer, readcount, writedate, modifydate, deleted " +
 						 "		FROM board " +
+						 "		WHERE ROWNUM < ? " +
 						 "		ORDER BY boardno DESC " +
-						 "	) a " +
 						 ") b " +
-						 "b.idx >= ? AND b.idx < ? ";
+						 "WHERE b.idx >= ? ";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start + 1);
-			pstmt.setInt(2, start + 1 + count);
+			pstmt.setInt(1, start + 1 + count);
+			pstmt.setInt(2, start + 1);			
 			
 			// 4. 명령 실행 ( 결과가 있으면 결과 저장 - select 인 경우 )
 			rs = pstmt.executeQuery(); // select sql은 executeQuery로 실행
@@ -142,13 +139,13 @@ public class OracleBoardDao implements BoardDao {
 			// 5. 결과가 있으면 결과 처리
 			while (rs.next()) {
 				BoardDto board = new BoardDto();
-				board.setBoardNo(rs.getInt(1));
-				board.setTitle(rs.getString(2));
-				board.setWriter(rs.getString(3));
-				board.setReadCount(rs.getInt(4));
-				board.setWriteDate(rs.getDate(5));
-				board.setModifyDate(rs.getDate(6));
-				board.setDeleted(rs.getBoolean(7));
+				board.setBoardNo(rs.getInt(2));
+				board.setTitle(rs.getString(3));
+				board.setWriter(rs.getString(4));
+				board.setReadCount(rs.getInt(5));
+				board.setWriteDate(rs.getDate(6));
+				board.setModifyDate(rs.getDate(7));
+				board.setDeleted(rs.getBoolean(8));
 				boardList.add(board);
 			}
 			
@@ -174,7 +171,8 @@ public class OracleBoardDao implements BoardDao {
 			conn = getConnection();
 			
 			// 3. 명령 객체 만들기
-			String sql = "INSERT INTO boardattach (boardno, userfilename, savedfilename) VALUES (?, ?, ?)";
+			String sql = "INSERT INTO boardattach (attachno, boardno, userfilename, savedfilename) " +
+						 "VALUES (BOARDATTACH_SEQUENCE.NEXTVAL, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, attach.getBoardNo());
 			pstmt.setString(2, attach.getUserFileName());
@@ -577,7 +575,8 @@ public class OracleBoardDao implements BoardDao {
 			conn = getConnection();
 			
 			// 3. SQL 작성 + 명령 객체 가져오기
-			String sql = "INSERT INTO boardcomment (boardno, writer, content, groupno, step, depth) VALUES (?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) " +
+						 "VALUES (BOARDCOMMENT_SEQUENCE.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, comment.getBoardNo());
 			pstmt.setString(2, comment.getWriter());
