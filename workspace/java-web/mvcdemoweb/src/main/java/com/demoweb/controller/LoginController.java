@@ -1,14 +1,17 @@
 package com.demoweb.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-public class LoginController {
+public class LoginController implements Controller {
 	
-	public String handleRequest(HttpServletRequest req) {
+	@Override
+	public ActionResult handleRequest(HttpServletRequest req, HttpServletResponse resp) {
 		// 요청 데이터 읽기
 		// 요청 처리
 		
-		return "account/login";
+		ActionResult ar = new ActionResult("account/login", false); 
+		return ar;
 	}
 
 }

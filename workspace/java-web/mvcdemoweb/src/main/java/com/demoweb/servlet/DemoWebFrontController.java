@@ -2,9 +2,12 @@ package com.demoweb.servlet;
 
 import java.io.IOException;
 
+import com.demoweb.controller.ActionResult;
+import com.demoweb.controller.Controller;
 import com.demoweb.controller.HomeController;
 import com.demoweb.controller.LoginController;
 import com.demoweb.controller.RegisterController;
+import com.demoweb.factory.DemoWebControllerFactory;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -15,6 +18,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(urlPatterns = { "/home", "/account/*", "/board/*" })
 public class DemoWebFrontController extends HttpServlet {
+	
+	private DemoWebControllerFactory controllerFactory = new DemoWebControllerFactory();
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,27 +35,31 @@ public class DemoWebFrontController extends HttpServlet {
 		// 2. Controller 선택 및 호출
 		// 2-1. 요청 데이터 읽기 	( 요청 처리 Controller 호출 )
 		// 2-2. 요청 처리			( 요청 처리 Controller 호출 )		
-		String view = null;
-		switch (action) {
-		case "home": 
-			HomeController controller1 = new HomeController();
-			view = controller1.handleRequest(req);
-			break;
-		case "account/login": 
-			LoginController controller2 = new LoginController();
-			view = controller2.handleRequest(req);
-			break;
-		case "account/register": 
-			RegisterController controller3 = new RegisterController();
-			view = controller3.handleRequest(req);
-			break;
-		case "account/logout": break;
-		}
+//		Controller controller = null;
+//		switch (action) {
+//		case "home": 
+//			controller = new HomeController();
+//			break;
+//		case "account/login": 
+//			controller = new LoginController();
+//			break;
+//		case "account/register": 
+//			controller = new RegisterController();
+//			break;
+//		case "account/logout": break;
+//		}
+		Controller controller = controllerFactory.getInstance(action);
+		ActionResult ar = controller.handleRequest(req, resp);
 		
 		// 3. 뷰 선택 및 호출 ( JSP로 forward or 다른 Controller로 redirect )
-		// 3-1. 응답 컨텐츠 생산 	
-		RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/" + view + ".jsp");
-		rd.forward(req, resp);
+		// 3-1. 응답 컨텐츠 생산
+		String viewName = ar.getViewName();
+		if (ar.isRedirect()) {
+			resp.sendRedirect(viewName);
+		} else {
+			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/" + viewName + ".jsp");
+			rd.forward(req, resp);
+		}
 		
 	}
 	
