@@ -3,13 +3,16 @@ package com.demoweb.service;
 import java.util.ArrayList;
 
 import com.demoweb.dao.BoardDao;
+import com.demoweb.dao.MySqlBoardDao;
 import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardCommentDto;
 import com.demoweb.dto.BoardDto;
+import com.demoweb.factory.DemoWebBeanFactory2;
 
 public class BoardService {
 
-	private BoardDao boardDao = new BoardDao();
+	// private BoardDao boardDao = new MySqlBoardDao();
+	private BoardDao boardDao = DemoWebBeanFactory2.getBoardDao();
 	
 	public void writeBoard(BoardDto board) {
 		// board.getBoardNo() : 아직 미정 - 0
