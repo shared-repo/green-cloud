@@ -10,7 +10,7 @@ public class MyMessageService implements MessageService {
 	}
 	
 	public String getMessage() {
-		return "Hello, Spring IoC Container !!!" + data;
+		return "Hello, Spring IoC Container !!! " + data;
 	}
 	
 	public void init() {

@@ -32,6 +32,17 @@
 	<bean id="dateFormat" class="java.text.SimpleDateFormat">
 		<constructor-arg value="yyyy-MM-dd hh:mm:ss" />
 	</bean>
+	
+	<!-- ****************************************** -->
+	
+	<bean id="serviceConsumer2" class="com.example.spring.ioc.MyServiceConsumer2" scope="prototype">	
+		<property name="timeService" ref="timeService" />		
+		<property name="messageService" ref="messageService2" />		
+	</bean>
+	
+	<bean id="messageService2" class="com.example.spring.ioc.MyMessageService" scope="prototype">
+	</bean>	
+	
 
 </beans>
 
