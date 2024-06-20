@@ -1,5 +1,7 @@
 package com.demoweb.controller;
 
+import java.io.PrintWriter;
+
 import com.demoweb.service.AccountService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,9 +21,21 @@ public class DupCheckController implements Controller {
 		boolean dup = accountService.checkDuplication(memberId);
 		
 		// 3. 응답
-		resp.setContentType("plain/text;charset=utf-8");
-		PrintWriter out = resp.getWriter();
-		out.print(dup);
+		try {
+			resp.setContentType("plain/text;charset=utf-8");
+			PrintWriter out = resp.getWriter();
+			out.print(dup);
+		} catch (Exception ex) {
+		}
+		
+		ActionResult ar = new ActionResult();
+		ar.setResponseBody(true);
+		return ar;
 	}
 
 }
+
+
+
+
+

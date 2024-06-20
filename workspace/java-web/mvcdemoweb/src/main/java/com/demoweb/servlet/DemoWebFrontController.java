@@ -54,7 +54,9 @@ public class DemoWebFrontController extends HttpServlet {
 		// 3. 뷰 선택 및 호출 ( JSP로 forward or 다른 Controller로 redirect )
 		// 3-1. 응답 컨텐츠 생산
 		String viewName = ar.getViewName();
-		if (ar.isRedirect()) {
+		if (ar.isResponseBody()) {
+			// do nothing
+		} else if (ar.isRedirect()) {
 			resp.sendRedirect(viewName);
 		} else {
 			RequestDispatcher rd = req.getRequestDispatcher("/WEB-INF/views/" + viewName + ".jsp");

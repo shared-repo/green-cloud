@@ -4,6 +4,7 @@ public class ActionResult {
 	
 	private String viewName;
 	private boolean redirect;
+	private boolean responseBody;
 	
 	public ActionResult() {}
 	public ActionResult(String viewName, boolean redirect) {
@@ -22,6 +23,12 @@ public class ActionResult {
 	}
 	public void setRedirect(boolean redirect) {
 		this.redirect = redirect;
+	}
+	public boolean isResponseBody() {
+		return responseBody;
+	}
+	public void setResponseBody(boolean responseBody) {
+		this.responseBody = responseBody;
 	}
 
 }
