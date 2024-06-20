@@ -8,6 +8,7 @@
 						http://www.springframework.org/schema/context 
 						https://www.springframework.org/schema/context/spring-context.xsd">
 
+	<!-- ServiceConsumer serviceConsumer = new MyServiceConsumer() -->
 	<bean id="serviceConsumer" class="com.example.spring.ioc.MyServiceConsumer">
 	
 		<!-- serviceConsumer.setTimeService(timeService) -->
@@ -18,10 +19,27 @@
 		
 	</bean>
 	
+	<!-- TimeService timeService = new MyTimeService(dateFormat) -->
 	<bean id="timeService" class="com.example.spring.ioc.MyTimeService">
+		<constructor-arg ref="dateFormat" />
 	</bean>
-	
+	<!-- MessageService messageService = new MyMessageService() -->
 	<bean id="messageService" class="com.example.spring.ioc.MyMessageService">
 	</bean>	
+	
+	<!-- SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss") -->
+	<bean id="dateFormat" class="java.text.SimpleDateFormat">
+		<constructor-arg value="yyyy-MM-dd hh:mm:ss" />
+	</bean>
 
 </beans>
+
+
+
+
+
+
+
+
+
+

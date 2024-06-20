@@ -1,7 +1,5 @@
 package com.example.spring.ioc;
 
-import org.springframework.context.support.GenericXmlApplicationContext;
-
 public class MyServiceConsumer implements ServiceConsumer {
 
 	// 1. 직접 인스턴스 생성 ( new 사용 )
