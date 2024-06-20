@@ -16,6 +16,8 @@ public class TestMain {
 		
 		
 		serviceConsumer.doSomething();
+		
+		appContext.close();
 
 	}
 

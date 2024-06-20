@@ -13,5 +13,12 @@ public class MyMessageService implements MessageService {
 		return "Hello, Spring IoC Container !!!" + data;
 	}
 	
+	public void init() {
+		System.out.println("MyMessageService.init()");
+	}
+	public void destroy() {
+		System.out.println("MyMessageService.destroy()");
+	}
+	
 
 }

@@ -24,7 +24,8 @@
 		<constructor-arg ref="dateFormat" />
 	</bean>
 	<!-- MessageService messageService = new MyMessageService() -->
-	<bean id="messageService" class="com.example.spring.ioc.MyMessageService">
+	<bean id="messageService" class="com.example.spring.ioc.MyMessageService"
+		  init-method="init" destroy-method="destroy">
 	</bean>	
 	
 	<!-- SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss") -->
