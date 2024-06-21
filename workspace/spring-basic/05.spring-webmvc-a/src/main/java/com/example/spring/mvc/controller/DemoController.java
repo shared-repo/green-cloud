@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.spring.mvc.dto.Person;
 
@@ -109,6 +111,39 @@ public class DemoController {
 		
 		return "demo/result";
 	}
+	
+	///////////////////////////////////////////////
+	
+//	// @GetMapping("/demo/redirect")
+//	@GetMapping(path = { "/demo/redirect" })
+//	public String redirect() {
+//		
+//		return "redirect:/demo/redirect-target";
+//	}
+	@GetMapping(path = { "/demo/redirect" })
+	public RedirectView redirect() {
+		RedirectView rv = new RedirectView("/mvc-a/demo/redirect-target");
+		return rv;
+	}
+	@GetMapping(path = { "/demo/redirect-target" }, produces="text/palin;charset=utf-8")
+	@ResponseBody // view를 사용하지 않고 controller 메서드의 반환 값을 바로 요청한 곳으로 응답하는 설정
+	public String redirectTarget() {
+		
+		return "redirect-target -> redirect 결과입니다.";
+	}
+	
+	@GetMapping(path = { "/demo/forward" })
+	public String forward() {
+		
+		return "forward:/demo/forward-target";
+	}
+	@GetMapping(path = { "/demo/forward-target" }, produces="text/palin;charset=utf-8")
+	@ResponseBody // view를 사용하지 않고 controller 메서드의 반환 값을 바로 요청한 곳으로 응답하는 설정
+	public String forwardTarget() {
+		
+		return "forward-target -> forward 결과입니다.";
+	}
+	
 	
 	
 	
