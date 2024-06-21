@@ -23,7 +23,7 @@ public class MyMessageService implements MessageService {
 	public void init() {
 		System.out.println("MyMessageService.init()");
 	}
-	@PreDestroy // <bean ... destroy-method="destroy"와 같은 효과
+	@PreDestroy // <bean ... destroy-method="destroy"와 같은 효과, "prototype" scope 객체에는 호출되지 않습니다.
 	public void destroy() {
 		System.out.println("MyMessageService.destroy()");
 	}
