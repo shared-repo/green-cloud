@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						https://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- ServiceConsumer serviceConsumer = new MyServiceConsumer() -->
+	<bean id="serviceConsumer" class="com.example.spring.ioc.MyServiceConsumer">
+	
+		<!-- serviceConsumer.setTimeService(timeService) -->
+		<property name="timeService" ref="timeService" />
+		
+		<!-- serviceConsumer.setMessageService(messageService) -->
+		<property name="messageService" ref="messageService" />
+		
+	</bean>
+	
+	<!-- TimeService timeService = new MyTimeService(dateFormat) -->
+	<bean id="timeService" class="com.example.spring.ioc.MyTimeService">
+		<constructor-arg ref="dateFormat" />
+	</bean>
+	<!-- MessageService messageService = new MyMessageService() -->
+	<bean id="messageService" class="com.example.spring.ioc.MyMessageService"
+		  init-method="init" destroy-method="destroy">
+	</bean>	
+	
+	<!-- SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss") -->
+	<bean id="dateFormat" class="java.text.SimpleDateFormat">
+		<constructor-arg value="yyyy-MM-dd hh:mm:ss" />
+	</bean>
+	
+	<!-- ****************************************** -->
+	
+	<bean id="serviceConsumer2" class="com.example.spring.ioc.MyServiceConsumer2" scope="prototype">	
+		<property name="timeService" ref="timeService" />		
+		<property name="messageService" ref="messageService2" />		
+	</bean>
+	
+	<bean id="messageService2" class="com.example.spring.ioc.MyMessageService" scope="prototype">
+	</bean>	
+	
+
+</beans>
+
+
+
+
+
+
+
+
+
+
