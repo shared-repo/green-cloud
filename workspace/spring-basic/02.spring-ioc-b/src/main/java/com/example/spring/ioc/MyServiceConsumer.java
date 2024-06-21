@@ -1,5 +1,10 @@
 package com.example.spring.ioc;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component("serviceConsumer") // <bean id="serviceConsumer" class="com...MyServiceConsumer"와 같은 효과
 public class MyServiceConsumer implements ServiceConsumer {
 
 	// 1. 직접 인스턴스 생성 ( new 사용 )
@@ -8,10 +13,12 @@ public class MyServiceConsumer implements ServiceConsumer {
 	
 	// 2. IoC 컨테이너를 사용해서 인스턴스 만들기
 	private TimeService timeService;
+	@Autowired // <property name="timeService"와 같은 효과 : setter injection
 	public void setTimeService(TimeService timeService) {
 		this.timeService = timeService;
 	}
 	private MessageService messageService;
+	@Autowired @Qualifier("messageService") // <property name="messageService" ref="messageService"와 같은 효과 : 
 	public void setMessageService(MessageService messageService) {
 		this.messageService = messageService;
 	}
