@@ -20,6 +20,8 @@
 	<!-- ***************************************************************************************** -->
 	
 	<!-- Create Spring Front Controller Servlet -->
+	<!-- init-param : Servlet에게 전달되는 데이터 -->
+	<!-- init-param : 여기서는 DispatcherServlet이 WebApplicationContext를 만들 때 적용할 bean 설정 파일 경로 -->
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>
@@ -32,6 +34,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<!-- 모든 요청은 DispatcherServlet으로 전달 -->
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
