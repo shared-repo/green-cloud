@@ -20,6 +20,8 @@
 		<h3>3. <a href="#">Transfer Data from Controller to View (Refer to 1, 2)</a></h3>
 		<h3>4. <a href="demo/redirect">Redirect to Another Action</a></h3>
 		<h3>5. <a href="demo/forward">Forward to HTML</a></h3>
+		<h3>6-1. <a href="hello.html">static resource not in resources</a></h3>
+		<h3>6-2. <a href="resources/hello.html">static resource in resources</a></h3>
 	</div>
 </body>
 </html>

@@ -15,6 +15,7 @@ import jakarta.servlet.ServletRegistration;
 // web.xml을 대신하는 설정 클래스
 public class DemoWebServletContainerInitializer implements ServletContainerInitializer {
 
+	// web application이 시작되면 (서버가 시작되면) 자동으로 호출되는 메서드
 	@Override
 	public void onStartup(Set<Class<?>> c, ServletContext ctx) throws ServletException {
 		
