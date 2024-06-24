@@ -47,8 +47,9 @@ public class AccountController {
 	public String login(MemberDto member) {
 		
 		// 로그인 처리
-		System.out.println(member);
-		// MemberDto loginMember = accountService.findMemberByMemeberIdAndPasswd(member);
+		// System.out.println(member);
+		MemberDto loginMember = accountService.findMemberByMemeberIdAndPasswd(member);
+		System.out.println(loginMember);
 		
 		return "redirect:/home";
 	}

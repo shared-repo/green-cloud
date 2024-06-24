@@ -15,11 +15,10 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 
 		try {
-			// 1. 드라이버 준비
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			// 2. 연결 객체 만들기
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.14:1521/xe", "green_cloud", "oracle");
 			
 			// 3. 명령 객체 만들기
 			String sql = "INSERT INTO member (memberid, passwd, email) VALUES (?, ?, ?)";
@@ -49,11 +48,10 @@ public class MemberDao {
 		ResultSet rs = null;
 		MemberDto selectedMember = null; // 조회 결과를 저장할 변수
 		try {
-			// 1. 드라이버 준비
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			// 2. 연결 객체 만들기
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.14:1521/xe", "green_cloud", "oracle");
 			
 			// 3. 명령 객체 만들기
 			String sql = "SELECT memberid, email, usertype, regdate, active " +
@@ -96,10 +94,10 @@ public class MemberDao {
 
 		try {
 			// 1. 드라이버 준비
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			// 2. 연결 객체 만들기
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.14:1521/xe", "green_cloud", "oracle");
 			
 			// 3. 명령 객체 만들기
 			String sql = "UPDATE member SET passwd = ? WHERE memberid = ?";
@@ -129,10 +127,10 @@ public class MemberDao {
 		int count = 0; // 조회 결과를 저장할 변수
 		try {
 			// 1. 드라이버 준비
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 			
 			// 2. 연결 객체 만들기
-			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@192.168.0.14:1521/xe", "green_cloud", "oracle");
 			
 			// 3. 명령 객체 만들기
 			String sql = "SELECT COUNT(memberId) " +
