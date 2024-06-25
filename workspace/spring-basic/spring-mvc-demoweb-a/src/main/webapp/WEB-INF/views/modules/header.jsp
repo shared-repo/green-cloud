@@ -12,7 +12,11 @@
             <div class="links">
             <c:choose>
             	<c:when test="${ empty loginuser }">
-            	<a href="/spring-demoweb/account/login">로그인</a>
+            	<%-- 
+            	<a href="/spring-demoweb/account/login-form">로그인</a>
+                <a href="/spring-demoweb/account/register-form">회원가입</a>
+                --%>
+                <a href="/spring-demoweb/account/login">로그인</a>
                 <a href="/spring-demoweb/account/register">회원가입</a>
             	</c:when>
             	<c:otherwise>

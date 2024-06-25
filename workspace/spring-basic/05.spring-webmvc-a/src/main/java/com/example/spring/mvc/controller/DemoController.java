@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.ModelAndViewDefiningException;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.spring.mvc.dto.Person;
+import com.example.spring.mvc.view.MyView;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -143,6 +145,17 @@ public class DemoController {
 	public String forwardTarget() {
 		
 		return "forward-target -> forward 결과입니다.";
+	}
+	
+	@GetMapping(path = { "/custom-view" })
+	public View customView(Model model) {
+		
+		model.addAttribute("mbti", "ISFP");
+		model.addAttribute("hobby", "do not ask");
+		
+		MyView view = new MyView();
+		return view;
+		
 	}
 	
 	

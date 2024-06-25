@@ -23,6 +23,10 @@
 	
 	<context:component-scan base-package="com.demoweb.controller" />
 	
+	<!-- 단순 화면 표시 요청인 경우 컨트롤러 메서드를 만들지 않고 직접 jsp로 연결 -->
+	<view-controller path="/account/register-form" view-name="account/register" />
+	<view-controller path="/account/login-form" view-name="account/login" />
+	
 	
 </beans:beans>
 
