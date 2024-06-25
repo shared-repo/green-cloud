@@ -77,8 +77,7 @@
 			// 아이디에 대한 요구사항 (예:영문자 숫자 특수문자 조합 8개이상 20개 이하) 검사
 			
 			$.ajax({
-				"url": "dup-check",
-				"data": "id=" + memberId,
+				"url": "dup-check/" + memberId,
 				"dataType": "text", // 수신 컨텐츠 종류
 				"success": function(result, status, xhr) {
 					if (result == "true") {

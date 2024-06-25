@@ -1,11 +1,15 @@
 package com.demoweb.controller;
 
+import java.io.PrintWriter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.demoweb.dao.MemberDao;
@@ -40,6 +44,14 @@ public class AccountController {
 		return "account/register";	// /WEB-INF/views/ + account/register + .jsp
 	}
 	
+	@GetMapping(path = { "/dup-check/{id}" }) // {id} : 데이터를 의미 -> @PathVariable로 전달
+	@ResponseBody // 메서드의 return 값이 응답하는 데이터를 의미 ( view-name이 아니기 때문에 jsp로 이동하지 않습니다. )
+	public String dupCheck(@PathVariable("id") String memberId) {
+		
+		boolean dup = accountService.checkDuplication(memberId);		
+		return String.valueOf(dup);
+	}
+	
 	@PostMapping(path = { "/register" })
 	public String register(MemberDto member) {
 		
@@ -72,5 +84,33 @@ public class AccountController {
 			return "redirect:login?loginfail=true";
 		}
 	}
+	
+	@GetMapping(path = { "/logout" })
+	public String logout(HttpSession session) {
+		
+		session.invalidate();
+		// session.removeAttribute("loginuser");
+		
+		return "redirect:/home";
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
