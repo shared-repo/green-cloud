@@ -1,0 +1,20 @@
+1. 데이터베이스 준비 (db-setup.sql)
+   - 데이터베이스 만들기 : demoweb
+   - 테이블 만들기 : member
+
+2. JDBC Driver 준비
+
+   - mysql.~.jar 파일을 /WEB-INF/lib 폴더에 복사
+
+[ 테스트 코드 작성 ]
+- 회원가입 기능에 대해 servlet에서 데이터베이스 사용
+
+3. 클래스 구성 ( UI ~ Biz ~ Data )
+    - Service, Dao, Dto 패키지 준비
+    - MemberDto 클래스 구현
+    - AccountService 클래스 구현
+    - AccountDao 클래스 구현
+
+4. 회원가입, 로그인 구현
+
+5. 새 기능

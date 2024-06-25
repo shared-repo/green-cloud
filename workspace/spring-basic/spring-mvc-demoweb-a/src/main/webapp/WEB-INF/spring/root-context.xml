@@ -6,6 +6,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<bean id="accountService" class="com.demoweb.service.AccountServiceImpl">
+		<property name="memberDao" ref="memberDao" />
+	</bean>
+	
+	<bean id="memberDao" class="com.demoweb.dao.OracleMemberDao"></bean>
 
 </beans>
 
