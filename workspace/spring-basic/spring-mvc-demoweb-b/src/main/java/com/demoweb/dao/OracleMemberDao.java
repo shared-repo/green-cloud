@@ -14,7 +14,7 @@ public class OracleMemberDao implements MemberDao {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		
 		// 2. 연결 객체 만들기
-		return DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521/xe", "green_cloud", "oracle");
+		return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521/xe", "green_cloud", "oracle");
 	}
 	
 	// 회원가입 처리 -> 회원정보를 데이터베이스에 저장

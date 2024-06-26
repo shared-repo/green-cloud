@@ -7,25 +7,20 @@ import java.sql.ResultSet;
 
 import com.demoweb.dto.MemberDto;
 
-public class OracleMemberDao implements MemberDao {
-	
-	private Connection getConnection() throws Exception {
-		// 1. 드라이버 준비
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		
-		// 2. 연결 객체 만들기
-		return DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521/xe", "green_cloud", "oracle");
-	}
+public class MySqlMemberDao implements MemberDao {
 	
 	// 회원가입 처리 -> 회원정보를 데이터베이스에 저장
+	@Override
 	public void insertMember(MemberDto member) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			// 1. 드라이버 준비
-			// 2. 연결 객체 만들기			
-			conn = getConnection();		
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결 객체 만들기
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
 			
 			// 3. 명령 객체 만들기
 			String sql = "INSERT INTO member (memberid, passwd, email) VALUES (?, ?, ?)";
@@ -49,6 +44,7 @@ public class OracleMemberDao implements MemberDao {
 	}
 	
 	// public MemberDto selectMemberByMemberIdAndPasswd(String memberId, String passwd) {
+	@Override
 	public MemberDto selectMemberByMemberIdAndPasswd(MemberDto member) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -56,8 +52,10 @@ public class OracleMemberDao implements MemberDao {
 		MemberDto selectedMember = null; // 조회 결과를 저장할 변수
 		try {
 			// 1. 드라이버 준비
-			// 2. 연결 객체 만들기			
-			conn = getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결 객체 만들기
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
 			
 			// 3. 명령 객체 만들기
 			String sql = "SELECT memberid, email, usertype, regdate, active " +
@@ -94,14 +92,17 @@ public class OracleMemberDao implements MemberDao {
 		
 	}
 	
+	@Override
 	public void updatePasswd(MemberDto member) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			// 1. 드라이버 준비
-			// 2. 연결 객체 만들기			
-			conn = getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결 객체 만들기
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
 			
 			// 3. 명령 객체 만들기
 			String sql = "UPDATE member SET passwd = ? WHERE memberid = ?";
@@ -124,6 +125,7 @@ public class OracleMemberDao implements MemberDao {
 		}
 	}
 
+	@Override
 	public int selectMemberCountByMemberId(String memberId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -131,8 +133,10 @@ public class OracleMemberDao implements MemberDao {
 		int count = 0; // 조회 결과를 저장할 변수
 		try {
 			// 1. 드라이버 준비
-			// 2. 연결 객체 만들기			
-			conn = getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			// 2. 연결 객체 만들기
+			conn = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/demoweb", "green_cloud", "mysql");
 			
 			// 3. 명령 객체 만들기
 			String sql = "SELECT COUNT(memberId) " +
