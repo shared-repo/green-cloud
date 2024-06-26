@@ -30,7 +30,7 @@ public class MailController {
 			messageHelper.setTo(new String[] { "oh.chi.hooooon@gmail.com", "shared.repo.z@gmail.com" });
 			message.setSubject("메일 보내기 연습");
 			message.setContent(String.format("<html><body><h1>%s</h1></body></html>", "메일을 확인해 주세요"), 
-							   "text/html");
+							   "text/html;charset=utf-8");
 			
 			mailSender.send(message);
 		} catch (Exception ex) {
