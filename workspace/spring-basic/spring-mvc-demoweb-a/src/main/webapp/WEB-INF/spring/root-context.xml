@@ -9,13 +9,23 @@
 	
 	<bean id="accountService" class="com.demoweb.service.AccountServiceImpl">
 		<!-- <property name="memberDao" ref="memberDao" /> -->
-		<property name="memberDao" ref="memberDaoWithConnectionPool" />
+		<!-- <property name="memberDao" ref="memberDaoWithConnectionPool" /> -->
+		<property name="memberDao" ref="memberDaoWithJdbcTemplate" />
 	</bean>
 	
 	<bean id="memberDao" class="com.demoweb.dao.OracleMemberDao"></bean>
 	<bean id="memberDaoWithConnectionPool" class="com.demoweb.dao.OracleMemberDaoWithConnectionPool">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
+	<bean id="memberDaoWithJdbcTemplate" class="com.demoweb.dao.OracleMemberDaoWithJdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 	
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
