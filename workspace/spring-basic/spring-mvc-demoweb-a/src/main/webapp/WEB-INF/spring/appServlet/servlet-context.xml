@@ -27,6 +27,33 @@
 	<view-controller path="/account/register-form" view-name="account/register" />
 	<view-controller path="/account/login-form" view-name="account/login" />
 	
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/**" />
+			<exclude-mapping path="/board/list" />
+			<exclude-mapping path="/board/detail" />
+			<beans:bean class="com.demoweb.interceptor.AuthInterceptor" />
+		</interceptor>
+	</interceptors>
+	
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- mailSender.setHost("smtp.naver.com"); -->
+		<beans:property name="host" value="smtp.naver.com"/>
+		<beans:property name="port" value="465"/>
+		<beans:property name="defaultEncoding" value="utf-8"/>
+		<beans:property name="username" value=""/>
+		<beans:property name="password" value=""/>
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.debug">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.required">true</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.ssl.enable">true</beans:prop>
+				<beans:prop key="mail.smtp.ssl.trust">smtp.naver.com</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
 	
 </beans:beans>
 
