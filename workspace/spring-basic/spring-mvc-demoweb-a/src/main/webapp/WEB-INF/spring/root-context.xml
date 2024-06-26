@@ -8,10 +8,25 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<bean id="accountService" class="com.demoweb.service.AccountServiceImpl">
-		<property name="memberDao" ref="memberDao" />
+		<!-- <property name="memberDao" ref="memberDao" /> -->
+		<property name="memberDao" ref="memberDaoWithConnectionPool" />
 	</bean>
 	
 	<bean id="memberDao" class="com.demoweb.dao.OracleMemberDao"></bean>
+	<bean id="memberDaoWithConnectionPool" class="com.demoweb.dao.OracleMemberDaoWithConnectionPool">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521/xe" />
+		<property name="username" value="green_cloud" />
+		<property name="password" value="oracle" />
+		
+		<property name="initialSize" value="10" />
+		<property name="maxActive" value="20" />
+		<property name="maxIdle" value="10" />
+	</bean>
 
 </beans>
 
