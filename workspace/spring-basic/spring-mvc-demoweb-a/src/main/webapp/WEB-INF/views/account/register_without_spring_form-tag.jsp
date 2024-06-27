@@ -1,8 +1,6 @@
 ﻿<%@ page language="java" 
 		 contentType="text/html; charset=utf-8" 
 		 pageEncoding="utf-8"%>
-		 
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 
@@ -23,19 +21,19 @@
 			<br /><br />
 		    <div id="inputmain">
 		        <div class="inputsubtitle">회원기본정보</div>
-		        <form:form id="registerform" action="register" method="post" modelAttribute="member">
+		        <form id="registerform" action="register" method="post"><!-- 상대경로표시 -->
 		        <table>
 		            <tr>
 		                <th>아이디(ID)</th>
 		                <td>
-		                    <form:input type="text" id="memberId" path="memberId" style="width:180px" />
+		                    <input type="text" id="memberId" name="memberId" style="width:180px" />
 		                    <button id="btn-dup-check" style="width:90px">중복검사</button>
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>비밀번호</th>
 		                <td>
-		                	<form:input type="password" id="passwd" path="passwd" style="width:280px" />
+		                	<input type="password" id="passwd" name="passwd" style="width:280px" />
 		                </td>
 		            </tr>
 		            <tr>
@@ -47,7 +45,7 @@
 		            <tr>
 		                <th>이메일</th>
 		                <td>
-		                	<form:input type="text" id="email" path="email" style="width:280px" />
+		                	<input type="text" id="email" name="email" style="width:280px" />
 		                </td>
 		            </tr>
 		                       		            
@@ -56,7 +54,7 @@
 		        	<input id="register" type="button" value="등록" style="height:25px" />
 		        	<input id="cancel" type="button" value="취소" style="height:25px"  />
 		        </div>
-		        </form:form>
+		        </form>
 		    </div>
 		</div>   	
 	</div>

@@ -40,7 +40,7 @@ public class AccountController {
 	// @RequestMapping(path = { "/register" }) // GET OR POST OR PUT OR ...
 	// @RequestMapping(path = { "/register" }, method = { RequestMethod.GET }) // only GET
 	@GetMapping(path = { "/register" }) // only GET
-	public String registerForm() {
+	public String registerForm(@ModelAttribute("member") MemberDto member) {
 		
 		return "account/register";	// /WEB-INF/views/ + account/register + .jsp
 	}
@@ -54,7 +54,7 @@ public class AccountController {
 	}
 	
 	@PostMapping(path = { "/register" })
-	public String register(MemberDto member) {
+	public String register(@ModelAttribute("member") MemberDto member) {
 		
 		// 회원 가입 처리
 		// System.out.println(member);

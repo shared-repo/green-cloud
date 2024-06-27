@@ -15,6 +15,7 @@
 			전화 : <input type="text" name="phone" /><br />
 			메일 : <input type="text" name="email" /><br />
 			나이 : <input type="text" name="age" /><br />
+			나이 : <input type="date" name="birthDate" /><br />
 			<input type="submit" value="전송" />
 		</form>
 		<h3>3. <a href="#">Transfer Data from Controller to View (Refer to 1, 2)</a></h3>

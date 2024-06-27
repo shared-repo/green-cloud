@@ -1,8 +1,14 @@
 package com.example.spring.mvc.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -157,6 +163,15 @@ public class DemoController {
 		return view;
 		
 	}
+	
+	//////////////////////
+	
+//	// 요청 데이터 중 날짜 형식의 데이터는 Model객체에 자동으로 binding되지 않기 때문에 변환기를 등록하는 작업
+//	@InitBinder
+//	public void initBinder(WebDataBinder binder) {
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));		
+//	}
 	
 	
 	
