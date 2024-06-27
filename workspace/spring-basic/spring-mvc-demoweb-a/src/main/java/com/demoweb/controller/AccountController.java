@@ -4,6 +4,9 @@ import java.io.PrintWriter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +22,7 @@ import com.demoweb.service.AccountService;
 import com.demoweb.service.AccountServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.Setter;
 
 @Controller
@@ -54,7 +58,14 @@ public class AccountController {
 	}
 	
 	@PostMapping(path = { "/register" })
-	public String register(@ModelAttribute("member") MemberDto member) {
+	public String register(@Valid @ModelAttribute("member") MemberDto member, BindingResult br) {
+		
+		if (br.hasErrors()) {
+//			for ( ObjectError error : br.getAllErrors() ) {
+//				System.out.println(error.getDefaultMessage());
+//			}
+			return "account/register";
+		}
 		
 		// 회원 가입 처리
 		// System.out.println(member);

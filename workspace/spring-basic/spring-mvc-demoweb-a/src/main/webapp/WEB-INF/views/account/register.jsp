@@ -12,6 +12,13 @@
 	<title>Register</title>
 	<link rel='Stylesheet' href='/spring-demoweb/resources/styles/default.css' />
 	<link rel='Stylesheet' href='/spring-demoweb/resources/styles/input.css' />
+	<style>
+		.error {
+			color: red;
+			font-size: 7pt;
+			font-weight: bold;
+		}
+	</style>
 </head>
 <body>
 
@@ -30,12 +37,16 @@
 		                <td>
 		                    <form:input type="text" id="memberId" path="memberId" style="width:180px" />
 		                    <button id="btn-dup-check" style="width:90px">중복검사</button>
+		                    <br>
+		                    <form:errors path="memberId" cssClass="error" />
 		                </td>
 		            </tr>
 		            <tr>
 		                <th>비밀번호</th>
 		                <td>
 		                	<form:input type="password" id="passwd" path="passwd" style="width:280px" />
+		                	<br>
+		                	<form:errors path="passwd" cssClass="error" />
 		                </td>
 		            </tr>
 		            <tr>
@@ -48,6 +59,8 @@
 		                <th>이메일</th>
 		                <td>
 		                	<form:input type="text" id="email" path="email" style="width:280px" />
+		                	<br>
+		                	<form:errors path="email" cssClass="error" />
 		                </td>
 		            </tr>
 		                       		            
