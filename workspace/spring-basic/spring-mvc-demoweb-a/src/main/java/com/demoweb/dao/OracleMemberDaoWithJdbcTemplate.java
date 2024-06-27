@@ -40,11 +40,12 @@ public class OracleMemberDaoWithJdbcTemplate implements MemberDao {
 		
 		MemberDto selectedMember = 
 			jdbcTemplate.queryForObject(sql, 
+										// 1. RowMapper 인터페이스를 구현하는 이름 없는 클래스 만들기 + 2. 그 클래스의 인스턴스 만들기
 										new RowMapper<MemberDto>() {	
 											@Override
 											public MemberDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-												MemberDto member = new MemberDto(); // 조회 결과를 저장할 객체 생성
-												member.setMemberId(rs.getString(1)); // 객체에 조회한 각 값을 저장
+												MemberDto member = new MemberDto();
+												member.setMemberId(rs.getString(1));
 												member.setEmail(rs.getString(2));
 												member.setUserType(rs.getString(3));
 												member.setRegDate(rs.getDate(4));
@@ -66,38 +67,21 @@ public class OracleMemberDaoWithJdbcTemplate implements MemberDao {
 	}
 
 	public int selectMemberCountByMemberId(String memberId) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int count = 0; // 조회 결과를 저장할 변수
-		try {
-			// 1. 드라이버 준비
-			// 2. 연결 객체 만들기			
-			conn = dataSource.getConnection();
-			
-			// 3. 명령 객체 만들기
-			String sql = "SELECT COUNT(memberId) " +
-						 "FROM member " +
-						 "WHERE memberid = ? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memberId);
-			
-			// 4. 명령 실행 ( 결과가 있으면 결과 저장 - select 인 경우 )
-			rs = pstmt.executeQuery();
-			
-			// 5. 결과가 있으면 결과 처리
-			rs.next();
-			count = rs.getInt(1);
 
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		} finally {
-			// 6. 연결 종료
-			JdbcUtils.closeResultSet(rs);
-			JdbcUtils.closeStatement(pstmt);
-			JdbcUtils.closeConnection(conn);
-		}
+		String sql = "SELECT COUNT(memberId) " +
+					 "FROM member " +
+					 "WHERE memberid = ? ";
 		
+//		int count = jdbcTemplate.queryForObject(sql, new Object[] {memberId}, Integer.class);		
+		int count = jdbcTemplate.queryForObject(sql, 
+												new RowMapper<Integer>() {
+													@Override
+													public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+														return rs.getInt(1);
+													}
+												},
+												memberId);
+			
 		return count; // 조회 결과를 저장한 변수 반환
 	}
 
