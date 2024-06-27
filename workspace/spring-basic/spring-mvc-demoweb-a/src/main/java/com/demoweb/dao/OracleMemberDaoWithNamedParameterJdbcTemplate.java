@@ -10,16 +10,17 @@ import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.JdbcUtils;
 
 import com.demoweb.dto.MemberDto;
 
 import lombok.Setter;
 
-public class OracleMemberDaoWithJdbcTemplate implements MemberDao {	
+public class OracleMemberDaoWithNamedParameterJdbcTemplate implements MemberDao {
 	
 	@Setter
-	private JdbcTemplate jdbcTemplate;
+	private NamedParameterJdbcTemplate jdbcTemplate;
 	
 	// 회원가입 처리 -> 회원정보를 데이터베이스에 저장
 	public void insertMember(MemberDto member) {

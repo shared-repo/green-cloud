@@ -10,7 +10,8 @@
 	<bean id="accountService" class="com.demoweb.service.AccountServiceImpl">
 		<!-- <property name="memberDao" ref="memberDao" /> -->
 		<!-- <property name="memberDao" ref="memberDaoWithConnectionPool" /> -->
-		<property name="memberDao" ref="memberDaoWithJdbcTemplate" />
+		<!-- <property name="memberDao" ref="memberDaoWithJdbcTemplate" /> -->
+		<property name="memberDao" ref="memberDaoWithNamedParameterJdbcTemplate" />
 	</bean>
 	
 	<bean id="memberDao" class="com.demoweb.dao.OracleMemberDao"></bean>
@@ -18,11 +19,16 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	<bean id="memberDaoWithJdbcTemplate" class="com.demoweb.dao.OracleMemberDaoWithJdbcTemplate">
-		<property name="dataSource" ref="dataSource" />
 		<property name="jdbcTemplate" ref="jdbcTemplate" />
+	</bean>
+	<bean id="memberDaoWithNamedParameterJdbcTemplate" class="com.demoweb.dao.OracleMemberDaoWithNamedParameterJdbcTemplate">
+		<property name="jdbcTemplate" ref="namedParameterJdbcTemplate" />
 	</bean>
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.NamedParameterJdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
