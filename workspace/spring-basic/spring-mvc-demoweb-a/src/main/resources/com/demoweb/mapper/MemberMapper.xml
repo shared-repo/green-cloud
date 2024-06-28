@@ -13,5 +13,33 @@
 		FROM member
 		WHERE memberId = #{ memberId } AND passwd = #{ passwd }
 	</select>
+	
+	<insert id="insertMember" parameterType="com.demoweb.dto.MemberDto">
+		INSERT INTO member (memberid, passwd, email) 
+		VALUES (#{ memberId }, #{ passwd }, #{ email })
+	</insert>
+	
+	<update id="updatePasswd" parameterType="com.demoweb.dto.MemberDto">
+		UPDATE member SET passwd = #{ passwd } WHERE memberid = #{ memberId }
+	</update>
+	
+	<select id="selectMemberCountByMemberId" parameterType="string" resultType="int">
+		SELECT COUNT(memberId)
+		FROM member
+		WHERE memberid = #{ memberId }
+	</select>
 
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
