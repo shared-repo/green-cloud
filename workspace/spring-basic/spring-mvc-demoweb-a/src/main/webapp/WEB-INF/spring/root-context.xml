@@ -43,6 +43,11 @@
 		<property name="maxActive" value="20" />
 		<property name="maxIdle" value="10" />
 	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" ref="classpath:mybatis-config.xml" />
+	</bean>
 
 </beans>
 
