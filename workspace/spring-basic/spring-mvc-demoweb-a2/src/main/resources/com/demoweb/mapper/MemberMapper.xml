@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace : 패키지이름.클래스이름 ( 저장된 경로와 일치하도록 작성 ) -->
+<mapper namespace="com.demoweb.mapper.MemberMapper">
+
+	<!-- 지정된 SQL을 실행하는 method 역할 -->
+	<select id="selectMemberByMemberIdAndPasswd" parameterType="MemberDto" resultType="MemberDto">
+		SELECT memberId, email, userType, regDate, active
+		FROM member
+		WHERE memberId = #{ memberId } AND passwd = #{ passwd }
+	</select>
+	<select id="selectMemberMemberByIdAndPasswd2" parameterType="hashmap" resultType="MemberDto">
+		SELECT memberId, email, userType, regDate, active
+		FROM member
+		WHERE memberId = #{ memberId } AND passwd = #{ passwd }
+	</select>
+	
+	<!-- <insert id="insertMember" parameterType="com.demoweb.dto.MemberDto"> -->
+	<insert id="insertMember" parameterType="MemberDto">
+		INSERT INTO member (memberid, passwd, email) 
+		VALUES (#{ memberId }, #{ passwd }, #{ email })
+	</insert>
+	
+	<update id="updatePasswd" parameterType="MemberDto">
+		UPDATE member SET passwd = #{ passwd } WHERE memberid = #{ memberId }
+	</update>
+	
+	<select id="selectMemberCountByMemberId" parameterType="string" resultType="int">
+		SELECT COUNT(memberId)
+		FROM member
+		WHERE memberid = #{ memberId }
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
