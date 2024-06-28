@@ -7,7 +7,8 @@
 <mapper namespace="com.demoweb.mapper.MemberMapper">
 
 	<!-- 지정된 SQL을 실행하는 method 역할 -->
-	<select id="selectMemberByIdAndPasswd" parameterType="com.demoweb.dto.MemberDto">
+	<select id="selectMemberByIdAndPasswd" parameterType="com.demoweb.dto.MemberDto"
+										   resultType="com.demoweb.dto.MemberDto">
 		SELECT memberId, email, userType, regDate, active
 		FROM member
 		WHERE memberId = #{ memberId } AND passwd = #{ passwd }

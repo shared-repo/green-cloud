@@ -11,7 +11,8 @@
 		<!-- <property name="memberDao" ref="memberDao" /> -->
 		<!-- <property name="memberDao" ref="memberDaoWithConnectionPool" /> -->
 		<!-- <property name="memberDao" ref="memberDaoWithJdbcTemplate" /> -->
-		<property name="memberDao" ref="memberDaoWithNamedParameterJdbcTemplate" />
+		<!-- <property name="memberDao" ref="memberDaoWithNamedParameterJdbcTemplate" /> -->
+		<property name="memberDao" ref="memberDaoWithMyBatis" />
 	</bean>
 	
 	<bean id="memberDao" class="com.demoweb.dao.OracleMemberDao"></bean>
@@ -23,7 +24,11 @@
 	</bean>
 	<bean id="memberDaoWithNamedParameterJdbcTemplate" class="com.demoweb.dao.OracleMemberDaoWithNamedParameterJdbcTemplate">
 		<property name="jdbcTemplate" ref="namedParameterJdbcTemplate" />
+	</bean>	
+	<bean id="memberDaoWithMyBatis" class="com.demoweb.dao.OracleMemberDaoWithMyBatis">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
 	</bean>
+	
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource" />
@@ -31,7 +36,6 @@
 	<bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
 		<constructor-arg ref="dataSource" />
 	</bean>
-	
 	
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
@@ -47,7 +51,7 @@
 	<!-- SqlSessionFactoryBean.getObject()를 호출해서 SqlSessionFactory 객체를 만드는 bean 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" ref="classpath:mybatis-config.xml" />
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
 	</bean>
 	
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
