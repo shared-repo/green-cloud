@@ -3,8 +3,13 @@ package com.demoweb.config;
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -12,6 +17,7 @@ import com.demoweb.dao.MemberDao;
 import com.demoweb.dao.OracleMemberDao;
 import com.demoweb.dao.OracleMemberDaoWithConnectionPool;
 import com.demoweb.dao.OracleMemberDaoWithJdbcTemplate;
+import com.demoweb.dao.OracleMemberDaoWithMyBatis;
 import com.demoweb.dao.OracleMemberDaoWithNamedParameterJdbcTemplate;
 import com.demoweb.service.AccountService;
 import com.demoweb.service.AccountServiceImpl;
@@ -68,15 +74,34 @@ public class RootConfiguration {
 		return memberDao;
 	}
 	
-	@Bean AccountService accountService() {
+	@Bean SqlSessionFactory sqlSessionFactory() throws Exception {
+		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+		factoryBean.setDataSource(dataSource());
+		factoryBean.setConfigLocation(new ClassPathResource("mybatis-config.xml"));
+		return factoryBean.getObject();
+	}
+	
+	@Bean SqlSessionTemplate sqlSessionTemplate() throws Exception {
+		return new SqlSessionTemplate(sqlSessionFactory());
+	}
+	
+	@Bean
+	public MemberDao memberDaoWithMyBatis() throws Exception {
+		OracleMemberDaoWithMyBatis memberDao = new OracleMemberDaoWithMyBatis();
+		memberDao.setSqlSessionTemplate(sqlSessionTemplate());
+		return memberDao;
+	}
+	
+	@Bean AccountService accountService() throws Exception {
 		AccountServiceImpl accountService = new AccountServiceImpl();
 		// accountService.setMemberDao(memberDao());
 		// accountService.setMemberDao(memberDaoWithConnectionPool());
 		// accountService.setMemberDao(memberDaoWithJdbcTemplate());
-		accountService.setMemberDao(memberDaoWithNamedParameterJdbcTemplate());
+		// accountService.setMemberDao(memberDaoWithNamedParameterJdbcTemplate());
+		accountService.setMemberDao(memberDaoWithMyBatis());
 		return accountService;
 	}
-
+	
 }
 
 
