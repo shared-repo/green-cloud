@@ -2,8 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
@@ -33,10 +35,15 @@
 	</bean>
 	
 	<!-- MemberMapper.xml을 사용하는 DAO 자동 생성 : MapperInterface 객체 생성 -->
+	<!-- 생략 -->
+	<!-- 
 	<bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-		<property name="mapperInterface" value="com.demoweb.mapper.MemberMapper" /> <!-- MapperXML과 경로/이름 일치하도록 구현 -->
+		<property name="mapperInterface" value="com.demoweb.mapper.MemberMapper" />
 	</bean>
+	-->
+	
+	<mybatis:scan base-package="com.demoweb.mapper"/>
 	
 	
 
