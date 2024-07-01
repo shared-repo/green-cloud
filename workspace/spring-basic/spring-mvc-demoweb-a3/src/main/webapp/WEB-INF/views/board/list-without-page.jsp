@@ -49,6 +49,8 @@
 					</c:when>
 					<c:otherwise>
 						<a href="detail?boardno=${ board.boardNo }">${ board.title }</a>
+						<br>
+						<a href="detail/${ board.boardNo }">${ board.title }</a>
 					</c:otherwise>
 					</c:choose>
 					</td>

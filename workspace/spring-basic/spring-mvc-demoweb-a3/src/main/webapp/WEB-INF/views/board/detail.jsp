@@ -2,9 +2,9 @@
 		 contentType="text/html; charset=utf-8"
     	 pageEncoding="utf-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
     
 <!DOCTYPE html>
 
@@ -12,8 +12,8 @@
 <head>
 	<meta charset="utf-8" />
 	<title>글상세보기</title>
-	<link rel="Stylesheet" href="/demoweb/styles/default.css" />
-	<link rel="Stylesheet" href="/demoweb/styles/input2.css" />
+	<link rel="Stylesheet" href="/spring-demoweb/resources/styles/default.css" />
+	<link rel="Stylesheet" href="/spring-demoweb/resources/styles/input2.css" />
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>

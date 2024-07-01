@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardDto;
 
 // MyBatis Mapper.xml 파일과 연동해서 동작하는 DAO 객체 생성할 때 적용할 인터페이스
@@ -16,4 +17,6 @@ public interface BoardMapper {
 	List<BoardDto> selectAllBoard();
 
 	BoardDto selectBoardByBoardNo(int boardNo);
+
+	void insertBoardAttach(BoardAttachDto attach);
 }
