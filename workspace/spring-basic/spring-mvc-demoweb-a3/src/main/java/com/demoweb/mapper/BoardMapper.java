@@ -1,5 +1,7 @@
 package com.demoweb.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.demoweb.dto.BoardDto;
@@ -10,4 +12,8 @@ import com.demoweb.dto.BoardDto;
 public interface BoardMapper {
 
 	void insertBoard(BoardDto board);
+
+	List<BoardDto> selectAllBoard();
+
+	BoardDto selectBoardByBoardNo(int boardNo);
 }

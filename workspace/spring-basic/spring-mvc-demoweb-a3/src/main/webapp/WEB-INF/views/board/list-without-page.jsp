@@ -3,6 +3,7 @@
     	 pageEncoding="utf-8"%>
     	 
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!DOCTYPE html>
 
@@ -53,8 +54,8 @@
 					</td>
 					<td style="text-align:left;padding-left:5px">${ board.writer }</td>
 					<td>${ board.readCount }</td>
-					<td>${ board.writeDate }</td>
-					<td>${ board.modifyDate }</td>
+					<td><fmt:formatDate value="${ board.writeDate }" pattern="yyyy-MM-dd" /></td>
+					<td><fmt:formatDate value="${ board.modifyDate }" pattern="yyyy-MM-dd" /></td>
 				</tr>
 				</c:forEach>
 								

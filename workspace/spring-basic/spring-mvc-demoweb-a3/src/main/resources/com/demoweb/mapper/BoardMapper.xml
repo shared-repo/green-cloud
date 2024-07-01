@@ -11,6 +11,18 @@
 		VALUES (BOARD_SEQUENCE.NEXTVAL, #{ title }, #{ writer }, #{ content })
 	</insert>
 	
+	<select id="selectAllBoard" resultType="BoardDto">
+		SELECT boardNo, title, writer, readCount, writeDate, modifyDate, deleted
+		FROM board
+		ORDER BY boardno DESC
+	</select>
+	
+	<select id="selectBoardByBoardNo" parameterType="int" resultType="BoardDto">
+		SELECT boardno, title, writer, content, readcount, writedate, modifydate
+		FROM board
+		WHERE boardno = #{ boardNo } AND deleted = '0'
+	</select>
+	
 </mapper>
 
 

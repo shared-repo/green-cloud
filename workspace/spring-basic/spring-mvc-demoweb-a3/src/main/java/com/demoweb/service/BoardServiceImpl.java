@@ -1,10 +1,7 @@
 package com.demoweb.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import com.demoweb.dao.BoardDao;
-import com.demoweb.dto.BoardAttachDto;
-import com.demoweb.dto.BoardCommentDto;
 import com.demoweb.dto.BoardDto;
 import com.demoweb.mapper.BoardMapper;
 
@@ -28,14 +25,12 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 	
-//	@Override
-//	public ArrayList<BoardDto> findAllBaord() {
-//		
-//		ArrayList<BoardDto> boards = boardDao.selectAllBoard();
-//		return boards;
-//		
-//	}
-//	
+	@Override
+	public List<BoardDto> findAllBaord() {		
+		List<BoardDto> boards = boardMapper.selectAllBoard();
+		return boards;
+	}
+	
 //	@Override
 //	public ArrayList<BoardDto> findBaordByRange(int start, int count) {
 //		
@@ -43,13 +38,13 @@ public class BoardServiceImpl implements BoardService {
 //		return boards;
 //		
 //	}
-//	
-//	@Override
-//	public BoardDto findBoardByBoardNo(int boardNo) {
-//		
-//		// 게시글 조회
-//		BoardDto board = boardDao.selectBoardByBoardNo(boardNo);
-//		
+	
+	@Override
+	public BoardDto findBoardByBoardNo(int boardNo) {
+		
+		// 게시글 조회
+		BoardDto board = boardMapper.selectBoardByBoardNo(boardNo);
+		
 //		// 첨부파일 조회
 //		ArrayList<BoardAttachDto> attaches = boardDao.selectBoardAttachByBoardNo(boardNo);		
 //		board.setAttachments(attaches);
@@ -57,11 +52,11 @@ public class BoardServiceImpl implements BoardService {
 //		// 댓글 조회
 //		ArrayList<BoardCommentDto> comments = boardDao.selectBoardCommentByBoardNo(boardNo);
 //		board.setComments(comments);
-//		
-//		return board;
-//		
-//	}
-//
+		
+		return board;
+		
+	}
+
 //	@Override
 //	public BoardAttachDto findBoardAttachByAttachNo(int attachNo) {
 //		BoardAttachDto attach = boardDao.selectBoardAttachByAttachNo(attachNo);

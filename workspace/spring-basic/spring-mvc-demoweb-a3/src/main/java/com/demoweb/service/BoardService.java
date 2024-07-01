@@ -1,21 +1,19 @@
 package com.demoweb.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import com.demoweb.dto.BoardAttachDto;
-import com.demoweb.dto.BoardCommentDto;
 import com.demoweb.dto.BoardDto;
 
 public interface BoardService {
 
 	void writeBoard(BoardDto board);
 
-//	ArrayList<BoardDto> findAllBaord();
-//
+	List<BoardDto> findAllBaord();
+
 //	ArrayList<BoardDto> findBaordByRange(int start, int count);
 //
-//	BoardDto findBoardByBoardNo(int boardNo);
-//
+	BoardDto findBoardByBoardNo(int boardNo);
+
 //	BoardAttachDto findBoardAttachByAttachNo(int attachNo);
 //
 //	void deleteBoard(int boardNo);
