@@ -29,20 +29,7 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 	</bean>
-	
-	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
-		<constructor-arg ref="sqlSessionFactory" />
-	</bean>
-	
-	<!-- MemberMapper.xml을 사용하는 DAO 자동 생성 : MapperInterface 객체 생성 -->
-	<!-- 생략 -->
-	<!-- 
-	<bean id="memberMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-		<property name="mapperInterface" value="com.demoweb.mapper.MemberMapper" />
-	</bean>
-	-->
-	
+	 	
 	<mybatis:scan base-package="com.demoweb.mapper" />
 	
 	
