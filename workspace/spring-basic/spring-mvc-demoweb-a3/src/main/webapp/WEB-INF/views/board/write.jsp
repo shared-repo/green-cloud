@@ -1,4 +1,3 @@
-<%@page import="com.demoweb.dto.MemberDto"%>
 <%@ page language="java" 
 		 contentType="text/html; charset=utf-8"
     	 pageEncoding="utf-8"%>
@@ -10,8 +9,8 @@
 <head>
 	<meta charset="utf-8" />
 	<title>게시판글쓰기</title>
-	<link rel="Stylesheet" href="/demoweb/styles/default.css" />
-	<link rel="Stylesheet" href="/demoweb/styles/input2.css" />
+	<link rel="Stylesheet" href="/spring-demoweb/resources/styles/default.css" />
+	<link rel="Stylesheet" href="/spring-demoweb/resources/styles/input2.css" />
 </head>
 <body>
 
@@ -23,7 +22,8 @@
 		<div id="inputcontent">
 		    <div id="inputmain">
 		        <div class="inputsubtitle">게시글 정보</div>
-		        <form action="write" method="post" enctype="multipart/form-data">
+		        <!-- <form action="write" method="post" enctype="multipart/form-data"> -->
+		        <form action="write" method="post">
 		        <table>
 		            <tr>
 		                <th>제목</th>
@@ -53,7 +53,7 @@
 		        </table>
 		        <div class="buttons">
 		        	<input type="submit" value="글쓰기" style="height:25px" />
-		        	<input type="button" value="취소" style="height:25px"  />
+		        	<input id="cancel-btn" type="button" value="취소" style="height:25px" />
 		        </div>
 		        </form>
 		    </div>
@@ -61,6 +61,28 @@
 	
 	</div>
 	</div>
+		
+	<script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$('#cancel-btn').on('click', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			
+			location.href = "list";
+		});
+	});
+	</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
