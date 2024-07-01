@@ -8,12 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = { "/board" })
 public class BoardController {
 	
-	@GetMapping(path = {"/list"})
-	public String list() {
+	@GetMapping(path = { "/write" })
+	public String writeForm() {
 		
-		
-		return "board/list-without-page"; 	// /WEB-INF/views/ + board/list-without-page + .jsp
+		return "";
 	}
-	
 
 }
