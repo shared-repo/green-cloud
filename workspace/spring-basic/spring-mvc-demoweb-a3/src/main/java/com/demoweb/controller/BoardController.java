@@ -22,6 +22,7 @@ import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardDto;
 import com.demoweb.service.BoardService;
 import com.demoweb.service.BoardServiceImpl;
+import com.demoweb.ui.ThePager;
 import com.demoweb.view.DownloadView1;
 import com.demoweb.view.DownloadView2;
 
@@ -37,13 +38,37 @@ public class BoardController {
 	@Setter(onMethod_ = { @Autowired })
 	private BoardService boardService;
 	
+//	@GetMapping(path = {"/list"})
+//	public String listAll(Model model) {
+//		
+//		List<BoardDto> boards = boardService.findAllBaord();
+//		model.addAttribute("boardList", boards); // Model 타입 전달인자에 데이터 저장 -> View(JSP)로 전달
+//		
+//		return "board/list-without-page"; 	// /WEB-INF/views/ + board/list-without-page + .jsp
+//	}
 	@GetMapping(path = {"/list"})
-	public String list(Model model) {
+	public String listRange(@RequestParam(name="pageNo", defaultValue = "1") int pageNo, 
+							HttpServletRequest req, Model model) {
 		
-		List<BoardDto> boards = boardService.findAllBaord();
+		int pageSize = 3; 		// 한 페이지에 표시하는 데이터 갯수
+		int pagerSize = 3;		// 한 번에 표시되는 페이지 번호 갯수
+		int dataCount = boardService.getBoardCount();	// 전체 데이터 갯수
+		String uri = req.getRequestURI();
+		String linkUrl = uri.substring(uri.lastIndexOf("/") + 1); // 페이지 번호를 클릭했을 때 요청을 보낼 URL ( 목록 페이지 경로 )
+		String queryString = req.getQueryString();
+		
+		int start = pageSize * (pageNo - 1) + 1; // 현재 페이지의 첫번째 데이터 행 번호
+		
+		// ThePager pager = new ThePager(dataCount, page, pageSize, pagerSize, linkUrl);
+		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl, queryString);
+		
+		List<BoardDto> boards = boardService.findBaordByRange(start, pageSize);		
+
 		model.addAttribute("boardList", boards); // Model 타입 전달인자에 데이터 저장 -> View(JSP)로 전달
+		model.addAttribute("pager", pager);
+		model.addAttribute("pageNo", pageNo);
 		
-		return "board/list-without-page"; 	// /WEB-INF/views/ + board/list-without-page + .jsp
+		return "board/list"; 	// /WEB-INF/views/ + board/list + .jsp
 	}
 	
 	@GetMapping(path = { "/write" })

@@ -4,7 +4,8 @@
 		 contentType="text/html; charset=utf-8"
     	 pageEncoding="utf-8"%>
     	 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
 
 <!DOCTYPE html>
 
@@ -12,7 +13,7 @@
 <head>
 	<meta charset="utf-8" />
 	<title>게시글 목록</title>
-	<link rel="Stylesheet" href="/demoweb/styles/default.css" />
+	<link rel="Stylesheet" href="/spring-demoweb/resources/styles/default.css" />
 	<style>
 	a { text-decoration: none }
 	</style>
@@ -55,8 +56,8 @@
 					</td>
 					<td style="text-align:left;padding-left:5px">${ board.writer }</td>
 					<td>${ board.readCount }</td>
-					<td>${ board.writeDate }</td>
-					<td>${ board.modifyDate }</td>
+					<td><fmt:formatDate value="${ board.writeDate }" pattern="yyyy-MM-dd" /></td>
+					<td><fmt:formatDate value="${ board.modifyDate }" pattern="yyyy-MM-dd" /></td>
 				</tr>
 				</c:forEach>
 								

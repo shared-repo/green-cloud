@@ -11,7 +11,8 @@ public interface BoardService {
 
 	List<BoardDto> findAllBaord();
 
-	List<BoardDto> findBaordByRange(int start, int count);
+	int getBoardCount();
+	List<BoardDto> findBaordByRange(int start, int count);	
 
 	BoardDto findBoardByBoardNo(int boardNo);
 
@@ -30,7 +31,5 @@ public interface BoardService {
 //	void editComment(BoardCommentDto comment);
 //
 //	void writeReComment(BoardCommentDto comment);
-//
-//	int getBoardCount();
 
 }

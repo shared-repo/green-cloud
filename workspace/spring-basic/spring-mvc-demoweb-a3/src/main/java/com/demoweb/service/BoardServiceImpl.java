@@ -33,6 +33,12 @@ public class BoardServiceImpl implements BoardService {
 		return boards;
 	}
 	
+
+	@Override
+	public int getBoardCount() {
+		return boardMapper.selectBoardCount();
+	}	
+	
 	@Override
 	public List<BoardDto> findBaordByRange(int start, int count) {
 		
@@ -125,12 +131,7 @@ public class BoardServiceImpl implements BoardService {
 //		boardDao.insertReComment(comment);
 //		
 //	}
-//
-//	@Override
-//	public int getBoardCount() {
-//		return boardDao.selectBoardCount();
-//	}
-//	
+
 }
 
 

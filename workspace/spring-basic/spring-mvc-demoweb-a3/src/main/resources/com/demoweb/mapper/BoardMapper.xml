@@ -36,6 +36,10 @@
 		FROM board
 		ORDER BY boardno DESC
 	</select>
+	
+	<select id="selectBoardCount" resultType="int">
+		SELECT COUNT(*) FROM board
+	</select>
 	<select id="selectBoardByRange" parameterType="hashmap" resultType="BoardDto">
 		<![CDATA[
 		SELECT *
@@ -49,8 +53,8 @@
 				ORDER BY boardno DESC
 			) a
 			WHERE ROWNUM < #{ to }
-		) b " + 
-		WHERE b.idx >= ? #{ from }
+		) b
+		WHERE b.idx >= #{ from }
 		]]>
 	</select>
 	

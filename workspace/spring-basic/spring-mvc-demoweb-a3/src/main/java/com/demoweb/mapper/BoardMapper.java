@@ -25,4 +25,5 @@ public interface BoardMapper {
 	List<BoardAttachDto> selectBoardAttachByBoardNo(int boardNo);
 	BoardAttachDto selectBoardAttachByAttachNo(int attachNo);
 	List<BoardDto> selectBoardByRange(@Param("from") int from, @Param("to") int to);
+	int selectBoardCount();
 }
