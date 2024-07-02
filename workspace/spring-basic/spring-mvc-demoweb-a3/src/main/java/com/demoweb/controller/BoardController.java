@@ -94,11 +94,11 @@ public class BoardController {
 			
 			attachment.setUserFileName(userFileName);
 			attachment.setSavedFileName(savedFileName);
-			attachments.add(attachment);
-			board.setAttachments(attachments);
+			attachments.add(attachment);			
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}		
+		}
+		board.setAttachments(attachments);
 		boardService.writeBoard(board);
 		
 		// 이동		
@@ -106,8 +106,9 @@ public class BoardController {
 	}
 	
 	@GetMapping(path = { "/detail" }) // 주소?d1=v1&d2=v2
-	public String detailWithQueryString(@RequestParam(value="boardno", required = false) Integer boardNo, Model model) {
-		
+	public String detailWithQueryString(
+			@RequestParam(value="boardno", required = false) Integer boardNo, 
+			@RequestParam(value="pageNo", defaultValue = "1") Integer pageNo, Model model) {
 		
 		
 		if (boardNo == null) { // 요청 데이터의 값이 없는 경우
@@ -116,6 +117,7 @@ public class BoardController {
 		
 		BoardDto board = boardService.findBoardByBoardNo(boardNo);
 		model.addAttribute("board", board);
+		model.addAttribute("pageNo", pageNo);
 		
 		return "board/detail";
 	}
