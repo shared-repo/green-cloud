@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.View;
 
 import com.demoweb.common.Util;
 import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardDto;
 import com.demoweb.service.BoardService;
 import com.demoweb.service.BoardServiceImpl;
+import com.demoweb.view.DownloadView1;
+import com.demoweb.view.DownloadView2;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -51,7 +54,8 @@ public class BoardController {
 	
 	@PostMapping(path = { "/write" })
 	public String write(@ModelAttribute("board") BoardDto board, 
-						MultipartFile attach, HttpServletRequest req) {
+						MultipartFile attach, // <input type="file"의 데이터를 담은 변수 
+						HttpServletRequest req) {
 		
 		// 데이터 읽기 : 컨트롤러 메서드의 전달인자를 통해 자동으로 데이터 읽기 실행	
 		// 데이터 처리 : 서비스 호출
@@ -97,6 +101,23 @@ public class BoardController {
 		model.addAttribute("board", board);
 		
 		return "board/detail";
+	}
+	
+	@GetMapping(path = { "/download" })
+	public View downloadWithQueryString(@RequestParam("attachno") int attachNo, Model model) {
+		
+		BoardAttachDto boardAttach = boardService.findBoardAttachByAttachNo(attachNo);
+		
+		model.addAttribute("attach", boardAttach); // View에서 사용하도록 데이터 전달
+		
+		// 다운로드 처리 -> 사용자 정의 View 사용
+		return new DownloadView1();
+		// return new DownloadView2();
+	}
+	@GetMapping(path = { "/download/{attachNo}" })
+	public String downloadWithPathVariable(@PathVariable("attachNo") int attachNo) {
+		
+		return "";
 	}
 	
 

@@ -16,7 +16,8 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void writeBoard(BoardDto board) {
 		// board.getBoardNo() : 아직 미정 - 0
-		boardMapper.insertBoard(board); // board 테이블에 데이터 저장 -> boardNo 결정 (DB에서)
+		// boardMapper.insertBoard(board); // board 테이블에 데이터 저장 -> boardNo 결정 (DB에서)
+		boardMapper.insertBoard2(board); // board 테이블에 데이터 저장 -> boardNo 결정 (DB에서)
 		// board.getBoardNo() : 새로 만든 글 번호
 		
 		for (BoardAttachDto attach : board.getAttachments()) {
@@ -46,10 +47,10 @@ public class BoardServiceImpl implements BoardService {
 		// 게시글 조회
 		BoardDto board = boardMapper.selectBoardByBoardNo(boardNo);
 		
-//		// 첨부파일 조회
-//		ArrayList<BoardAttachDto> attaches = boardDao.selectBoardAttachByBoardNo(boardNo);		
-//		board.setAttachments(attaches);
-//		
+		// 첨부파일 조회
+		List<BoardAttachDto> attaches = boardMapper.selectBoardAttachByBoardNo(boardNo);		
+		board.setAttachments(attaches);
+		
 //		// 댓글 조회
 //		ArrayList<BoardCommentDto> comments = boardDao.selectBoardCommentByBoardNo(boardNo);
 //		board.setComments(comments);
@@ -58,12 +59,12 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
-//	@Override
-//	public BoardAttachDto findBoardAttachByAttachNo(int attachNo) {
-//		BoardAttachDto attach = boardDao.selectBoardAttachByAttachNo(attachNo);
-//		return attach;
-//	}
-//
+	@Override
+	public BoardAttachDto findBoardAttachByAttachNo(int attachNo) {
+		BoardAttachDto attach = boardMapper.selectBoardAttachByAttachNo(attachNo);
+		return attach;
+	}
+
 //	@Override
 //	public void deleteBoard(int boardNo) {
 //		boardDao.updateBoardDeleted(boardNo);

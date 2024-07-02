@@ -11,6 +11,20 @@
 		INSERT INTO board (boardno, title, writer, content) 
 		VALUES (BOARD_SEQUENCE.NEXTVAL, #{ title }, #{ writer }, #{ content })
 	</insert>
+	<insert id="insertBoard2" parameterType="BoardDto">
+		<selectKey keyProperty="boardNo" order="AFTER" resultType="int">
+			SELECT BOARD_SEQUENCE.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO board (boardno, title, writer, content) 
+		VALUES (BOARD_SEQUENCE.NEXTVAL, #{ title }, #{ writer }, #{ content })
+	</insert>
+	<insert id="insertBoard3" parameterType="BoardDto">
+		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
+			SELECT BOARD_SEQUENCE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO board (boardno, title, writer, content) 
+		VALUES (#{ boardNo }, #{ title }, #{ writer }, #{ content })
+	</insert>
 	
 	<insert id="insertBoardAttach" parameterType="BoardAttachDto">
 		INSERT INTO boardattach (attachno, boardno, userfilename, savedfilename) 
@@ -24,9 +38,21 @@
 	</select>
 	
 	<select id="selectBoardByBoardNo" parameterType="int" resultType="BoardDto">
-		SELECT boardno, title, writer, content, readcount, writedate, modifydate
+		SELECT boardNo, title, writer, content, readCount, writeDate, modifyDate
 		FROM board
 		WHERE boardno = #{ boardNo } AND deleted = '0'
+	</select>
+	
+	<select id="selectBoardAttachByBoardNo" parameterType="int" resultType="BoardAttachDto">
+		SELECT attachNo, boardNo, userFileName, savedFileName, downloadCount
+		FROM boardattach
+		WHERE boardno = #{ boardNo }
+	</select>
+	
+	<select id="selectBoardAttachByAttachNo" parameterType="int" resultType="BoardAttachDto">
+		SELECT attachNo, boardNo, userFileName, savedFileName, downloadCount
+		FROM boardattach
+		WHERE attachno = #{ attachNo } 
 	</select>
 	
 </mapper>

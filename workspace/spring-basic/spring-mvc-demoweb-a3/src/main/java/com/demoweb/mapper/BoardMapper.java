@@ -13,10 +13,14 @@ import com.demoweb.dto.BoardDto;
 public interface BoardMapper {
 
 	void insertBoard(BoardDto board);
+	void insertBoard2(BoardDto board);
+	void insertBoard3(BoardDto board);
 
 	List<BoardDto> selectAllBoard();
 
 	BoardDto selectBoardByBoardNo(int boardNo);
 
 	void insertBoardAttach(BoardAttachDto attach);
+	List<BoardAttachDto> selectBoardAttachByBoardNo(int boardNo);
+	BoardAttachDto selectBoardAttachByAttachNo(int attachNo);
 }
