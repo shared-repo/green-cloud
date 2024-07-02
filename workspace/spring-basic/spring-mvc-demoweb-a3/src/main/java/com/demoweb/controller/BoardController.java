@@ -113,12 +113,7 @@ public class BoardController {
 		// 다운로드 처리 -> 사용자 정의 View 사용
 		return new DownloadView1();
 		// return new DownloadView2();
-	}
-	@GetMapping(path = { "/download/{attachNo}" })
-	public String downloadWithPathVariable(@PathVariable("attachNo") int attachNo) {
-		
-		return "";
-	}
+	}	
 	
 
 }

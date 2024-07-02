@@ -36,6 +36,23 @@
 		FROM board
 		ORDER BY boardno DESC
 	</select>
+	<select id="selectBoardByRange" parameterType="hashmap" resultType="BoardDto">
+		<![CDATA[
+		SELECT *
+		FROM
+		(
+			SELECT ROWNUM idx, a.*
+			FROM
+			(
+				SELECT boardno, title, writer, readcount, writedate, modifydate, deleted
+				FROM board
+				ORDER BY boardno DESC
+			) a
+			WHERE ROWNUM < #{ to }
+		) b " + 
+		WHERE b.idx >= ? #{ from }
+		]]>
+	</select>
 	
 	<select id="selectBoardByBoardNo" parameterType="int" resultType="BoardDto">
 		SELECT boardNo, title, writer, content, readCount, writeDate, modifyDate

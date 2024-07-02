@@ -3,6 +3,7 @@ package com.demoweb.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardDto;
@@ -23,4 +24,5 @@ public interface BoardMapper {
 	void insertBoardAttach(BoardAttachDto attach);
 	List<BoardAttachDto> selectBoardAttachByBoardNo(int boardNo);
 	BoardAttachDto selectBoardAttachByAttachNo(int attachNo);
+	List<BoardDto> selectBoardByRange(@Param("from") int from, @Param("to") int to);
 }

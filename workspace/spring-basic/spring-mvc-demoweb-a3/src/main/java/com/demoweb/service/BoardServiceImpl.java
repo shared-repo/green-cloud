@@ -33,13 +33,13 @@ public class BoardServiceImpl implements BoardService {
 		return boards;
 	}
 	
-//	@Override
-//	public ArrayList<BoardDto> findBaordByRange(int start, int count) {
-//		
-//		ArrayList<BoardDto> boards = boardDao.selectBoardByRange(start, count);
-//		return boards;
-//		
-//	}
+	@Override
+	public List<BoardDto> findBaordByRange(int start, int count) {
+		
+		List<BoardDto> boards = boardMapper.selectBoardByRange(start, start + count);
+		return boards;
+		
+	}
 	
 	@Override
 	public BoardDto findBoardByBoardNo(int boardNo) {
