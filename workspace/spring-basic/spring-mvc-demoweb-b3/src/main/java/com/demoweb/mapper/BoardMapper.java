@@ -22,7 +22,6 @@ public interface BoardMapper {
 	BoardDto selectBoardByBoardNo(int boardNo);
 	BoardDto selectBoardByBoardNo2(int boardNo);
 	BoardDto selectBoardByBoardNo3(int boardNo);
-
 	void insertBoardAttach(BoardAttachDto attach);
 	List<BoardAttachDto> selectBoardAttachByBoardNo(int boardNo);
 	BoardAttachDto selectBoardAttachByAttachNo(int attachNo);

@@ -7,8 +7,10 @@ import com.demoweb.config.RootConfiguration;
 import com.demoweb.config.WebConfiguration;
 
 import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration.Dynamic;
 
 public class DemoWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -29,6 +31,9 @@ public class DemoWebApplicationInitializer extends AbstractAnnotationConfigDispa
 	
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+		
+		application = servletContext;
+		
 		FilterRegistration characterEncodingFilter = servletContext.addFilter("characterEncodingFilter", CharacterEncodingFilter.class);
 		characterEncodingFilter.setInitParameter("encoding", "UTF-8");
 		characterEncodingFilter.setInitParameter("forceEncoding", "true");
@@ -36,5 +41,29 @@ public class DemoWebApplicationInitializer extends AbstractAnnotationConfigDispa
 		
 		super.onStartup(servletContext);
 	}
+	
+	private ServletContext application;
+	
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+	
+		String tempPath = application != null ? application.getRealPath("/board-temp") : "/";
+		System.out.println(tempPath);
+		
+		MultipartConfigElement element = 
+				new MultipartConfigElement(tempPath, 10485760, 52428800, 1048576);
+		
+		registration.setMultipartConfig(element);
+		
+	}
 
 }
+
+
+
+
+
+
+
+
+

@@ -20,10 +20,10 @@
 		<div id="inputcontent">
 			<br /><br />
 		    <div id="inputmain">
-		        <div class="inputsubtitle">로그인정보</div>
+				<div class="inputsubtitle">로그인정보</div>
 		        
 		        <form action="login" method="post">
-		       
+				<input type="hidden" name="returnUri" value="${ returnUri }">
 		        <table>
 		            <tr>
 		                <th>아이디(ID)</th>

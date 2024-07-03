@@ -130,6 +130,32 @@
 		WHERE b.boardno = #{ boardNo } AND b.deleted = '0'
 	</select>
 	
+	<resultMap type="BoardDto" id="boardResultMap3">
+		<id column="boardNo" property="boardNo" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="content" property="content" />
+		<result column="readCount" property="readCount" />
+		<result column="writeDate" property="writeDate" />
+		<result column="modifyDate" property="modifyDate" />
+		<collection property="attachments" ofType="BoardAttachDto">
+			<id column="attachNo" property="attachNo" />
+			<result column="boardNo" property="boardNo" />
+			<result column="userFileName" property="userFileName" />
+			<result column="savedFileName" property="savedFileName" />
+			<result column="downloadCount" property="downloadCount" />
+		</collection>
+	</resultMap>
+	
+	<select id="selectBoardByBoardNo4" parameterType="int" resultMap="boardResultMap3">
+		SELECT b.boardNo, b.title, b.writer, b.content, b.readCount, b.writeDate, b.modifyDate,
+			   ba.attachNo, ba.userFileName, ba.savedFileName, ba.downloadCount
+		FROM board b
+		LEFT OUTER JOIN boardattach ba
+		ON b.boardno = ba.boardno
+		WHERE b.boardno = #{ boardNo } AND b.deleted = '0'
+	</select>
+	
 	<select id="selectBoardAttachByAttachNo" parameterType="int" resultType="BoardAttachDto">
 		SELECT attachNo, boardNo, userFileName, savedFileName, downloadCount
 		FROM boardattach

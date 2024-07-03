@@ -3,6 +3,8 @@ package com.demoweb.mapper;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -19,6 +21,14 @@ public interface MemberMapper {
 	@Select("SELECT memberId, email, userType, regDate, active " +
 			"FROM member " +
 			"WHERE memberId = #{ memberId } AND passwd = #{ passwd }")
+	@Results(id = "memberResultMap",
+			 value = {
+					   @Result(column = "memberId", property = "memberId", id = true),
+					   @Result(column = "email", property = "email"),
+					   @Result(column = "userType", property = "userType"),
+					   @Result(column = "regDate", property = "regDate"),
+					   @Result(column = "active", property = "active")
+			   })
 	MemberDto selectMemberByMemberIdAndPasswd(MemberDto member);
 	
 	@Select("SELECT memberId, email, userType, regDate, active " +

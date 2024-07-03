@@ -69,8 +69,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		// 게시글 조회
 		// BoardDto board = boardMapper.selectBoardByBoardNo2(boardNo);
-		// BoardDto board = boardMapper.selectBoardByBoardNo3(boardNo);
-		BoardDto board = boardMapper.selectBoardByBoardNo4(boardNo);
+		BoardDto board = boardMapper.selectBoardByBoardNo3(boardNo);
 		
 		return board;
 		

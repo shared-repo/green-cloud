@@ -95,7 +95,7 @@
 		<result column="readCount" property="readCount" />
 		<result column="writeDate" property="writeDate" />
 		<result column="modifyDate" property="modifyDate" />
-		<collection property="attachments" resultMap="boardAttachResultMap" column="attachNo" />
+		<collection property="attachments" resultMap="boardAttachResultMap" column="boardNo" />
 	</resultMap>
 	<resultMap type="BoardAttachDto" id="boardAttachResultMap">
 		<id column="attachNo" property="attachNo" />
@@ -103,8 +103,7 @@
 		<result column="userFileName" property="userFileName" />
 		<result column="savedFileName" property="savedFileName" />
 		<result column="downloadCount" property="downloadCount" />
-	</resultMap>
-	
+	</resultMap>	
 	<select id="selectBoardByBoardNo2" parameterType="int" resultMap="boardResultMap">
 		SELECT b.boardNo, b.title, b.writer, b.content, b.readCount, b.writeDate, b.modifyDate,
 			   ba.attachNo, ba.userFileName, ba.savedFileName, ba.downloadCount
