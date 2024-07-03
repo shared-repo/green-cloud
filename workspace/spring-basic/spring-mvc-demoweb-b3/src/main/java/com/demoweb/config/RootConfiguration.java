@@ -2,20 +2,23 @@ package com.demoweb.config;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import com.demoweb.mapper.BoardMapper;
 import com.demoweb.mapper.MemberMapper;
 import com.demoweb.service.AccountService;
 import com.demoweb.service.AccountServiceImpl;
+import com.demoweb.service.BoardService;
+import com.demoweb.service.BoardServiceImpl;
 
 @Configuration
-@MapperScan(basePackages = { "com.demoweb.mapper" })
+@MapperScan(basePackages = { "com.demoweb.mapper" }) // root-context.xml의 <mybatis:scan의 역할과 동일
 public class RootConfiguration {
 	
 	@Bean
@@ -44,6 +47,12 @@ public class RootConfiguration {
 		AccountServiceImpl accountService = new AccountServiceImpl();		
 		accountService.setMemberMapper(memberMapper);
 		return accountService;
+	}
+	
+	@Bean BoardService boardService(BoardMapper boardMapper) throws Exception {
+		BoardServiceImpl boardService = new BoardServiceImpl();		
+		boardService.setBoardMapper(boardMapper);
+		return boardService;
 	}
 	
 }

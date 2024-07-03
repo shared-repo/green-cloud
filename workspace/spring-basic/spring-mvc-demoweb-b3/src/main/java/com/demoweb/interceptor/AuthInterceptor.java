@@ -16,10 +16,12 @@ public class AuthInterceptor implements HandlerInterceptor {
 							 Object handler) throws Exception {
 		// System.out.println("AuthInterceptor.preHandle");
 		MemberDto member = (MemberDto)request.getSession().getAttribute("loginuser");
-		String uri = request.getRequestURI();
+		String uri = request.getRequestURI();		
 		if (uri.contains("write") || uri.contains("edit") || uri.contains("delete")) {
 			if (member == null) {
-				response.sendRedirect("/spring-demoweb/account/login");
+				String returnUri = uri.substring(1);			// /spring-demoweb/a/b/c --> spring-demoweb/a/b/c
+				returnUri = returnUri.substring(returnUri.indexOf("/")); 	// spring-demoweb/a/b/c --> /a/b/c
+				response.sendRedirect("/spring-demoweb/account/login?returnuri=" + returnUri);
 				return false; // 컨트롤러 호출 수행 중단
 			}
 		}

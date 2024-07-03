@@ -7,10 +7,14 @@
 
 	<typeAliases>
 		<typeAlias type="com.demoweb.dto.MemberDto" alias="MemberDto" />
+		<typeAlias type="com.demoweb.dto.BoardDto" alias="BoardDto" />
+		<typeAlias type="com.demoweb.dto.BoardCommentDto" alias="BoardCommentDto" />
+		<typeAlias type="com.demoweb.dto.BoardAttachDto" alias="BoardAttachDto" />
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="com/demoweb/mapper/MemberMapper.xml" />
+		<mapper resource="com/demoweb/mapper/BoardMapper.xml" />
 	</mappers>
 
 </configuration>

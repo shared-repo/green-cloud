@@ -7,8 +7,10 @@ import com.demoweb.config.RootConfiguration;
 import com.demoweb.config.WebConfiguration;
 
 import jakarta.servlet.FilterRegistration;
+import jakarta.servlet.MultipartConfigElement;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRegistration.Dynamic;
 
 public class DemoWebApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -36,5 +38,24 @@ public class DemoWebApplicationInitializer extends AbstractAnnotationConfigDispa
 		
 		super.onStartup(servletContext);
 	}
+	
+	@Override
+	protected void customizeRegistration(Dynamic registration) {
+		
+		MultipartConfigElement element = 
+				new MultipartConfigElement("/", 10485760, 52428800, 1048576);
+		
+		registration.setMultipartConfig(element);
+		
+	}
 
 }
+
+
+
+
+
+
+
+
+
