@@ -15,6 +15,7 @@ public interface BoardService {
 	List<BoardDto> findBaordByRange(int start, int count);	
 
 	BoardDto findBoardByBoardNo(int boardNo);
+	BoardDto findBoardByBoardNo2(int boardNo);
 
 	BoardAttachDto findBoardAttachByAttachNo(int attachNo);
 

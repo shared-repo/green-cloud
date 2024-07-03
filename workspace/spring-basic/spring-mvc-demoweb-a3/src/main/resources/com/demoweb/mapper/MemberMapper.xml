@@ -6,14 +6,27 @@
 <!-- namespace : 패키지이름.클래스이름 ( 저장된 경로와 일치하도록 작성 ) -->
 <mapper namespace="com.demoweb.mapper.MemberMapper">
 
+	<sql id="memberColumns">
+		memberId, email, userType, regDate, active
+	</sql>
+
+	<resultMap id="memberDtoResultMap" type="MemberDto">
+		<id column="memberId" property="memberId" />
+		<result column="email" property="email" />
+		<result column="userType" property="userType" />
+		<result column="regDate" property="regDate" />
+		<result column="active" property="active" />
+	</resultMap>
+
 	<!-- 지정된 SQL을 실행하는 method 역할 -->
-	<select id="selectMemberByMemberIdAndPasswd" parameterType="MemberDto" resultType="MemberDto">
-		SELECT memberId, email, userType, regDate, active
+	<!-- <select id="selectMemberByMemberIdAndPasswd" parameterType="MemberDto" resultType="MemberDto"> -->
+	<select id="selectMemberByMemberIdAndPasswd" parameterType="MemberDto" resultMap="memberDtoResultMap">	
+		SELECT <include refid="memberColumns" />
 		FROM member
 		WHERE memberId = #{ memberId } AND passwd = #{ passwd }
 	</select>
-	<select id="selectMemberMemberByIdAndPasswd2" parameterType="hashmap" resultType="MemberDto">
-		SELECT memberId, email, userType, regDate, active
+	<select id="selectMemberMemberByIdAndPasswd2" parameterType="hashmap" resultMap="memberDtoResultMap">
+		SELECT <include refid="memberColumns" />
 		FROM member
 		WHERE memberId = #{ memberId } AND passwd = #{ passwd }
 	</select>
