@@ -2,12 +2,14 @@ package com.demoweb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demoweb.dto.MemberDto;
@@ -68,13 +70,14 @@ public class AccountController {
 	
 	// @RequestMapping(path = { "/login" })
 	@GetMapping(path = { "/login" }) // only GET
-	public String loginForm() {
-		
+	public String loginForm(
+			@RequestParam(name="returnuri", defaultValue = "/home") String returnUri, Model model) {
+		model.addAttribute("returnUri", returnUri);
 		return "account/login";
 	}
 	
 	@PostMapping(path = { "/login" })
-	public String login(MemberDto member, HttpSession session) {
+	public String login(MemberDto member, String returnUri, HttpSession session) {
 		
 		// 로그인 처리
 		MemberDto loginMember = accountService.findMemberByMemeberIdAndPasswd(member);
@@ -82,9 +85,9 @@ public class AccountController {
 		if (loginMember != null) {
 			session.setAttribute("loginuser", loginMember);
 			// return new RedirectView("/spring-demoweb/home");
-			return "redirect:/home";
+			return "redirect:" + returnUri;
 		} else {
-			return "redirect:login?loginfail=true";
+			return "redirect:login?loginfail=true&returnuri=" + returnUri;
 		}
 	}
 	

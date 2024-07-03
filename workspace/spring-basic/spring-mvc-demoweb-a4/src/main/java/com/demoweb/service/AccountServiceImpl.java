@@ -34,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
 		member.setPasswd(hashedPasswd);
 		
 		// 데이터베이스에서 데이터 조회
-		// MemberDto foundMember = memberMapper.selectMemberByMemberIdAndPasswd2(memberId, passwd);
+		// MemberDto foundMember = memberDao.selectMemberByMemberIdAndPasswd(memberId, passwd);
 		MemberDto foundMember = memberMapper.selectMemberByMemberIdAndPasswd(member);
 		
 		// 호출한 곳으로 조회 결과 반환

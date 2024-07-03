@@ -12,6 +12,9 @@
 	<bean id="accountService" class="com.demoweb.service.AccountServiceImpl">
 		<property name="memberMapper" ref="memberMapper" />
 	</bean>
+	<bean id="boardService" class="com.demoweb.service.BoardServiceImpl">
+		<property name="boardMapper" ref="boardMapper" />
+	</bean>
 	
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
