@@ -9,6 +9,10 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.demoweb.mapper.BoardMapper;
 import com.demoweb.mapper.MemberMapper;
@@ -19,6 +23,7 @@ import com.demoweb.service.BoardServiceImpl;
 
 @Configuration
 @MapperScan(basePackages = { "com.demoweb.mapper" }) // root-context.xml의 <mybatis:scan의 역할과 동일
+@EnableTransactionManagement // <tx:annotation-driven과 같은 역할
 public class RootConfiguration {
 	
 	@Bean
@@ -52,7 +57,19 @@ public class RootConfiguration {
 	@Bean BoardService boardService(BoardMapper boardMapper) throws Exception {
 		BoardServiceImpl boardService = new BoardServiceImpl();		
 		boardService.setBoardMapper(boardMapper);
+		boardService.setTransactionTemplate(transactionTemplate());
 		return boardService;
+	}
+	
+	@Bean PlatformTransactionManager transactionManager() {
+		DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+		transactionManager.setDataSource(dataSource());
+		return transactionManager;
+	}
+	@Bean TransactionTemplate transactionTemplate() {
+		TransactionTemplate transactionTemplate = new TransactionTemplate();
+		transactionTemplate.setTransactionManager(transactionManager());
+		return transactionTemplate;
 	}
 	
 }

@@ -34,6 +34,8 @@ public class App {
 					"jdbc:oracle:thin:@127.0.0.1:1521/xe", 		// 데이터베이스 연결 정보
 					"green_cloud", "oracle"); 						// 데이터베이스 계정 정보
 			
+			conn.setAutoCommit(false); // execute~ 실행 후 commit 수행 금지 --> 명시적 commit or rollback 필요
+			
 			// 3. SQL 작성 + 명령 객체 가져오기
 			String sql = 
 					"UPDATE bank_account " +
@@ -43,7 +45,7 @@ public class App {
 			
 			pstmt.setInt(1, -500);
 			pstmt.setString(2, "철수");
-			pstmt.executeUpdate();
+			pstmt.executeUpdate();	// 기본 설정 : 실행 즉시 commit
 			
 			int x = 10 / 0; // 오류 발생
 			
@@ -51,15 +53,16 @@ public class App {
 			pstmt.setString(2, "영희");
 			pstmt.executeUpdate();
 			
-			System.out.println("계좌 이체 완료");			 
+			System.out.println("계좌 이체 완료");
+			conn.commit(); // 이전 변경 사항을 데이터베이스에 최종 확정
 			
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			System.out.println("계좌 이체 실패");
-			// 마지막 commit() 또는 rollback() 실행 후 수행된 모든 SQL 작업을 취소하세요
+			try { conn.rollback(); } catch (Exception ex2) {} // 이전 변경 사항을 모두 취소하세요
 		} finally {
 			// 6. 연결 닫기
 			try { pstmt.close(); } catch (Exception ex) {}
+			try { conn.setAutoCommit(true); } catch (Exception ex) {}
 			try { conn.close(); } catch (Exception ex) {}
 		}
 

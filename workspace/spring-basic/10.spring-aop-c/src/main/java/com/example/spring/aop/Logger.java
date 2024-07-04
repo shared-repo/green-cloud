@@ -10,10 +10,9 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 @Aspect
-@Component("logger")
 public class Logger {
 	
-	@Pointcut("execution(* *..*.*(..))")
+	@Pointcut("execution(* *..*.Test*(..))")
 	public void pointcutAll() {}
 	
 	@Pointcut("execution(* com.example..*.*1(..))")
@@ -27,7 +26,7 @@ public class Logger {
 						  joinPoint.getSignature().getName());
 	}
 	
-	@After("execution(* *..*.*(..))") // 현재 어드바이스에 적용되는 포인트컷 직접 적용
+	@After("execution(* *..*.Test*(..))") // 현재 어드바이스에 적용되는 포인트컷 직접 적용
 	public void logAfter(JoinPoint joinPoint) { // JoinPoint : 현재 호출되고 있는 메서드 정보 저장
 		System.out.printf("==========> Logger.logAfter : %s.%s <==========\n", 
 						  joinPoint.getSignature().getDeclaringTypeName(), 

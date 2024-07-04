@@ -82,7 +82,7 @@
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-jdbc</artifactId>
 		    <version>6.1.9</version>
-		</dependency>	
+		</dependency>
 		<!-- end of spring data library -->
 		
 		<!-- mybatis library -->
