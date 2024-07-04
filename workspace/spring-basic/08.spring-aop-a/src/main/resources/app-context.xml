@@ -18,12 +18,26 @@
 	
 	<aop:config>
 		
+		<aop:pointcut expression="execution(* *..*.*(..))" id="pointcutAll" />
+		<aop:pointcut expression="execution(* com.example..*.*1(..))" id="pointcut1" />
+		
 		<aop:aspect ref="logger">
-			<aop:pointcut expression="execution(* *..*.*(..))" id="pointcutAll" />
+		
+			<aop:pointcut expression="bean(testA)" id="pointcutA" />
+			<aop:pointcut expression="within(com.example.spring.aop.*B)" id="pointcutB" />
 			
-			<!-- <aop:before method="logBefore" pointcut-ref="pointcutAll" /> -->
-			<!-- <aop:after method="logAfter"  pointcut-ref="pointcutAll" /> -->
+			<!-- 	
+			<aop:before method="logBefore" pointcut-ref="pointcutAll" />
+			<aop:after method="logAfter"  pointcut-ref="pointcutAll" />			
+			<aop:around method="logAround"  pointcut-ref="pointcutAll" />
+			-->
+			
+			<aop:before method="logBefore" pointcut-ref="pointcutA" />
+			<aop:after method="logAfter" pointcut-ref="pointcutB" />
+			<aop:around method="logAround" pointcut-ref="pointcut1" />
+			
 		</aop:aspect>
+		
 	
 	</aop:config>
 	
