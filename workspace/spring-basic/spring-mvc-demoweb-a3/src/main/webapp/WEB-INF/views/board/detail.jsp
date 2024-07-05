@@ -234,7 +234,25 @@
 					return;
 				}
 				
-				$('#commentform').submit(); // form 요소를 서버로 전송하는 명령
+				const commentForm = $('#commentform');
+				// commentForm.submit(); // form 요소를 서버로 전송하는 명령 (동기 방식 + All Refresh 방식)
+				
+				// const data = commentForm.serialize(); // <form> 내부의 모든 입력요소의 값을 뽑아서 전송 문자열로 변환
+				const data = commentForm.serializeArray(); // <form> 내부의 모든 입력요소의 값을 뽑아서 전송 객체로 변환
+				
+				// 비동기 방식 + Partial Refresh 요청
+				$.ajax({
+					"url": commentForm.attr('action'), 		// "write-comment",
+					"method": commentForm.attr('method'), 	//"post",
+					"data": data,
+					"dataType": "text",
+					"success": function(response, status, xhr) {
+						alert(response);
+					},
+					"error": function(xhr, status, err) {
+						alert(err);
+					}
+				});
 				
 			});
 			

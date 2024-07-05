@@ -19,6 +19,7 @@ import org.springframework.web.servlet.View;
 
 import com.demoweb.common.Util;
 import com.demoweb.dto.BoardAttachDto;
+import com.demoweb.dto.BoardCommentDto;
 import com.demoweb.dto.BoardDto;
 import com.demoweb.service.BoardService;
 import com.demoweb.service.BoardServiceImpl;
@@ -147,7 +148,13 @@ public class BoardController {
 		// 다운로드 처리 -> 사용자 정의 View 사용
 		return new DownloadView1();
 		// return new DownloadView2();
-	}	
+	}
+	
+	@PostMapping(path = { "/write-comment" })
+	public String writeComment(BoardCommentDto comment) {
+		
+		return "";
+	}
 	
 
 }
