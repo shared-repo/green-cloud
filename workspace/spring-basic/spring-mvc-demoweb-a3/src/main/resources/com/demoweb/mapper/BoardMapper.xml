@@ -164,7 +164,15 @@
 	
 	<insert id="insertComment" parameterType="BoardCommentDto">
 		INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) 
-		VALUES (BOARDCOMMENT_SEQUENCE.NEXTVAL, #{ boardNo }, #{ writer }, #{ content }, -1, 1, 0)
+		VALUES (BOARDCOMMENT_SEQUENCE.NEXTVAL, #{ boardNo }, #{ writer }, #{ content }, 
+				BOARDCOMMENT_SEQUENCE.CURRVAL, 1, 0)
+	</insert>
+	<insert id="insertComment2" parameterType="BoardCommentDto">
+		<selectKey keyProperty="commentNo" resultType="int" order="BEFORE">
+		SELECT BOARDCOMMENT_SEQUENCE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) 
+		VALUES (#{ commentNo }, #{ boardNo }, #{ writer }, #{ content }, #{ commentNo }, 1, 0)
 	</insert>
 </mapper>
 
