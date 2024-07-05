@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 
@@ -150,10 +151,13 @@ public class BoardController {
 		// return new DownloadView2();
 	}
 	
-	@PostMapping(path = { "/write-comment" })
+	@PostMapping(path = { "/write-comment" }, produces = "text/plain;charset=utf-8")
+	@ResponseBody
 	public String writeComment(BoardCommentDto comment) {
 		
-		return "";
+		boardService.writeComment(comment);
+		
+		return "success";
 	}
 	
 
