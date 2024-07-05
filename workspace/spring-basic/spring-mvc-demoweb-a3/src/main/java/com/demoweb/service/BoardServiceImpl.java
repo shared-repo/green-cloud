@@ -167,6 +167,12 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+	@Override
+	public List<BoardCommentDto> findBoardCommentsByBoardNo(int boardNo) {
+		List<BoardCommentDto> comments = boardMapper.selectBoardCommentsByBoardNo(boardNo);
+		return comments;
+	}
+
 //	@Override
 //	public void deleteComment(int commentNo) {
 //		

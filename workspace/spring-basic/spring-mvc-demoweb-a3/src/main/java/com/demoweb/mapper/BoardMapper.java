@@ -32,6 +32,7 @@ public interface BoardMapper {
 	int selectBoardCount();
 	
 	void insertComment(BoardCommentDto comment);
+	List<BoardCommentDto> selectBoardCommentsByBoardNo(int boardNo);
 }
 
 

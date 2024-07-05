@@ -34,4 +34,6 @@ public interface BoardService {
 //
 //	void writeReComment(BoardCommentDto comment);
 
+	List<BoardCommentDto> findBoardCommentsByBoardNo(int boardNo);
+
 }

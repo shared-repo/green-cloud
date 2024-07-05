@@ -160,6 +160,15 @@ public class BoardController {
 		return "success";
 	}
 	
+	@GetMapping(path = { "/list-comment" })
+	public String listComment(int boardNo, Model model) {
+		
+		List<BoardCommentDto> comments = boardService.findBoardCommentsByBoardNo(boardNo);
+		model.addAttribute("comments", comments);
+		
+		return "board/comment-list";
+	}
+	
 
 }
 

@@ -105,69 +105,6 @@
 	    
 	    <!-- comment list area -->
 	    <table id="comment-list" style="width:800px;border:solid 1px;margin:0 auto">
-		<c:forEach var="comment" items="${ board.comments }">				
-			<tr>
-				<td style="text-align:left;margin:5px;border-bottom: solid 1px;">
-					<table>
-						<tr>
-							<td>
-								<c:forEach begin="0" end="${ comment.depth }">
-									&nbsp;&nbsp;
-								</c:forEach>
-								<c:if test="${ comment.depth > 0 }">
-									<img src="/demoweb/image/re.gif">
-									&nbsp;
-								</c:if>
-							</td>
-							<td>					
-								<div id="comment-view-area-${ comment.commentNo }">
-								<c:choose>
-								<c:when test="${ comment.deleted }">
-									<br><br>
-									<span style='color:gray'>삭제된 글입니다.</span>
-									<br><br>
-								</c:when>
-								<c:otherwise>
-									${ comment.writer } &nbsp;&nbsp; [<fmt:formatDate value="${ comment.writeDate }" pattern="yyyy-MM-dd hh:mm:ss"/>]
-								    <br /><br />
-								    <span>${ fn:replace(comment.content, enter, "<br>") }</span>
-									<br /><br />
-									<div style='float:left; display:${ (not empty loginuser and loginuser.memberId == comment.writer) ? "block" : "none" }'>
-								    	<a class="edit-comment" data-comment-no="${ comment.commentNo }" href="javascript:">편집</a>
-										&nbsp;
-										<a class="delete-comment" data-comment-no="${ comment.commentNo }" href="javascript:">삭제</a>
-										&nbsp;&nbsp;
-									</div>
-									<div style='float:left; display:${ not empty loginuser ? "block" : "none" }'>
-										<a class="write-recomment" data-comment-no="${ comment.commentNo }" href="javascript:">댓글쓰기</a>
-									</div>
-									<span style="clear:both"></span>
-								</c:otherwise>
-								</c:choose>
-								</div>	                
-								<div id="comment-edit-area-${ comment.commentNo }" style="display: none">
-									${ comment.writer } &nbsp;&nbsp; [${ comment.writeDate }]
-									<br /><br />
-									<form action="edit-comment" method="post">
-									<input type="hidden" name="boardno" value="${ board.boardNo }" />
-									<input type="hidden" name="commentno" value="${ comment.commentNo }" />
-									<textarea name="content" style="width: 99%; resize: none" rows="3" cols="120">${ comment.content }</textarea>
-									</form>
-									<br />
-									<div>
-										<a class="modify-comment" data-comment-no="${ comment.commentNo }" href="javascript:">수정</a> 
-										&nbsp; 
-										<a class="cancel-edit-comment" data-comment-no="${ comment.commentNo }" href="javascript:">취소</a>
-									</div>
-								</div>
-						
-							</td>
-			
-						</tr>
-					</table>
-				</td>
-			</tr>
-		</c:forEach>        	
 		</table>
 		<!-- end of comment list area -->
 		
@@ -225,6 +162,9 @@
 			
 			//////////////////////////////////////////////////////
 			
+			// 화면이 처음 보여질때 댓글 목록 가져오기
+			$('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
+			
 			// 댓글쓰기
 			$('#write-comment-lnk').on('click', function(event) {
 				
@@ -247,7 +187,9 @@
 					"data": data,
 					"dataType": "text",
 					"success": function(response, status, xhr) {
-						alert(response);
+						// alert(response);
+						// $('#comment-list').load('comment-list?boardNo=${ board.boardNo }');
+						$('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
 					},
 					"error": function(xhr, status, err) {
 						alert(err);
