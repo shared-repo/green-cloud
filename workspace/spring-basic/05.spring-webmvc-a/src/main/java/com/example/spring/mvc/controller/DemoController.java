@@ -22,6 +22,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.spring.mvc.dto.Person;
 import com.example.spring.mvc.view.MyView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.internal.GsonBuildConfig;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -179,6 +182,50 @@ public class DemoController {
 		return "redirect:/home?syncResult=" + msg; 
 	}
 	
+	@GetMapping(path = { "/async1" }, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public String handleAsynchronousRequest1() {
+		Person person = new Person();
+		person.setName("홍길동");
+		person.setEmail("hkd@example.com");
+		person.setPhone("010-6325-1478");
+		person.setBirthDate(new Date());
+		person.setAge(35);
+		
+		// Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd a hh:mm:ss").create();
+		String personJson = gson.toJson(person);
+		
+		return personJson;
+		
+	}
+	@GetMapping(path = { "/async2" }, produces = "application/json;charset=utf-8")
+	@ResponseBody
+	public Person handleAsynchronousRequest2() {
+		Person person = new Person();
+		person.setName("홍길동");
+		person.setEmail("hkd@example.com");
+		person.setPhone("010-6325-1478");
+		person.setBirthDate(new Date());
+		person.setAge(35);
+		
+		return person;
+		
+	}
+	@GetMapping(path = { "/async3" })
+	public String handleAsynchronousRequest3(Model model) {
+		Person person = new Person();
+		person.setName("홍길동");
+		person.setEmail("hkd@example.com");
+		person.setPhone("010-6325-1478");
+		person.setBirthDate(new Date());
+		person.setAge(35);
+		
+		model.addAttribute("person", person);
+		
+		return "demo/person"; // /WEB-INF/views/ + demo/person + .jsp
+		
+	}
 	//////////////////////
 	
 //	// 요청 데이터 중 날짜 형식의 데이터는 Model객체에 자동으로 binding되지 않기 때문에 변환기를 등록하는 작업
