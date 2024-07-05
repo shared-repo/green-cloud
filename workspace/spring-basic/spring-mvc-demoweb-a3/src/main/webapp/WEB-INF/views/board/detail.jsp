@@ -163,6 +163,7 @@
 			//////////////////////////////////////////////////////
 			
 			// 화면이 처음 보여질때 댓글 목록 가져오기
+			// load : get 방식, 비동기 요청, 응답 html을 지정된 요소 하위에 추가
 			$('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
 			
 			// 댓글쓰기
@@ -177,8 +178,8 @@
 				const commentForm = $('#commentform');
 				// commentForm.submit(); // form 요소를 서버로 전송하는 명령 (동기 방식 + All Refresh 방식)
 				
-				// const data = commentForm.serialize(); // <form> 내부의 모든 입력요소의 값을 뽑아서 전송 문자열로 변환
-				const data = commentForm.serializeArray(); // <form> 내부의 모든 입력요소의 값을 뽑아서 전송 객체로 변환
+				const data = commentForm.serialize(); // <form> 내부의 모든 입력요소의 값을 뽑아서 전송 문자열로 변환
+				// const data = commentForm.serializeArray(); // <form> 내부의 모든 입력요소의 값을 뽑아서 전송 객체로 변환
 				
 				// 비동기 방식 + Partial Refresh 요청
 				$.ajax({
@@ -199,7 +200,9 @@
 			});
 			
 			// 댓글 삭제
-			$('.delete-comment').on('click', function(event) {
+			// jQuery 이벤트와 처리기 연결은 코드가 실행되는 시점에 존재하는 객체에 대해서만 적용 
+			// $('.delete-comment').on('click', function(event) {
+			$('#comment-list').on('click', '.delete-comment', function(event) {
 				const commentNo = $(this).data('comment-no'); // .data('comment-no') -> data-comment-no 속성의 값 조회
 				const ok = confirm(commentNo + "번 댓글을 삭제할까요?");
 				if (ok) {
@@ -213,7 +216,8 @@
 			let currentEditCommentNo = null;
 			
 			// 댓글 수정 1 - 수정 화면으로 변경
-			$('.edit-comment').on('click', function(event) {
+			// $('.edit-comment').on('click', function(event) {
+			$('#comment-list').on('click', '.edit-comment', function(event) {
 				if (currentEditCommentNo != null) {
 					changeCommentEditMode(currentEditCommentNo, false);		
 				}
@@ -222,21 +226,24 @@
 				currentEditCommentNo = commentNo;
 			});
 			// 댓글 수정 2 - 보기 화면으로 변경
-			$('.cancel-edit-comment').on('click', function(event) {
+			// $('.cancel-edit-comment').on('click', function(event) {
+			$('#comment-list').on('click', '.cancel-edit-comment', function(event) {
 				const commentNo = $(this).data('comment-no'); // .data('comment-no') -> data-comment-no 속성의 값 조회
 				changeCommentEditMode(commentNo, false);
 				currentEditCommentNo = null;
 			});
 			
 			// 댓글 수정 3 - 수정 요청 보내기 (submit)
-			$('.modify-comment').on('click', function(event) {
+			// $('.modify-comment').on('click', function(event) {
+			$('#comment-list').on('click', '.modify-comment', function(event) {
 				const commentNo = $(this).data('comment-no');
 				$('#comment-edit-area-' + commentNo + ' form').submit();
 			});
 			
 			
 			// 대댓글 (recomment) 1. 대댓글 창 표시
-			$('.write-recomment').on('click', function(event) {
+			// $('.write-recomment').on('click', function(event) {
+			$('#comment-list').on('click', '.write-recomment', function(event) {
 				
 				$('#recommentform')[0].reset(); // form 초기화
 				

@@ -151,15 +151,6 @@ public class BoardController {
 		// return new DownloadView2();
 	}
 	
-	@PostMapping(path = { "/write-comment" }, produces = "text/plain;charset=utf-8")
-	@ResponseBody
-	public String writeComment(BoardCommentDto comment) {
-		
-		boardService.writeComment(comment);
-		
-		return "success";
-	}
-	
 	@GetMapping(path = { "/list-comment" })
 	public String listComment(int boardNo, Model model) {
 		
