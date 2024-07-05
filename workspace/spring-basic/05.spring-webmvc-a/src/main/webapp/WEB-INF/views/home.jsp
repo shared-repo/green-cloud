@@ -1,3 +1,4 @@
+<%@page import="java.util.Date"%>
 <%@ page language="java" pageEncoding="UTF-8" contentType="text/html; charset=utf-8" %>
 <html>
 <head>
@@ -24,6 +25,10 @@
 		<h3>6-1. <a href="hello.html">static resource not in resources</a></h3>
 		<h3>6-2. <a href="resources/hello.html">static resource in resources</a></h3>
 		<h3>7. <a href="demo/custom-view">Custom View</a></h3>
+		<h3>8-1. <a href="demo/sync">Synchronous Request/Response</a></h3>
+		<h3>8-2. <a href="javascript:" id="async-link">Asynchronous Request/Response</a></h3>
+		<div style='border:solid 1px;margin-bottom:2px;padding:5px'><%= new Date() %></div>
+		<div id="message" style='border:solid 1px;margin-bottom:2px;padding:5px'>${ syncResult }</div>
 	</div>
 </body>
 </html>

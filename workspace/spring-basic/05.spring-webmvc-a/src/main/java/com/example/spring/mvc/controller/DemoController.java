@@ -1,5 +1,6 @@
 package com.example.spring.mvc.controller;
 
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -162,6 +163,20 @@ public class DemoController {
 		MyView view = new MyView();
 		return view;
 		
+	}
+	
+	@GetMapping(path = { "/sync" })
+	public String handleSynchronousRequest() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd a hh:mm:ss");
+		String msg = "";
+		try {
+			msg = URLEncoder.encode(sdf.format(new Date()), "utf-8");
+		} catch (Exception ex) {
+			msg = "error";
+		}
+		
+		return "redirect:/home?syncResult=" + msg; 
 	}
 	
 	//////////////////////
