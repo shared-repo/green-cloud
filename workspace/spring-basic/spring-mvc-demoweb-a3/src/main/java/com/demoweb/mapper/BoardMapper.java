@@ -33,6 +33,8 @@ public interface BoardMapper {
 	
 	void insertComment(BoardCommentDto comment);
 	List<BoardCommentDto> selectBoardCommentsByBoardNo(int boardNo);
+	void updateCommentDeleted(int commentNo);
+	void updateComment(BoardCommentDto comment);
 }
 
 

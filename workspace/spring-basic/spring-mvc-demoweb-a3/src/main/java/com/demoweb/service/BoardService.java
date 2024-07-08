@@ -27,13 +27,15 @@ public interface BoardService {
 //	void modifyBoard(BoardDto board);
 //
 	void writeComment(BoardCommentDto comment);
-//
-//	void deleteComment(int commentNo);
-//
-//	void editComment(BoardCommentDto comment);
-//
+
+	void deleteComment(int commentNo);
+
+	void editComment(BoardCommentDto comment);
+
 //	void writeReComment(BoardCommentDto comment);
 
 	List<BoardCommentDto> findBoardCommentsByBoardNo(int boardNo);
+
+
 
 }

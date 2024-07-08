@@ -173,20 +173,20 @@ public class BoardServiceImpl implements BoardService {
 		return comments;
 	}
 
-//	@Override
-//	public void deleteComment(int commentNo) {
-//		
-//		boardDao.deleteComment(commentNo); // boardDao.updateCommentDeleted(commentNo)
-//		
-//	}
-//
-//	@Override
-//	public void editComment(BoardCommentDto comment) {
-//		
-//		boardDao.updateComment(comment);
-//		
-//	}
-//
+	@Override
+	public void deleteComment(int commentNo) {
+		
+		boardMapper.updateCommentDeleted(commentNo);
+		
+	}
+
+	@Override
+	public void editComment(BoardCommentDto comment) {
+		
+		boardMapper.updateComment(comment);
+		
+	}
+
 //	@Override
 //	public void writeReComment(BoardCommentDto comment) {
 //		

@@ -181,6 +181,17 @@
 		WHERE boardno = #{ boardNo }
 		ORDER BY groupno DESC, step ASC
 	</select>
+	
+	<update id="updateCommentDeleted" parameterType="int">
+		UPDATE boardcomment 
+		set deleted = '1' 
+		WHERE commentno = #{ commentNo }
+	</update>
+	<update id="updateComment" parameterType="BoardCommentDto">
+		UPDATE boardcomment 
+		SET content = #{ content } 
+		WHERE commentno = #{ commentNo }
+	</update>
 </mapper>
 
 

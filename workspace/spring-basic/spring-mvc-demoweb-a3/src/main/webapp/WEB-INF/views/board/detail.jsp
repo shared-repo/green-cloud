@@ -213,7 +213,7 @@
 						"data": 'commentNo=' + commentNo,
 						"success": function(result, status, xhr) {
 							if (result === "success") {
-								
+								$('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
 							} else {
 								alert('댓글 삭제 실패 1');
 							}
@@ -253,7 +253,23 @@
 			// $('.modify-comment').on('click', function(event) {
 			$('#comment-list').on('click', '.modify-comment', function(event) {
 				const commentNo = $(this).data('comment-no');
-				$('#comment-edit-area-' + commentNo + ' form').submit();
+				//$('#comment-edit-area-' + commentNo + ' form').submit();
+				const editForm = $('#comment-edit-area-' + commentNo + ' form');
+				$.ajax({
+					"url": editForm.attr('action'),
+					"method": editForm.attr('method'),
+					"data": editForm.serialize(),
+					"success": function(result, status, xhr) {
+						if (result === "success") {
+							$('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
+						} else {
+							alert('댓글 수정 실패 1');
+						}
+					},
+					"error": function(xhr, status, err) {
+						alert("댓글 수정 실패 2");
+					}
+				});
 			});
 			
 			

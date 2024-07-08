@@ -32,6 +32,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.Setter;
+import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping(path = { "/board" })

@@ -54,6 +54,17 @@ public class CommentRestController {
 		
 		boardService.deleteComment(commentNo);
 		
+		return "success";
+		
+	}
+	
+	@PostMapping(path = { "/edit-comment" })
+	public String editComment(BoardCommentDto comment) {
+	
+		boardService.editComment(comment);
+		
+		return "success";
+		
 	}
 
 }
