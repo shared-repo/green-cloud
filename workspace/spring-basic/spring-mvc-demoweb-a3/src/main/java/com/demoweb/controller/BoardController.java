@@ -176,6 +176,43 @@ public class BoardController {
 		
 		return "board/edit";
 	}
+	
+	@PostMapping(path = { "/edit" })
+	public String editBoard(BoardDto board, MultipartFile attach, HttpServletRequest req, 
+							@RequestParam(required = false) Integer pageNo) {
+		
+		if (board.getBoardNo() == 0 || pageNo == null) {
+			return "redirect:list";
+		}
+		
+		if (attach != null && attach.getSize() > 0) {
+			BoardAttachDto attachment = new BoardAttachDto();
+			ArrayList<BoardAttachDto> attachments = new ArrayList<>();
+			try {
+				String dir = req.getServletContext().getRealPath("/board-attachments");
+				String userFileName = attach.getOriginalFilename();
+				String savedFileName = Util.makeUniqueFileName(userFileName);			
+				attach.transferTo(new File(dir, savedFileName)); // 파일 저장
+				
+				attachment.setUserFileName(userFileName);
+				attachment.setSavedFileName(savedFileName);
+				attachments.add(attachment);			
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+			board.setAttachments(attachments);
+		}
+		
+		try {		
+			boardService.modifyBoard(board);
+		} catch (Exception ex) {
+			System.out.println("글수정 실패");
+			String.format("redirect:edit?boardNo=%d&pageNo=%d", board.getBoardNo(), pageNo);
+		}
+		
+		return String.format("redirect:detail?boardno=%d&pageNo=%d", board.getBoardNo(), pageNo);
+	}
+	
 	@GetMapping(path = { "/delete-attach" })
 	@ResponseBody
 	public String deleteAttach(@RequestParam(required = false) Integer attachNo, HttpServletRequest req) {

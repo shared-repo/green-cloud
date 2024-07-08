@@ -24,8 +24,8 @@ public interface BoardService {
 
 	void deleteBoardAttach(int attachNo);
 
-//	void modifyBoard(BoardDto board);
-//
+	void modifyBoard(BoardDto board);
+
 	void writeComment(BoardCommentDto comment);
 
 	void deleteComment(int commentNo);

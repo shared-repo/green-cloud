@@ -170,6 +170,11 @@
 		DELETE FROM boardattach 
 		WHERE attachno = #{ attachNo }
 	</delete>
+	<update id="updateBoard" parameterType="BoardDto">
+		UPDATE board 
+		SET title = #{ title }, content = #{ content } 
+		WHERE boardno = #{ boardNo }
+	</update>
 	
 
 	<insert id="insertComment" parameterType="BoardCommentDto">

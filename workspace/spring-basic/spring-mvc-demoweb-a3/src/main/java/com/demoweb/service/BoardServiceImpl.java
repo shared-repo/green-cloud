@@ -149,16 +149,18 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
-//	@Override
-//	public void modifyBoard(BoardDto board) {
-//		
-//		boardDao.updateBoard(board);
-//		
-//		for (BoardAttachDto attach : board.getAttachments()) {
-//			boardDao.insertBoardAttach(attach);
-//		}
-//		
-//	}
+	@Override
+	public void modifyBoard(BoardDto board) {
+		
+		boardMapper.updateBoard(board);
+		
+		if (board.getAttachments() != null) {
+			for (BoardAttachDto attach : board.getAttachments()) {
+				boardMapper.insertBoardAttach(attach);
+			}
+		}
+		
+	}
 
 	@Override
 	public void writeComment(BoardCommentDto comment) {

@@ -40,6 +40,7 @@ public interface BoardMapper {
 	void insertReComment(BoardCommentDto comment);
 	void updateBoardDeleted(int boardNo);
 	void deleteBoardAttach(int attachNo);
+	void updateBoard(BoardDto board);
 }
 
 
