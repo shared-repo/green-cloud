@@ -38,6 +38,7 @@ public interface BoardMapper {
 	BoardCommentDto selectBoardCommentByCommentNo(int commentNo);
 	void updateStep(BoardCommentDto parent);
 	void insertReComment(BoardCommentDto comment);
+	void updateBoardDeleted(int boardNo);
 }
 
 

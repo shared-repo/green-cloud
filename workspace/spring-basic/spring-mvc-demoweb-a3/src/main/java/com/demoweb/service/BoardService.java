@@ -20,8 +20,8 @@ public interface BoardService {
 
 	BoardAttachDto findBoardAttachByAttachNo(int attachNo);
 
-//	void deleteBoard(int boardNo);
-//
+	void deleteBoard(int boardNo);
+
 //	void deleteBoardAttach(int attachNo);
 //
 //	void modifyBoard(BoardDto board);

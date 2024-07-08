@@ -12,8 +12,8 @@
 <head>
 	<meta charset="utf-8" />
 	<title>글수정</title>
-	<link rel="Stylesheet" href="/demoweb/styles/default.css" />
-	<link rel="Stylesheet" href="/demoweb/styles/input2.css" />
+	<link rel="Stylesheet" href="/spring-demoweb/resources/styles/default.css" />
+	<link rel="Stylesheet" href="/spring-demoweb/resources/styles/input2.css" />
 </head>
 <body>
 
@@ -42,8 +42,10 @@
 		                <th>첨부파일</th>
 		                <td>
 		                	<c:forEach var="attach" items="${ board.attachments }">
+		                	<div data-attachno='${ attach.attachNo }'>
 		                	${ attach.userFileName } 
-		                	[<a href='delete-attach?attachno=${ attach.attachNo }&boardno=${ board.boardNo }'>삭제</a>]<br>
+		                	[<a href='javascript:' class='delete-attach' data-attachno='${ attach.attachNo }'>삭제</a>]
+		                	</div>
 		                	</c:forEach>
 		                    <input type="file" name="attach" style="width:580px;height:20px" />
 		                </td>
@@ -65,16 +67,18 @@
 		</div>		  	
 	
 	</div>
-	</div>
-	
-	
-	
+	</div>	
 	
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$('#btn-cancel').on('click', function(event) {
 				location.href = 'detail?boardno=${ board.boardNo }&pageNo=${ pageNo }';
+			});
+			
+			$('.delete-attach').on('click', function(event) {
+				const attachNo = $(this).data('attachno');
+				alert(attachNo);
 			});
 		});
 	</script>

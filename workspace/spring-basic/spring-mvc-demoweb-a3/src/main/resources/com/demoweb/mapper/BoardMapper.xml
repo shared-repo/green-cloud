@@ -161,7 +161,12 @@
 		FROM boardattach
 		WHERE attachno = #{ attachNo } 
 	</select>
-	
+	<update id="updateBoardDeleted" parameterType="int">
+		UPDATE board 
+		SET deleted = '1'
+		WHERE boardno = #{ boardNo }
+	</update>
+
 	<insert id="insertComment" parameterType="BoardCommentDto">
 		INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) 
 		VALUES (BOARDCOMMENT_SEQUENCE.NEXTVAL, #{ boardNo }, #{ writer }, #{ content }, 

@@ -136,12 +136,12 @@ public class BoardServiceImpl implements BoardService {
 		return attach;
 	}
 
-//	@Override
-//	public void deleteBoard(int boardNo) {
-//		boardDao.updateBoardDeleted(boardNo);
-//		
-//	}
-//
+	@Override
+	public void deleteBoard(int boardNo) {
+		boardMapper.updateBoardDeleted(boardNo);
+		
+	}
+
 //	@Override
 //	public void deleteBoardAttach(int attachNo) {
 //		

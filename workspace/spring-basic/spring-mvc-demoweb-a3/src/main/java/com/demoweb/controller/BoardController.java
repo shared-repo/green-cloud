@@ -152,6 +152,44 @@ public class BoardController {
 		// return new DownloadView2();
 	}
 	
+	@GetMapping(path = { "/delete" })
+	public String delete(int boardNo, @RequestParam(defaultValue = "-1") int pageNo) {
+		
+		if (pageNo == -1) {
+			return "redirect:list";
+		}
+		
+		boardService.deleteBoard(boardNo);
+		
+		return String.format("redirect:list?pageNo=%d", pageNo);
+		
+	}
+	@GetMapping(path = { "/edit" })
+	public String showEditForm(int boardNo, @RequestParam(defaultValue = "-1") int pageNo, Model model) {
+		
+		if (pageNo == -1) {
+			return "redirect:list";
+		}
+		
+		BoardDto board = boardService.findBoardByBoardNo(boardNo);
+		model.addAttribute("board", board);
+		
+		return "board/edit";
+	}
+	@GetMapping(path = { "/delete-attach" })
+	@ResponseBody
+	public String deleteAttach(@RequestParam(required = false) Integer attachNo, 
+							   @RequestParam(required = false) Integer boardNo, Model model) {
+		
+		if (boardNo == null || attachNo == null) {
+			return "Invalid boardNo or attachNo";
+		}
+		
+		
+		return "success";
+	}
+	
+	
 	@GetMapping(path = { "/list-comment" })
 	public String listComment(int boardNo, Model model) {
 		
