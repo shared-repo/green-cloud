@@ -166,6 +166,11 @@
 		SET deleted = '1'
 		WHERE boardno = #{ boardNo }
 	</update>
+	<delete id="deleteBoardAttach" parameterType="int">
+		DELETE FROM boardattach 
+		WHERE attachno = #{ attachNo }
+	</delete>
+	
 
 	<insert id="insertComment" parameterType="BoardCommentDto">
 		INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) 

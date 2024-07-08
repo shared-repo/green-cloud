@@ -178,13 +178,18 @@ public class BoardController {
 	}
 	@GetMapping(path = { "/delete-attach" })
 	@ResponseBody
-	public String deleteAttach(@RequestParam(required = false) Integer attachNo, 
-							   @RequestParam(required = false) Integer boardNo, Model model) {
+	public String deleteAttach(@RequestParam(required = false) Integer attachNo, HttpServletRequest req) {
 		
-		if (boardNo == null || attachNo == null) {
-			return "Invalid boardNo or attachNo";
+		if (attachNo == null) {
+			return "Invalid attachNo";
+		}		
+		BoardAttachDto attach = boardService.findBoardAttachByAttachNo(attachNo);
+		String dirPath = req.getServletContext().getRealPath("/board-attachments");
+		File file = new File(dirPath, attach.getSavedFileName());
+		if (file.exists()) {
+			file.delete();
 		}
-		
+		boardService.deleteBoardAttach(attachNo);
 		
 		return "success";
 	}

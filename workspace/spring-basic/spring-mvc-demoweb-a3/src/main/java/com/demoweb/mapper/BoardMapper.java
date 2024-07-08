@@ -39,6 +39,7 @@ public interface BoardMapper {
 	void updateStep(BoardCommentDto parent);
 	void insertReComment(BoardCommentDto comment);
 	void updateBoardDeleted(int boardNo);
+	void deleteBoardAttach(int attachNo);
 }
 
 

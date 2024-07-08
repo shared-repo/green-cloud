@@ -78,7 +78,24 @@
 			
 			$('.delete-attach').on('click', function(event) {
 				const attachNo = $(this).data('attachno');
-				alert(attachNo);
+				// alert(attachNo);
+				$.ajax({
+					"url": "delete-attach",
+					"method": "get",
+					"data": { 'attachNo': attachNo }, // 'attachNo=' + attachNo
+					"success": function(result, status, xhr) {
+						if (result === "success") {
+							alert('첨부파일을 삭제했습니다.')
+							$("div[data-attachno=" + attachNo + "]").remove();
+						} else {
+							alert('fail to delete attach 1');
+						}
+					},
+					"error": function(xhr, status, err) {
+						alert('fail to delete attach 2');	
+					}
+					
+				});
 			});
 		});
 	</script>
