@@ -32,7 +32,7 @@ public interface BoardService {
 
 	void editComment(BoardCommentDto comment);
 
-//	void writeReComment(BoardCommentDto comment);
+	void writeReComment(BoardCommentDto comment);
 
 	List<BoardCommentDto> findBoardCommentsByBoardNo(int boardNo);
 

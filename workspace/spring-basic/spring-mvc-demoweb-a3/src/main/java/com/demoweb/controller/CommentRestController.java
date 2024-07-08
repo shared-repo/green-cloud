@@ -66,6 +66,14 @@ public class CommentRestController {
 		return "success";
 		
 	}
+	
+	@PostMapping(path = { "/write-recomment" })
+	public String writeRecomment(BoardCommentDto comment) {
+		
+		boardService.writeReComment(comment);
+		
+		return "success";
+	}
 
 }
 

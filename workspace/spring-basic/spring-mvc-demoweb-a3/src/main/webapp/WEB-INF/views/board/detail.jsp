@@ -123,8 +123,8 @@
 	      </div>
 	      <div class="modal-body">
 	        <form id="recommentform" action="write-recomment" method="post">
-	        	<input type="hidden" name="boardno" value="${ board.boardNo }" />
-				<input type="hidden" name="commentno" value="" />
+	        	<input type="hidden" name="boardNo" value="${ board.boardNo }" />
+				<input type="hidden" name="commentNo" value="" />
 				<input type="hidden" name="writer" value="${ loginuser.memberId }" />
 				
 				<textarea id="recomment-content" name="content" class="form-control" style="resize: none;" rows="3"></textarea>
@@ -280,7 +280,7 @@
 				$('#recommentform')[0].reset(); // form 초기화
 				
 				const commentNo = $(this).data('comment-no'); // 현재 클릭된 댓글의 번호
-				$('#recommentform input[name=commentno]').val(commentNo);
+				$('#recommentform input[name=commentNo]').val(commentNo);
 				
 				$('#recomment-modal').modal('show'); // show : 표시, hide : 숨기기
 				
@@ -289,7 +289,23 @@
 			// 대댓글(recomment) 2. 대댓글 작성 요청 보내기
 			$('#write-recomment-btn').on('click', function(event) {
 				
-				$('#recommentform').submit();
+				// $('#recommentform').submit();
+				$.ajax({
+					"url": $('#recommentform').attr('action'),
+					"method": $('#recommentform').attr('method'),
+					"data": $('#recommentform').serialize(),
+					"success": function(result, status, xhr) {
+						if (result === "success") {
+							$('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
+							$('#recomment-modal').modal('hide');
+						} else {
+							alert('대댓글 작성 실패 1');
+						}
+					},
+					"error": function(xhr, status, err) {
+						alert("대댓글 작성 실패 2");
+					}
+				});				
 				
 			});
 		});

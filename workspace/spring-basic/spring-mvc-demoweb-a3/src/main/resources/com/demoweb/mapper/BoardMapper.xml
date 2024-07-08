@@ -192,6 +192,22 @@
 		SET content = #{ content } 
 		WHERE commentno = #{ commentNo }
 	</update>
+	<select id="selectBoardCommentByCommentNo" parameterType="int" resultType="BoardCommentDto">
+		SELECT commentNo, boardNo, writer, content, writeDate, modifyDate, groupNo, step, depth, deleted
+		FROM boardcomment
+		WHERE commentno = #{ commentNo } 
+	</select>	
+	<update id="updateStep" parameterType="BoardCommentDto">
+		<![CDATA[
+		UPDATE boardcomment 
+		SET step = step + 1 
+		WHERE groupno = #{ groupNo } AND step > #{ step }
+		]]>
+	</update>
+	<insert id="insertReComment" parameterType="BoardCommentDto">
+		INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) 
+		VALUES (BOARDCOMMENT_SEQUENCE.NEXTVAL, #{ boardNo }, #{ writer }, #{ content }, #{ groupNo }, #{ step }, #{ depth })
+	</insert>
 </mapper>
 
 

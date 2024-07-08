@@ -187,21 +187,21 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
-//	@Override
-//	public void writeReComment(BoardCommentDto comment) {
-//		
-//		// 부모 댓글을 조회해서 자식 댓글(대댓글)의 step, depth를 설정
-//		BoardCommentDto parent = boardDao.selectBoardCommentByCommentNo(comment.getCommentNo());
-//		comment.setGroupNo(parent.getGroupNo());
-//		comment.setStep(parent.getStep() + 1);
-//		comment.setDepth(parent.getDepth() + 1);
-//		
-//		// 새로 삽입될 대댓글보다 순서번호(step)가 뒤에 있는 대댓글의 step 수정 (+1)
-//		boardDao.updateStep(parent);
-//		
-//		boardDao.insertReComment(comment);
-//		
-//	}
+	@Override
+	public void writeReComment(BoardCommentDto comment) {
+		
+		// 부모 댓글을 조회해서 자식 댓글(대댓글)의 step, depth를 설정
+		BoardCommentDto parent = boardMapper.selectBoardCommentByCommentNo(comment.getCommentNo());
+		comment.setGroupNo(parent.getGroupNo());
+		comment.setStep(parent.getStep() + 1);
+		comment.setDepth(parent.getDepth() + 1);
+		
+		// 새로 삽입될 대댓글보다 순서번호(step)가 뒤에 있는 대댓글의 step 수정 (+1)
+		boardMapper.updateStep(parent);
+		
+		boardMapper.insertReComment(comment);
+		
+	}
 
 }
 
