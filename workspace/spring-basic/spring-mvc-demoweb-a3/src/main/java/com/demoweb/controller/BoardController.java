@@ -173,6 +173,7 @@ public class BoardController {
 		
 		BoardDto board = boardService.findBoardByBoardNo(boardNo);
 		model.addAttribute("board", board);
+		model.addAttribute("pageNo", pageNo);
 		
 		return "board/edit";
 	}
@@ -194,6 +195,7 @@ public class BoardController {
 				String savedFileName = Util.makeUniqueFileName(userFileName);			
 				attach.transferTo(new File(dir, savedFileName)); // 파일 저장
 				
+				attachment.setBoardNo(board.getBoardNo());
 				attachment.setUserFileName(userFileName);
 				attachment.setSavedFileName(savedFileName);
 				attachments.add(attachment);			
@@ -207,7 +209,7 @@ public class BoardController {
 			boardService.modifyBoard(board);
 		} catch (Exception ex) {
 			System.out.println("글수정 실패");
-			String.format("redirect:edit?boardNo=%d&pageNo=%d", board.getBoardNo(), pageNo);
+			return String.format("redirect:edit?boardNo=%d&pageNo=%d", board.getBoardNo(), pageNo);
 		}
 		
 		return String.format("redirect:detail?boardno=%d&pageNo=%d", board.getBoardNo(), pageNo);

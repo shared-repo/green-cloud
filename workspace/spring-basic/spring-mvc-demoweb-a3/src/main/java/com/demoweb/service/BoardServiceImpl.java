@@ -73,7 +73,7 @@ public class BoardServiceImpl implements BoardService {
 	
 		boardMapper.insertBoard2(board);
 		
-		int x = 10 / 0; // 트랜잭션 테스트를 위해서 강제 예외 발생
+		// int x = 10 / 0; // 트랜잭션 테스트를 위해서 강제 예외 발생
 		
 		for (BoardAttachDto attach : board.getAttachments()) {
 			attach.setBoardNo(board.getBoardNo());

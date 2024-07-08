@@ -26,7 +26,8 @@
 		    <div id="inputmain">
 		        <div class="inputsubtitle">게시글 정보</div>
 		        <form action="edit" method="post" enctype="multipart/form-data">		        
-		        <input type="hidden" name="boardno" value="${ board.boardNo }">
+		        <input type="hidden" name="boardNo" value="${ board.boardNo }">
+		        <input type="hidden" name="pageNo" value="${ pageNo }">
 		        <table>
 		            <tr>
 		                <th>제목</th>
