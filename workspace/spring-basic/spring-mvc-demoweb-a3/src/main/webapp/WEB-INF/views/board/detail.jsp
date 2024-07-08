@@ -206,7 +206,23 @@
 				const commentNo = $(this).data('comment-no'); // .data('comment-no') -> data-comment-no 속성의 값 조회
 				const ok = confirm(commentNo + "번 댓글을 삭제할까요?");
 				if (ok) {
-					location.href = 'delete-comment?boardno=${ board.boardNo }&commentno=' + commentNo;
+					// location.href = 'delete-comment?boardno=${ board.boardNo }&commentno=' + commentNo;
+					$.ajax({
+						"url": "delete-comment",
+						"method" : "get",
+						"data": 'commentNo=' + commentNo,
+						"success": function(result, status, xhr) {
+							if (result === "success") {
+								
+							} else {
+								alert('댓글 삭제 실패 1');
+							}
+						},
+						"error": function(xhr, status, err) {
+							alert("댓글 삭제 실패 2");
+						}
+						
+					});
 				}
 				
 			});
