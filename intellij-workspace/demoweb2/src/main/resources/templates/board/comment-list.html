@@ -14,31 +14,31 @@
                         </th:block>
                     </td>
                     <td>
-                        <div id="comment-view-area-${ comment.commentNo }">
+                        <div th:id="|comment-view-area-${ comment.commentNo }|">
                             <th:block th:if="${ comment.deleted }">
                                 <br><br>
                                 <span style='color:gray'>삭제된 글입니다.</span>
                                 <br><br>
                             </th:block>
                             <th:block th:unless="${ comment.deleted }">
-                                [[${ comment.writer }]] &nbsp;&nbsp;
-                                [[|[${ #dates.format(comment.writeDate, "yyyy-MM-dd hh:mm:ss") }]|]]
+                                <span th:text="${ comment.writer }"></span> &nbsp;&nbsp;
+                                <span th:text='|[${ #dates.format(comment.writeDate, "yyyy-MM-dd hh:mm:ss") }]|'></span>
                                 <br /><br />
                                 <span th:utext='${ #strings.replace(comment.content, enter, "<br>") }'></span>
                                 <br /><br />
-                                <div style='float:left; display:${ (not empty loginuser and loginuser.memberId == comment.writer) ? "block" : "none" }'>
-                                    <a class="edit-comment" data-comment-no="${ comment.commentNo }" href="javascript:">편집</a>
+                                <div th:style='|float:left; display:${ (#ctx.session.loginuser != null and #ctx.session.loginuser.memberId == comment.writer) ? "block" : "none" }|'>
+                                    <a class="edit-comment" th:attr="data-comment-no=${ comment.commentNo }" href="javascript:">편집</a>
                                     &nbsp;
-                                    <a class="delete-comment" data-comment-no="${ comment.commentNo }" href="javascript:">삭제</a>
+                                    <a class="delete-comment" th:attr="data-comment-no=${ comment.commentNo }" href="javascript:">삭제</a>
                                     &nbsp;&nbsp;
                                 </div>
-                                <div style='float:left; display:${ not empty loginuser ? "block" : "none" }'>
-                                    <a class="write-recomment" data-comment-no="${ comment.commentNo }" href="javascript:">댓글쓰기</a>
+                                <div th:style='|float:left; display:${ #ctx.session.loginuser != null ? "block" : "none" }|'>
+                                    <a class="write-recomment" th:attr="data-comment-no=${ comment.commentNo }" href="javascript:">댓글쓰기</a>
                                 </div>
                                 <span style="clear:both"></span>
                             </th:block>
                         </div>
-                        <div id="comment-edit-area-${ comment.commentNo }" style="display: none">
+                        <div th:id="|comment-edit-area-${ comment.commentNo }|" style="display: none">
                             [[${ comment.writer }]] &nbsp;&nbsp;
                             [[|[${ #dates.format(comment.writeDate, "yyyy-MM-dd hh:mm:ss") }]|]]
                             <br /><br />
@@ -50,9 +50,9 @@
                             </form>
                             <br />
                             <div>
-                                <a class="modify-comment" data-comment-no="${ comment.commentNo }" href="javascript:">수정</a>
+                                <a class="modify-comment" th:attr="data-comment-no=${ comment.commentNo }" href="javascript:">수정</a>
                                 &nbsp;
-                                <a class="cancel-edit-comment" data-comment-no="${ comment.commentNo }" href="javascript:">취소</a>
+                                <a class="cancel-edit-comment" th:attr="data-comment-no=${ comment.commentNo }" href="javascript:">취소</a>
                             </div>
                         </div>
 
