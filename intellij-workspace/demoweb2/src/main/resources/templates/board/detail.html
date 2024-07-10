@@ -33,11 +33,11 @@
                     </tr>
                     <tr>
                         <th>작성일자</th>
-                        <td th:text="${ board.writeDate }"></td>
+                        <td th:text='${ #dates.format(board.writeDate, "yyyy-MM-dd hh:mm:ss") }'></td>
                     </tr>
                     <tr>
                         <th>수정일자</th>
-                        <td th:text="${ board.modifyDate }"></td>
+                        <td th:text='${ #dates.format(board.modifyDate, "yyyy-MM-dd hh:mm:ss") }'></td>
                     </tr>
                     <tr>
                         <th>첨부파일</th>
@@ -53,16 +53,15 @@
                     </tr>
                     <tr>
                         <th>글내용</th>
-                        <td th:text='${ #strings.replace(board.content, enter, "&lt;br&gt;") }'>
+                        <td th:utext='${ #strings.replace(board.content, enter, "<br>") }'>
                         </td>
                     </tr>
                 </table>
                 <div class="buttons">
-                    <%-- <c:if test="${ not empty loginuser and loginuser.memberId eq board.writer }"> --%>
-                    <c:if test="${ loginuser != null && loginuser.memberId == board.writer}">
+                    <th:block th:if="${ #ctx.session.loginuser != null and #ctx.session.loginuser.memberId == board.writer}">
                         <input type="button" id="edit_button" value="편집" style="height:25px" />
                         <input type="button" id="delete_button" value="삭제" style="height:25px" />
-                    </c:if>
+                    </th:block>
                     <input type="button" id="tolist_button" value="목록보기" style="height:25px" />
                 </div>
             </div>
@@ -72,9 +71,11 @@
 
         <!-- write comment area -->
         <form id="commentform" action="write-comment" method="post">
-            <input type="hidden" name="boardNo" value="${ board.boardNo }" />
-            <input type="hidden" name="pageNo" value="${ pageNo }" />
-            <input type="hidden" name="writer" value="${ loginuser.memberId }" />
+            <input type="hidden" name="boardNo" th:value="${ board.boardNo }" />
+            <input type="hidden" name="pageNo" th:value="${ pageNo }" />
+            <input type="hidden" name="writer"
+                   th:if="${ #ctx.session.loginuser != null }"
+                   th:value='${ #ctx.session.loginuser.memberId }' />
             <table style="width:800px;border:solid 1px;margin:0 auto">
                 <tr>
                     <td style="width:750px">
@@ -114,9 +115,11 @@
             </div>
             <div class="modal-body">
                 <form id="recommentform" action="write-recomment" method="post">
-                    <input type="hidden" name="boardNo" value="${ board.boardNo }" />
-                    <input type="hidden" name="commentNo" value="" />
-                    <input type="hidden" name="writer" value="${ loginuser.memberId }" />
+                    <input type="hidden" name="boardNo" th:value="${ board.boardNo }">
+                    <input type="hidden" name="commentNo" value="">
+                    <input type="hidden" name="writer"
+                           th:if="${ #ctx.session.loginuser != null }"
+                           th:value="${ #ctx.session.loginuser.memberId }">
 
                     <textarea id="recomment-content" name="content" class="form-control" style="resize: none;" rows="3"></textarea>
                 </form>
@@ -132,22 +135,25 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.js"></script>
 
-<script type="text/javascript">
+<script type="text/javascript" th:inline="javascript">
 
     $(function() {
         $('#delete_button').on('click', function(event) {
-            const ok = confirm("${ board.boardNo }번 글을 삭제할까요?");
+            const ok = confirm(/*[(|'${ board.boardNo }번 글을 삭제할까요?'|)]*/);
             if (ok) {
-                location.href = 'delete?boardNo=${ board.boardNo }&pageNo=${ pageNo }';
+                location.href = /*[(|'delete?boardNo=${ board.boardNo }&pageNo=${ pageNo }'|)]*/ '';
             }
         });
 
         $('#edit_button').on('click', function(event) {
-            location.href = 'edit?boardNo=${ board.boardNo }&pageNo=${ pageNo }';
+            location.href = /*[(|'edit?boardNo=${ board.boardNo }&pageNo=${ pageNo }'|)]*/ '';
         });
 
         $('#tolist_button').on('click', function(event) {
-            location.href = 'list?pageNo=${ pageNo }';
+            // location.href = 'list?pageNo=' + [[${ pageNo }]];
+            // location.href = [(|'list?pageNo=${ pageNo }'|)];
+            // location.href = /*[(|'list?pageNo=${ pageNo }'|)]*/ ''; /* 주석 블록 이후의 내용은 서버에서 무시 */
+            location.href = /*[[|list?pageNo=${ pageNo }|]]*/ ''; /* 주석 블록 이후의 내용은 서버에서 무시 */
             // history.back();
         });
 
@@ -155,7 +161,7 @@
 
         // 화면이 처음 보여질때 댓글 목록 가져오기
         // load : get 방식, 비동기 요청, 응답 html을 지정된 요소 하위에 추가
-        $('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
+        $('#comment-list').load('list-comment', /*[[|boardNo=${ board.boardNo }|]]*/ '');
 
         // 댓글쓰기
         $('#write-comment-lnk').on('click', function(event) {

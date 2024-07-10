@@ -239,6 +239,7 @@ public class BoardController {
 		
 		List<BoardCommentDto> comments = boardService.findBoardCommentsByBoardNo(boardNo);
 		model.addAttribute("comments", comments);
+		model.addAttribute("enter", "\n");
 		
 		return "board/comment-list";
 	}

@@ -1,0 +1,65 @@
+<c:forEach var="comment" items="${ comments }">
+    <tr xmlns:th="http://www.thymeleaf.org"
+        th:each="comment:${comments}">
+        <td style="text-align:left;margin:5px;border-bottom: solid 1px;">
+            <table>
+                <tr>
+                    <td>
+                        <th:block th:each="idx: ${ #numbers.sequence(0, comment.depth) }">
+                            &nbsp;&nbsp;
+                        </th:block>
+                        <th:block th:if="${ comment.depth > 0 }">
+                            <img src="/image/re.gif">
+                            &nbsp;
+                        </th:block>
+                    </td>
+                    <td>
+                        <div id="comment-view-area-${ comment.commentNo }">
+                            <th:block th:if="${ comment.deleted }">
+                                <br><br>
+                                <span style='color:gray'>삭제된 글입니다.</span>
+                                <br><br>
+                            </th:block>
+                            <th:block th:unless="${ comment.deleted }">
+                                [[${ comment.writer }]] &nbsp;&nbsp;
+                                [[|[${ #dates.format(comment.writeDate, "yyyy-MM-dd hh:mm:ss") }]|]]
+                                <br /><br />
+                                <span th:utext='${ #strings.replace(comment.content, enter, "<br>") }'></span>
+                                <br /><br />
+                                <div style='float:left; display:${ (not empty loginuser and loginuser.memberId == comment.writer) ? "block" : "none" }'>
+                                    <a class="edit-comment" data-comment-no="${ comment.commentNo }" href="javascript:">편집</a>
+                                    &nbsp;
+                                    <a class="delete-comment" data-comment-no="${ comment.commentNo }" href="javascript:">삭제</a>
+                                    &nbsp;&nbsp;
+                                </div>
+                                <div style='float:left; display:${ not empty loginuser ? "block" : "none" }'>
+                                    <a class="write-recomment" data-comment-no="${ comment.commentNo }" href="javascript:">댓글쓰기</a>
+                                </div>
+                                <span style="clear:both"></span>
+                            </th:block>
+                        </div>
+                        <div id="comment-edit-area-${ comment.commentNo }" style="display: none">
+                            [[${ comment.writer }]] &nbsp;&nbsp;
+                            [[|[${ #dates.format(comment.writeDate, "yyyy-MM-dd hh:mm:ss") }]|]]
+                            <br /><br />
+                            <form action="edit-comment" method="post">
+                                <input type="hidden" name="boardNo" th:value="${ comment.boardNo }" />
+                                <input type="hidden" name="commentNo" th:value="${ comment.commentNo }" />
+                                <textarea name="content" th:text="${ comment.content }"
+                                          style="width: 99%; resize: none" rows="3" cols="120"></textarea>
+                            </form>
+                            <br />
+                            <div>
+                                <a class="modify-comment" data-comment-no="${ comment.commentNo }" href="javascript:">수정</a>
+                                &nbsp;
+                                <a class="cancel-edit-comment" data-comment-no="${ comment.commentNo }" href="javascript:">취소</a>
+                            </div>
+                        </div>
+
+                    </td>
+
+                </tr>
+            </table>
+        </td>
+    </tr>
+</c:forEach>
