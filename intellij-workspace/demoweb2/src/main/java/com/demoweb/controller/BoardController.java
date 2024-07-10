@@ -127,6 +127,7 @@ public class BoardController {
 		
 		model.addAttribute("board", board);
 		model.addAttribute("pageNo", pageNo);
+		model.addAttribute("enter", "\n");
 		
 		return "board/detail";
 	}
