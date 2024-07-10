@@ -71,8 +71,10 @@ public class AccountController {
 	// @RequestMapping(path = { "/login" })
 	@GetMapping(path = { "/login" }) // only GET
 	public String loginForm(
-			@RequestParam(name="returnuri", defaultValue = "/home") String returnUri, Model model) {
+			@RequestParam(name="returnuri", defaultValue = "/home") String returnUri,
+			@RequestParam(name="loginfail", defaultValue = "false") boolean loginFail, Model model) {
 		model.addAttribute("returnUri", returnUri);
+		model.addAttribute("loginFail", loginFail);
 		return "account/login";
 	}
 	
