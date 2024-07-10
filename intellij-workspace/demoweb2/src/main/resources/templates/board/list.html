@@ -42,8 +42,8 @@
                 </td>
                 <td th:text="${ board.writer }" style="text-align:left;padding-left:5px"></td>
                 <td th:text="${ board.readCount }"></td>
-                <td th:text="${ board.writeDate }"></td>
-                <td th:text="${ board.modifyDate }"></td>
+                <td th:text='${ #dates.format(board.writeDate, "yyyy-MM-dd") }'></td>
+                <td th:text='${ #dates.format(board.modifyDate, "yyyy-MM-dd") }'></td>
             </tr>
 
         </table>
