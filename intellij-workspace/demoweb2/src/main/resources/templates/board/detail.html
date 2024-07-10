@@ -186,8 +186,8 @@
                 "dataType": "text",
                 "success": function(response, status, xhr) {
                     // alert(response);
-                    // $('#comment-list').load('comment-list?boardNo=${ board.boardNo }');
-                    $('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
+                    // $('#comment-list').load(/*[[|comment-list?boardNo=${ board.boardNo }|]]*/');
+                    $('#comment-list').load('list-comment', /*[[|boardNo=${ board.boardNo }|]]*/ "");
                 },
                 "error": function(xhr, status, err) {
                     alert(err);
@@ -210,7 +210,7 @@
                     "data": 'commentNo=' + commentNo,
                     "success": function(result, status, xhr) {
                         if (result === "success") {
-                            $('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
+                            $('#comment-list').load('list-comment', /*[[|boardNo=${ board.boardNo }|]]*/ "");
                         } else {
                             alert('댓글 삭제 실패 1');
                         }
@@ -258,7 +258,7 @@
                 "data": editForm.serialize(),
                 "success": function(result, status, xhr) {
                     if (result === "success") {
-                        $('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
+                        $('#comment-list').load('list-comment', /*[[|boardNo=${ board.boardNo }|]]*/ "");
                     } else {
                         alert('댓글 수정 실패 1');
                     }
@@ -293,7 +293,7 @@
                 "data": $('#recommentform').serialize(),
                 "success": function(result, status, xhr) {
                     if (result === "success") {
-                        $('#comment-list').load('list-comment', "boardNo=${ board.boardNo }");
+                        $('#comment-list').load('list-comment', /*[[|boardNo=${ board.boardNo }|]]*/ "");
                         $('#recomment-modal').modal('hide');
                     } else {
                         alert('대댓글 작성 실패 1');
