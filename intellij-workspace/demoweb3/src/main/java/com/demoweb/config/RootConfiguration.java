@@ -64,9 +64,8 @@ public class RootConfiguration {
 		return factoryBean.getObject();
 	}
 	
-	@Bean AccountService accountService(MemberMapper memberMapper, MemberRepository memberRepository) throws Exception {
+	@Bean AccountService accountService(MemberRepository memberRepository) throws Exception {
 		AccountServiceImpl accountService = new AccountServiceImpl();		
-		accountService.setMemberMapper(memberMapper);
 		accountService.setMemberRepository(memberRepository);
 		return accountService;
 	}

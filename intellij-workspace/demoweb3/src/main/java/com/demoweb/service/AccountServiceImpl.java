@@ -8,10 +8,10 @@ import com.demoweb.mapper.MemberMapper;
 import com.demoweb.repository.MemberRepository;
 import lombok.Setter;
 
+import java.util.Optional;
+import java.util.OptionalInt;
+
 public class AccountServiceImpl implements AccountService {
-	
-	@Setter
-	private MemberMapper memberMapper;
 
 	@Setter
 	private MemberRepository memberRepository;
@@ -23,9 +23,6 @@ public class AccountServiceImpl implements AccountService {
 		// 업무 규칙(요구사항) 처리
 		String hashedPasswd = Util.getHashedString(member.getPasswd(), "SHA-256");
 		member.setPasswd(hashedPasswd);
-		
-		// 데이터베이스에 데이터 저장 ( Dao 호출 )
-		// memberMapper.insertMember(member);
 
 		MemberEntity memberEntity = member.toEntity();
 		memberRepository.save(memberEntity); // entity 저장 --> insert or update
@@ -38,14 +35,9 @@ public class AccountServiceImpl implements AccountService {
 		
 		// 업무 규칙(요구사항) 처리
 		String hashedPasswd = Util.getHashedString(member.getPasswd(), "SHA-256");
-		// memberId = hashedPasswd;
-		member.setPasswd(hashedPasswd);
-		
-		// 데이터베이스에서 데이터 조회
-		// MemberDto foundMember = memberDao.selectMemberByMemberIdAndPasswd(memberId, passwd);
-		// MemberDto foundMember = memberMapper.selectMemberByMemberIdAndPasswd(member);
+
 		MemberEntity foundMemberEntity =
-				memberRepository.findMemberByMemberIdAndPasswd(member.getMemberId(), member.getPasswd());
+				memberRepository.findMemberByMemberIdAndPasswd(member.getMemberId(), hashedPasswd);
 		MemberDto foundMember = MemberDto.of(foundMemberEntity);
 		// 호출한 곳으로 조회 결과 반환
 		return foundMember;
@@ -53,19 +45,16 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Override
 	public void resetPasswd(MemberDto member) {
-		
-		// 업무 규칙(요구사항) 처리
+
 		String hashedPasswd = Util.getHashedString(member.getPasswd(), "SHA-256");
-		member.setPasswd(hashedPasswd);
-		
-		memberMapper.updatePasswd(member);
-		
+		MemberEntity memberEntity = memberRepository.findById(member.getMemberId()).get();
+		memberEntity.setPasswd(hashedPasswd);
+		memberRepository.save(memberEntity); // save --> insert or update
 	}
 
 	@Override
 	public boolean checkDuplication(String memberId) {
-		int count = memberMapper.selectMemberCountByMemberId(memberId);
-		return count == 0;
+		 return memberRepository.findById(memberId).isEmpty();
 	}
 
 }
