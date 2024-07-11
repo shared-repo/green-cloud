@@ -41,5 +41,17 @@ public class BoardDto {
 														.build();
 		return boardEntity;
 	}
+	public static BoardDto of(BoardEntity entity) {
+		BoardDto board = BoardDto.builder()	.boardNo(entity.getBoardNo())
+											.title(entity.getTitle())
+											.writer(entity.getWriter())
+											.content(entity.getContent())
+											.readCount(entity.getReadCount())
+											.writeDate(entity.getWriteDate())
+											.modifyDate(entity.getModifyDate())
+											.deleted(entity.isDeleted())
+											.build();
+		return board;
+	}
 
 }

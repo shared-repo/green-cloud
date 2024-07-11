@@ -1,9 +1,14 @@
 package com.demoweb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.demoweb.entity.BoardEntity;
 import com.demoweb.repository.BoardRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,48 +33,7 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Setter
 	private TransactionTemplate transactionTemplate;
-	
-//	@Override
-//	public void writeBoard(BoardDto board) {
-//		// board.getBoardNo() : 아직 미정 - 0
-//		// boardMapper.insertBoard(board); // board 테이블에 데이터 저장 -> boardNo 결정 (DB에서)
-//		boardMapper.insertBoard2(board); // board 테이블에 데이터 저장 -> boardNo 결정 (DB에서)
-//		// board.getBoardNo() : 새로 만든 글 번호
-//		
-//		for (BoardAttachDto attach : board.getAttachments()) {
-//			attach.setBoardNo(board.getBoardNo()); // 위 게시글 insert 후 생성된 글번호 저장
-//			boardMapper.insertBoardAttach(attach); // boardattach 테이블에 데이터 저장
-//		}
-//		
-//	}
-	
-//	@Override
-//	public void writeBoard(BoardDto board) {
-//	
-//		// transactionManager를 사용해서 트랜잭션을 시작하고 doIntransaction() 호출
-//		// TransactionStatus.setRollbackOnly() 호출 -> rollback, 그렇지 않으면 자동 commit
-//		transactionTemplate.execute(new TransactionCallback<Void>() {
-//
-//			@Override
-//			public Void doInTransaction(TransactionStatus status) {
-//
-//				try {
-//					boardMapper.insertBoard2(board);
-//					int x = 10 / 0; // 트랜잭션 테스트를 위해서 강제 예외 발생
-//					for (BoardAttachDto attach : board.getAttachments()) {
-//						attach.setBoardNo(board.getBoardNo());
-//						boardMapper.insertBoardAttach(attach);
-//					}
-//				} catch (Exception ex) {
-//					System.out.println("글쓰기 실패");
-//					status.setRollbackOnly();
-//				} 
-//				
-//				return null;
-//			}
-//		});
-//	}
-	
+
 	@Override
 //	@Transactional(rollbackFor = Exception.class,
 //				   propagation = Propagation.REQUIRED,
@@ -94,15 +58,25 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public int getBoardCount() {
-		return boardMapper.selectBoardCount();
+		return (int)boardRepository.count();
 	}	
 	
 	@Override
 	public List<BoardDto> findBaordByRange(int start, int count) {
-		
+
 		List<BoardDto> boards = boardMapper.selectBoardByRange(start, start + count);
 		return boards;
 		
+	}
+	@Override
+	public List<BoardDto> findBaordByRange2(int pageNo, int count) {
+		Pageable pageable = PageRequest.of(pageNo, count, Sort.by(Sort.Direction.DESC, "boardNo"));
+		Page<BoardEntity> page = boardRepository.findAll(pageable);
+		List<BoardDto> boards = new ArrayList<>();
+		for (BoardEntity boardEntity : page.getContent()) {
+			boards.add(BoardDto.of(boardEntity));
+		}
+		return boards;
 	}
 	
 	@Override

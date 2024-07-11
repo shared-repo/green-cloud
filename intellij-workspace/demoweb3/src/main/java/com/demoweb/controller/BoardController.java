@@ -64,7 +64,7 @@ public class BoardController {
 		// ThePager pager = new ThePager(dataCount, page, pageSize, pagerSize, linkUrl);
 		ThePager pager = new ThePager(dataCount, pageNo, pageSize, pagerSize, linkUrl, queryString);
 		
-		List<BoardDto> boards = boardService.findBaordByRange(start, pageSize);		
+		List<BoardDto> boards = boardService.findBaordByRange2(pageNo-1, pageSize);
 
 		model.addAttribute("boardList", boards); // Model 타입 전달인자에 데이터 저장 -> View(JSP)로 전달
 		model.addAttribute("pager", pager);
