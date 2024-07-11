@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace : 패키지이름.클래스이름 ( 저장된 경로와 일치하도록 작성 ) -->
+<mapper namespace="com.demoweb.mapper.BoardMapper">
+
+	<insert id="insertBoard" parameterType="BoardDto"
+			useGeneratedKeys="true" keyProperty="boardNo" keyColumn="boardno">
+		INSERT INTO board (boardno, title, writer, content) 
+		VALUES (BOARD_SEQUENCE.NEXTVAL, #{ title }, #{ writer }, #{ content })
+	</insert>
+	<insert id="insertBoard2" parameterType="BoardDto">
+		<selectKey keyProperty="boardNo" order="AFTER" resultType="int">
+			SELECT BOARD_SEQUENCE.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO board (boardno, title, writer, content) 
+		VALUES (BOARD_SEQUENCE.NEXTVAL, #{ title }, #{ writer }, #{ content })
+	</insert>
+	<insert id="insertBoard3" parameterType="BoardDto">
+		<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">
+			SELECT BOARD_SEQUENCE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO board (boardno, title, writer, content) 
+		VALUES (#{ boardNo }, #{ title }, #{ writer }, #{ content })
+	</insert>
+	
+	<insert id="insertBoardAttach" parameterType="BoardAttachDto">
+		INSERT INTO boardattach (attachno, boardno, userfilename, savedfilename) 
+		VALUES (BOARDATTACH_SEQUENCE.NEXTVAL, #{ boardNo }, #{ userFileName }, #{ savedFileName })
+	</insert>
+	
+	<select id="selectAllBoard" resultType="BoardDto">
+		SELECT boardNo, title, writer, readCount, writeDate, modifyDate, deleted
+		FROM board
+		ORDER BY boardno DESC
+	</select>
+	
+	<select id="selectBoardCount" resultType="int">
+		SELECT COUNT(*) FROM board
+	</select>
+	<select id="selectBoardByRange" parameterType="hashmap" resultType="BoardDto">
+		<![CDATA[
+		SELECT *
+		FROM
+		(
+			SELECT ROWNUM idx, a.*
+			FROM
+			(
+				SELECT boardno, title, writer, readcount, writedate, modifydate, deleted
+				FROM board
+				ORDER BY boardno DESC
+			) a
+			WHERE ROWNUM < #{ to }
+		) b
+		WHERE b.idx >= #{ from }
+		]]>
+	</select>
+	<select id="selectBoardByRange2" parameterType="hashmap" resultType="BoardDto">
+		<![CDATA[
+		SELECT *
+		FROM
+		(
+			SELECT ROWNUM idx, a.*
+			FROM
+			(
+				SELECT  /*+ INDEX_DESC(board, SYS_C007006) */
+						boardno, title, writer, readcount, writedate, modifydate, deleted
+				FROM board
+			) a
+			WHERE ROWNUM < #{ to }
+		) b
+		WHERE b.idx >= #{ from }
+		]]>
+	</select>
+	
+	<select id="selectBoardByBoardNo" parameterType="int" resultType="BoardDto">
+		SELECT boardNo, title, writer, content, readCount, writeDate, modifyDate
+		FROM board
+		WHERE boardno = #{ boardNo } AND deleted = '0'
+	</select>
+	
+	<select id="selectBoardAttachByBoardNo" parameterType="int" resultType="BoardAttachDto">
+		SELECT attachNo, boardNo, userFileName, savedFileName, downloadCount
+		FROM boardattach
+		WHERE boardno = #{ boardNo }
+	</select>
+	
+	<resultMap type="BoardDto" id="boardResultMap">
+		<id column="boardNo" property="boardNo" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="content" property="content" />
+		<result column="readCount" property="readCount" />
+		<result column="writeDate" property="writeDate" />
+		<result column="modifyDate" property="modifyDate" />
+		<collection property="attachments" resultMap="boardAttachResultMap" column="attachNo" />
+	</resultMap>
+	<resultMap type="BoardAttachDto" id="boardAttachResultMap">
+		<id column="attachNo" property="attachNo" />
+		<result column="boardNo" property="boardNo" />
+		<result column="userFileName" property="userFileName" />
+		<result column="savedFileName" property="savedFileName" />
+		<result column="downloadCount" property="downloadCount" />
+	</resultMap>
+	
+	<select id="selectBoardByBoardNo2" parameterType="int" resultMap="boardResultMap">
+		SELECT b.boardNo, b.title, b.writer, b.content, b.readCount, b.writeDate, b.modifyDate,
+			   ba.attachNo, ba.userFileName, ba.savedFileName, ba.downloadCount
+		FROM board b
+		LEFT OUTER JOIN boardattach ba
+		ON b.boardno = ba.boardno
+		WHERE b.boardno = #{ boardNo } AND b.deleted = '0'
+	</select>
+	
+	<resultMap type="BoardDto" id="boardResultMap2">
+		<id column="boardNo" property="boardNo" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="content" property="content" />
+		<result column="readCount" property="readCount" />
+		<result column="writeDate" property="writeDate" />
+		<result column="modifyDate" property="modifyDate" />
+		<collection property="attachments" select="selectBoardAttachByBoardNo" column="boardNo" />
+	</resultMap>	
+	<select id="selectBoardByBoardNo3" parameterType="int" resultMap="boardResultMap2">
+		SELECT b.boardNo, b.title, b.writer, b.content, b.readCount, b.writeDate, b.modifyDate
+		FROM board b
+		WHERE b.boardno = #{ boardNo } AND b.deleted = '0'
+	</select>
+	
+	<resultMap type="BoardDto" id="boardResultMap3">
+		<id column="boardNo" property="boardNo" />
+		<result column="title" property="title" />
+		<result column="writer" property="writer" />
+		<result column="content" property="content" />
+		<result column="readCount" property="readCount" />
+		<result column="writeDate" property="writeDate" />
+		<result column="modifyDate" property="modifyDate" />
+		<collection property="attachments" ofType="BoardAttachDto">
+			<id column="attachNo" property="attachNo" />
+			<result column="boardNo" property="boardNo" />
+			<result column="userFileName" property="userFileName" />
+			<result column="savedFileName" property="savedFileName" />
+			<result column="downloadCount" property="downloadCount" />
+		</collection>
+	</resultMap>
+	
+	<select id="selectBoardByBoardNo4" parameterType="int" resultMap="boardResultMap3">
+		SELECT b.boardNo, b.title, b.writer, b.content, b.readCount, b.writeDate, b.modifyDate,
+			   ba.attachNo, ba.userFileName, ba.savedFileName, ba.downloadCount
+		FROM board b
+		LEFT OUTER JOIN boardattach ba
+		ON b.boardno = ba.boardno
+		WHERE b.boardno = #{ boardNo } AND b.deleted = '0'
+	</select>
+	
+	<select id="selectBoardAttachByAttachNo" parameterType="int" resultType="BoardAttachDto">
+		SELECT attachNo, boardNo, userFileName, savedFileName, downloadCount
+		FROM boardattach
+		WHERE attachno = #{ attachNo } 
+	</select>
+	<update id="updateBoardDeleted" parameterType="int">
+		UPDATE board 
+		SET deleted = '1'
+		WHERE boardno = #{ boardNo }
+	</update>
+	<delete id="deleteBoardAttach" parameterType="int">
+		DELETE FROM boardattach 
+		WHERE attachno = #{ attachNo }
+	</delete>
+	<update id="updateBoard" parameterType="BoardDto">
+		UPDATE board 
+		SET title = #{ title }, content = #{ content } 
+		WHERE boardno = #{ boardNo }
+	</update>
+	
+
+	<insert id="insertComment" parameterType="BoardCommentDto">
+		INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) 
+		VALUES (BOARDCOMMENT_SEQUENCE.NEXTVAL, #{ boardNo }, #{ writer }, #{ content }, 
+				BOARDCOMMENT_SEQUENCE.CURRVAL, 1, 0)
+	</insert>
+	<insert id="insertComment2" parameterType="BoardCommentDto">
+		<selectKey keyProperty="commentNo" resultType="int" order="BEFORE">
+		SELECT BOARDCOMMENT_SEQUENCE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) 
+		VALUES (#{ commentNo }, #{ boardNo }, #{ writer }, #{ content }, #{ commentNo }, 1, 0)
+	</insert>
+	
+	<select id="selectBoardCommentsByBoardNo" parameterType="int" resultType="BoardCommentDto">
+		SELECT commentNo, boardNo, writer, content, writeDate, modifyDate, groupNo, step, depth, deleted
+		FROM boardcomment
+		WHERE boardno = #{ boardNo }
+		ORDER BY groupno DESC, step ASC
+	</select>
+	
+	<update id="updateCommentDeleted" parameterType="int">
+		UPDATE boardcomment 
+		set deleted = '1' 
+		WHERE commentno = #{ commentNo }
+	</update>
+	<update id="updateComment" parameterType="BoardCommentDto">
+		UPDATE boardcomment 
+		SET content = #{ content } 
+		WHERE commentno = #{ commentNo }
+	</update>
+	<select id="selectBoardCommentByCommentNo" parameterType="int" resultType="BoardCommentDto">
+		SELECT commentNo, boardNo, writer, content, writeDate, modifyDate, groupNo, step, depth, deleted
+		FROM boardcomment
+		WHERE commentno = #{ commentNo } 
+	</select>	
+	<update id="updateStep" parameterType="BoardCommentDto">
+		<![CDATA[
+		UPDATE boardcomment 
+		SET step = step + 1 
+		WHERE groupno = #{ groupNo } AND step > #{ step }
+		]]>
+	</update>
+	<insert id="insertReComment" parameterType="BoardCommentDto">
+		INSERT INTO boardcomment (commentno, boardno, writer, content, groupno, step, depth) 
+		VALUES (BOARDCOMMENT_SEQUENCE.NEXTVAL, #{ boardNo }, #{ writer }, #{ content }, #{ groupNo }, #{ step }, #{ depth })
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

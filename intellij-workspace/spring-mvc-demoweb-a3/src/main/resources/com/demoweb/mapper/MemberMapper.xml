@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace : 패키지이름.클래스이름 ( 저장된 경로와 일치하도록 작성 ) -->
+<mapper namespace="com.demoweb.mapper.MemberMapper">
+
+	<sql id="memberColumns">
+		memberId, email, userType, regDate, active
+	</sql>
+
+	<resultMap id="memberDtoResultMap" type="MemberDto">
+		<id column="memberId" property="memberId" />
+		<result column="email" property="email" />
+		<result column="userType" property="userType" />
+		<result column="regDate" property="regDate" />
+		<result column="active" property="active" />
+	</resultMap>
+
+	<!-- 지정된 SQL을 실행하는 method 역할 -->
+	<!-- <select id="selectMemberByMemberIdAndPasswd" parameterType="MemberDto" resultType="MemberDto"> -->
+	<select id="selectMemberByMemberIdAndPasswd" parameterType="MemberDto" resultMap="memberDtoResultMap">	
+		SELECT <include refid="memberColumns" />
+		FROM member
+		WHERE memberId = #{ memberId } AND passwd = #{ passwd }
+	</select>
+	<select id="selectMemberMemberByIdAndPasswd2" parameterType="hashmap" resultMap="memberDtoResultMap">
+		SELECT <include refid="memberColumns" />
+		FROM member
+		WHERE memberId = #{ memberId } AND passwd = #{ passwd }
+	</select>
+	
+	<!-- <insert id="insertMember" parameterType="com.demoweb.dto.MemberDto"> -->
+	<insert id="insertMember" parameterType="MemberDto">
+		INSERT INTO member (memberid, passwd, email) 
+		VALUES (#{ memberId }, #{ passwd }, #{ email })
+	</insert>
+	
+	<update id="updatePasswd" parameterType="MemberDto">
+		UPDATE member SET passwd = #{ passwd } WHERE memberid = #{ memberId }
+	</update>
+	
+	<select id="selectMemberCountByMemberId" parameterType="string" resultType="int">
+		SELECT COUNT(memberId)
+		FROM member
+		WHERE memberid = #{ memberId }
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+

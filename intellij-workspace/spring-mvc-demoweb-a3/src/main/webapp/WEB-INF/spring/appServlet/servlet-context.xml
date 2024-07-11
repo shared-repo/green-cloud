@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/aop 
+						https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven /> <!-- RequestMappingHandlerMapping, HandlerAdapter 등록 -->
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="com.demoweb.controller" />
+	
+	<!-- 단순 화면 표시 요청인 경우 컨트롤러 메서드를 만들지 않고 직접 jsp로 연결 -->
+	<view-controller path="/account/register-form" view-name="account/register" />
+	<view-controller path="/account/login-form" view-name="account/login" />
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/board/**" />
+			<exclude-mapping path="/board/list" />
+			<exclude-mapping path="/board/detail" />
+			<beans:bean class="com.demoweb.interceptor.AuthInterceptor" />
+		</interceptor>
+	</interceptors>
+	
+	<beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- mailSender.setHost("smtp.naver.com"); -->
+		<beans:property name="host" value="smtp.naver.com"/>
+		<beans:property name="port" value="465"/>
+		<beans:property name="defaultEncoding" value="utf-8"/>
+		<beans:property name="username" value=""/>
+		<beans:property name="password" value=""/>
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.debug">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.required">true</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.ssl.enable">true</beans:prop>
+				<beans:prop key="mail.smtp.ssl.trust">smtp.naver.com</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="messageSource" 
+				class="org.springframework.context.support.ResourceBundleMessageSource">
+		<beans:property name="basenames">
+			<beans:list>
+				<beans:value>message.label</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>
+	
+	<beans:bean id="multipartResolver" 
+				class="org.springframework.web.multipart.support.StandardServletMultipartResolver">		
+	</beans:bean>
+	
+	<beans:bean id="accessLogger" class="com.demoweb.aop.AccessLogger" />
+	
+	<aop:aspectj-autoproxy />
+	
+</beans:beans>
+
+
+
+
+
+
+
+
+
+
