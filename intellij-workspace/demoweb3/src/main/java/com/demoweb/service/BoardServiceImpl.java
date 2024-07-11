@@ -2,6 +2,8 @@ package com.demoweb.service;
 
 import java.util.List;
 
+import com.demoweb.entity.BoardEntity;
+import com.demoweb.repository.BoardRepository;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -20,6 +22,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Setter
 	private BoardMapper boardMapper;
+
+	@Setter
+	private BoardRepository boardRepository;
 	
 	@Setter
 	private TransactionTemplate transactionTemplate;
@@ -66,19 +71,18 @@ public class BoardServiceImpl implements BoardService {
 //	}
 	
 	@Override
-	@Transactional(rollbackFor = Exception.class, 
-				   propagation = Propagation.REQUIRED, 
-				   isolation = Isolation.READ_COMMITTED)
+//	@Transactional(rollbackFor = Exception.class,
+//				   propagation = Propagation.REQUIRED,
+//				   isolation = Isolation.READ_COMMITTED)
 	public void writeBoard(BoardDto board) {
-	
-		boardMapper.insertBoard2(board);
-		
-		// int x = 10 / 0; // 트랜잭션 테스트를 위해서 강제 예외 발생
-		
-		for (BoardAttachDto attach : board.getAttachments()) {
-			attach.setBoardNo(board.getBoardNo());
-			boardMapper.insertBoardAttach(attach);
-		}
+
+		BoardEntity boardEntity = board.toEntity();
+		boardRepository.save(boardEntity); // save -> insert or update
+
+//		for (BoardAttachDto attach : board.getAttachments()) {
+//			attach.setBoardNo(board.getBoardNo());
+//			boardMapper.insertBoardAttach(attach);
+//		}
 	}
 	
 	@Override

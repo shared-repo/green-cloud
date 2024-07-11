@@ -86,19 +86,21 @@ public class BoardController {
 		
 		// 데이터 읽기 : 컨트롤러 메서드의 전달인자를 통해 자동으로 데이터 읽기 실행	
 		// 데이터 처리 : 서비스 호출
-		BoardAttachDto attachment = new BoardAttachDto();
 		ArrayList<BoardAttachDto> attachments = new ArrayList<>();
-		try {
-			String dir = req.getServletContext().getRealPath("/board-attachments");
-			String userFileName = attach.getOriginalFilename();
-			String savedFileName = Util.makeUniqueFileName(userFileName);			
-			attach.transferTo(new File(dir, savedFileName)); // 파일 저장
-			
-			attachment.setUserFileName(userFileName);
-			attachment.setSavedFileName(savedFileName);
-			attachments.add(attachment);			
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		if (!attach.isEmpty() && attach.getOriginalFilename().length() > 0) {
+			BoardAttachDto attachment = new BoardAttachDto();
+			try {
+				String dir = req.getServletContext().getRealPath("/board-attachments");
+				String userFileName = attach.getOriginalFilename();
+				String savedFileName = Util.makeUniqueFileName(userFileName);
+				attach.transferTo(new File(dir, savedFileName)); // 파일 저장
+
+				attachment.setUserFileName(userFileName);
+				attachment.setSavedFileName(savedFileName);
+				attachments.add(attachment);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 		}
 		board.setAttachments(attachments);
 		

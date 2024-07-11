@@ -1,0 +1,5 @@
+[user]
+	name = instructor
+	email = instructor@green.com
+[core]
+	editor = code --wait

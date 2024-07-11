@@ -3,10 +3,16 @@ package com.demoweb.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.demoweb.entity.BoardEntity;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BoardDto {
 	
 	private int boardNo;
@@ -23,5 +29,17 @@ public class BoardDto {
 	
 	// board 테이블과 boardcomment 테이블 사이의 1 : Many 관계를 구현하는 필드
 	private List<BoardCommentDto> comments;
+
+	public BoardEntity toEntity() {
+		BoardEntity boardEntity = BoardEntity.builder()	.title(title)
+													   	.writer(writer)
+													   	.content(content)
+//													   	.writeDate(writeDate)
+//														.modifyDate(modifyDate)
+														.readCount(readCount)
+														.deleted(deleted)
+														.build();
+		return boardEntity;
+	}
 
 }

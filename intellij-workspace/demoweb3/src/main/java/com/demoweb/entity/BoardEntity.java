@@ -1,5 +1,7 @@
 package com.demoweb.entity;
 
+import com.demoweb.dto.BoardAttachDto;
+import com.demoweb.dto.BoardCommentDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -38,6 +41,14 @@ public class BoardEntity {
     @Builder.Default
     @Column
     private boolean deleted = false;
+
+    @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
+    @JoinColumn(name = "boardNo")
+    private List<BoardAttachEntity> attachments;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "boardNo")
+    private List<BoardCommentEntity> comments;
 
 }
 
