@@ -3,7 +3,9 @@ package com.demoweb.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.demoweb.entity.BoardAttachEntity;
 import com.demoweb.entity.BoardEntity;
+import com.demoweb.repository.BoardAttachRepository;
 import com.demoweb.repository.BoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,6 +32,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Setter
 	private BoardRepository boardRepository;
+	@Setter
+	private BoardAttachRepository boardAttachRepository;
 	
 	@Setter
 	private TransactionTemplate transactionTemplate;
@@ -43,10 +47,15 @@ public class BoardServiceImpl implements BoardService {
 		BoardEntity boardEntity = board.toEntity();
 		boardRepository.save(boardEntity); // save -> insert or update
 
-//		for (BoardAttachDto attach : board.getAttachments()) {
-//			attach.setBoardNo(board.getBoardNo());
-//			boardMapper.insertBoardAttach(attach);
-//		}
+		List<BoardAttachEntity> attachments = new ArrayList<>();
+		for (BoardAttachDto attach : board.getAttachments()) {
+			attach.setBoardNo(boardEntity.getBoardNo());
+			attachments.add(attach.toEntity());
+			boardAttachRepository.save(attach.toEntity());
+		}
+		//boardEntity.setAttachments(attachments);
+		//boardRepository.save(boardEntity); // save -> insert or update
+
 	}
 	
 	@Override

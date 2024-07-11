@@ -2,6 +2,7 @@ package com.demoweb.config;
 
 import javax.sql.DataSource;
 
+import com.demoweb.repository.BoardAttachRepository;
 import com.demoweb.repository.BoardRepository;
 import com.demoweb.repository.MemberRepository;
 import com.zaxxer.hikari.HikariConfig;
@@ -71,10 +72,11 @@ public class RootConfiguration {
 		return accountService;
 	}
 	
-	@Bean BoardService boardService(BoardMapper boardMapper, BoardRepository boardRepository) throws Exception {
+	@Bean BoardService boardService(BoardMapper boardMapper, BoardRepository boardRepository, BoardAttachRepository boardAttachRepository) throws Exception {
 		BoardServiceImpl boardService = new BoardServiceImpl();		
 		boardService.setBoardMapper(boardMapper);
 		boardService.setBoardRepository(boardRepository);
+		boardService.setBoardAttachRepository(boardAttachRepository);
 		boardService.setTransactionTemplate(transactionTemplate());
 		return boardService;
 	}
