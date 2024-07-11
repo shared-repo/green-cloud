@@ -1,0 +1,27 @@
+<div id="header" xmlns:th="http://www.thymeleaf.org">
+
+    <div class="title">
+        <a href="/home">DEMO WEBSITE</a>
+    </div>
+    <div class="links">
+        <th:block th:if="${ #ctx.session.loginuser == null }">
+            <a href="/account/login">로그인</a>
+            <a href="/account/register">회원가입</a>
+        </th:block>
+        <th:block th:if="${ #ctx.session.loginuser != null }">
+            [[${ #ctx.session.loginuser.memberId }]]님 환영합니다.
+            <a href="/account/logout">로그아웃</a>
+        </th:block>
+    </div>
+</div>
+
+<div id="menu">
+    <div>
+        <ul>
+            <li><a href="#" th:text="#{ menu.admin }"></a></li>
+            <li><a href="/mail/send-mail" th:text="#{ menu.email }"></a></li>
+            <li><a href="#" th:text="#{ menu.library }"></a></li>
+            <li><a href="/board/list" th:text="#{ menu.board }"></a></li>
+        </ul>
+    </div>
+</div>

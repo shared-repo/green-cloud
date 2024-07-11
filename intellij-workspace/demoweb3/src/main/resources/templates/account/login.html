@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset='utf-8' />
+    <title>Login</title>
+    <link rel='Stylesheet' th:href='@{/styles/default.css}' />
+    <link rel='Stylesheet' th:href='@{/styles/input.css}' />
+</head>
+<body>
+
+<div id='pageContainer'>
+
+    <div th:replace="~{modules/header}"></div>
+
+    <div id="inputcontent">
+        <br /><br />
+        <div id="inputmain">
+            <div class="inputsubtitle">로그인정보</div>
+
+            <form action="login" method="post">
+                <input type="hidden" name="returnUri" th:value="${ returnUri }">
+                <table>
+                    <tr>
+                        <th>아이디(ID)</th>
+                        <td>
+                            <input type="text" name="memberId" style="width:280px" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호</th>
+                        <td>
+                            <input type="password" name="passwd" style="width:280px" />
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="buttons">
+                    <input type="submit" value="로그인" style="height:25px" />
+                    <input type="button" id="cancel-btn" value="취소" style="height:25px" />
+                    <input type="button" id="reset-pwd-btn" value="비밀번호초기화" style="height:25px" />
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-3.7.1.js"></script>
+<script type="text/javascript">
+    $(function() {
+
+        $('#cancel-btn').on("click", function(event) {
+            location.href = "/home";
+        });
+
+        $('#reset-pwd-btn').on("click", function(event) {
+            location.href = "/account/reset-passwd";
+        });
+
+        if ([[${ loginFail }]]) {
+            alert('로그인 실패');
+        }
+
+    });
+
+</script>
+
+</body>
+</html>
