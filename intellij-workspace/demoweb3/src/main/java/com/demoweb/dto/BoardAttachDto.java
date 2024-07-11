@@ -20,8 +20,8 @@ public class BoardAttachDto {
 
 	public BoardAttachEntity toEntity() {
 		return BoardAttachEntity.builder()
-				.attachNo(attachNo)
-				.boardNo(boardNo)
+				// .attachNo(attachNo)
+				// .boardNo(boardNo)
 				.userFileName(userFileName)
 				.savedFileName(savedFileName)
 				.downloadCount(downloadCount)

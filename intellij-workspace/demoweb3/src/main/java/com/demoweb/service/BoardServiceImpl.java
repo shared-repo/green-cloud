@@ -45,16 +45,16 @@ public class BoardServiceImpl implements BoardService {
 	public void writeBoard(BoardDto board) {
 
 		BoardEntity boardEntity = board.toEntity();
-		boardRepository.save(boardEntity); // save -> insert or update
+		// boardRepository.save(boardEntity); // save -> insert or update
 
 		List<BoardAttachEntity> attachments = new ArrayList<>();
 		for (BoardAttachDto attach : board.getAttachments()) {
-			attach.setBoardNo(boardEntity.getBoardNo());
+			//attach.setBoardNo(boardEntity.getBoardNo());
 			attachments.add(attach.toEntity());
-			boardAttachRepository.save(attach.toEntity());
+			// boardAttachRepository.save(attach.toEntity());
 		}
-		//boardEntity.setAttachments(attachments);
-		//boardRepository.save(boardEntity); // save -> insert or update
+		boardEntity.setAttachments(attachments);
+		boardRepository.save(boardEntity); // save -> insert or update
 
 	}
 	
