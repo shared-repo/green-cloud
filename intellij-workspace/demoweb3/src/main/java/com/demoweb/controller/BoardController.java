@@ -124,8 +124,7 @@ public class BoardController {
 			return "redirect:list";
 		}
 		
-		// BoardDto board = boardService.findBoardByBoardNo(boardNo);
-		BoardDto board = boardService.findBoardByBoardNo2(boardNo);
+		BoardDto board = boardService.findBoardByBoardNo(boardNo);
 		
 		model.addAttribute("board", board);
 		model.addAttribute("pageNo", pageNo);

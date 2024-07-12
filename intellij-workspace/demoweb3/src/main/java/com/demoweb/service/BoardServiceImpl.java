@@ -93,10 +93,14 @@ public class BoardServiceImpl implements BoardService {
 		if (entity.isPresent()) {
 			BoardEntity boardEntity = entity.get();
 			BoardDto board = BoardDto.of(boardEntity);
-			List<BoardAttachDto> attachments = new ArrayList<>();
-			for (BoardAttachEntity entity2 : boardEntity.getAttachments()) {
-				attachments.add(BoardAttachDto.of(entity2));
-			}
+//			List<BoardAttachDto> attachments = new ArrayList<>();
+//			for (BoardAttachEntity entity2 : boardEntity.getAttachments()) {
+//				attachments.add(BoardAttachDto.of(entity2));
+//			}
+			List<BoardAttachDto> attachments =
+					boardEntity.getAttachments().stream()
+							.map(BoardAttachDto::of)
+							.toList();
 			board.setAttachments(attachments);
 			return board;
 		} else {
@@ -105,22 +109,13 @@ public class BoardServiceImpl implements BoardService {
 		//return entity.isPresent() ? BoardDto.of(entity.get()) : null;
 		
 	}
-	@Override
-	public BoardDto findBoardByBoardNo2(int boardNo) {
-		
-		// 게시글 조회
-		// BoardDto board = boardMapper.selectBoardByBoardNo2(boardNo);
-		// BoardDto board = boardMapper.selectBoardByBoardNo3(boardNo);
-		BoardDto board = boardMapper.selectBoardByBoardNo4(boardNo);
-		
-		return board;
-		
-	}
 
 	@Override
 	public BoardAttachDto findBoardAttachByAttachNo(int attachNo) {
-		BoardAttachDto attach = boardMapper.selectBoardAttachByAttachNo(attachNo);
-		return attach;
+		 // Optional<BoardAttachEntity> entity = boardAttachRepository.findById(attachNo);
+		// if return entity.isPresent() ? BoardAttachDto.of(entity.get()) : null;
+		BoardAttachEntity entity = boardRepository.findBoardAttachByAttachNo(attachNo);
+		return BoardAttachDto.of(entity);
 	}
 
 	@Override
