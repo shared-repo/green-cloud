@@ -209,7 +209,7 @@ public class BoardController {
 		try {		
 			boardService.modifyBoard(board);
 		} catch (Exception ex) {
-			System.out.println("글수정 실패");
+			ex.printStackTrace();
 			return String.format("redirect:edit?boardNo=%d&pageNo=%d", board.getBoardNo(), pageNo);
 		}
 		

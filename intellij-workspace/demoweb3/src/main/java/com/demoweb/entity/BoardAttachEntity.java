@@ -25,4 +25,5 @@ public class BoardAttachEntity {
     @Builder.Default
     @Column()
     private int downloadCount = 0;
+
 }

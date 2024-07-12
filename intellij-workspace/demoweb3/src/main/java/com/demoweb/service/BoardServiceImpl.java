@@ -130,22 +130,27 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void deleteBoardAttach(int attachNo) {
 
-		boardAttachRepository.deleteById(attachNo);	// 1
+		// boardAttachRepository.deleteById(attachNo);	// 1
 //		BoardAttachEntity entity = boardRepository.findBoardAttachByAttachNo(attachNo);
 //		boardAttachRepository.delete(entity); // 2
-//		boardRepository.deleteBoardAttachByAttachNo(attachNo); // 3
+		boardRepository.deleteBoardAttachByAttachNo(attachNo); // 3
 	}
 
 	@Override
 	public void modifyBoard(BoardDto board) {
-		
-		boardMapper.updateBoard(board);
-		
+
+		BoardEntity entity = boardRepository.findById(board.getBoardNo()).get();
+		entity.setTitle(board.getTitle());
+		entity.setContent(board.getContent());
+		boardRepository.save(entity);
+
 		if (board.getAttachments() != null) {
 			for (BoardAttachDto attach : board.getAttachments()) {
-				boardMapper.insertBoardAttach(attach);
+				boardAttachRepository.insertBoardAttach(attach.getBoardNo(),
+						attach.getUserFileName(), attach.getSavedFileName());
 			}
 		}
+
 		
 	}
 
