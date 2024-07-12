@@ -120,15 +120,20 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void deleteBoard(int boardNo) {
-		boardMapper.updateBoardDeleted(boardNo);
+		BoardEntity entity = boardRepository.findById(boardNo).get();
+//		boardRepository.delete(entity); // 실제 데이터 삭제
+		entity.setDeleted(true);
+		boardRepository.save(entity);
 		
 	}
 
 	@Override
 	public void deleteBoardAttach(int attachNo) {
-		
-		boardMapper.deleteBoardAttach(attachNo);
-		
+
+		boardAttachRepository.deleteById(attachNo);	// 1
+//		BoardAttachEntity entity = boardRepository.findBoardAttachByAttachNo(attachNo);
+//		boardAttachRepository.delete(entity); // 2
+//		boardRepository.deleteBoardAttachByAttachNo(attachNo); // 3
 	}
 
 	@Override

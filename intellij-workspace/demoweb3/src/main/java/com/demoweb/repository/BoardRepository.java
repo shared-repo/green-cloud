@@ -12,4 +12,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
 
     @Query(value = "SELECT ba FROM BoardAttachEntity ba WHERE ba.attachNo = :attachNo")
     BoardAttachEntity findBoardAttachByAttachNo(@Param("attachNo") int attachNo);
+
+    @Query(value = "DELETE FROM BoardAttachEntity ba WHERE ba.attachNo = :attachNo")
+    void deleteBoardAttachByAttachNo(@Param("attachNo")int attachNo);
 }
