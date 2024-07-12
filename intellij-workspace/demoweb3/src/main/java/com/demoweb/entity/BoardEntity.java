@@ -22,7 +22,8 @@ import java.util.List;
 public class BoardEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @TableGenerator(name="board_seq", allocationSize = 1)
     private int boardNo;
     @Column(nullable = false)
     private String title;

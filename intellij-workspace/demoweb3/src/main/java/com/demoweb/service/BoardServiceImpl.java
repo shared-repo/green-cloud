@@ -2,6 +2,7 @@ package com.demoweb.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.demoweb.entity.BoardAttachEntity;
 import com.demoweb.entity.BoardEntity;
@@ -45,13 +46,10 @@ public class BoardServiceImpl implements BoardService {
 	public void writeBoard(BoardDto board) {
 
 		BoardEntity boardEntity = board.toEntity();
-		// boardRepository.save(boardEntity); // save -> insert or update
 
 		List<BoardAttachEntity> attachments = new ArrayList<>();
 		for (BoardAttachDto attach : board.getAttachments()) {
-			//attach.setBoardNo(boardEntity.getBoardNo());
 			attachments.add(attach.toEntity());
-			// boardAttachRepository.save(attach.toEntity());
 		}
 		boardEntity.setAttachments(attachments);
 		boardRepository.save(boardEntity); // save -> insert or update
@@ -90,19 +88,21 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public BoardDto findBoardByBoardNo(int boardNo) {
-		
-		// 게시글 조회
-		BoardDto board = boardMapper.selectBoardByBoardNo(boardNo);
-		
-		// 첨부파일 조회
-		List<BoardAttachDto> attaches = boardMapper.selectBoardAttachByBoardNo(boardNo);		
-		board.setAttachments(attaches);
-		
-//		// 댓글 조회
-//		ArrayList<BoardCommentDto> comments = boardDao.selectBoardCommentByBoardNo(boardNo);
-//		board.setComments(comments);
-		
-		return board;
+
+		Optional<BoardEntity> entity = boardRepository.findById(boardNo);
+		if (entity.isPresent()) {
+			BoardEntity boardEntity = entity.get();
+			BoardDto board = BoardDto.of(boardEntity);
+			List<BoardAttachDto> attachments = new ArrayList<>();
+			for (BoardAttachEntity entity2 : boardEntity.getAttachments()) {
+				attachments.add(BoardAttachDto.of(entity2));
+			}
+			board.setAttachments(attachments);
+			return board;
+		} else {
+			return null;
+		}
+		//return entity.isPresent() ? BoardDto.of(entity.get()) : null;
 		
 	}
 	@Override

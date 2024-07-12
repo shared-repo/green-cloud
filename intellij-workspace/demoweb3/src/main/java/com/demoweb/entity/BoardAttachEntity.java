@@ -14,10 +14,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "tbl_boardattach")
 public class BoardAttachEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int attachNo;
-    @Column(nullable = false)
-    private int boardNo;
+//    @Column(nullable = false)
+//    private int boardNo;
     @Column(nullable = false)
     private String userFileName;	// 사용자가 업로드한 파일 이름
     @Column(nullable = false)
