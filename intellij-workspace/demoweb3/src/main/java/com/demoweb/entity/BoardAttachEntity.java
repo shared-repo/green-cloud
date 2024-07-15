@@ -26,4 +26,8 @@ public class BoardAttachEntity {
     @Column()
     private int downloadCount = 0;
 
+    @ManyToOne
+    @JoinColumn(name = "boardNo")
+    private BoardEntity board;
+
 }

@@ -45,12 +45,12 @@ public class BoardEntity {
     @Column
     private boolean deleted = false;
 
-    @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-    @JoinColumn(name = "boardNo")
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER , cascade = CascadeType.ALL)
+    // @JoinColumn(name = "boardNo")
     private List<BoardAttachEntity> attachments;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boardNo")
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    // @JoinColumn(name = "boardNo")
     private List<BoardCommentEntity> comments;
 
 }
