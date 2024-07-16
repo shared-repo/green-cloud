@@ -1,15 +1,13 @@
 package com.demoweb.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Set;
 
 
 @Data
@@ -35,4 +33,12 @@ public class MemberEntity {
     @Builder.Default
     @Column
     private boolean active = true;
+
+    @ManyToMany
+    @JoinTable(
+            name="tbl_member_role",
+            joinColumns = @JoinColumn(name = "memberId"),
+            inverseJoinColumns = @JoinColumn(name = "roleNo")
+    )
+    private Set<RoleEntity> roles;
 }

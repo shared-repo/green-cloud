@@ -3,13 +3,16 @@ package com.demoweb.service;
 import com.demoweb.common.Util;
 import com.demoweb.dto.MemberDto;
 import com.demoweb.entity.MemberEntity;
+import com.demoweb.entity.RoleEntity;
 import com.demoweb.mapper.MemberMapper;
 
 import com.demoweb.repository.MemberRepository;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.OptionalInt;
+import java.util.Set;
 
 public class AccountServiceImpl implements AccountService {
 
@@ -19,12 +22,17 @@ public class AccountServiceImpl implements AccountService {
 	// 회원 가입 처리
 	@Override
 	public void registerMember(MemberDto member) {
-		
-		// 업무 규칙(요구사항) 처리
+
 		String hashedPasswd = Util.getHashedString(member.getPasswd(), "SHA-256");
 		member.setPasswd(hashedPasswd);
 
 		MemberEntity memberEntity = member.toEntity();
+
+		RoleEntity role = memberRepository.findRoleByRoleName(member.getUserType());
+		Set<RoleEntity> roles = new HashSet<>();
+		roles.add(role);
+		memberEntity.setRoles(roles);
+
 		memberRepository.save(memberEntity); // entity 저장 --> insert or update
 		
 	}

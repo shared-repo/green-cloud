@@ -26,8 +26,9 @@ public class MemberDto {
 	@Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$", 
 			 message = "이메일 형식 오류")
 	private String email;
-	
-	private String userType;
+
+	@Builder.Default
+	private String userType = "ROLE_USER";
 	private Date regDate;
 	private boolean active;
 
@@ -35,17 +36,19 @@ public class MemberDto {
 		MemberEntity memberEntity = MemberEntity.builder().memberId(memberId)
 														  .passwd(passwd)
 														  .email(email)
+														  .userType(userType)
 														  .build();
 		return memberEntity;
 	}
 
 	public static MemberDto of(MemberEntity memberEntity) {
-		MemberDto memberDto = MemberDto.builder().memberId(memberEntity.getMemberId())
-												 .email(memberEntity.getEmail())
-												 .userType(memberEntity.getUserType())
-												 .regDate(memberEntity.getRegDate())
-												 .build();
-		return memberDto;
+		return MemberDto.builder()
+				.memberId(memberEntity.getMemberId())
+				.passwd(memberEntity.getPasswd())
+				.email(memberEntity.getEmail())
+				.userType(memberEntity.getUserType())
+				.regDate(memberEntity.getRegDate())
+				.build();
 	}
 
 }
