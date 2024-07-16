@@ -54,18 +54,39 @@ public class SecurityConfiguration {
 //                .formLogin((formLogin) -> formLogin
 //                        .loginPage("/account/login"));
 
-        DelegatingServerLogoutHandler logoutHandler = new DelegatingServerLogoutHandler(
-                new SecurityContextServerLogoutHandler(), new WebSessionServerLogoutHandler()
-        );
-        // 2.
+//        // 2.
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests((authorize) -> authorize
+//                        .requestMatchers("/board/*write*", "/board/*edit*", "/board/*delete*").authenticated()
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .anyRequest().permitAll())
+//                .httpBasic(Customizer.withDefaults())
+//                .formLogin(AbstractHttpConfigurer::disable);
+
+//        // 3.
+//        http
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests((authorize) -> authorize
+//                        .requestMatchers("/board/*write*", "/board/*edit*", "/board/*delete*").authenticated()
+//                        .requestMatchers("/admin/**").hasRole("ADMIN")
+//                        .anyRequest().permitAll())
+//                .httpBasic(AbstractHttpConfigurer::disable)
+//                .formLogin(Customizer.withDefaults());
+
+        // 4.
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/board/*write*", "/board/*edit*", "/board/*delete*").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
-                .httpBasic(Customizer.withDefaults())
-                .formLogin(AbstractHttpConfigurer::disable);
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .formLogin((login) -> login
+                        .loginPage("/account/login")
+                        .usernameParameter("memberId")
+                        .passwordParameter("passwd")
+                        .loginProcessingUrl("/account/process-login"));
 
         return http.build();
 
