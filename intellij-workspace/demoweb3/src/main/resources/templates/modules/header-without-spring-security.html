@@ -1,18 +1,16 @@
-<div id="header"
-     xmlns:th="http://www.thymeleaf.org"
-     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div id="header" xmlns:th="http://www.thymeleaf.org">
 
     <div class="title">
         <a href="/home">DEMO WEBSITE</a>
     </div>
     <div class="links">
-        <th:block sec:authorize="isAnonymous()">
+        <th:block th:if="${ #ctx.session.loginuser == null }">
             <a href="/account/login">로그인</a>
             <a href="/account/register">회원가입</a>
         </th:block>
-        <th:block sec:authorize="isAuthenticated()">
-            [[${ #authentication.principal.Username }]]님 환영합니다.
-            <a href="/logout">로그아웃</a>
+        <th:block th:if="${ #ctx.session.loginuser != null }">
+            [[${ #ctx.session.loginuser.memberId }]]님 환영합니다.
+            <a href="/account/logout">로그아웃</a>
         </th:block>
     </div>
 </div>

@@ -90,9 +90,24 @@ public class SecurityConfiguration {
 //
 //    }
 
-    // 2.
+//    // 2 - 1.
+//    @Bean
+//    public UserDetailsService userDetailsService(DataSource dataSource) {
+//        return new JdbcUserDetailsManager(dataSource); // 미리 정해진 테이블, SQL을 사용해서 인증 처리
+//    }
+
+    // 2 - 2.
     @Bean
     public UserDetailsService userDetailsService(DataSource dataSource) {
-        return new JdbcUserDetailsManager(dataSource); // 미리 정해진 테이블, SQL을 사용해서 인증 처리
+        JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager(dataSource);
+        // 사용자 정의 테이블을 사용하기 위해 로그인, 권한 검사에 사용할 Query 지정
+        userDetailsService.setUsersByUsernameQuery("select email,password,enabled " +
+                "from custom_users " +
+                "where email = ?");
+        userDetailsService.setAuthoritiesByUsernameQuery("select email, authority " +
+                "from custom_authorities " +
+                "where email = ?");
+
+        return userDetailsService;
     }
 }
