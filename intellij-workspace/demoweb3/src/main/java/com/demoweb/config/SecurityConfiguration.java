@@ -90,7 +90,12 @@ public class SecurityConfiguration {
                         .loginPage("/account/login")
                         .usernameParameter("memberId")
                         .passwordParameter("passwd")
-                        .loginProcessingUrl("/account/process-login"));
+                        .loginProcessingUrl("/account/process-login"))
+                .logout((logout) -> logout
+                        .logoutUrl("/account/logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JESSIONID")
+                        .logoutSuccessUrl("/home"));
 
         return http.build();
 
