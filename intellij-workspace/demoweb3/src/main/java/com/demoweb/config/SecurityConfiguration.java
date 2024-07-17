@@ -1,5 +1,7 @@
 package com.demoweb.config;
 
+import com.demoweb.security.DemoWebPasswordEncoder;
+import com.demoweb.security.DemoWebUserDetailsService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,7 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -94,10 +98,11 @@ public class SecurityConfiguration {
 
 ///////////////////////////////////////////////
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    // for 1, 2
+//    @Bean
+//    PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
 //    // 1.
 //    @Bean
@@ -127,18 +132,28 @@ public class SecurityConfiguration {
 //        return new JdbcUserDetailsManager(dataSource); // 미리 정해진 테이블, SQL을 사용해서 인증 처리
 //    }
 
-    // 2 - 2.
-    @Bean
-    public UserDetailsService userDetailsService(DataSource dataSource) {
-        JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager(dataSource);
-        // 사용자 정의 테이블을 사용하기 위해 로그인, 권한 검사에 사용할 Query 지정
-        userDetailsService.setUsersByUsernameQuery("select email,password,enabled " +
-                "from custom_users " +
-                "where email = ?");
-        userDetailsService.setAuthoritiesByUsernameQuery("select email, authority " +
-                "from custom_authorities " +
-                "where email = ?");
+//    // 2 - 2.
+//    @Bean
+//    public UserDetailsService userDetailsService(DataSource dataSource) {
+//        JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager(dataSource);
+//        // 사용자 정의 테이블을 사용하기 위해 로그인, 권한 검사에 사용할 Query 지정
+//        userDetailsService.setUsersByUsernameQuery("select email,password,enabled " +
+//                "from custom_users " +
+//                "where email = ?");
+//        userDetailsService.setAuthoritiesByUsernameQuery("select email, authority " +
+//                "from custom_authorities " +
+//                "where email = ?");
+//
+//        return userDetailsService;
+//    }
 
-        return userDetailsService;
+    // 3.
+    @Bean PasswordEncoder passwordEncoder() {
+        return new DemoWebPasswordEncoder();
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new DemoWebUserDetailsService();
     }
 }

@@ -48,6 +48,7 @@ public class MemberDto {
 				.email(memberEntity.getEmail())
 				.userType(memberEntity.getUserType())
 				.regDate(memberEntity.getRegDate())
+				.active(memberEntity.isActive())
 				.build();
 	}
 
