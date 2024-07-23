@@ -10,6 +10,7 @@
 		<typeAlias type="com.demoweb.dto.BoardDto" alias="BoardDto" />
 		<typeAlias type="com.demoweb.dto.BoardCommentDto" alias="BoardCommentDto" />
 		<typeAlias type="com.demoweb.dto.BoardAttachDto" alias="BoardAttachDto" />
+		<typeAlias type="com.demoweb.dto.SearchOptionDto" alias="SearchOptionDto" />
 	</typeAliases>
 
 	<mappers>

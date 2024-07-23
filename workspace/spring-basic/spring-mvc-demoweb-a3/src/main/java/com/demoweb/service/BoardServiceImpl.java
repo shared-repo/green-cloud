@@ -12,6 +12,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardCommentDto;
 import com.demoweb.dto.BoardDto;
+import com.demoweb.dto.SearchOptionDto;
 import com.demoweb.mapper.BoardMapper;
 
 import lombok.Setter;
@@ -85,8 +86,7 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDto> findAllBaord() {		
 		List<BoardDto> boards = boardMapper.selectAllBoard();
 		return boards;
-	}
-	
+	}	
 
 	@Override
 	public int getBoardCount() {
@@ -97,6 +97,19 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardDto> findBaordByRange(int start, int count) {
 		
 		List<BoardDto> boards = boardMapper.selectBoardByRange(start, start + count);
+		return boards;
+		
+	}
+	
+	@Override
+	public int getBoardCountWithSearch(SearchOptionDto criteria) {
+		return boardMapper.selectBoardCountWithSearch(criteria);
+	}	
+	
+	@Override
+	public List<BoardDto> findBaordByRangeWithSearch(SearchOptionDto criteria) {
+		
+		List<BoardDto> boards = boardMapper.selectBoardByRangeWithSearch(criteria);
 		return boards;
 		
 	}

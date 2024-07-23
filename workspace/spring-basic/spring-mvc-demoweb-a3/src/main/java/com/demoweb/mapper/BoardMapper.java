@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import com.demoweb.dto.BoardAttachDto;
 import com.demoweb.dto.BoardCommentDto;
 import com.demoweb.dto.BoardDto;
+import com.demoweb.dto.SearchOptionDto;
 
 // MyBatis Mapper.xml 파일과 연동해서 동작하는 DAO 객체 생성할 때 적용할 인터페이스
 // Mapper.xml 파일과 동일하게 작성 (경로, 이름, 전달인자, 결과형, ... )
@@ -28,8 +29,12 @@ public interface BoardMapper {
 	void insertBoardAttach(BoardAttachDto attach);
 	List<BoardAttachDto> selectBoardAttachByBoardNo(int boardNo);
 	BoardAttachDto selectBoardAttachByAttachNo(int attachNo);
-	List<BoardDto> selectBoardByRange(@Param("from") int from, @Param("to") int to);
+	
 	int selectBoardCount();
+	List<BoardDto> selectBoardByRange(@Param("from") int from, @Param("to") int to);
+	int selectBoardCountWithSearch(SearchOptionDto criteria);
+	List<BoardDto> selectBoardByRangeWithSearch(SearchOptionDto criteria);
+	
 	
 	void insertComment(BoardCommentDto comment);
 	List<BoardCommentDto> selectBoardCommentsByBoardNo(int boardNo);

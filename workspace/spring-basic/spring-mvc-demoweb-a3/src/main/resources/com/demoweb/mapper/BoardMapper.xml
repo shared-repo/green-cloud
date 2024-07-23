@@ -75,6 +75,48 @@
 		]]>
 	</select>
 	
+	<sql id="searchCondition">
+		<where>
+			<if test="isSearch==true">
+				<choose>
+					<when test="searchType == 'title'.toString()">						
+						title LIKE '%' || #{ searchWord } || '%'
+					</when>
+					<when test="searchType == 'content'.toString()">
+						content LIKE '%' || #{ searchWord } || '%'
+					</when>
+					<when test="searchType == 'writer'.toString()">
+						writer LIKE '%' || #{ searchWord } || '%'
+					</when>
+					<when test="searchType == 'all'.toString()">
+						( title LIKE '%' || #{ searchWord } || '%' ) OR ( content  '%' || #{ searchWord } || '%' ) OR ( writer LIKE'%' || #{ searchWord } || '%' )
+					</when>
+				</choose>		
+			</if>
+		</where>		
+	</sql>
+	<select id="selectBoardCountWithSearch" resultType="int" parameterType="SearchOptionDto">
+		SELECT COUNT(*) 
+		FROM board
+		<include refid="searchCondition" />				
+	</select>
+	<select id="selectBoardByRangeWithSearch" parameterType="SearchOptionDto" resultType="BoardDto">		
+		SELECT *
+		FROM
+		(
+			SELECT ROWNUM idx, a.*
+			FROM
+			(
+				SELECT boardno, title, writer, readcount, writedate, modifydate, deleted
+				FROM board
+				<include refid="searchCondition" />
+				ORDER BY boardno DESC				
+			) a
+			WHERE ROWNUM <![CDATA[<]]> #{ to }
+		) b
+		WHERE b.idx >= #{ from }
+	</select>
+	
 	<select id="selectBoardByBoardNo" parameterType="int" resultType="BoardDto">
 		SELECT boardNo, title, writer, content, readCount, writeDate, modifyDate
 		FROM board
