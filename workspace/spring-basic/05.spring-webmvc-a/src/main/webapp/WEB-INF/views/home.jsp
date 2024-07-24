@@ -16,7 +16,7 @@
 			전화 : <input type="text" name="phone" /><br />
 			메일 : <input type="text" name="email" /><br />
 			나이 : <input type="text" name="age" /><br />
-			나이 : <input type="date" name="birthDate" /><br />
+			생일 : <input type="date" name="birthDate" /><br />
 			<input type="submit" value="전송" />
 		</form>
 		<h3>3. <a href="#">Transfer Data from Controller to View (Refer to 1, 2)</a></h3>
@@ -31,6 +31,19 @@
 		<h3>8-4. <a href="javascript:" id="async-link3">Asynchronous Request/Response 3</a></h3>
 		<div style='border:solid 1px;margin-bottom:2px;padding:5px'><%= new Date() %></div>
 		<div id="message" style='border:solid 1px;margin-bottom:2px;padding:5px'>${ syncResult }</div>
+		<h3>9. Send Multiple Objects</h3>
+		<form id="send-list-form" action="demo/send-list" method="post">
+			이름1 : <input type="text" name="persons[0].name" value="홍길동" /><br />
+			전화1 : <input type="text" name="persons[0].phone" /><br />
+			메일1 : <input type="text" name="persons[0].email" /><br />
+			나이1 : <input type="text" name="persons[0].age" /><br />
+			<hr>
+			이름2 : <input type="text" name="persons[1].name" value="홍길동" /><br />
+			전화2 : <input type="text" name="persons[1].phone" /><br />
+			메일2 : <input type="text" name="persons[1].email" /><br />
+			나이2 : <input type="text" name="persons[1].age" /><br />
+			<input type="submit" value="전송" id="send-list"/>
+		</form>
 	</div>
 	<br><br><br><br><br>
 	
@@ -66,6 +79,8 @@
 			$('#async-link3').on('click', function(event) {
 				$('#message').load("demo/async3");
 			});
+			
+			
 		});
 	</script>
 </body>

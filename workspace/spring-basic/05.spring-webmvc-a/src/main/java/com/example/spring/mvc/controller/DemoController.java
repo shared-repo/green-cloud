@@ -2,8 +2,11 @@ package com.example.spring.mvc.controller;
 
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.example.spring.mvc.dto.Person;
+import com.example.spring.mvc.dto.PersonList;
 import com.example.spring.mvc.view.MyView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -226,6 +230,20 @@ public class DemoController {
 		return "demo/person"; // /WEB-INF/views/ + demo/person + .jsp
 		
 	}
+	
+//	@PostMapping(path = { "/send-list" })
+//	public String processList(Person person1, Person person2) {
+//		System.out.println(person1);
+//		System.out.println(person2);
+//		return "demo/result";
+//	}	
+	@PostMapping(path = { "/send-list" })
+	public String processList(PersonList personList) {
+		System.out.println(personList.getPersons().get(0));
+		System.out.println(personList.getPersons().get(1));
+		return "demo/result";
+	}	
+
 	//////////////////////
 	
 //	// 요청 데이터 중 날짜 형식의 데이터는 Model객체에 자동으로 binding되지 않기 때문에 변환기를 등록하는 작업
@@ -234,10 +252,6 @@ public class DemoController {
 //		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //		binder.registerCustomEditor(Date.class, new CustomDateEditor(sdf, false));		
 //	}
-	
-	
-	
-	
 
 }
 
