@@ -28,10 +28,10 @@
                         <tr>
                             <th>작성자</th>
                             <td>
-                                <th:block th:if="${ #ctx.session.loginuser != null}">
+                                <th:block th:if="${ #authentication.principal.Username != null}">
                                     <input type="hidden" name="writer"
-                                           th:value='${ #ctx.session.loginuser.memberId }'>
-                                    <span th:text='${ #ctx.session.loginuser.memberId }'></span>
+                                           th:value='${ #authentication.principal.Username }'>
+                                    <span th:text='${ #authentication.principal.Username }'></span>
                                 </th:block>
                             </td>
                         </tr>

@@ -8,15 +8,44 @@
 </head>
 <body>
 
-<div id='pageContainer'>
+    <div id='pageContainer'>
 
-    <div th:replace="~{/modules/header}"><div>
+        <div th:replace="~{/modules/header}"></div>
 
-    <div id='content'>
-        <br /><br /><br />
-        <h2 style='text-align:center'>Welcome to Demo WebSite !!!</h2>
+        <div id='content'>
+            <br /><br /><br />
+            <h2 style='text-align:center'>Welcome to Demo WebSite !!!</h2>
+        </div>
     </div>
-</div>
+
+    <script src="http://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+    $(function() {
+
+<!--        const eventSource = new EventSource("/stream-sse");-->
+<!--        eventSource.onmessage = function(event) {-->
+<!--            $('#sse-msg').html(event.data);-->
+<!--        };-->
+
+        const socket = new WebSocket("ws://localhost:8081/ws");
+
+        socket.onmessage = function(event) {
+            $('#ws-msg').html(event.data);
+        }
+         socket.onopen = function() {
+            console.log("WebSocket connection established");
+        };
+
+        socket.onclose = function() {
+            console.log("WebSocket connection closed");
+        };
+
+        socket.onerror = function(error) {
+            console.log("WebSocket error: " + error);
+        };
+    });
+    </script>
+
 
 </body>
 </html>

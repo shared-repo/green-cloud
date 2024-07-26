@@ -1,9 +1,13 @@
 package com.demoweb.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.demoweb.websocket.DemoWebSocketHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +43,9 @@ public class BoardController {
 	
 	@Setter(onMethod_ = { @Autowired })
 	private BoardService boardService;
+
+	@Setter(onMethod_ = { @Autowired })
+	private DemoWebSocketHandler socketHandler;
 	
 //	@GetMapping(path = {"/list"})
 //	public String listAll(Model model) {
@@ -109,6 +116,8 @@ public class BoardController {
 		} catch (Exception ex) {
 			System.out.println("글쓰기 실패");
 		}
+
+		sendMessages();
 		
 		// 이동		
 		return "redirect:list";
@@ -243,6 +252,18 @@ public class BoardController {
 		model.addAttribute("enter", "\n");
 		
 		return "board/comment-list";
+	}
+
+	public void sendMessages() {
+		SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+		String message = "WebSocket event - " + sdf.format(new Date());
+		// String message = "WebSocket event - " + Math.ceil(Math.random() * 100);
+		try {
+			// socketHandler.sendMessageToAll(message);
+			socketHandler.sendMessageToSomeone(message, 1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 
