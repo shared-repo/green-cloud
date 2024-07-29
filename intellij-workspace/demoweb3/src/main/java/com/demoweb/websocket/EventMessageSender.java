@@ -17,11 +17,11 @@ public class EventMessageSender {
         this.socketHandler = socketHandler;
     }
 
-//    @Scheduled(fixedRate = 5000)
+    // @Scheduled(fixedRate = 5000)
+    @Scheduled(cron = "0 0 0 * * ?") // 매일 0시에 실행
     public void sendPeriodicMessages() {
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         String message = "WebSocket event - " + sdf.format(new Date());
-        // String message = "WebSocket event - " + Math.ceil(Math.random() * 100);
         try {
             socketHandler.sendMessageToAll(message);
         } catch (IOException e) {

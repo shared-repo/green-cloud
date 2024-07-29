@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show Image</title>
+</head>
+<body>
+    <h2>Uploaded File:</h2>
+    <img th:src="@{/board/download-img/{filePath}(filePath=${attach.savedFileName})}" alt="Uploaded Image" />
+    <img th:src="@{'/board/download-img/' + ${attach.savedFileName}}" alt="Uploaded Image" />
+</div>
+</body>
+</html>

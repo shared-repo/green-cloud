@@ -1,9 +1,13 @@
 package com.demoweb.view;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.Map;
 
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.web.servlet.View;
 
 import com.demoweb.dto.BoardAttachDto;
@@ -29,9 +33,12 @@ public class DownloadView1 implements View {
 		
 		//ServletContext : JSP의 application객체와 동일한 객체		
 		ServletContext application = req.getServletContext();
-		String path = application.getRealPath("/board-attachments/" + attach.getSavedFileName()); // 웹경로 --> 컴퓨터 경로
+		// String path = application.getRealPath("/board-attachments/" + attach.getSavedFileName()); // 웹경로 --> 컴퓨터 경로
+		// String path = application.getRealPath(resourceLoader.getResource("classpath:/static/board-attachments2").getFile().getAbsolutePath());
+		String path = (String)model.get("uploadPath");
+		File filePath = new File(path, attach.getSavedFileName());
 		
-		FileInputStream fis = new FileInputStream(path); 	//파일을 읽는 도구
+		FileInputStream fis = new FileInputStream(filePath); 	//파일을 읽는 도구
 		OutputStream fos = resp.getOutputStream();			//브라우저에게 전송하는 도구
 		
 		while (true) {

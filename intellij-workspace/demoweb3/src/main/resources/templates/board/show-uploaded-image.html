@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Show Image File</title>
+</head>
+<body>
+<div>
+    <h2>Uploaded File:</h2>
+    <img th:if="${filePath.endsWith('.jpg') || filePath.endsWith('.png') || filePath.endsWith('.gif')}" th:src="@{${filePath}}" alt="Uploaded Image"/>
+    <a th:if="${!filePath.endsWith('.jpg') && !filePath.endsWith('.png') && !filePath.endsWith('.gif')}" th:href="@{${filePath}}" target="_blank">Download File</a>
+</div>
+</body>
+</html>
