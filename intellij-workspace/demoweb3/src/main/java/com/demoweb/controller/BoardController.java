@@ -42,7 +42,7 @@ public class BoardController {
     @Setter(onMethod_ = {@Autowired})
     private DemoWebSocketHandler socketHandler;
 
-    @Value("${upload.path}")
+    @Value("${upload.path}") // application.properties 파일의 upload.path 속성의 값 injection
     private String uploadPath;
 
     //	@GetMapping(path = {"/list"})
@@ -101,8 +101,7 @@ public class BoardController {
 //				String dir = req.getServletContext().getRealPath("/board-attachments");
 //				attach.transferTo(new File(dir, savedFileName)); // 파일 저장
 
-                File pathToSave = new File(uploadPath, savedFileName);
-                attach.transferTo(pathToSave); // 파일 저장
+                attach.transferTo(new File(uploadPath, savedFileName)); // 파일 저장
 
                 attachment.setUserFileName(userFileName);
                 attachment.setSavedFileName(savedFileName);

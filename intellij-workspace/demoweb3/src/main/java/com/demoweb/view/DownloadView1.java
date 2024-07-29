@@ -31,10 +31,6 @@ public class DownloadView1 implements View {
 				"Attachment;filename=\"" + 
 				new String(attach.getUserFileName().getBytes("utf-8"), "ISO-8859-1") + "\"");
 		
-		//ServletContext : JSP의 application객체와 동일한 객체		
-		ServletContext application = req.getServletContext();
-		// String path = application.getRealPath("/board-attachments/" + attach.getSavedFileName()); // 웹경로 --> 컴퓨터 경로
-		// String path = application.getRealPath(resourceLoader.getResource("classpath:/static/board-attachments2").getFile().getAbsolutePath());
 		String path = (String)model.get("uploadPath");
 		File filePath = new File(path, attach.getSavedFileName());
 		
