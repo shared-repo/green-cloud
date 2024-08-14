@@ -1,0 +1,29 @@
+
+services:
+  demoweb:
+    build: 
+      context: tomcat
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - demoweb-network
+
+  demoweb-db:
+    build: 
+      context: mysql
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data2:/var/lib/mysql
+    networks:
+      - demoweb-network
+
+volumes:
+  mysql-data2:
+
+networks:
+  demoweb-network:
+    external:
+      name: nat
