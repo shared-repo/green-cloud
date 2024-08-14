@@ -1,0 +1,47 @@
+[ MySQL 설치 ]
+
+1. 패키지 저장소 정보 추가 설치
+
+    # 저장소 설치 파일 목록
+    https://dev.mysql.com/downloads/repo/yum/
+
+    # 저장소 설치 1
+    wget https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+    rpm Uvh mysql84-community-release-el9-1.noarch.rpm
+
+    # 저장소 설치 2
+    yum install -y https://dev.mysql.com/get/mysql84-community-release-el9-1.noarch.rpm
+
+2. 설치
+
+   yum install -y mysql-community-server
+
+   mysqld --initialize-insecure --user=mysql
+
+   systemctl start mysqld
+
+   mysql_secure_installation --> 패스워드 등 입력
+
+
+3. 2의 과정에서 오류가 발생하면
+
+   yum remove -y mysql-community-server
+
+   find / -name mysql -> 발견되는 모든 파일과 디렉터리 삭제
+
+   2번 다시 실행
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+

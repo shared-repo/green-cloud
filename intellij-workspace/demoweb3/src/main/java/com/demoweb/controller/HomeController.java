@@ -14,11 +14,11 @@ public class HomeController {
 	
 	@RequestMapping(path = { "/", "/home" })
 	public String home() {
-		try {
-			System.out.println(resourceLoader.getResource("classpath:/static/").getFile().getAbsolutePath());
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+//		try {
+//			System.out.println(resourceLoader.getResource("classpath:/static/").getFile().getAbsolutePath());
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
 		return "home";		// /WEB-INF/views/ + home + .jsp
 	}
 

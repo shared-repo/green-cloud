@@ -1,0 +1,23 @@
+1. docker image pull alpine
+
+2. docker container run -i -t -p 8081:8080 --name demo alpine
+
+3. apk update
+
+4. apk add openjdk17
+
+5. export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+
+6. apk add git
+7. git config --global user.name "greencloud"
+8. git config --global user.email "greencloud@example.com"
+
+9. apk add maven
+
+10. cd /
+11. mkdir work
+12. cd work
+
+13. git clone https://github.com/shared-repo/green-cloud.git
+14. cd green-cloud/workspace/spring-basic/spring-mvc-demoweb-a3
+15. mvn clean package
