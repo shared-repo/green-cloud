@@ -28,6 +28,7 @@
         <div class="col-12">
           <button type="button" class="btn btn-primary" id="economy-indicator-button">주요경제지표</button>
           <button type="button" class="btn btn-primary" id="stock-quotes-button">주가그래프</button>
+          <button type="button" class="btn btn-primary" id="stock-quotes-button2">주가그래프2</button>
         </div>
       </div>
       <div class="row mt-4" id="economy-indicator-row">
@@ -304,6 +305,20 @@
           }
         });
       });
+
+      $('#stock-quotes-button2').on('click', function(event) {
+        $.ajax({
+          "url": "/demo/historical-stock-quotes2",
+          "method": "get",
+          "type": "json",
+          "success": function(data, status, xhr) {
+
+          },
+          "error": function(xhr, status, err) {
+            console.log("fail 2");
+          }
+        });
+      });
     
     
     });
@@ -411,7 +426,7 @@
           let v = row[k];
           if (k == 't') {
             const d = new Date(row[k]);
-            v = `${d.getFullYear()}${d.getMonth() < 9 ? "0" : ""}${d.getMonth() + 1}${d.getDate() < 10 ? "0" : ""}${d.getDate()}`;
+            v = `${d.getFullYear()}-${d.getMonth() < 9 ? "0" : ""}${d.getMonth() + 1}-${d.getDate() < 10 ? "0" : ""}${d.getDate()}`;
           }   
           const td = $(tdTemplate);
           td.find('h6').html(v);
