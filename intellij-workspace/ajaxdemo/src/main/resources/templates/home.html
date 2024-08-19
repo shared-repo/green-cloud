@@ -312,7 +312,14 @@
           "method": "get",
           "type": "json",
           "success": function(data, status, xhr) {
-
+            // console.log(data);
+            const xLabels = [], yValues = [];
+            $.each(data, function(idx, quote) {
+              xLabels.push(quote.date);
+              yValues.push(quote.close);
+            });
+            showDataOnLineChart(xLabels, "005930", yValues);
+            // showDataOnTable(data['results']);
           },
           "error": function(xhr, status, err) {
             console.log("fail 2");
