@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -99,6 +100,15 @@ public class DemoController {
             try { Thread.sleep(1000); } catch (Exception ex) {}
         }
         return quotes;
+    }
+
+    @RequestMapping(value = "/upload-image", produces = "platin/text;charset=utf-8")
+    public String uploadImage(MultipartFile imageFile) {
+
+        System.out.println("------------> filename : " + imageFile.getOriginalFilename());
+        System.out.println("------------> size : " + imageFile.getSize());
+
+        return "success";
     }
 
 

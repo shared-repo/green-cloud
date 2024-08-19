@@ -26,7 +26,7 @@
     <div class="container-fluid py-4">
       <div class="row" id="buttons-row">
         <div class="col-12">
-          <button type="button" class="btn btn-primary" id="image-upload-modal-button">파일 업로드</button>
+          <button type="button" class="btn btn-primary" id="show-image-upload-modal-button">파일 업로드</button>
           <button type="button" class="btn btn-primary" id="economy-indicator-button">주요경제지표</button>
           <button type="button" class="btn btn-primary" id="stock-quotes-button">주가그래프</button>
           <button type="button" class="btn btn-primary" id="stock-quotes-button2">주가그래프2</button>
@@ -165,7 +165,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                                        
+
                   </tbody>
                 </table>
               </div>
@@ -173,9 +173,9 @@
           </div>
         </div>
       </div>
-    
+
       <div th:replace="~{modules/footer}"></div>
-    
+
     </div>
 
   </main>
@@ -279,8 +279,6 @@
     </div>
   </div>
 
-
-
   <script src="/assets/js/plugins/chartjs.min.js"></script>
 
   <script>
@@ -308,7 +306,7 @@
           }
         })
       });
-    
+
       $('#stock-quotes-button').on('click', function(event) {
         $.ajax({
           "url": "/demo/historical-stock-quotes",
@@ -320,7 +318,7 @@
               const d = new Date(row["t"]); // tick -> Date   9 -> 09, 10 -> 10
               const ds = `${d.getFullYear()}${d.getMonth() < 9 ? "0" : ""}${d.getMonth() + 1}${d.getDate() < 10 ? "0" : ""}${d.getDate()}`;
               xLabels.push(ds);
-              yValues.push(row["c"]);              
+              yValues.push(row["c"]);
             });
             // console.log(yValues);
             // console.log(xLabels);
@@ -365,8 +363,45 @@
         isAjaxRunning = true;
         $("#on-loading-img").css('display', '');
       });
-    
-    
+
+      $('#show-image-upload-modal-button').on('click', function(event) {
+        $('#image-upload-modal').modal('show');
+      });
+
+      $('#image-file-selector').on('change', function(event) {
+        const selectedFile = event.target.files[0];
+        if (selectedFile) {
+          const fileReader = new FileReader();
+          fileReader.onload = function(e) {
+            $('#selected-image').attr('src', e.target.result);
+            // $('#selected-image')
+          };
+          fileReader.readAsDataURL(selectedFile);
+        }
+      });
+
+      $('#image-upload-button').on('click', function(event) {
+        const fileSelector = $('#image-file-selector')[0];
+        const formData = new FormData();
+        formData.append('imageFile', fileSelector.files[0]);
+
+        $.ajax({
+          "url": "/demo/upload-image",
+          "method": "post",
+          "data": formData,
+          "processData": false,
+          "contentType": false,
+          "success": function(data, status, xhr) {
+            alert('파일 업로드 성공');
+            $('#image-upload-modal').modal('hide');
+          }, // end of success
+          "error": function(xhr, status, err) {
+            alert('파일 업로드 실패');
+          } // end of error
+        }); // end of ajax
+      }); // end of $(function)
+
+
     });
 
 
@@ -461,7 +496,7 @@
     }
 
     const tdTemplate = `<td>
-                        <div class="d-flex px-2 py-1">                          
+                        <div class="d-flex px-2 py-1">
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm"></h6>
                           </div>
