@@ -4,6 +4,7 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,11 +65,16 @@ public class DemoController {
             try {
                 Document doc = conn.get();
                 // System.out.println(doc.html());
+
                 for (Element e : doc.select("table.type2 tr")) {
-                    Element td = e.selectFirst("td");
-                    if (td != null) {
-                        System.out.println(td.text());
+                    Elements tds = e.select("td");
+                    if (tds.size() == 7) {
+                        for (Element td : tds) {
+                            System.out.print("[" + td.text() + "]");
+                        }
+                        System.out.println();
                     }
+
                 }
             } catch(Exception ex) {
                 ex.printStackTrace();
