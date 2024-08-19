@@ -26,9 +26,11 @@
     <div class="container-fluid py-4">
       <div class="row" id="buttons-row">
         <div class="col-12">
+          <button type="button" class="btn btn-primary" id="image-upload-modal-button">파일 업로드</button>
           <button type="button" class="btn btn-primary" id="economy-indicator-button">주요경제지표</button>
           <button type="button" class="btn btn-primary" id="stock-quotes-button">주가그래프</button>
           <button type="button" class="btn btn-primary" id="stock-quotes-button2">주가그래프2</button>
+          <img src="/assets/img/on-loading.gif" id="on-loading-img" style="width:32px">
         </div>
       </div>
       <div class="row mt-4" id="economy-indicator-row">
@@ -254,6 +256,31 @@
   </div>
 
   <th:block th:replace="~{modules/common-script}"></th:block>
+
+  <!-- Modal -->
+  <div class="modal fade" id="image-upload-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+       tabindex="-1" aria-labelledby="image-upload-header" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="image-upload-header">이미지 업로드</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="file" id="image-file-selector" accept="image/*">
+          <br>
+          <img id="selected-image">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+          <button type="button" id="image-upload-button" class="btn btn-primary">업로드</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
   <script src="/assets/js/plugins/chartjs.min.js"></script>
 
   <script>
@@ -306,7 +333,13 @@
         });
       });
 
+      $('#on-loading-img').css('display', 'none');
+      let isAjaxRunning = false;
       $('#stock-quotes-button2').on('click', function(event) {
+        if (isAjaxRunning) {
+          alert('다른 비동기 작업이 실행중입니다.');
+          return;
+        }
         $.ajax({
           "url": "/demo/historical-stock-quotes2",
           "method": "get",
@@ -320,11 +353,17 @@
             });
             showDataOnLineChart(xLabels, "005930", yValues);
             // showDataOnTable(data['results']);
+            $("#on-loading-img").css('display', 'none');
+            isAjaxRunning = false;
           },
           "error": function(xhr, status, err) {
             console.log("fail 2");
+            $("#on-loading-img").css('display', 'none');
+            isAjaxRunning = false;
           }
         });
+        isAjaxRunning = true;
+        $("#on-loading-img").css('display', '');
       });
     
     
@@ -333,11 +372,14 @@
 
 
     ////////////////////////////////////////////////////////////
-    
+    let lineChart = null;
     function showDataOnLineChart(xLabels, dataLabel, yValues) {
+      if (lineChart) {
+        lineChart.destroy();
+      }
       var ctx2 = $("#chart-line")[0].getContext("2d");
 
-      new Chart(ctx2, {
+      lineChart = new Chart(ctx2, {
         type: "line",
         data: {
           labels: xLabels,
