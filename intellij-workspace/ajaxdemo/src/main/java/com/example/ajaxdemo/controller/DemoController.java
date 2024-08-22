@@ -102,7 +102,7 @@ public class DemoController {
         return quotes;
     }
 
-    @RequestMapping(value = "/upload-image", produces = "platin/text;charset=utf-8")
+    @RequestMapping(value = "/upload-image", produces = "plain/text;charset=utf-8")
     public String uploadImage(MultipartFile imageFile) {
 
         System.out.println("------------> filename : " + imageFile.getOriginalFilename());

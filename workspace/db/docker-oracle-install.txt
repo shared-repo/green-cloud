@@ -1,0 +1,86 @@
+1. 도커 데스크탑 시작 (관리자로 실행)
+
+2. powershell 시작 (관리자로 실행)
+
+3. oracle docker container 만들기
+
+   docker run -d --name oracle-db -p 1521:1521 -p 5500:5500 -e ORACLE_PWD=oracle container-registry.oracle.com/database/express:21.3.0-xe
+
+4. sqldeveloper 실행
+
+5. 새 연결 만들기
+
+    이름 : system-local-docker
+    계정 : system
+    패스워드 : oracle
+    연결테스트
+    연결
+
+6. 샘플 데이터베이스 다운로드
+
+    https://github.com/oracle-samples/db-sample-schemas
+
+
+7. 다운로드 받은 파일 압축풀기
+
+
+8. powershell에서 docker container 샘플 데이터베이스 파일 복사
+
+   현재 경로가 C:\Users\Administrator 인 상태에서 다음 명령 실행
+   container cp .\Downloads\db-sample-schemas-main oracle-db:/home/oracle/db-sample-schemas
+
+9. container에 연결
+
+   docker container exec -it oracle-db /bin/bash
+
+10. 복사한 샘플 데이터베이스 파일 경로로 이동
+
+   cd db-sample-schemas/human-resources
+
+11. 샘플 데이터베이스 설치
+
+   sqlplus system/oracle
+
+   alter session set "_ORACLE_SCRIPT"=TRUE;
+
+   @hr_install.sql
+
+    - 패스워드에 hr 입력
+    - 테이블스페이스에 엔터 입력
+    - 덮어쓰기에 YES 입력
+
+12. container에서 빠져나오기
+
+     exit 반복 실행
+
+
+13. slqdeveloper 에서 연결
+
+    이름 : hr-local-docker
+    계정 : hr
+    패스워드 : hr
+    연결테스트
+    연결
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
