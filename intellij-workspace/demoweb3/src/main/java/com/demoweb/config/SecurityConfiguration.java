@@ -35,7 +35,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-//        // 1 - 1.
+        // 1 - 1.
 //        http
 //                .csrf(AbstractHttpConfigurer::disable)
 //                .authorizeHttpRequests((authorize) -> authorize
@@ -43,9 +43,10 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/account/**").permitAll()
 //                        .requestMatchers("/image/**", "/styles/**").permitAll()
 //                        .anyRequest().authenticated())
+//                // .httpBasic(Customizer.withDefaults())
 //                .httpBasic(AbstractHttpConfigurer::disable)
-//                .formLogin((formLogin) -> formLogin
-//                        .loginPage("/account/login"));
+//                // .formLogin(Customizer.withDefaults());
+//                .formLogin((formLogin) -> formLogin.loginPage("/account/login"));
 
         // 1 - 2.
 //        http
@@ -55,10 +56,9 @@ public class SecurityConfiguration {
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
 //                        .anyRequest().permitAll())
 //                .httpBasic(AbstractHttpConfigurer::disable)
-//                .formLogin((formLogin) -> formLogin
-//                        .loginPage("/account/login"));
+//                .formLogin((formLogin) -> formLogin.loginPage("/account/login"));
 
-//        // 2.
+        // 2 - 1.
 //        http
 //                .csrf(AbstractHttpConfigurer::disable)
 //                .authorizeHttpRequests((authorize) -> authorize
@@ -68,7 +68,7 @@ public class SecurityConfiguration {
 //                .httpBasic(Customizer.withDefaults())
 //                .formLogin(AbstractHttpConfigurer::disable);
 
-//        // 3.
+//        // 2 - 2.
 //        http
 //                .csrf(AbstractHttpConfigurer::disable)
 //                .authorizeHttpRequests((authorize) -> authorize
@@ -78,7 +78,7 @@ public class SecurityConfiguration {
 //                .httpBasic(AbstractHttpConfigurer::disable)
 //                .formLogin(Customizer.withDefaults());
 
-        // 4.
+        // 3.
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> authorize
@@ -88,9 +88,9 @@ public class SecurityConfiguration {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .formLogin((login) -> login
                         .loginPage("/account/login")
-                        .usernameParameter("memberId")
-                        .passwordParameter("passwd")
-                        .loginProcessingUrl("/account/process-login"))
+                        .usernameParameter("memberId")  // default : username -> custom : memberId
+                        .passwordParameter("passwd")    // default : password -> custom : passwd
+                        .loginProcessingUrl("/account/process-login"))  // spring security가 로그인 처리하는 경로
                 .logout((logout) -> logout
                         .logoutUrl("/account/logout")
                         .invalidateHttpSession(true)
@@ -103,13 +103,13 @@ public class SecurityConfiguration {
 
 ///////////////////////////////////////////////
 
-//    // for 1, 2
+//    // PasswordEncoder for 2 - 1, 2 - 2, 2 - 3
 //    @Bean
 //    PasswordEncoder passwordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
 
-//    // 1.
+//    // 2 - 1. 위의 securityFilterChain()의 2-1, 2-2와 연결되는 테스트
 //    @Bean
 //    public UserDetailsService userDetailsService() {
 //        // System.out.println(passwordEncoder().encode("Pa$$w0rd"));
@@ -131,13 +131,13 @@ public class SecurityConfiguration {
 //
 //    }
 
-//    // 2 - 1.
+//    // 2 - 2. 위의 securityFilterChain()의 2-1, 2-2와 연결되는 테스트
 //    @Bean
 //    public UserDetailsService userDetailsService(DataSource dataSource) {
-//        return new JdbcUserDetailsManager(dataSource); // 미리 정해진 테이블, SQL을 사용해서 인증 처리
+//        return new JdbcUserDetailsManager(dataSource); // 미리 정해진 테이블(users, authorities), SQL을 사용해서 인증 처리
 //    }
 
-//    // 2 - 2.
+//    // 2 - 3. 위의 securityFilterChain()의 2-1, 2-2와 연결되는 테스트
 //    @Bean
 //    public UserDetailsService userDetailsService(DataSource dataSource) {
 //        JdbcUserDetailsManager userDetailsService = new JdbcUserDetailsManager(dataSource);
