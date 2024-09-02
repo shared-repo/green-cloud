@@ -102,6 +102,26 @@ public class AccountController {
 		return "redirect:/home";
 	}
 
+	/////////////////////////
+
+	@RequestMapping("/after-oauth-login")
+	public String afterOauthLogin() {
+		System.out.println("After Login");
+		return "redirect:/home";
+	}
+
+	@RequestMapping("/after-oauth-logout")
+	public String afterOauthLogout() {
+		System.out.println("After Logout");
+		return "redirect:/home";
+	}
+
+	@RequestMapping("/oauth2/naver")
+	public String afterOauthNaverLogin() {
+		System.out.println("After Naver Login");
+		return "redirect:/home";
+	}
+
 }
 
 

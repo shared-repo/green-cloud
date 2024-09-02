@@ -1,16 +1,16 @@
 package com.example.ajaxdemo.controller;
 
+import com.example.ajaxdemo.dto.MyData;
 import com.example.ajaxdemo.dto.StockQuote;
+import jakarta.validation.Valid;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -21,6 +21,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -108,6 +111,16 @@ public class DemoController {
         System.out.println("------------> filename : " + imageFile.getOriginalFilename());
         System.out.println("------------> size : " + imageFile.getSize());
 
+        return "success";
+    }
+
+    @PostMapping(value = "/send-date", produces = "plain/text;charset=utf-8")
+    public String sendDate(@Valid MyData data, BindingResult br) {
+
+        System.out.println(data.getBirthDate());
+        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.valueOf("yyyy-MM-dd"));
+        LocalDateTime ldt = LocalDateTime.parse("2023-01-01", formatter);
         return "success";
     }
 

@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<BoardEntity, Integer> {
 
+    // @Query(value = "SELECT * FROM tbl_boardattach ba WHERE ba.attachNo = :attachNo", nativeQuery = true)
     @Query(value = "SELECT ba FROM BoardAttachEntity ba WHERE ba.attachNo = :attachNo")
     BoardAttachEntity findBoardAttachByAttachNo(@Param("attachNo") int attachNo);
 

@@ -120,8 +120,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public BoardAttachDto findBoardAttachByAttachNo(int attachNo) {
-		 // Optional<BoardAttachEntity> entity = boardAttachRepository.findById(attachNo);
-		// if return entity.isPresent() ? BoardAttachDto.of(entity.get()) : null;
+//		Optional<BoardAttachEntity> entity = boardAttachRepository.findById(attachNo);
+//		return entity.isPresent() ? BoardAttachDto.of(entity.get()) : null;
 		BoardAttachEntity entity = boardRepository.findBoardAttachByAttachNo(attachNo);
 		return BoardAttachDto.of(entity);
 	}

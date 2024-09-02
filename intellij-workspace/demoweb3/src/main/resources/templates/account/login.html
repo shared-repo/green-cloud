@@ -37,6 +37,8 @@
 
                 <div class="buttons">
                     <input type="submit" value="로그인" style="height:25px" />
+                    <input type="button" id="google-login-btn" value="구글로그인" style="height:25px" />
+                    <input type="button" id="naver-login-btn" value="네이버로그인" style="height:25px" />
                     <input type="button" id="cancel-btn" value="취소" style="height:25px" />
                     <input type="button" id="reset-pwd-btn" value="비밀번호초기화" style="height:25px" />
                 </div>
@@ -61,6 +63,16 @@
         if ([[${ loginFail }]]) {
             alert('로그인 실패');
         }
+
+        $('#naver-login-btn').on('click', function(event) {
+            event.preventDefault();
+            location.href='/oauth2/authorization/naver';
+        });
+
+        $('#google-login-btn').on('click', function(event) {
+            event.preventDefault();
+            location.href='/oauth2/authorization/google';
+        });
 
     });
 
