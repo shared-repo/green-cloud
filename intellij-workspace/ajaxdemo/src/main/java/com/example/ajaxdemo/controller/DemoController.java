@@ -8,6 +8,9 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +35,9 @@ import java.util.Map;
 @RestController // 모든 메서드에 @ResponseBody 자동 설정
 @RequestMapping(path = { "/demo" })
 public class DemoController {
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @RequestMapping(path = { "/key-economy-indicator" }, produces = "application/json;charset=utf-8")
     // @ResponseBody
@@ -121,6 +127,18 @@ public class DemoController {
         // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.valueOf("yyyy-MM-dd"));
         LocalDateTime ldt = LocalDateTime.parse("2023-01-01", formatter);
+        return "success";
+    }
+
+    @RequestMapping("/send-email")
+    public String sendMail() {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("tubeswim2@naver.com");
+        message.setSubject("test");
+        message.setText("test body");
+        message.setFrom("shared.repo.z@gmail.com");
+
+        javaMailSender.send(message);
         return "success";
     }
 

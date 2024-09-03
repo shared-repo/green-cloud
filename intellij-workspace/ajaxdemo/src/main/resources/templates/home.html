@@ -32,6 +32,7 @@
           <button type="button" class="btn btn-primary" id="stock-quotes-button2">주가그래프2</button>
           <img src="/assets/img/on-loading.gif" id="on-loading-img" style="width:32px">
           <button type="button" class="btn btn-primary" id="send-date-button">날짜테스트</button>
+          <button type="button" class="btn btn-primary" id="send-mail-button">메일테스트</button>
         </div>
       </div>
       <div class="row mt-4" id="economy-indicator-row">
@@ -405,6 +406,20 @@
       $('#send-date-button').on('click', function(event) {
         $.ajax({
           "url": "/demo/send-date",
+          "method": "post",
+          "data": "birthDate=2022-03-04T00:00:00&birthDate2=2022-03-05",
+          "success": function(data, status, xhr) {
+            console.log(data);
+          },
+          "error": function(xhr, status, err) {
+            console.log(err);
+          }
+        });
+      });
+
+      $('#send-mail-button').on('click', function(event) {
+        $.ajax({
+          "url": "/demo/send-email",
           "method": "post",
           "data": "birthDate=2022-03-04T00:00:00&birthDate2=2022-03-05",
           "success": function(data, status, xhr) {
