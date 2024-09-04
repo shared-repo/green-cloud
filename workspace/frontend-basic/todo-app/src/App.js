@@ -33,10 +33,20 @@ function App() {
   // const [todos, setTodos] = useState([]); 
   const [todos, setTodos] = useState(mockTodos); 
 
+  const onCreate = (content) => {
+    const todo = { 
+      "id": 4, 
+      "content" : content, 
+      "isDone": false, 
+      "createdDate" : new Date().getTime() 
+    };
+    setTodos([todo, ...todos]);
+  }
+
   return (
     <div className="App">
       <Header />
-      <TodoEditor />
+      <TodoEditor onCreate={onCreate} />
       <TodoList todos={ todos } />
     </div>
   );
