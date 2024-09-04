@@ -1,6 +1,9 @@
+import TodoItem from "./TodoItem";
 import "./TodoList.css";
 
-const TodoList = () => {
+// const TodoList = (props) => {
+//   const { todos } = props;
+const TodoList = ({ todos }) => {
 
   return (
     <div className="TodoList">
@@ -9,7 +12,14 @@ const TodoList = () => {
               placeholder="검색어를 입력하세요"
       />
       <div className="list_wrapper">
-      {/* 할 일 목록이 표시되는 영역 : 반복문 처리 */}  
+      {/* 할 일 목록이 표시되는 영역 : 반복문 처리 */}
+      {
+        todos.map( (todo) => {
+          return (
+            <TodoItem todo={todo} />
+          );
+        })
+      }  
       </div>
     </div>
   );

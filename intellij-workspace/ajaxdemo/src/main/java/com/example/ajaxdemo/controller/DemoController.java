@@ -134,9 +134,8 @@ public class DemoController {
     public String sendMail() {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo("tubeswim2@naver.com");
-        message.setSubject("test");
-        message.setText("test body");
-        message.setFrom("shared.repo.z@gmail.com");
+        message.setSubject("test22");
+        message.setText("test body 22");
 
         javaMailSender.send(message);
         return "success";
