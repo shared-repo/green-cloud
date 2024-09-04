@@ -5,7 +5,6 @@ const TodoEditor = ({onCreate}) => {
   const [content, setContent] = useState("");
 
   const changeHandler = (event) => {
-    console.log('change handler');
     setContent(event.target.value);
   };
 

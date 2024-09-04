@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import './App.css';
 import Header from './component/Header';
@@ -28,6 +28,8 @@ const mockTodos = [
 
 function App() {
 
+  const nextIdRef = useRef(3);
+
   // 프로그램 데이터 저장소 역할
   // useState : 리액트가 관리하는 공유 영역에 변수와 변수의 값을 변경하는 함수를 만들고 반환
   // const [todos, setTodos] = useState([]); 
@@ -35,12 +37,15 @@ function App() {
 
   const onCreate = (content) => {
     const todo = { 
-      "id": 4, 
+      // "id": todos[todos.length-1].id + 1,
+      "id": nextIdRef.current,       
       "content" : content, 
       "isDone": false, 
       "createdDate" : new Date().getTime() 
     };
+    console.log(todo);
     setTodos([todo, ...todos]);
+    nextIdRef.current += 1;
   }
 
   return (
