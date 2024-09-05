@@ -1,9 +1,10 @@
 import "./TodoItem.css";
 
-const TodoItem = ({ todo, onDelete }) => {
+const TodoItem = ({ todo, onDelete, onUpdate }) => {
 
   const checkedChangeHandler = (event) => {
-    // 선택된 todo 객체의 isDone 값 toggle -> 부모 객체에서 처리
+    // onUpdate({ ...todo, isDone: !todo.isDone });
+    onUpdate(todo.id);
   };
 
   const deleteHandler = () => {

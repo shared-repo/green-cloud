@@ -54,11 +54,28 @@ function App() {
     setTodos(todos.filter(todo => todo.id !== id));
   }
 
+  const onUpdate = (id) => {
+    // todos.map((todo) => {
+    //   if (todo.id === id) {
+    //     todo.isDone = !todo.isDone;
+    //     return todo
+    //   } 
+    //   else {
+    //     return todo;
+    //   }
+    // });
+    setTodos(
+      todos.map((todo) => {
+        return todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      })
+    );
+  }
+
   return (
     <div className="App">
       <Header />
       <TodoEditor onCreate={onCreate} />
-      <TodoList todos={ todos } onDelete={ onDelete } />
+      <TodoList todos={ todos } onDelete={ onDelete } onUpdate={ onUpdate } />
     </div>
   );
 }

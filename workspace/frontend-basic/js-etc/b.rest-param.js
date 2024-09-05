@@ -37,3 +37,14 @@ ar2 = [4, 5, 6];
 ar3 = [...ar1, ...ar2];
 console.log(ar3);
 
+obj = { a: 10, b: 20, c: 30 };
+
+obj2 = { ...obj, d:40 } // ...obj : { a: 10, b: 20, c: 30 } => a:10, b:20, c:30
+console.log(obj2);
+
+obj3 = { ...obj, a: 40 } // 기존 항목과 중복되는 항목이 추가되면 기존 항목 변경
+console.log(obj3);
+
+obj4 = { a: 40, ...obj } // 기존 항목과 중복되는 항목이 추가되면 기존 항목 변경
+console.log(obj4);
+
