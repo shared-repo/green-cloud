@@ -48,11 +48,17 @@ function App() {
     nextIdRef.current += 1;
   }
 
+  const onDelete = (id) => {
+    // const filteredTodos = todos.filter( (todo) => { return todo.id !== id });
+    // setTodos(filteredTodos);
+    setTodos(todos.filter(todo => todo.id !== id));
+  }
+
   return (
     <div className="App">
       <Header />
       <TodoEditor onCreate={onCreate} />
-      <TodoList todos={ todos } />
+      <TodoList todos={ todos } onDelete={ onDelete } />
     </div>
   );
 }

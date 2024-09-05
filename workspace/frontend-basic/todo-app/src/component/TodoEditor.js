@@ -14,6 +14,7 @@ const TodoEditor = ({onCreate}) => {
     }
     // todos 목록에 추가    
     onCreate(content);
+    setContent("");
 
   };
 

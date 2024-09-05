@@ -3,7 +3,7 @@ import "./TodoList.css";
 
 // const TodoList = (props) => {
 //   const { todos } = props;
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, onDelete }) => {
 
   return (
     <div className="TodoList">
@@ -16,7 +16,7 @@ const TodoList = ({ todos }) => {
       {
         todos.map( (todo) => {
           return (
-            <TodoItem key={todo.id} todo={todo} />
+            <TodoItem key={ todo.id } todo={ todo } onDelete={ onDelete } />
           );
         })
       }  

@@ -1,9 +1,13 @@
 import "./TodoItem.css";
 
-const TodoItem = ({ todo }) => {
+const TodoItem = ({ todo, onDelete }) => {
 
   const checkedChangeHandler = (event) => {
     // 선택된 todo 객체의 isDone 값 toggle -> 부모 객체에서 처리
+  };
+
+  const deleteHandler = () => {
+    onDelete(todo.id);
   };
  
   return (
@@ -18,7 +22,7 @@ const TodoItem = ({ todo }) => {
         { todo.createdDate }
       </div>
       <div className="btn_col">
-        <button >삭제</button>
+        <button onClick={ deleteHandler } >삭제</button>
       </div>
     </div>
   );
