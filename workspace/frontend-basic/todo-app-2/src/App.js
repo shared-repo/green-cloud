@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useReducer, useRef } from 'react';
 
 import './App.css';
 import Header from './component/Header';
@@ -38,51 +38,55 @@ const makeMockTodos = () => {
   return todos;
 };
 
+const reducer = (todos, action) => { // action : 요청된 작업의 종류
+  switch (action.type) {
+    case "CREATE": 
+      return [action.newTodo, ...todos]; // reducer가 return하는 값이 새 state로 설정됨
+      //return [...state, action.newTodo]; // reducer가 return하는 값이 새 state로 설정됨
+    case "UPDATE":       
+      return todos.map((todo) => {
+        return todo.id === action.id ? { ...todo, isDone: !todo.isDone } : todo
+      });
+    case "DELETE": 
+      return todos.filter(todo => todo.id !== action.id);
+    default:
+      return todos;
+  }
+}
+
 function App() {
 
   const nextIdRef = useRef(3);
 
-  // 프로그램 데이터 저장소 역할
-  // useState : 리액트가 관리하는 공유 영역에 변수와 변수의 값을 변경하는 함수를 만들고 반환
-  // const [todos, setTodos] = useState([]); 
-  // const [todos, setTodos] = useState(mockTodos); 
-  const [todos, setTodos] = useState(makeMockTodos()); 
+  // const [todos, setTodos] = useState(makeMockTodos()); 
+  const [todos, dispatch] = useReducer(reducer, mockTodos);
 
   const onCreate = (content) => {
     const todo = { 
-      // "id": todos[todos.length-1].id + 1,
       "id": nextIdRef.current,       
       "content" : content, 
       "isDone": false, 
       "createdDate" : new Date().getTime() 
     };
-    console.log(todo);
-    setTodos([todo, ...todos]);
+    dispatch({
+      type: 'CREATE',
+      newTodo: todo
+    });
     nextIdRef.current += 1;
   }
 
-  const onDelete = (id) => {
-    // const filteredTodos = todos.filter( (todo) => { return todo.id !== id });
-    // setTodos(filteredTodos);
-    setTodos(todos.filter(todo => todo.id !== id));
-  }
+  // useCallback(func)      // mount(create), update할 때 함수 갱신
+  // useCallback(func, [])  // mount(create)할 때 함수 갱신
+  // useCallback(func, [a, b]) // a, b가 변경될 때 갱신
+  const onDelete = useCallback( (id) => {
+    // dispatch({type: "DELETE", id: id});    
+    dispatch({type: "DELETE", id});    
+  }, []);
 
-  const onUpdate = (id) => {
-    // todos.map((todo) => {
-    //   if (todo.id === id) {
-    //     todo.isDone = !todo.isDone;
-    //     return todo
-    //   } 
-    //   else {
-    //     return todo;
-    //   }
-    // });
-    setTodos(
-      todos.map((todo) => {
-        return todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      })
-    );
-  }
+  const onUpdate = useCallback( (id) => {
+    // dispatch({type: "UPDATE", id: id});
+    dispatch({type: "UPDATE", id});
+  }, []);
 
   return (
     <div className="App">
