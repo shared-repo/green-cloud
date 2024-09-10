@@ -36,9 +36,6 @@ import java.util.Map;
 @RequestMapping(path = { "/demo" })
 public class DemoController {
 
-    @Autowired
-    private JavaMailSender javaMailSender;
-
     @RequestMapping(path = { "/key-economy-indicator" }, produces = "application/json;charset=utf-8")
     // @ResponseBody
     public String loadKeyEconomyIndicator() {
@@ -127,17 +124,6 @@ public class DemoController {
         // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.valueOf("yyyy-MM-dd"));
         LocalDateTime ldt = LocalDateTime.parse("2023-01-01", formatter);
-        return "success";
-    }
-
-    @RequestMapping("/send-email")
-    public String sendMail() {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo("tubeswim2@naver.com");
-        message.setSubject("test22");
-        message.setText("test body 22");
-
-        javaMailSender.send(message);
         return "success";
     }
 
