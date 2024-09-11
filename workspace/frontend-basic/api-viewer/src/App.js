@@ -7,8 +7,8 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={ <NewsPage /> } />
-        <Route path="/:category" element={ <NewsPage /> } />
+        <Route path="/api/naver-news-viewer" element={ <NewsPage /> } exact={true} />
+        <Route path="/api/naver-news-viewer/:category" element={ <NewsPage /> } />
       </Routes>
     </div>
   );

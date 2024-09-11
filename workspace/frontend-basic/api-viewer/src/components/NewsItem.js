@@ -31,7 +31,7 @@ const NewsItemBlock = styled.div`
     }
 `;
 
-const NewsItem = () => {
+const NewsItem = ({news}) => {
 
     return (
         <NewsItemBlock>
@@ -42,9 +42,9 @@ const NewsItem = () => {
             </div>
             <div className="contents">
                 <h2>
-                    <a></a>
+                    <a href={news.link}>{news.title}</a>
                 </h2>
-                <p></p>
+                <p>{news.description}</p>
             </div>
         </NewsItemBlock>
     );

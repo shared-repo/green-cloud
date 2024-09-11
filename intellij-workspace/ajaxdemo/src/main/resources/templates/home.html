@@ -33,6 +33,7 @@
           <img src="/assets/img/on-loading.gif" id="on-loading-img" style="width:32px">
           <button type="button" class="btn btn-primary" id="send-date-button">날짜테스트</button>
           <button type="button" class="btn btn-primary" id="send-mail-button">메일테스트</button>
+          <button type="button" class="btn btn-primary" id="naver-news-button">네이버뉴스(React)</button>
         </div>
       </div>
       <div class="row mt-4" id="economy-indicator-row">
@@ -430,6 +431,10 @@
           }
         });
       });
+    });
+
+    $('#naver-news-button').on('click', function(event) {
+      location.href = '/api/naver-news-viewer';
     });
 
     ////////////////////////////////////////////////////////////

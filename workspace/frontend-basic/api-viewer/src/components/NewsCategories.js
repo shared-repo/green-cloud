@@ -78,7 +78,7 @@ const NewsCategories = () => {
                     return (
                         <Category   key={ category.name }
                                     activeclassname='active'
-                                    to={ category.name === "all" ? "/" : `/${category.name}` }>
+                                    to={ category.name === "all" ? "/api/naver-news-viewer" : `/api/naver-news-viewer/${category.name}` }>
                             { category.text }
                         </Category>
                     );
