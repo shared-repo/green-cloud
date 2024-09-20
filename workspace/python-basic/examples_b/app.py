@@ -1,8 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 
-from routes.todo import todo_router
-from routes.employees import employees_router
+from routes.todo_route import todo_router
+from routes.employees_route import employees_router
 
 app = FastAPI()
 
