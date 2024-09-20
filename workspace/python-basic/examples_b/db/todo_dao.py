@@ -23,3 +23,40 @@ def select_todos():
     # cursor.close()
 
     return todos
+
+def select_todos_by_search_word(search_word):
+
+    todos = None
+    with conn.cursor() as cursor:
+
+        sql =   """SELECT id, content, isDone, createdDate 
+                FROM todo
+                WHERE content LIKE %s"""
+
+        cursor.execute(sql, ('%' + search_word + '%'))
+
+        todos = cursor.fetchall()
+
+    return todos
+
+def insert_todo(content, isDone, createdDate):
+
+    with conn.cursor() as cursor:
+
+        sql =   """INSERT INTO todo (content, isDone, createdDate)
+                VALUES (%s, %s, %s)"""
+
+        cursor.execute(sql, (content, isDone, createdDate))
+
+        conn.commit()
+
+def insert_todo2(todo):
+
+    with conn.cursor() as cursor:
+
+        sql =   """INSERT INTO todo (content, isDone, createdDate)
+                VALUES (%s, %s, %s)"""
+
+        cursor.execute(sql, (todo.content, todo.isDone, todo.createdDate))
+
+        conn.commit()
