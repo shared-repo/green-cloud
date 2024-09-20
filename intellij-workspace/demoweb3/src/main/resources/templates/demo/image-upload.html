@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>image upload</title>
+</head>
+<body>
+    <input type="file" id="picture" accept="image/*">
+    <button id="upload-image">업로드</button>
+    <hr>
+    <img src="#" id="uploaded-image">
+
+    <script src="http://code.jquery.com/jquery-3.6.1.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        $('#upload-image').on('click', function(event) {
+            const formData = new FormData();
+            formData.append( "attach", $("#picture")[0].files[0] );
+            $.ajax({
+                url: '/demo/image-upload',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    $('#uploaded-image').attr('src', response.imageUrl);
+                },
+                error: function() {
+                    alert('Image upload failed.');
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>

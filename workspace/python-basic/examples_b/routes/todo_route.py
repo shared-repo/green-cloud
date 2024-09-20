@@ -40,6 +40,17 @@ async def create_todo(content: str = Form(...), isDone: bool = Form(...), create
     }
 
 @todo_router.post("/create2")
+async def create_todo(content: str, isDone: bool, createdDate: date):
+    print("--------------------> create todo")
+
+    todo_dao.insert_todo(content, isDone, createdDate)
+
+    return {
+        "metadata": "create todo",
+        "data": "success"
+    }
+
+@todo_router.post("/create3")
 async def create_todo2(todo: Todo):
     print("--------------------> create todo 2")
 
