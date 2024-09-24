@@ -43,6 +43,8 @@
         const sendChatBtn = $(".chat-input span");
 
         let userMessage = null;
+        let chatHistory = [];
+
         const inputInitHeight = chatInput.scrollHeight;
 
         const createChatLi = (message, className) => {
@@ -74,11 +76,18 @@
           chatbox.append(createChatLi(userMessage, "outgoing"));
           chatbox.scrollTop(chatbox[0].scrollHeight);
 
+          chatHistory.push({"role": "user", "content": userMessage});
+
           try {
-              const response = await fetch('http://localhost:8088/chatbot/chat-text', {  "method": "POST",
+              // const response = await fetch('http://localhost:8088/chatbot/chat-text', {  "method": "POST",
+              //                                                                             "cache": "no-cache", 
+              //                                                                             "headers": { "Content-Type": "application/json;charset=utf-8" },
+              //                                                                             "body": JSON.stringify({ "message": userMessage }) });
+
+              const response = await fetch('http://localhost:8088/chatbot/chat-text-with-history', {  "method": "POST",
                                                                                           "cache": "no-cache", 
                                                                                           "headers": { "Content-Type": "application/json;charset=utf-8" },
-                                                                                          "body": JSON.stringify({ "message": userMessage }) });
+                                                                                          "body": JSON.stringify({ "messages": chatHistory }) });
 
               if (!response.ok) {
                   throw new Error(`HTTP error! status : ${ response.status }`);
@@ -90,6 +99,8 @@
               chatbox.append(incomingChatLi);
               chatbox.scrollTop(chatbox[0].scrollHeight);
               generateResponse(incomingChatLi, response_data.message);
+
+              chatHistory.push({ "role": "assistant", "content": response_data.message})
 
           } catch (e) {
               console.log(e);
