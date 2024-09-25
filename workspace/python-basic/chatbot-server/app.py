@@ -3,6 +3,7 @@ from fastapi import FastAPI # servlet
 from fastapi.middleware.cors import CORSMiddleware
 
 from routes.chatbot_route import chatbot_router
+from routes.admin_route import admin_router
 
 app = FastAPI()
 
@@ -20,6 +21,7 @@ app.add_middleware(
 )
 
 app.include_router(chatbot_router, prefix="/chatbot")
+app.include_router(admin_router, prefix="/admin")
 
 if __name__ == "__main__": 
     uvicorn.run("app:app", host='0.0.0.0', port=8088) # localhost, 127.0.0.1, 192.168.0.14
