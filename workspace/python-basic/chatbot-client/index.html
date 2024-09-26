@@ -84,10 +84,15 @@
               //                                                                             "headers": { "Content-Type": "application/json;charset=utf-8" },
               //                                                                             "body": JSON.stringify({ "message": userMessage }) });
 
-              const response = await fetch('http://localhost:8088/chatbot/chat-text-with-history', {  "method": "POST",
+              // const response = await fetch('http://localhost:8088/chatbot/chat-text-with-history', {  "method": "POST",
+              //                                                                             "cache": "no-cache", 
+              //                                                                             "headers": { "Content-Type": "application/json;charset=utf-8" },
+              //                                                                             "body": JSON.stringify({ "messages": chatHistory }) });
+
+              const response = await fetch('http://localhost:8088/chatbot/search-jobs', { "method": "POST",
                                                                                           "cache": "no-cache", 
                                                                                           "headers": { "Content-Type": "application/json;charset=utf-8" },
-                                                                                          "body": JSON.stringify({ "messages": chatHistory }) });
+                                                                                          "body": JSON.stringify({ "messages": chatHistory }) });                                                                                          
 
               if (!response.ok) {
                   throw new Error(`HTTP error! status : ${ response.status }`);

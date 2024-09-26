@@ -7,7 +7,6 @@ from db import recruit_dao, chromadb_helper
 
 admin_router = APIRouter()
 
-
 @admin_router.get("/init-db")
 async def init_db():
     with open("data-files/jobkorea-webdeveloper-detail-20240707.pickle", "rb") as f:
@@ -56,3 +55,16 @@ async def init_embedding_db():
             print("--------------> {0} data is saved".format(idx + 1))
 
     return { "metadata": "all recruits", "data": recruits[:5] }
+
+@admin_router.get("/search-docs")
+async def search_docs():
+
+    selected_documents = chromadb_helper.query_similar_documents(query="자바 웹개발", top_k=10)
+    for doc, dist in zip( selected_documents['documents'], selected_documents['distances'] ):
+        print(doc, dist)
+
+    # return {
+    #     "metadata": "chatbot response",
+    #     "message": completion.choices[0].message.content
+    # }
+    return "success"

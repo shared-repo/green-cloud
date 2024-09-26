@@ -15,8 +15,8 @@ chromadb_client = chromadb.PersistentClient(
 collection_name = "recruit_documents"
 
 # recruit_collection = chromadb_client.get_or_create_collection(name=collection_name)
-recruit_collection = chromadb_client.create_collection(name="recruit_documents")
-# recruit_collection = chromadb_client.get_collection(name="recruit_documents")
+# recruit_collection = chromadb_client.create_collection(name="recruit_documents")
+recruit_collection = chromadb_client.get_collection(name="recruit_documents")
 # recruit_collection = None
 
 def generate_embedding(text):
