@@ -73,7 +73,6 @@ body.show-chatbot .chatbot {
   position: absolute;
   right: 15px;
   top: 50%;
-  display: none;
   cursor: pointer;
   transform: translateY(-50%);
 }

@@ -18,7 +18,7 @@
     <div class="chatbot">
       <header>
         <h2>Chatbot</h2>
-        <span class="close-btn material-symbols-outlined">close</span>
+        <span class="record-btn material-symbols-outlined">mic</span>
       </header>
       <ul class="chatbox">
         <li class="chat incoming">
@@ -132,6 +132,66 @@
 
         closeBtn.on("click", () => $('body').removeClass("show-chatbot"));
         chatbotToggler.on('click', (event) => $('body').toggleClass('show-chatbot') );
+
+        ///////////////////////////////////
+
+        const recordBtn = $('.record-btn');
+
+        let mediaRecorder;
+        let audioChunks = []; // 오디오 레코딩 실행 중에 부분 데이터를 저장할 배열
+        let audioBlob = null;
+
+        recordBtn.on('click', function(event) {
+
+          switch ( $(this).text() ) {
+            case "mic":              
+              $(this).text('stop_circle');
+              navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                  mediaRecorder = new MediaRecorder(stream); // 오디오 기록 도구
+                  
+                  mediaRecorder.start();
+                  console.log('Recording started...');
+
+                  mediaRecorder.ondataavailable = event => {                    
+                    audioChunks.push(event.data);
+                  };
+                })
+                .catch(error => {
+                  console.error("Error accessing microphone:", error);
+                }); 
+              break;
+            case "stop_circle" :
+              $(this).text('mic');
+              mediaRecorder.stop();
+              mediaRecorder.onstop = () => {
+                audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                audioChunks = []; // Reset the chunks for the next recording
+
+                sendAudioToServer()
+              };
+              break;
+          }
+
+        });
+
+        function sendAudioToServer() {
+          const formData = new FormData();
+          formData.append('audio', audioBlob, 'recording.wav');
+
+          fetch('http://localhost:8088/chatbot/audio-to-text', {
+              method: 'POST',
+              body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+              console.log('Server response:', data);
+              chatInput.val(data)
+          })
+          .catch(error => {
+              console.error('Error sending audio:', error);
+          });
+        }
 
       });
     </script>
